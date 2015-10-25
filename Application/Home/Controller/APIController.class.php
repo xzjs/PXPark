@@ -91,7 +91,7 @@ class APIController extends Controller
         }
         if ($data['code'] == 0) {
             $User = A('User');
-            $result = $User->change_pwd(I('post.phone'),I('post.pwd'));
+            $result = $User->change_pwd(I('post.id'),I('post.pwd'));
             if(!$result){
                 $data['code']=4;
             }
