@@ -19,21 +19,36 @@ class APIController extends Controller
     /**
      * 用户注册API
      */
-    public function register(){
-        $User=A('User');
-        $result=$User->register(I('post.phone'),I('post.nickname'),I('post.pwd'));
-        $data['code']=0;
-        switch($result){
-            case -1:
-                $data['code']=3;
+    public function register()
+    {
+        $Captcha = A('Captcha');
+        $data['code'] = 0;
+        $code_status = $Captcha->verify(I('post.phone'), I('post.captcha'));
+        switch ($code_status) {
+            case 1:
+                $data['code'] = 1;
                 break;
-            case -2:
-                $data['code']=4;
+            case 2:
+                $data['code'] = 2;
                 break;
             default:
                 break;
         }
-        $data['id']=$result;
+        if ($data['code'] == 0) {
+            $User = A('User');
+            $result = $User->register(I('post.phone'), I('post.nickname'), I('post.pwd'));
+            switch ($result) {
+                case -1:
+                    $data['code'] = 3;
+                    break;
+                case -2:
+                    $data['code'] = 4;
+                    break;
+                default:
+                    $data['id'] = $result;
+                    break;
+            }
+        }
         echo json_encode($data);
     }
 }
