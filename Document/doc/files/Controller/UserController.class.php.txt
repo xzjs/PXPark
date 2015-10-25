@@ -58,18 +58,4 @@ class UserController extends Controller
             return -1;
         }
     }
-
-    /**
-     * 修改密码
-     * @param $id 用户id
-     * @param $pwd 密码
-     * @return bool 受影响的行数或者false
-     */
-    public function change_pwd($id,$pwd){
-        $User=D('User');
-        $User->find($id);
-        $User->pwd=md5($pwd);
-        $result=$User->save();
-        return $result;
-    }
 }

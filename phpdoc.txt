@@ -1,0 +1,1 @@
+phpdoc -d /Applications/MAMP/htdocs/PXPark/Application/Home/ -t /Applications/MAMP/htdocs/PXPark/Document/doc/
