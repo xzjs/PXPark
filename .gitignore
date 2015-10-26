@@ -30,3 +30,4 @@ Application/Runtime/
 .settings/org.eclipse.php.core.prefs
 .settings/org.eclipse.wst.common.project.facet.core.xml
 .buildpath
+.project
