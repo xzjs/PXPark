@@ -15,13 +15,13 @@ use Think\Controller;
  */
 class UserController extends Controller
 {
-    /**
-     * 用户注册
-     * @param $phone 手机号
-     * @param $nickname 昵称
-     * @param $pwd 密码
-     * @return int -1:电话号码已存在;-2:内部错误;正数:返回的插入id
-     */
+	/**
+	 * 用户注册
+	 * @param $phone 手机号
+	 * @param $nickname 昵称
+	 * @param $pwd 密码
+	 * @return int -1:电话号码已存在;-2:内部错误;正数:返回的插入id
+	 */
     public function register($phone,$nickname,$pwd){
         $User=D("User");
         $data['phone']=$phone;
