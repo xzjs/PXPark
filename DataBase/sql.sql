@@ -86,8 +86,8 @@ CREATE TABLE `px_appointment` (
   PRIMARY KEY (`id`,`user_id`,`privatePark_id`),
   KEY `fk_px_appointment_px_user1_idx` (`user_id`),
   KEY `fk_px_appointment_px_privatePark1_idx` (`privatePark_id`),
-  CONSTRAINT `fk_px_appointment_px_user1` FOREIGN KEY (`user_id`) REFERENCES `px_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_px_appointment_px_privatePark1` FOREIGN KEY (`privatePark_id`) REFERENCES `px_privatePark` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_px_appointment_px_privatePark1` FOREIGN KEY (`privatePark_id`) REFERENCES `px_privatePark` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_px_appointment_px_user1` FOREIGN KEY (`user_id`) REFERENCES `px_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -168,9 +168,9 @@ CREATE TABLE `px_collect` (
   KEY `fk_px_collect_px_user1_idx` (`user_id`),
   KEY `fk_px_collect_px_park1_idx` (`park_id`),
   KEY `fk_px_collect_px_privatePark1_idx` (`privatePark_id`),
-  CONSTRAINT `fk_px_collect_px_user1` FOREIGN KEY (`user_id`) REFERENCES `px_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_px_collect_px_park1` FOREIGN KEY (`park_id`) REFERENCES `px_park` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_px_collect_px_privatePark1` FOREIGN KEY (`privatePark_id`) REFERENCES `px_privatePark` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_px_collect_px_privatePark1` FOREIGN KEY (`privatePark_id`) REFERENCES `px_privatePark` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_px_collect_px_user1` FOREIGN KEY (`user_id`) REFERENCES `px_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -237,8 +237,8 @@ CREATE TABLE `px_parkRecord` (
   KEY `fk_px_parkRecord_px_park1_idx` (`park_id`),
   KEY `fk_px_parkRecord_px_car1_idx` (`car_id`),
   KEY `fk_px_parkRecord_px_privatePark1_idx` (`privatePark_id`),
-  CONSTRAINT `fk_px_parkRecord_px_park1` FOREIGN KEY (`park_id`) REFERENCES `px_park` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_px_parkRecord_px_car1` FOREIGN KEY (`car_id`) REFERENCES `px_car` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_px_parkRecord_px_park1` FOREIGN KEY (`park_id`) REFERENCES `px_park` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_px_parkRecord_px_privatePark1` FOREIGN KEY (`privatePark_id`) REFERENCES `px_privatePark` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -283,13 +283,13 @@ LOCK TABLES `px_privatePark` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `px_rechangeRecord`
+-- Table structure for table `px_rechargeRecord`
 --
 
-DROP TABLE IF EXISTS `px_rechangeRecord`;
+DROP TABLE IF EXISTS `px_rechargeRecord`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `px_rechangeRecord` (
+CREATE TABLE `px_rechargeRecord` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` int(11) DEFAULT NULL COMMENT '充值手段\n1支付宝\n2微信\n3银行卡',
   `money` decimal(4,1) DEFAULT NULL COMMENT '充值金额',
@@ -300,12 +300,12 @@ CREATE TABLE `px_rechangeRecord` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `px_rechangeRecord`
+-- Dumping data for table `px_rechargeRecord`
 --
 
-LOCK TABLES `px_rechangeRecord` WRITE;
-/*!40000 ALTER TABLE `px_rechangeRecord` DISABLE KEYS */;
-/*!40000 ALTER TABLE `px_rechangeRecord` ENABLE KEYS */;
+LOCK TABLES `px_rechargeRecord` WRITE;
+/*!40000 ALTER TABLE `px_rechargeRecord` DISABLE KEYS */;
+/*!40000 ALTER TABLE `px_rechargeRecord` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -414,7 +414,7 @@ CREATE TABLE `px_user` (
   `img` varchar(45) DEFAULT NULL COMMENT '头像图片',
   `remain` decimal(4,1) DEFAULT NULL COMMENT '余额',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -423,6 +423,7 @@ CREATE TABLE `px_user` (
 
 LOCK TABLES `px_user` WRITE;
 /*!40000 ALTER TABLE `px_user` DISABLE KEYS */;
+INSERT INTO `px_user` VALUES (1,'123',NULL,'123',NULL,NULL,NULL,NULL,NULL,NULL,'289dff07669d7a23de0ef88d2f7129e7',NULL,NULL);
 /*!40000 ALTER TABLE `px_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -434,9 +435,9 @@ DROP TABLE IF EXISTS `px_user_car`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `px_user_car` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `px_user_id` int(11) DEFAULT NULL,
   `px_car_id` int(11) DEFAULT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) DEFAULT NULL COMMENT '数据是否有效（是否被删除）\n1有效\n2删除',
   PRIMARY KEY (`id`),
   KEY `fk_px_user_has_px_car_px_car1_idx` (`px_car_id`),
@@ -464,4 +465,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-10-23 13:53:38
+-- Dump completed on 2015-10-26 22:52:22
