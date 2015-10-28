@@ -47,30 +47,6 @@ LOCK TABLES ` px_evaluate` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `pricay`
---
-
-DROP TABLE IF EXISTS `pricay`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pricay` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` text COMMENT '条款文档',
-  `time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pricay`
---
-
-LOCK TABLES `pricay` WRITE;
-/*!40000 ALTER TABLE `pricay` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pricay` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `px_appointment`
 --
 
@@ -250,6 +226,30 @@ CREATE TABLE `px_parkRecord` (
 LOCK TABLES `px_parkRecord` WRITE;
 /*!40000 ALTER TABLE `px_parkRecord` DISABLE KEYS */;
 /*!40000 ALTER TABLE `px_parkRecord` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `px_pricay`
+--
+
+DROP TABLE IF EXISTS `px_pricay`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `px_pricay` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` text COMMENT '条款文档',
+  `time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `px_pricay`
+--
+
+LOCK TABLES `px_pricay` WRITE;
+/*!40000 ALTER TABLE `px_pricay` DISABLE KEYS */;
+/*!40000 ALTER TABLE `px_pricay` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -465,4 +465,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-10-26 22:52:22
+-- Dump completed on 2015-10-28 12:59:22
