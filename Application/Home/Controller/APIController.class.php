@@ -219,6 +219,9 @@ class APIController extends Controller
         echo json_encode($data);
     }
     
+    /**
+     * 获取目的停车场列表
+     */
     public function park_list() {
     	//$park_model=D('Park');
     	//if($park_model->create())
@@ -231,26 +234,38 @@ class APIController extends Controller
     	echo json_encode($data);
     }
     
+    /**
+     * 获取指定停车场详情
+     */
     public function park_detail() {
-    	$data['code']=0;
     	$park=A('Park');
     	$reslut=$park->getDetail(I('param.id'));
+    	if (count($reslut)==0)
+    		$data['code']=7;
+    	else
+    		$data['code']=0;
     	$data['park']=$reslut;
     	echo json_encode($data);
     }
     
     public function record() {
-    	$data['code']=0;
     	$park=A('Park');
     	$reslut=$park->getRecord(I('param.id'));
+    	if (count($reslut)==0)
+    		$data['code']=7;
+    	else
+    		$data['code']=0;
     	$data['record']=$reslut;
     	echo json_encode($data);
     }
     
     public function recharge() {
-    	$data['code']=0;
     	$park=A('Rechargerecord');
     	$reslut=$park->getList(I('param.id'));
+    	if (count($reslut)==0)
+    		$data['code']=7;
+    	else
+    		$data['code']=0;
     	$data['record']=$reslut;
     	echo json_encode($data);
     }

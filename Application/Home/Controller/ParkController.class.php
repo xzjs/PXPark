@@ -13,11 +13,11 @@ class ParkController extends Controller {
 	 * 根据经纬度获取周围一定距离的停车场列表
 	 * @param number $lon 经度
 	 * @param number $lat 纬度
-	 * @return Ambigous <mixed, boolean, string, NULL, multitype:, unknown, object>停车场列表
+	 * @return Ambigous <mixed, boolean, string, NULL, multitype:, unknown, object>目地停车场列表
 	 */
 	public function getList($lon = 0, $lat = 0) {
-		$distance_lon = 10;
-		$distance_lat = 10;
+		$distance_lon = 30;
+		$distance_lat = 30;
 		$condition ['lon'] = array (
 				array (
 						'gt',
@@ -40,14 +40,13 @@ class ParkController extends Controller {
 		);
 		$park = M ( 'Park' );
 		$result = $park->where ( $condition )->field ( 'id,name,lon,lat,price,remain_num as remain,total_num as total' )->select ();
-		return $result;
-		/* $distance = array ();
+		$distance = array ();
 		for($i = 0; $i < count ( $result ); $i ++) {
 			$distance [] = $this->getDistance ( $lat, $lon, $result [$i] ['lat'], $result [$i] ['lon'] );
 		}
-		array_multisort ( $distance, SORT_DESC, $result ); // 按距离排序
+		array_multisort ( $distance, SORT_ASC, $result ); // 按距离排序
 		
-		return $result; */
+		return $result;
 	}
 	
 	/**
@@ -59,7 +58,8 @@ class ParkController extends Controller {
 	public function getDetail($park_id = 0) {
 		$park = M ( 'Park' );
 		$condition ['id'] = $park_id;
-		$result = $park->where ( $condition )->field ( 'id,name,lon,lat,price,remain_num as remain,total_num as total,type,address,img' )->select ();
+		$result = $park->where ( $condition )->field ( 'id,name,lon,lat,price,remain_num as remain,total_num as total,
+				type,address,img' )->select ();
 		return $result;
 	}
 	
@@ -71,7 +71,9 @@ class ParkController extends Controller {
 	 */
 	public function getRecord($user_id = 0) {
 		$Model = new Model ();
-		$sql = 'select c.name as park_name,d.no as car_no,a.start_time,a.end_time,a.money from px_parkrecord as a, px_user_car as b,px_park as c,px_car as d where a.car_id=b.car_id and b.user_id=' . $user_id . ' and b.status=1 and a.park_id=c.id and b.car_id=d.id order by a.id';
+		$sql = 'select c.name as park_name,d.no as car_no,a.start_time,a.end_time,a.money from px_parkrecord as a, 
+				px_user_car as b,px_park as c,px_car as d where a.car_id=b.car_id and b.user_id=' . $user_id . ' 
+						and b.status=1 and a.park_id=c.id and b.car_id=d.id order by a.id';
 		$result = $Model->query ( $sql );
 		return  $result;
 		//echo (count ( $result ) != 0) ? json_encode ( $result ) : null;
