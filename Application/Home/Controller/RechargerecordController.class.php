@@ -34,9 +34,11 @@ class RechargerecordController extends Controller {
 	 */
 	public function getList($user_id = 0) {
 		$Recharge = M ( 'Rechargerecord' );
-		$condition ['user_id'] = I ( 'param.user_id' );
-		$result = $Recharge->where ( $condition )->select ();
-		echo (count ( $result ) != 0) ? json_encode ( $result ) : null;
+		$condition ['user_id'] = $user_id;
+		$result = $Recharge->where ( $condition )->field('type,money,time')->select ();
+		return $result;
+		//echo (count ( $result ) != 0) ? json_encode ( $result ) : null;
+		
 	}
 }
 

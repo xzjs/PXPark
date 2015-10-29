@@ -163,4 +163,41 @@ class APIController extends Controller
         }
         echo json_encode($data);
     }
+    
+    public function park_list() {
+    	//$park_model=D('Park');
+    	//if($park_model->create())
+    		$data['code']=0;
+    	/* else
+    		$data['code']=4; */
+    	$park=A('Park');
+    	$reslut=$park->getList(I('param.lon'),I('param.lat'));
+    	$data['park_list']=$reslut;
+    	echo json_encode($data);
+    }
+    
+    public function park_detail() {
+    	$data['code']=0;
+    	$park=A('Park');
+    	$reslut=$park->getDetail(I('param.id'));
+    	$data['park']=$reslut;
+    	echo json_encode($data);
+    }
+    
+    public function record() {
+    	$data['code']=0;
+    	$park=A('Park');
+    	$reslut=$park->getRecord(I('param.id'));
+    	$data['record']=$reslut;
+    	echo json_encode($data);
+    }
+    
+    public function recharge() {
+    	$data['code']=0;
+    	$park=A('Rechargerecord');
+    	$reslut=$park->getList(I('param.id'));
+    	$data['record']=$reslut;
+    	echo json_encode($data);
+    }
+    
 }
