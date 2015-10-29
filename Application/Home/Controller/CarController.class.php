@@ -19,7 +19,7 @@ class CarController extends Controller
 		
 		$caridfind = M ( 'user_car' );
 		
-		$list= M()->table(array('px_user_car'=>'uc','px_car'=>'car'))->field('car.id,car.no')->where('car.id=uc.px_car_id'.' and status=2'.' and uc.px_user_id='.$id)->select();
+		$list= M()->table(array('px_user_car'=>'uc','px_car'=>'car'))->field('car.id,car.no')->where('car.id=uc.car_id'.' and status=2'.' and uc.user_id='.$id)->select();
 		//$list = $caridfind->where ( 'status=2'.' and2 px_user_id='.$id )->getField('px_car_id',true);// 查找用户id下的车辆id
 		if ($list) {
 			$code = 0;// 0：成功
@@ -66,11 +66,11 @@ class CarController extends Controller
 		$car=D("Car");
 		$data['id']=$id;
 	$code;
-	echo "ids:".$id;
+	//echo "ids:".$id;
 	$result1=M()->execute("select *from px_car WHERE id=$id");
 	     if($result1){
-			  echo "进入create";
-			$sql="DELETE FROM px_user_car WHERE px_car_id=$id";
+			 // echo "进入create";
+			$sql="DELETE FROM px_user_car WHERE car_id=$id";
 			$result2=M()->execute($sql);
 			$result=M()->execute("DELETE FROM px_car WHERE id=$id");
 		
@@ -96,14 +96,13 @@ class CarController extends Controller
      * @return int 7:车牌号已存在;4:内部错误;0:成功
 	 */
 	public function  add_car_in_usrcar($id,$type,$no){
-		$ip=getenv("HTTP_CLIENT_IP");
-		echo "ff".$ip;
+		
 		$flag=$this->add_car_incar($no,$type);
 		
 		 $code=4;
 		if($flag>0){
 			//$c_u_add = M ( 'user_car' );
-			$sql="INSERT INTO px_user_car(px_user_id,px_car_id ,STATUS)VALUES($id,$flag,2)";
+			$sql="INSERT INTO px_user_car(user_id,car_id ,STATUS)VALUES($id,$flag,2)";
 			$result=M()->execute($sql);
 			if($result)
 			{
@@ -118,7 +117,7 @@ class CarController extends Controller
 	     	}
 		
 		
-		echo "最后code".$code."<P>";
+	//	echo "最后code".$code."<P>";
 		return $code;
 		
 		
@@ -139,14 +138,14 @@ class CarController extends Controller
         	
             $result=$car->add();
             if($result){
-            	$this->success('数据添加成功！');
+            	
                 return $result;
             }else{
-            	 $this->error('数据添加错误！');
+            	 
                 return -2;
             }
         }else{
-        	$this->error($car->getError());
+        	
        
             return -1;
         }
