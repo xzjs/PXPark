@@ -15,6 +15,61 @@ use Think\Controller;
  */
 class APIController extends Controller
 {
+	/**
+	 * 使用条款
+	 */
+	public function privacy(){
+		$car=A('Car');
+		$result=$car->getprivacy();
+		echo  $result;
+	}
+	/**
+	 * 车辆删除
+	 *@param $id 车辆id
+	 */
+	public function delete_car()  {
+		$car=A('Car');
+		$code=$car-> delete_car(I('post.id'));
+		echo "{code:".$code."}";
+	
+	}
+	/**
+	 * 我的车辆查询
+	 *
+	 * @param $id 用户id
+	 */
+	public function my_car() {
+		$mycar_infor=A('Car');
+		$id = $_POST ['id'];
+		$list=$mycar_infor->get_mycar_info($id);
+		if ($list) {
+			$code = 0;// 0：成功
+	
+		}
+		else {
+			if($list==NULL)
+			{
+				$code = 7; // id未找到
+			}
+			else{
+				$code=4;//内部出错
+			}
+		}
+	
+		$array = array("code" => $code,"car_list" => $list);
+		echo json_encode($array);
+	
+	}
+	/**
+	 * 增加车辆
+	 *
+	 *  @return int 7:车牌号已存在;4:内部错误;0:成功
+	 */
+	public function add_car(){
+		$car=A('Car');
+		$code=$car-> add_car_in_usrcar(I('post.id'),I('post.type'),I('post.no'));
+		echo "{code:".$code."}";
+	}
     /**
      * 用户注册API
      */
