@@ -19,7 +19,7 @@ class APIController extends Controller
 	 * 使用条款
 	 */
 	public function privacy(){
-		echo "ddd";
+		
 		$car=A('Car');
 		$result=$car->getprivacy();
 		echo  $result;
@@ -29,9 +29,12 @@ class APIController extends Controller
 	 *@param $id 车辆id
 	 */
 	public function delete_car()  {
+		
 		$car=A('Car');
 		$code=$car-> delete_car(I('post.id'));
-		echo "{code:".$code."}";
+		$array = array("code" => $code);
+		//echo $array;
+		echo json_encode($array);
 	
 	}
 	/**
@@ -58,6 +61,7 @@ class APIController extends Controller
 		}
 	
 		$array = array("code" => $code,"car_list" => $list);
+		//echo $array;
 		echo json_encode($array);
 	
 	}
@@ -69,7 +73,8 @@ class APIController extends Controller
 	public function add_car(){
 		$car=A('Car');
 		$code=$car-> add_car_in_usrcar(I('post.id'),I('post.type'),I('post.no'));
-		echo "{code:".$code."}";
+		$array = array("code" => $code);
+		echo json_encode($array);
 	}
     /**
      * 用户注册API
