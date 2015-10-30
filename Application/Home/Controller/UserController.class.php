@@ -49,7 +49,8 @@ class UserController extends Controller
         $User=D('User');
         $data=$User->where('phone="'.$phone.'"')->find();
         if($data){
-            if($data['pwd']==md5($pwd)){
+            $pwd=md5($pwd);
+            if($data['pwd']==$pwd){
                 return $data['id'];
             }else{
                 return -2;
