@@ -36,9 +36,15 @@ class RechargerecordController extends Controller {
 		$Recharge = M ( 'Rechargerecord' );
 		$condition ['user_id'] = $user_id;
 		$result = $Recharge->where ( $condition )->field('type,money,time')->select ();
+		for($i=0;$i<count($result);$i++){
+			if($result[$i]['type']==1)
+				$result[$i]['type']="支付宝";
+			elseif($result[$i]['type']==2)
+			$result[$i]['type']="微信";
+			elseif($result[$i]['type']==3)
+			$result[$i]['type']="银行卡";
+		}
 		return $result;
-		//echo (count ( $result ) != 0) ? json_encode ( $result ) : null;
-		
 	}
 }
 

@@ -16,8 +16,8 @@ class ParkController extends Controller {
 	 * @return Ambigous <mixed, boolean, string, NULL, multitype:, unknown, object>目地停车场列表
 	 */
 	public function getList($lon = 0, $lat = 0) {
-		$distance_lon = 30;
-		$distance_lat = 30;
+		$distance_lon = 180;
+		$distance_lat = 180;
 		$condition ['lon'] = array (
 				array (
 						'gt',
