@@ -230,11 +230,16 @@ CREATE TABLE `px_park` (
   `lon` double DEFAULT NULL COMMENT '经度',
   `lat` double DEFAULT NULL COMMENT '纬度',
   `address` varchar(45) DEFAULT NULL COMMENT '地址',
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `price` decimal(4,1) DEFAULT NULL COMMENT '价格',
   `img` varchar(45) DEFAULT NULL COMMENT '停车场图片',
   `name` varchar(100) DEFAULT NULL COMMENT '停车场名字',
-  PRIMARY KEY (`id`,`user_id`),
+  `licence_img` varchar(45) DEFAULT NULL COMMENT '经营许可证',
+  `legal_person` varchar(45) DEFAULT NULL COMMENT '法人',
+  `legal_person_no` varchar(45) DEFAULT NULL COMMENT '法人身份证号',
+  `id_img` varchar(45) DEFAULT NULL COMMENT '法人身份证照片',
+  `area_code` int(11) DEFAULT NULL COMMENT '区域code',
+  PRIMARY KEY (`id`),
   KEY `fk_px_park_px_user1_idx` (`user_id`),
   CONSTRAINT `fk_px_park_px_user1` FOREIGN KEY (`user_id`) REFERENCES `px_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -246,7 +251,7 @@ CREATE TABLE `px_park` (
 
 LOCK TABLES `px_park` WRITE;
 /*!40000 ALTER TABLE `px_park` DISABLE KEYS */;
-INSERT INTO `px_park` VALUES (1,20,5,'08:00:00','23:00:00',1,123.123456,123.123456,'不知道',1,5.0,NULL,'上马停车场'),(2,30,10,'08:00:00','23:30:00',1,110,110,'',1,10.0,NULL,NULL),(3,10,4,'07:00:00','23:59:59',1,100,100,NULL,1,8.0,NULL,NULL);
+INSERT INTO `px_park` VALUES (1,20,5,'08:00:00','23:00:00',1,123.123456,123.123456,'不知道',1,5.0,NULL,'上马停车场',NULL,NULL,NULL,NULL,NULL),(2,30,10,'08:00:00','23:30:00',1,110,110,'',1,10.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,10,4,'07:00:00','23:59:59',1,100,100,NULL,1,8.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `px_park` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,6 +288,37 @@ LOCK TABLES `px_parkrecord` WRITE;
 /*!40000 ALTER TABLE `px_parkrecord` DISABLE KEYS */;
 INSERT INTO `px_parkrecord` VALUES (3,1,1,'2015-10-26 10:00:00','2015-10-27 10:00:00',5.0,NULL),(4,2,2,'2015-10-26 10:00:00','2015-10-27 10:00:00',8.0,NULL),(5,3,3,'2015-10-26 10:00:00','2015-10-27 10:00:00',10.0,NULL);
 /*!40000 ALTER TABLE `px_parkrecord` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `px_pay`
+--
+
+DROP TABLE IF EXISTS `px_pay`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `px_pay` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `bank_account_name` varchar(45) DEFAULT NULL COMMENT '银行账户',
+  `bank_id` int(11) DEFAULT NULL,
+  `bank_account` varchar(45) DEFAULT NULL COMMENT '银行账号',
+  `alipay_name` varchar(45) DEFAULT NULL COMMENT '支付宝名称',
+  `alipay` varchar(45) DEFAULT NULL COMMENT '支付宝账号',
+  `wechat_name` varchar(45) DEFAULT NULL COMMENT '微信名称',
+  `wechat` varchar(45) DEFAULT NULL COMMENT '微信账号',
+  `pay_pwd` varchar(45) DEFAULT NULL COMMENT '支付密码',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `px_pay`
+--
+
+LOCK TABLES `px_pay` WRITE;
+/*!40000 ALTER TABLE `px_pay` DISABLE KEYS */;
+/*!40000 ALTER TABLE `px_pay` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -491,9 +527,6 @@ CREATE TABLE `px_user` (
   `name` varchar(45) DEFAULT NULL COMMENT '姓名',
   `member_id` int(11) DEFAULT NULL COMMENT '会员等级id',
   `my_money` varchar(45) DEFAULT NULL COMMENT '我的收入',
-  `alipay` varchar(45) DEFAULT NULL COMMENT '支付宝',
-  `wechartpay` varchar(45) DEFAULT NULL COMMENT '微信号',
-  `band_card` varchar(45) DEFAULT NULL COMMENT '银行卡号',
   `pwd` varchar(45) DEFAULT NULL COMMENT '密码',
   `img` varchar(45) DEFAULT NULL COMMENT '头像图片',
   `remain` decimal(4,1) DEFAULT NULL COMMENT '余额',
@@ -508,7 +541,7 @@ CREATE TABLE `px_user` (
 
 LOCK TABLES `px_user` WRITE;
 /*!40000 ALTER TABLE `px_user` DISABLE KEYS */;
-INSERT INTO `px_user` VALUES (1,'123',NULL,'123',NULL,NULL,NULL,NULL,NULL,NULL,'c4ca4238a0b923820dcc509a6f75849b',NULL,NULL,NULL),(2,'234',NULL,'2',NULL,NULL,NULL,NULL,NULL,NULL,'c4ca4238a0b923820dcc509a6f75849b',NULL,NULL,NULL);
+INSERT INTO `px_user` VALUES (1,'123',NULL,'123',NULL,NULL,NULL,'c4ca4238a0b923820dcc509a6f75849b',NULL,NULL,NULL),(2,'234',NULL,'2',NULL,NULL,NULL,'c4ca4238a0b923820dcc509a6f75849b',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `px_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -551,4 +584,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-10-30 19:56:43
+-- Dump completed on 2015-10-30 22:35:48
