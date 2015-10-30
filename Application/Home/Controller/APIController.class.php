@@ -20,7 +20,6 @@ class APIController extends Controller
      */
     public function privacy()
     {
-
         $car = A('Car');
         $result = $car->getprivacy();
         echo $result;
