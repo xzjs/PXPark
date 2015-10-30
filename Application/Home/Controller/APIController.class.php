@@ -15,67 +15,71 @@ use Think\Controller;
  */
 class APIController extends Controller
 {
-	/**
-	 * 使用条款
-	 */
-	public function privacy(){
-		
-		$car=A('Car');
-		$result=$car->getprivacy();
-		echo  $result;
-	}
-	/**
-	 * 车辆删除
-	 *@param $id 车辆id
-	 */
-	public function delete_car()  {
-		
-		$car=A('Car');
-		$code=$car-> delete_car(I('post.id'));
-		$array = array("code" => $code);
-		//echo $array;
-		echo json_encode($array);
-	
-	}
-	/**
-	 * 我的车辆查询
-	 *
-	 * @param $id 用户id
-	 */
-	public function my_car() {
-		$mycar_infor=A('Car');
-		$id = $_POST ['id'];
-		$list=$mycar_infor->get_mycar_info($id);
-		if ($list) {
-			$code = 0;// 0：成功
-	
-		}
-		else {
-			if($list==NULL)
-			{
-				$code = 7; // id未找到
-			}
-			else{
-				$code=4;//内部出错
-			}
-		}
-	
-		$array = array("code" => $code,"car_list" => $list);
-		//echo $array;
-		echo json_encode($array);
-	
-	}
-	/**
-	 * 增加车辆
-	 *
-	 *  @return int 7:车牌号已存在;4:内部错误;0:成功
-	 */
-	public function add_car(){
-		$car=A('Car');
-		$code=$car-> add_car_in_usrcar(I('post.id'),I('post.type'),I('post.no'));
-		$array = array("code" => $code);
-		echo json_encode($array);
-	}
+    /**
+     * 使用条款
+     */
+    public function privacy()
+    {
+        $car = A('Car');
+        $result = $car->getprivacy();
+        echo $result;
+    }
+
+    /**
+     * 车辆删除
+     * @param $id 车辆id
+     */
+    public function delete_car()
+    {
+
+        $car = A('Car');
+        $code = $car->delete_car(I('post.id'));
+        $array = array("code" => $code);
+        //echo $array;
+        echo json_encode($array);
+
+    }
+
+    /**
+     * 我的车辆查询
+     *
+     * @param $id 用户id
+     */
+    public function my_car()
+    {
+        $mycar_infor = A('Car');
+        $id = $_POST ['id'];
+        $list = $mycar_infor->get_mycar_info($id);
+        if ($list) {
+            $code = 0;// 0：成功
+
+        } else {
+            if ($list == NULL) {
+                $code = 7; // id未找到
+            } else {
+                $code = 4;//内部出错
+            }
+        }
+
+        $array = array("code" => $code, "car_list" => $list);
+        //echo $array;
+        echo json_encode($array);
+
+    }
+
+    /**
+     * 增加车辆
+     *
+     * @return int 7:车牌号已存在;4:内部错误;0:成功
+     */
+    public function add_car()
+    {
+        $car = A('Car');
+        $code = $car->add_car_in_usrcar(I('post.id'), I('post.type'), I('post.no'));
+        $array = array("code" => $code);
+        echo json_encode($array);
+    }
+
     /**
      * 用户注册API
      */
@@ -90,6 +94,9 @@ class APIController extends Controller
                 break;
             case 2:
                 $data['code'] = 2;
+                break;
+            case 3:
+                $data['code'] = 5;
                 break;
             default:
                 break;
@@ -115,19 +122,20 @@ class APIController extends Controller
     /**
      * 用户登录API
      */
-    public function login(){
-        $User=A('User');
-        $data['code']=0;
-        $result=$User->login(I('post.phone'),I('post.pwd'));
-        switch($result){
+    public function login()
+    {
+        $User = A('User');
+        $data['code'] = 0;
+        $result = $User->login(I('post.phone'), I('post.pwd'));
+        switch ($result) {
             case -1:
-                $data['code']=5;
+                $data['code'] = 5;
                 break;
             case -2:
-                $data['code']=6;
+                $data['code'] = 6;
                 break;
             default:
-                $data['id']=$result;
+                $data['id'] = $result;
                 break;
         }
         echo json_encode($data);
@@ -136,7 +144,8 @@ class APIController extends Controller
     /**
      * 修改密码API
      */
-    public function change_pwd(){
+    public function change_pwd()
+    {
         $Captcha = A('Captcha');
         $data['code'] = 0;
         $code_status = $Captcha->verify(I('post.phone'), I('post.captcha'));
@@ -152,9 +161,9 @@ class APIController extends Controller
         }
         if ($data['code'] == 0) {
             $User = A('User');
-            $result = $User->change_pwd(I('post.id'),I('post.pwd'));
-            if(!$result){
-                $data['code']=4;
+            $result = $User->change_pwd(I('post.id'), I('post.pwd'));
+            if (!$result) {
+                $data['code'] = 4;
             }
         }
         echo json_encode($data);
@@ -163,14 +172,15 @@ class APIController extends Controller
     /**
      * 查询余额接口
      */
-    public function remain(){
-        $User=D('User');
-        $result=$User->find(I('post.id'));
-        $data['code']=0;
-        if($result){
-            $data['money']=$User->remain;
-        }else{
-            $data['code']=7;
+    public function remain()
+    {
+        $User = D('User');
+        $result = $User->find(I('post.id'));
+        $data['code'] = 0;
+        if ($result) {
+            $data['money'] = $User->remain;
+        } else {
+            $data['code'] = 7;
         }
         echo json_encode($data);
     }
@@ -178,17 +188,18 @@ class APIController extends Controller
     /**
      * 获取用户详细信息接口
      */
-    public function user(){
-        $User=A('User');
-        $data['code']=0;
-        $result=$User->detail(I('post.id'));
-        if($result==-1){
-            $data['code']=7;
-        }else{
-            $u['nickname']=$result['nickname'];
-            $u['phone']=$result['phone'];
-            $u['img']=$result['img'];
-            $data['user']=$u;
+    public function user()
+    {
+        $User = A('User');
+        $data['code'] = 0;
+        $result = $User->detail(I('post.id'));
+        if ($result == -1) {
+            $data['code'] = 7;
+        } else {
+            $u['nickname'] = $result['nickname'];
+            $u['phone'] = $result['phone'];
+            $u['img'] = $result['img'];
+            $data['user'] = $u;
         }
         echo json_encode($data);
     }
@@ -196,15 +207,17 @@ class APIController extends Controller
     /**
      * 获取验证码接口
      */
-    public function captcha(){
-        $Captcha=A('Captcha');
+    public function captcha()
+    {
+        $Captcha = A('Captcha');
         $Captcha->create(I('post.phone'));
     }
 
     /**
      * 修改头像接口
      */
-    public function change_image(){
+    public function change_image()
+    {
         $upload = new \Think\Upload();// 实例化上传类
         $upload->maxSize = 3145728;// 设置附件上传大小
         $upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
@@ -213,67 +226,71 @@ class APIController extends Controller
         $upload->saveName = time() . '_' . mt_rand();
         // 上传文件
         $info = $upload->upload();
-        $data['code']=0;
+        $data['code'] = 0;
         if (!$info) {// 上传错误提示错误信息
-            $data['code']=4;
+            $data['code'] = 4;
         } else {// 上传成功
-            $User=D('User');
+            $User = D('User');
             $User->find(I('post.id'));
-            $User->img=$info['img']['savename'];
+            $User->img = $info['img']['savename'];
             $User->save();
         }
         echo json_encode($data);
     }
-    
+
     /**
      * 获取目的停车场列表
      */
-    public function park_list() {
-    	//$park_model=D('Park');
-    	//if($park_model->create())
-    		$data['code']=0;
-    	/* else
-    		$data['code']=4; */
-    	$park=A('Park');
-    	$reslut=$park->getList(I('param.lon'),I('param.lat'));
-    	$data['park_list']=$reslut;
-    	echo json_encode($data);
+    public function park_list()
+    {
+        //$park_model=D('Park');
+        //if($park_model->create())
+        $data['code'] = 0;
+        /* else
+            $data['code']=4; */
+        $park = A('Park');
+        $reslut = $park->getList(I('param.lon'), I('param.lat'));
+        $data['park_list'] = $reslut;
+        echo json_encode($data);
     }
-    
+
     /**
      * 获取指定停车场详情
      */
-    public function park_detail() {
-    	$park=A('Park');
-    	$reslut=$park->getDetail(I('param.id'));
-    	if (count($reslut)==0)
-    		$data['code']=7;
-    	else
-    		$data['code']=0;
-    	$data['park']=$reslut;
-    	echo json_encode($data);
+    public function park_detail()
+    {
+        $park = A('Park');
+        $reslut = $park->getDetail(I('param.id'));
+        if (count($reslut) == 0)
+            $data['code'] = 7;
+        else
+            $data['code'] = 0;
+        $data['park'] = $reslut;
+        echo json_encode($data);
     }
-    
-    public function record() {
-    	$park=A('Park');
-    	$reslut=$park->getRecord(I('param.id'));
-    	if (count($reslut)==0)
-    		$data['code']=7;
-    	else
-    		$data['code']=0;
-    	$data['record']=$reslut;
-    	echo json_encode($data);
+
+    public function record()
+    {
+        $park = A('Park');
+        $reslut = $park->getRecord(I('param.id'));
+        if (count($reslut) == 0)
+            $data['code'] = 7;
+        else
+            $data['code'] = 0;
+        $data['record'] = $reslut;
+        echo json_encode($data);
     }
-    
-    public function recharge() {
-    	$park=A('Rechargerecord');
-    	$reslut=$park->getList(I('param.id'));
-    	if (count($reslut)==0)
-    		$data['code']=7;
-    	else
-    		$data['code']=0;
-    	$data['record']=$reslut;
-    	echo json_encode($data);
+
+    public function recharge()
+    {
+        $park = A('Rechargerecord');
+        $reslut = $park->getList(I('param.id'));
+        if (count($reslut) == 0)
+            $data['code'] = 7;
+        else
+            $data['code'] = 0;
+        $data['record'] = $reslut;
+        echo json_encode($data);
     }
-    
+
 }

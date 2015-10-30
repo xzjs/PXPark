@@ -16,16 +16,35 @@ use Think\Controller;
 class CaptchaController extends Controller
 {
     public function create($phone){
-
+        $Captcha=D('Captcha');
+        $data['captcha']='1234';
+        $data['phone']=$phone;
+        $Captcha->create($data);
+        $Captcha->add();
     }
 
     /**
      * 验证验证码
      * @param $phone 手机号
      * @param $code 验证码
-     * @return int 0:正确;1:验证码错误;2:验证码超时
+     * @return int 0:正确;1:验证码错误;2:验证码超时;3手机未注册
      */
     public function verify($phone,$code){
-        return 0;
+        $Captcha=D('Captcha');
+        $data=$Captcha->where('phone="'.$phone.'"')->order('time desc')->find();
+        if($data){
+            if($data['captcha']==$code){
+                $time=time()-$data['time'];
+                if($time<300){
+                    return 0;
+                }else{
+                    return 2;
+                }
+            }else{
+                return 1;
+            }
+        }else{
+            return 3;
+        }
     }
 }

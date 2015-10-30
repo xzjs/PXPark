@@ -16,37 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table ` px_evaluate`
---
-
-DROP TABLE IF EXISTS ` px_evaluate`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE ` px_evaluate` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parkRecord_id` int(11) NOT NULL COMMENT '停车记录id',
-  `user_id` int(11) NOT NULL COMMENT '被评价者的id',
-  `content` varchar(45) DEFAULT NULL COMMENT '评价内容',
-  `level` int(11) DEFAULT NULL COMMENT '评价等级\n1差\n2中\n3好',
-  `time` datetime DEFAULT NULL COMMENT '评价时间',
-  PRIMARY KEY (`id`,`parkRecord_id`,`user_id`),
-  KEY `fk_ evaluate_px_parkRecord1_idx` (`parkRecord_id`),
-  KEY `fk_ evaluate_px_user1_idx` (`user_id`),
-  CONSTRAINT `fk_ evaluate_px_parkRecord1` FOREIGN KEY (`parkRecord_id`) REFERENCES `px_parkRecord` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ evaluate_px_user1` FOREIGN KEY (`user_id`) REFERENCES `px_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table ` px_evaluate`
---
-
-LOCK TABLES ` px_evaluate` WRITE;
-/*!40000 ALTER TABLE ` px_evaluate` DISABLE KEYS */;
-/*!40000 ALTER TABLE ` px_evaluate` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `px_appointment`
 --
 
@@ -161,6 +130,37 @@ LOCK TABLES `px_collect` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `px_evaluate`
+--
+
+DROP TABLE IF EXISTS `px_evaluate`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `px_evaluate` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parkRecord_id` int(11) NOT NULL COMMENT '停车记录id',
+  `user_id` int(11) NOT NULL COMMENT '被评价者的id',
+  `content` varchar(45) DEFAULT NULL COMMENT '评价内容',
+  `level` int(11) DEFAULT NULL COMMENT '评价等级\n1差\n2中\n3好',
+  `time` datetime DEFAULT NULL COMMENT '评价时间',
+  PRIMARY KEY (`id`,`parkRecord_id`,`user_id`),
+  KEY `fk_ evaluate_px_parkRecord1_idx` (`parkRecord_id`),
+  KEY `fk_ evaluate_px_user1_idx` (`user_id`),
+  CONSTRAINT `fk_ evaluate_px_parkRecord1` FOREIGN KEY (`parkRecord_id`) REFERENCES `px_parkRecord` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ evaluate_px_user1` FOREIGN KEY (`user_id`) REFERENCES `px_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `px_evaluate`
+--
+
+LOCK TABLES `px_evaluate` WRITE;
+/*!40000 ALTER TABLE `px_evaluate` DISABLE KEYS */;
+/*!40000 ALTER TABLE `px_evaluate` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `px_park`
 --
 
@@ -242,6 +242,7 @@ CREATE TABLE `px_pricay` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text COMMENT '条款文档',
   `time` datetime DEFAULT NULL,
+  `url` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -470,4 +471,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-10-28 22:11:10
+-- Dump completed on 2015-10-30 11:08:34
