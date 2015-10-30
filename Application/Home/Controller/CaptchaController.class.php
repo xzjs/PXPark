@@ -27,11 +27,11 @@ class CaptchaController extends Controller
      * 验证验证码
      * @param $phone 手机号
      * @param $code 验证码
-     * @return int 0:正确;1:验证码错误;2:验证码超时
+     * @return int 0:正确;1:验证码错误;2:验证码超时;3手机未注册
      */
     public function verify($phone,$code){
         $Captcha=D('Captcha');
-        $data=$Captcha->where('$phone="'.$phone.'"')->order('time desc')->find();
+        $data=$Captcha->where('phone="'.$phone.'"')->order('time desc')->find();
         if($data){
             if($data['captcha']==$code){
                 $time=time()-$data['time'];
