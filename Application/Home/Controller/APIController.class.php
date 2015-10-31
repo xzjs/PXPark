@@ -55,7 +55,7 @@ class APIController extends Controller
 
         } else {
             if ($list == NULL) {
-                $code = 9; // 结果为空
+                //$code = 9; // 结果为空
             } else {
                 $code = 4;//内部出错
             }

@@ -27,7 +27,8 @@ class CarController extends Controller
       else {
       	if($list==NULL)
       	{
-      		$code = 9; // 结果为空
+      		//$code = 9; // 结果为空
+			return $list;
 		}
 		else{
 				$code=4;//出错
