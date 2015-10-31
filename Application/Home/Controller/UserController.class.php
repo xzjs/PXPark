@@ -17,7 +17,6 @@ class UserController extends Controller
 {
 	
 	public function web_register() {
-		
 		$Captcha = A('Captcha');
 		$data['code'] = 0;
 		$code_status = $Captcha->verify(I('post.phone'), I('post.captcha'));
@@ -35,6 +34,7 @@ class UserController extends Controller
 				break;
 		}
 		if ($data['code'] == 0) {
+			
 		$validate_rules = array(
 				array('phone','','手机号已经被注册！',0,'unique',1),
 				array('nickname','require','用户名必须！'),
@@ -50,9 +50,21 @@ class UserController extends Controller
 				array('pwd','md5',3,'function') , // 对password字段在新增和编辑的时候使md5函数处理
 		);//动态生成规则
 		
-		$User = M("User"); // 实例化User对象
+		$User = D("User"); // 实例化User对象
 		if ($User->validate($validate_rules)->auto($auto_rules)->create()){
-			$result=$User->add();
+			$upload = new \Think\Upload();// 实例化上传类
+			$upload->maxSize = 3145728;// 设置附件上传大小
+			$upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+			$upload->rootPath = './Uploads/UserIcon/'; // 设置附件上传根目录
+			$upload->autoSub = false;
+			$upload->saveName = time() . '_' . mt_rand();// 上传文件
+			$info = $upload->upload();
+			if (!$info) {
+				$result=null;
+			} else {
+				$User->card_img = $info['card_img']['savename'];
+				$result=$User->add();
+			}
 		if ($result) {
 				echo "数据添加成功";//添加成功
 			} else {
