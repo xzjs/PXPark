@@ -11,7 +11,7 @@ class ParkController extends Controller {
 	}
 	
 	/**
-	 * 添加停车场
+	 * 添加停车场信息
 	 */
 	public function add(){
 		$park = D ( 'Park' );
@@ -20,12 +20,12 @@ class ParkController extends Controller {
 			$park->user_id=session('name');
 			$result = $park->add();
 			if ($result) {
-				$this->success ( '数据添加成功！' );
+				$this->success ( '数据添加成功！' );//添加成功
 			} else {
-				$this->error ( '数据添加错误！' );
+				$this->error ( '数据添加错误！' );//添加失败
 			}
 		} else {
-			$this->error ( $park->getError () );
+			$this->error ( $park->getError () );//验证失败
 		}
 	}
 	
