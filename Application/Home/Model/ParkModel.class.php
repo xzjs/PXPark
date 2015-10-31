@@ -8,8 +8,14 @@ use Think\Model;
  * @author xiuge
  */
 class ParkModel extends Model {
-	/* protected $_validate = array(
-			array('lon','require','经度不能为空'),
-			array('lat','require','纬度不能为空'),
-	); */
+	protected $_validate = array(
+			array('total_num','require','总车位数不能为空'),
+			array('type','require','停车场种类不能为空'),
+			array('address','require','地址不能为空'),
+			array('name','require','停车场不能为空'),
+			array('area_code','require','地址不能为空'),
+			array('licence_image','require','许可证不能为空'),
+			array('legal_person','require','法人不能为空'),
+			array('legal_person_no','require','法人编号不能为空'),
+	);
 }
