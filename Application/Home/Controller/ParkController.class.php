@@ -7,6 +7,26 @@ use Think\Model;
 
 class ParkController extends Controller {
 	public function index() {
+		
+	}
+	
+	/**
+	 * 添加停车场
+	 */
+	public function add(){
+		$park = D ( 'Park' );
+		if ($park->create ()) {
+			$park->remain_num = 0;
+			$park->user_id=session('name');
+			$result = $park->add();
+			if ($result) {
+				$this->success ( '数据添加成功！' );
+			} else {
+				$this->error ( '数据添加错误！' );
+			}
+		} else {
+			$this->error ( $park->getError () );
+		}
 	}
 	
 	/**
