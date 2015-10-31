@@ -23,12 +23,11 @@ class CarController extends Controller
 		//$list = $caridfind->where ( 'status=2'.' and2 px_user_id='.$id )->getField('px_car_id',true);// 查找用户id下的车辆id
 		if ($list) {
 			$code = 0;// 0：成功
-			
 		}  
       else {
       	if($list==NULL)
       	{
-      		$code = 7; // id未找到
+      		$code = 9; // 结果为空
 		}
 		else{
 				$code=4;//出错
