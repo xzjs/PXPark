@@ -35,11 +35,7 @@ class CaptchaController extends Controller
         if($data){
             if($data['captcha']==$code){
                 $time=time()-$data['time'];
-                if($time<300){
-                    return 0;
-                }else{
-                    return 2;
-                }
+                return $time < 300 ? 0 : 2;
             }else{
                 return 1;
             }

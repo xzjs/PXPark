@@ -55,7 +55,7 @@ class APIController extends Controller
 
         } else {
             if ($list == NULL) {
-                $code = 7; // id未找到
+                //$code = 9; // 结果为空
             } else {
                 $code = 4;//内部出错
             }
@@ -147,8 +147,10 @@ class APIController extends Controller
     public function change_pwd()
     {
         $Captcha = A('Captcha');
+        $User=D('User');
+        $data_user=$User->find(I('post.id'));
         $data['code'] = 0;
-        $code_status = $Captcha->verify(I('post.phone'), I('post.captcha'));
+        $code_status = $Captcha->verify($data_user['phone'], I('post.captcha'));
         switch ($code_status) {
             case 1:
                 $data['code'] = 1;
@@ -198,7 +200,7 @@ class APIController extends Controller
         } else {
             $u['nickname'] = $result['nickname'];
             $u['phone'] = $result['phone'];
-            $u['img'] = $result['img'];
+            $u['img'] = C('IP').__ROOT__.'/Uploads/'.$result['img'];
             $data['user'] = $u;
         }
         echo json_encode($data);
@@ -216,7 +218,7 @@ class APIController extends Controller
     /**
      * 修改头像接口
      */
-    public function change_image()
+    public function change_img()
     {
         $upload = new \Think\Upload();// 实例化上传类
         $upload->maxSize = 3145728;// 设置附件上传大小

@@ -123,4 +123,19 @@ class UserController extends Controller
         $result=$User->save();
         return $result;
     }
+
+    /**
+     * 查询用户的详细信息
+     * @param $id 用户id
+     * @return int|mixed -1:用户id不存在;数组:用户详细信息数组
+     */
+    public function detail($id){
+        $User=D('User');
+        $data=$User->find($id);
+        if($data){
+            return $data;
+        }else{
+            return -1;
+        }
+    }
 }
