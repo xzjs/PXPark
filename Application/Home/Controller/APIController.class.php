@@ -103,7 +103,7 @@ class APIController extends Controller
         }
         if ($data['code'] == 0) {
             $User = A('User');
-            $result = $User->register(I('post.phone'), I('post.nickname'), I('post.pwd'));
+            $result = $User->register(I('post.phone'), I('post.name'), I('post.pwd'));
             switch ($result) {
                 case -1:
                     $data['code'] = 3;
