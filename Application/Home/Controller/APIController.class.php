@@ -216,7 +216,7 @@ class APIController extends Controller
     /**
      * 修改头像接口
      */
-    public function change_image()
+    public function change_img()
     {
         $upload = new \Think\Upload();// 实例化上传类
         $upload->maxSize = 3145728;// 设置附件上传大小
