@@ -198,7 +198,7 @@ class APIController extends Controller
         } else {
             $u['nickname'] = $result['nickname'];
             $u['phone'] = $result['phone'];
-            $u['img'] = $result['img'];
+            $u['img'] = __ROOT__.'/Uploads/'.$result['img'];
             $data['user'] = $u;
         }
         echo json_encode($data);
