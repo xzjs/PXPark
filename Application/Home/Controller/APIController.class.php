@@ -147,8 +147,10 @@ class APIController extends Controller
     public function change_pwd()
     {
         $Captcha = A('Captcha');
+        $User=D('User');
+        $data_user=$User->find(I('post.id'));
         $data['code'] = 0;
-        $code_status = $Captcha->verify(I('post.phone'), I('post.captcha'));
+        $code_status = $Captcha->verify($data_user['phone'], I('post.captcha'));
         switch ($code_status) {
             case 1:
                 $data['code'] = 1;
