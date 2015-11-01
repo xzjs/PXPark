@@ -11,21 +11,31 @@ class ParkController extends Controller {
 	}
 	
 	/**
-	 * 添加停车场
+	 * 添加停车场信息
 	 */
 	public function add(){
 		$park = D ( 'Park' );
 		if ($park->create ()) {
+			$upload = new \Think\Upload();// 实例化上传类
+			$upload->maxSize = 3145728;// 设置附件上传大小
+			$upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+			$upload->rootPath = './Uploads/IdImg/'; // 设置附件上传根目录
+			$upload->autoSub = false;
+			// 上传文件
+			$info = $upload->upload();
+			$park->img=$info[0]['savename'];
+			$park->licence_img=$info[1]['savename'];
+			$park->id_img=$info[2]['savename'];
 			$park->remain_num = 0;
 			$park->user_id=session('name');
 			$result = $park->add();
 			if ($result) {
-				$this->success ( '数据添加成功！' );
+				$this->success ( '数据添加成功！' );//添加成功
 			} else {
-				$this->error ( '数据添加错误！' );
+				$this->error ( '数据添加错误！' );//添加失败
 			}
 		} else {
-			$this->error ( $park->getError () );
+			$this->error ( $park->getError () );//验证失败
 		}
 	}
 	

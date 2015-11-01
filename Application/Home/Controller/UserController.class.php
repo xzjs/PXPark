@@ -15,6 +15,68 @@ use Think\Controller;
  */
 class UserController extends Controller
 {
+	
+	public function web_register() {
+		$Captcha = A('Captcha');
+		$data['code'] = 0;
+		$code_status = $Captcha->verify(I('post.phone'), I('post.captcha'));
+		switch ($code_status) {
+			case 1:
+				$data['code'] = 1;
+				break;
+			case 2:
+				$data['code'] = 2;
+				break;
+			case 3:
+				$data['code'] = 5;
+				break;
+			default:
+				break;
+		}
+		if ($data['code'] == 0) {
+			
+		$validate_rules = array(
+				array('phone','','手机号已经被注册！',0,'unique',1),
+				array('nickname','require','用户名必须！'),
+				array('pwd','require','密码必须！'),
+				array('name','require','真实姓名必须！'),
+				array('card_img','require','省份证照片必须！'),
+				array('card_no','require','身份证号必须！'),
+				array('phone','require','手机号必须！'),
+				array('captcha','require','验证码必须！'),
+		);//动态验证规则
+		
+		$auto_rules = array (
+				array('pwd','md5',3,'function') , // 对password字段在新增和编辑的时候使md5函数处理
+		);//动态生成规则
+		
+		$User = D("User"); // 实例化User对象
+		if ($User->validate($validate_rules)->auto($auto_rules)->create()){
+			$upload = new \Think\Upload();// 实例化上传类
+			$upload->maxSize = 3145728;// 设置附件上传大小
+			$upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+			$upload->rootPath = './Uploads/UserIcon/'; // 设置附件上传根目录
+			$upload->autoSub = false;
+			$upload->saveName = time() . '_' . mt_rand();// 上传文件
+			$info = $upload->upload();
+			if (!$info) {
+				$result=null;
+			} else {
+				$User->card_img = $info['card_img']['savename'];
+				$result=$User->add();
+			}
+		if ($result) {
+				echo "数据添加成功";//添加成功
+			} else {
+				echo '数据添加错误！';//添加失败
+			}
+		} else {
+			echo "验证失败";//自动验证失败
+		}
+	}else{
+		echo "验证码验证失败";
+	}
+	}
 	/**
 	 * 用户注册
 	 * @param $phone 手机号
