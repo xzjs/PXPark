@@ -283,7 +283,7 @@ class APIController extends Controller
         echo json_encode($data);
     }
 
-    public function recharge()
+    public function rechange()
     {
         $park = A('Rechargerecord');
         $reslut = $park->getList(I('param.id'));
