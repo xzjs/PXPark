@@ -27,7 +27,6 @@ class APIController extends Controller
 
     /**
      * 车辆删除
-     * @param $id 车辆id
      */
     public function delete_car()
     {
