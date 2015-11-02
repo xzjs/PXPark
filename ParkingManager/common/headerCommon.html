@@ -1,0 +1,91 @@
+<meta charset="utf-8">
+<link href="../resources/css/common/header.css" rel="stylesheet">
+<script type="text/javascript">
+    	$(function(){
+    		$(".topMenu").on("mouseenter", function() {
+    		    if ($(this).is(".open")) {
+    		        return
+    		    }
+    		    $(this).children(":first").find('span').attr('class','fa fa-sort-up')
+    		    $(this).children(":first").dropdown("toggle")
+    		})
+    		$(".topMenu").on("mouseleave", function() {
+    			if ($(this).is(".open")) {
+    				 $(this).children(":first").find('span').attr('class','fa fa-sort-down')
+    				$(this).children(":first").dropdown("toggle")
+    		    }
+    		})
+    	})
+    </script>
+    
+
+    
+<div>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div style="padding:0px 20px 0 0px;">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<div class="logo">
+					<span style="color:white">停车场管理后台</span>
+				</div>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+
+					<li class="dropdown topMenu"><a href="#"
+						class="dropdown-toggle" data-toggle="dropdown" role="button"
+						aria-expanded="false"> <img width="25" height="25" src="../resources/image/tjfx.png">  
+							统计分析 <span class="fa fa-sort-down"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="javascript:pageJump('showInfo.html')"><i
+									class="fa fa-info fa-fw"></i> 信息展示</a></li>
+							<li><a href="javascript:pageJump('queryIncome.html')"><i
+									class="fa fa-money fa-fw"></i> 收益查询</a></li>
+							<li><a href="javascript:pageJump('flowAnalysis.html')"><i class="fa fa-bar-chart-o fa-fw"></i> 流量分析</a></li>
+						</ul></li>
+
+					<li class="topMenu">
+						 <button type="button" class="btn btn-default btn-md" style="height: 52px;" onclick="javascript:pageJump('carManager.html')">
+						 <img width="25" height="25" src="../resources/image/carManage.png">车辆管理</button>
+					</li>
+
+					<li class="dropdown topMenu"><a href="#"
+						class="dropdown-toggle" data-toggle="dropdown" role="button"
+						aria-expanded="false">  <img width="25" height="25" src="../resources/image/infoDefend.png"> 
+							信息维护<span class="fa fa-sort-down"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="javascript:pageJump('userInfoDefend.html')"><i
+									class="fa fa-android fa-fw"></i>用户基本信息</a></li>
+							<li><a href="javascript:pageJump('parkInfoDefend.html')"><i
+									class="fa fa-android fa-fw"></i> 停车场信息</a></li>
+							<li><a href="javascript:pageJump('payInfoDefend.html')"><i class="fa fa-user-md fa-fw"></i> 支付信息</a></li>
+						</ul></li>
+						
+					<li class="dropdown topMenu"><a href="#"
+						class="dropdown-toggle" data-toggle="dropdown" role="button"
+						aria-expanded="false">  <img width="22" height="22" src="../resources/image/systemSet.png"> 
+							系统设置 <span class="fa fa-sort-down"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="javascript:pageJump('ruleInfoDefend.html')"><i
+									class="fa fa-android fa-fw"></i> 收费规则维护</a></li>
+							<li><a href="javascript:pageJump('adviceInfoDefend.html')"><i
+									class="fa fa-android fa-fw"></i> 意见反馈</a></li>
+						</ul></li>
+					<li class="topMenu">
+						 <button type="button" class="btn btn-default btn-md" style="height: 52px;">
+						 <img width="25" height="25" src="../resources/image/signOut.png">注销</button>
+					</li>
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+</div>

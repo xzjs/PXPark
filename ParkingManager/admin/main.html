@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<link rel="icon" href="../resources/image/parking.ico">
+<title>平行停车管控平台</title>
+
+<!-- Bootstrap CSS -->
+<link href="../resources/thirdparty/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="../resources/thirdparty/bootstrap/css/Cosmo.bootstrap.min.css"
+	rel="stylesheet">
+
+ <!-- Font Awesome -->
+ <link rel="stylesheet" href="../resources/thirdparty/font-awesome/css/font-awesome.min.css">
+
+<!-- custom style -->
+<link href="../resources/css/common.css" rel="stylesheet">
+<link href="../resources/css/admin/main.css" rel="stylesheet">
+
+<script src="../resources/thirdparty/jquery/jquery-1.11.2.min.js"></script>
+<script src="../resources/thirdparty/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- S zTree -->
+<link rel="stylesheet" href="../resources/thirdparty/ztree/css/metroStyle/metroStyle.css" type="text/css"></link>
+<script type="text/javascript" src="../resources/thirdparty/ztree/js/jquery.ztree.all-3.5.js"></script>
+<!-- E zTree -->
+
+<!-- map -->
+<script type="text/javascript"
+	src="http://api.map.baidu.com/api?v=2.0&ak=LQLqYxt7DGDbQQOGawQLGcti"></script>
+
+<!-- S datetimepicker -->
+<script src="../resources/thirdparty/laydate/laydate.js"></script>
+<link href="../resources/thirdparty/laydate/need/laydate.css" rel="stylesheet">
+<link href="../resources/thirdparty/laydate/skins/molv/laydate.css" rel="stylesheet">
+<!-- E datetimepicker -->	
+	
+<!-- custom js -->
+<script type="text/javascript" src="../resources/js/admin/main.js"></script>
+
+<!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script type="text/javascript">
+    	$(function(){
+    		$('#header').load('header.html');
+    		$('#sidebar').load('sidebar.html');
+    		$('#content').load('map.html');
+    	})
+    </script>
+</head>
+<body>
+
+	<div id="container">
+		<div id="header"></div>
+		<div id="mainContent">
+			<div id="sidebar"></div>
+			<div id="content"></div>
+		</div>
+	</div>
+	 
+</body>
+</html>

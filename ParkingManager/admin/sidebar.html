@@ -1,0 +1,111 @@
+<meta charset="utf-8">
+<link href="../resources/css/sidebar.css" rel="stylesheet">
+<script type="text/javascript">
+	var setting = {};
+
+	var zNodes = [ {
+		name : "山东省",
+		open : true,
+		children : [ {
+			name : "济南市",
+			children : []
+		}, {
+			name : "青岛市",
+			children : [ {
+				name : "市南区"
+			}, {
+				name : "市北区"
+			} ]
+		} ]
+	} ];
+
+	$(function() {
+		$(".toobar").on("mouseenter", function() {
+			$(this).toggleClass("toobar_sel");
+			if ($(this).hasClass('toobar1')) {
+				$('#searchPanel').show();
+			} else if ($(this).hasClass('toobar2')) {
+				$('#cityPanel').show();
+			}
+		})
+		$(".toobar").on("mouseleave", function() {
+			$(this).toggleClass("toobar_sel");
+			if ($(this).hasClass('toobar1')) {
+				$('#searchPanel').hide();
+			} else if ($(this).hasClass('toobar2')) {
+				$('#cityPanel').hide();
+			}
+		})
+		$.fn.zTree.init($("#cityTree"), setting, zNodes);
+	})
+</script>
+
+<div style="color: #fff;">
+	<!-- S 工具按钮 -->
+	<div class="toobar toobar1">
+		<img src="../resources/image/search.png">
+		<div>搜索</div>
+
+		<div id="searchPanel"
+			style="position: absolute; left: 54px; top: 0px; width: 300px; height: 170px; z-index: 1000; display: none;">
+			<div class="panel panel-default"
+				style="height: 100%; background-color: #EFEFEF;">
+				<div class="panel-body">
+					<ul class="nav nav-tabs" role="tablist" style="height: 100%;">
+						<li role="presentation" class="active"><a href="#carNo"
+							aria-controls="carNo" role="tab" data-toggle="tab">车牌号</a></li>
+						<li role="presentation"><a href="#parking"
+							aria-controls="parking" role="tab" data-toggle="tab">停车场</a></li>
+					</ul>
+					<div class="tab-content" style="height: 100px;">
+						<div role="tabpanel" class="tab-pane active" id="carNo"
+							style="color: #000; padding: 20px 10px;">
+							<div class="form-group">
+								<label for="carNO" class="col-lg-4 control-label">车牌号:</label>
+								<div class="col-lg-8">
+									<input type="text" class="form-control input-sm"
+										id="inputcarNO" placeholder="车牌号">
+								</div>
+							</div>
+							<button type="button" class="btn btn-success btn-xs"
+								style="width: 120px; margin-top: 15px;">搜索</button>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="parking"
+							style="color: #000; padding: 20px 10px;">
+							<div class="form-group">
+								<label for="parking" class="col-lg-4 control-label">停车场:</label>
+								<div class="col-lg-8">
+									<input type="text" class="form-control input-sm"
+										id="inputparking" placeholder="停车场">
+								</div>
+							</div>
+							<button type="button" class="btn btn-success btn-xs"
+								style="width: 120px; margin-top: 15px;">搜索</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr class="separate_line">
+	<div class="toobar toobar2">
+		<img src="../resources/image/map.png" width="24" height="24">
+		<div>区域选择</div>
+		<div id="cityPanel"
+			style="position: absolute; left: 54px; top: 60px; bottom: 45px; width: 300px; z-index: 1000; display: none;">
+			<div class="panel panel-default"
+				style="height: 100%; background-color: #EFEFEF;">
+				<div class="panel-body">
+					<ul id="cityTree" class="ztree"></ul>
+				</div>
+			</div>
+		</div>
+		<!-- E 工具按钮 -->
+	</div>
+
+	<!-- 天气情况 -->
+	<div class="whether">
+		<img src="../resources/image/whether.png" width="24" height="24">
+		<div>26~20℃</div>
+		<div>良</div>
+	</div>

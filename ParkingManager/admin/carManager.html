@@ -1,0 +1,45 @@
+<!-- 车辆管理  -->
+<meta charset="utf-8">
+<link href="../resources/css/admin/carManager.css" rel="stylesheet">
+
+<!-- S EASYUI -->
+<script src="../resources/thirdparty/easyui/jquery.easyui.min.js"></script>
+<link href="../resources/thirdparty/easyui/themes/bootstrap/easyui.css" rel="stylesheet" />
+<link href="../resources/thirdparty/easyui/themes/icon.css" rel="stylesheet" />
+<script src="../resources/thirdparty/easyui/easyui-lang-zh_CN.js"></script>
+<!-- E EASYUI -->
+<script src="../resources/js/admin/carManager.js"></script>
+
+<div class="page">
+	<div class="manag_nav">
+		<a href="#" id="statisticInfo">统计信息</a>
+		<a href="#" class="sel">车辆管理</a>
+		<a href="#" id="userInfo">用户信息</a>
+	</div>
+	<div style="margin: 9px;">
+			开始时间： <input placeholder="请输入日期" class="laydate-icon"
+				onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+			结束时间： <input placeholder="请输入日期" class="laydate-icon"
+				onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+			车辆类型： <select>
+				<option>全部</option>
+				<option>小型车</option>
+				<option>大型车</option>
+			</select>
+			<button type="button" class="btn btn-success btn-xs">查询</button>
+			<button type="button" class="btn btn-success btn-xs">导出为EXCEL</button>
+		</div>
+	<div style="margin-top: 20px;">
+			在此时间段内&nbsp;&nbsp;&nbsp;&nbsp; 入场车辆共：<span class="search_result">18</span>辆&nbsp;&nbsp;&nbsp;
+			出场车辆共：<span class="search_result">18</span>辆&nbsp;&nbsp;&nbsp;
+			完成收费：<span class="search_result">8</span>辆
+	</div>
+	<div style="width: 90%;margin-top: 5px;">
+		<div id="personGrid">
+		</div>
+	</div>
+	<div style="width: 90%;margin-top: 5px;">
+		<div id="realTimeParkingGrid">
+		</div>
+	</div>
+</div>

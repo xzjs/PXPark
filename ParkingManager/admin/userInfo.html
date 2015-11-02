@@ -1,0 +1,891 @@
+<!--用户信息 -->
+<meta charset="utf-8">
+<link href="../resources/css/admin/userInfo.css" rel="stylesheet">
+<script src="../resources/js/admin/userInfo.js"></script>
+<div class="page">
+	<div class="manag_nav" style="margin-bottom: 10px;">
+		<a href="#" id="statisticInfo">统计信息</a> <a href="#" id="carManager">车辆管理</a>
+		<a href="#" class="sel">用户信息</a>
+	</div>
+	<div class="col-xs-3">
+		<div class="login-title text-center col-xs-7 col-xs-offset-5">
+			<h4>
+				<img height="30px" src="../resources/image/register/user.png">用户注册基本信息
+			</h4>
+		</div>
+		<div class="login-content ">
+			<div class="form">
+				<div class="form-group">
+					<div class="col-xs-12  " style="margin-bottom: 10px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							用户名:</div>
+						<div class="col-xs-6  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="username" name="username"
+								class="form-control" style="height: 25px;" onblur="nameCheck()"
+								placeholder="">
+						</div>
+					</div>
+
+					<div class="col-xs-12  " style="margin-bottom: 10px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							输入密码:</div>
+						<div class="col-xs-6  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="password" id="password" name="password"
+								class="form-control" style="height: 25px;" onblur="pwdCheck()"
+								placeholder="">
+						</div>
+					</div>
+
+					<div class="col-xs-12  " style="margin-bottom: 25px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							确认密码:</div>
+						<div class="col-xs-6  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="password" id="password1" name="password1"
+								class="form-control" style="height: 25px;"
+								onblur="pwdEqualsCheck()" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12  " style="margin-bottom: 10px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							注册人真实姓名:</div>
+						<div class="col-xs-6  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="factname" name="factname"
+								class="form-control" style="height: 25px;" placeholder="">
+						</div>
+					</div>
+
+					<div class="col-xs-12  " style="margin-bottom: 10px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							注册人身份证号:</div>
+						<div class="col-xs-6  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="cardNo" name="cardNo" class="form-control"
+								style="height: 25px;" placeholder="">
+						</div>
+					</div>
+
+					<div class="col-xs-12  " style="margin-bottom: 50px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							注册人身份证照片:</div>
+						<div class="col-xs-6 text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="file" id="cardfile" name="cardfile"
+								class="form-control" style="height: 45px;" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12  " style="margin-bottom: 10px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							注册手机号:</div>
+						<div class="col-xs-6 text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="phone" name="phone" class="form-control"
+								style="height: 25px;" placeholder="">
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-3">
+		<div class="login-title text-center col-xs-7 col-xs-offset-2">
+			<h4>
+				<img height="30px" src="../resources/image/register/parking.png">停车场基本信息
+			</h4>
+		</div>
+		<div class="login-content ">
+			<div class="form">
+				<div class="form-group">
+					<div class="col-xs-12" id="parkInfoDiv"
+						style="display: block; margin-bottom: 100px">
+						<div class="col-xs-8  text-center"
+							style="padding: 0px; height: 30px;">
+							<input type="text" id="parkCompany" name="parkCompany"
+								class="form-control" style="height: 40px;" readonly
+								placeholder="">
+						</div>
+						<div class="col-xs-3 text-center"
+							style="padding: 0px; margin: 0px">
+							<div style="float: left; border-right: 2px solid green">
+								<img src="../resources/image/register/edit.png"
+									style="height: 25px; width: 25px; cursor: pointer" title="编辑"
+									onclick="edits()">
+							</div>
+							<div style="float: left">
+								<img src="../resources/image/register/delete.png"
+									style="height: 25px; width: 25px; cursor: pointer" title="删除"
+									onclick="deletes()">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-4 col-xs-offset-4" id="deleteInfoDiv"
+					style="display: none">
+					<div class="col-xs-12"
+						style="position: relative; top: 0px; margin-bottom: 35px">
+						<div class="col-xs-12  text-center"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #f90; line-height: 25px"
+							id="tishi">shanchu</div>
+					</div>
+					<div class="form-group form-actions"
+						style="position: relative; top: 0px; margin-bottom: 15px">
+						<div class="col-xs-4 col-xs-offset-2 text-left">
+							<button
+								style="height: 25px; line-height: 5px; text-align: center; width: 40; border-radius: 10px"
+								type="button" class="btn btn-sm btn-success" onclick="yesBtn()">是</button>
+						</div>
+						<div class="col-xs-4  text-left">
+							<button
+								style="height: 25px; line-height: 5px; text-align: center; width: 40; border-radius: 10px"
+								type="button" class="btn btn-sm btn-success" onclick="noBtn()">否</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 text-center">
+		<div class="login-title text-center col-xs-7 col-xs-offset-2">
+			<h4>
+				<img height="30px" src="../resources/image/register/zhifu.png">支付基本信息
+			</h4>
+		</div>
+		<div class="login-content ">
+			<div class="form">
+				<div class="form-group">
+					<div class="col-xs-12  " style="margin-bottom: 20px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							银行卡户头名称:</div>
+						<div class="col-xs-6  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="bankaddress" name="bankaddress"
+								class="form-control" style="height: 25px;" placeholder="">
+						</div>
+					</div>
+
+					<div class="col-xs-12  " style="margin-bottom: 20px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							归属银行:</div>
+						<div class="col-xs-6  text-left"
+							style="padding: 0px; height: 25px;">
+							<select id="bankname" name="bankname"
+								style="width: 100%; height: 25px"><option value="1">中国银行</option>
+								<option value="2">中国建设银行</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-xs-12  " style="margin-bottom: 20px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							银行账号:</div>
+						<div class="col-xs-6  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="bankcard" name="bankcard"
+								class="form-control" style="height: 25px;" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12  " style="margin-bottom: 20px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							支付宝名称:</div>
+						<div class="col-xs-6  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="zhifuname" name="zhifuname"
+								class="form-control" style="height: 25px;" placeholder="">
+						</div>
+					</div>
+
+					<div class="col-xs-12  " style="margin-bottom: 20px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							支付宝账号:</div>
+						<div class="col-xs-6  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="zhifuNo" name="zhifuNo"
+								class="form-control" style="height: 25px;" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12  " style="margin-bottom: 20px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							微信名称:</div>
+						<div class="col-xs-6  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="weixinname" name="weixinname"
+								class="form-control" style="height: 25px;" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12  " style="margin-bottom: 20px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							微信账号:</div>
+						<div class="col-xs-6  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="weixinno" name="weixinno"
+								class="form-control" style="height: 25px;" placeholder="">
+						</div>
+					</div>
+
+					<div class="col-xs-12  " style="margin-bottom: 30px">
+						<div class="col-xs-6  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							微信密码:</div>
+						<div class="col-xs-6  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="password" id="weixinpwd" name="weixinpwd"
+								class="form-control" style="height: 25px;" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12 text-center "
+						style="margin-bottom: 20px; color: #999">
+						<small>此支付信息作为用户把在本平台的收益转出使用，请认真如实填写，我们承诺做好信息保密工作</small>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-4 col-xs-offset-4 text-left">
+						<button
+							style="height: 25px; line-height: 5px; text-align: center; width: 100%; border-radius: 10px"
+							type="button" class="btn btn-sm btn-success"
+							onclick="costRuleSet()">提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 text-center">
+		<div class="login-title text-center col-xs-9 col-xs-offset-1">
+			<h4>
+				<img height="30px" src="../resources/image/register/rule.png">创建停车场自动收费规则
+			</h4>
+		</div>
+		<div class="login-content ">
+			<div class="form">
+				<div class="col-xs-12 text-center" style="margin-bottom: 20px">
+					<div class="col-xs-6" style="padding: 0px">
+						<select id="ruleDefault" style="width: 100%; height: 30px">
+							<option value="">默认规则</option>
+						</select>
+					</div>
+					<div class="col-xs-6 text-center" style="padding: 0px">
+						<div style="float: left; border-right: 2px solid green">
+							<img src="../resources/image/register/confirm.png"
+								style="height: 25px; cursor: pointer" title="选定"
+								onclick="ruleConfirm(1)">
+						</div>
+						<div style="float: left; border-right: 2px solid green">
+							<img src="../resources/image/register/add1.png"
+								style="height: 25px; cursor: pointer" title="增加"
+								onclick="ruleAdd(1)">
+						</div>
+						<div style="float: left; border-right: 2px solid green">
+							<img src="../resources/image/register/edit.png"
+								style="height: 25px; cursor: pointer" title="编辑"
+								onclick="ruleEdit(1)">
+						</div>
+						<div style="float: left">
+							<img src="../resources/image/register/delete.png"
+								style="height: 25px; cursor: pointer" title="删除"
+								onclick="ruleDelete(1)">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 text-center" style="margin-bottom: 20px">
+					<div class="col-xs-6" style="padding: 0px">
+						<select id="ruleWork" style="width: 100%; height: 30px">
+							<option value="">工作日规则</option>
+						</select>
+					</div>
+					<div class="col-xs-6 text-center" style="padding: 0px">
+						<div style="float: left; border-right: 2px solid green"
+							id="confirmDiv2">
+							<img src="../resources/image/register/confirm.png"
+								style="height: 25px; cursor: pointer" title="选定"
+								onclick="ruleConfirm(2)">
+						</div>
+						<div style="float: left; border-right: 2px solid green">
+							<img src="../resources/image/register/add1.png"
+								style="height: 25px; cursor: pointer" title="增加"
+								onclick="ruleAdd(2)">
+						</div>
+						<div style="float: left; border-right: 2px solid green">
+							<img src="../resources/image/register/edit.png"
+								style="height: 25px; cursor: pointer" title="编辑"
+								onclick="ruleEdit(2)">
+						</div>
+						<div style="float: left">
+							<img src="../resources/image/register/delete.png"
+								style="height: 25px; cursor: pointer" title="删除"
+								onclick="ruleDelete(2)">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 text-center" style="margin-bottom: 20px">
+					<div class="col-xs-6" style="padding: 0px">
+						<select id="ruleRelace" style="width: 100%; height: 30px">
+							<option value="">双休日规则</option>
+						</select>
+					</div>
+					<div class="col-xs-6 text-center" style="padding: 0px">
+						<div style="float: left; border-right: 2px solid green"
+							id="confirmDiv3">
+							<img src="../resources/image/register/confirm.png"
+								style="height: 25px; cursor: pointer" title="选定"
+								onclick="ruleConfirm(3)">
+						</div>
+						<div style="float: left; border-right: 2px solid green">
+							<img src="../resources/image/register/add1.png"
+								style="height: 25px; cursor: pointer" title="增加"
+								onclick="ruleAdd(3)">
+						</div>
+						<div style="float: left; border-right: 2px solid green">
+							<img src="../resources/image/register/edit.png"
+								style="height: 25px; cursor: pointer" title="编辑"
+								onclick="ruleEdit(3)">
+						</div>
+						<div style="float: left">
+							<img src="../resources/image/register/delete.png"
+								style="height: 25px; cursor: pointer" title="删除"
+								onclick="ruleDelete(3)">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 text-center" style="margin-bottom: 20px">
+					<div class="col-xs-6" style="padding: 0px">
+						<select id="ruleHoliday" style="width: 100%; height: 30px">
+							<option value="">节日、活动规则</option>
+						</select>
+					</div>
+					<div class="col-xs-6 text-center" style="padding: 0px">
+						<div style="float: left; border-right: 2px solid green"
+							id="confirmDiv4">
+							<img src="../resources/image/register/confirm.png"
+								style="height: 25px; cursor: pointer" title="选定"
+								onclick="ruleConfirm(4)">
+						</div>
+						<div style="float: left; border-right: 2px solid green">
+							<img src="../resources/image/register/add1.png"
+								style="height: 25px; cursor: pointer" title="增加"
+								onclick="ruleAdd(4)">
+						</div>
+						<div style="float: left; border-right: 2px solid green">
+							<img src="../resources/image/register/edit.png"
+								style="height: 25px; cursor: pointer" title="编辑"
+								onclick="ruleEdit(4)">
+						</div>
+						<div style="float: left">
+							<img src="../resources/image/register/delete.png"
+								style="height: 25px; cursor: pointer" title="删除"
+								onclick="ruleDelete(4)">
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<!-- 详情窗口 -->
+<div class="modal fade" id="addRuleWin" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document" style="width: 630px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">详情</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group addInfoDiv" id="addRuleDiv"
+					style="width: 630px;">
+					<div class="col-xs-12"
+						style="position: relative; margin-bottom: 15px">
+						<div class="col-xs-3  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							规则名称:</div>
+						<div class="col-xs-6  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="rulename" name="rulename"
+								class="form-control" style="height: 25px; line-height: 25px"
+								placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative; margin-bottom: 15px" id="ruleTimeDiv"
+						style="display:none">
+						<div class="col-xs-3  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							规则日期:</div>
+						<div class="col-xs-8  text-left"
+							style="padding: 0px; height: 25px;">
+							<div style="float: left">
+								<select id="ruleyears" name="ruleyears"
+									style="width: 60; height: 25px" onchange=""><option
+										value="2014">2014</option>
+									<option value="2013" selected>2013</option>
+								</select>
+							</div>
+							<div style="float: left">年</div>
+							<div style="float: left">
+								<select id="rulemonths" name="rulemonths"
+									style="width: 30; height: 25px" onchange=""><option
+										value="6">6</option>
+									<option value="5" selected>5</option>
+								</select>
+							</div>
+							<div style="float: left">月</div>
+							<div style="float: left">
+								<select id="ruledays" name="ruledays"
+									style="width: 30; height: 25px" onchange=""><option
+										value="6">6</option>
+									<option value="5" selected>5</option>
+								</select>
+							</div>
+							<div style="float: left">日至</div>
+							<div style="float: left">
+								<select id="ruleyeare" name="ruleyeare"
+									style="width: 60; height: 25px" onchange=""><option
+										value="2014">2014</option>
+									<option value="2013" selected>2013</option>
+								</select>
+							</div>
+							<div style="float: left">年</div>
+							<div style="float: left">
+								<select id="rulemonthe" name="rulemonthe"
+									style="width: 40; height: 25px" onchange=""><option
+										value="6">6</option>
+									<option value="5" selected>5</option>
+								</select>
+							</div>
+							<div style="float: left">月</div>
+							<div style="float: left">
+								<select id="ruledaye" name="ruledaye"
+									style="width: 40; height: 25px" onchange=""><option
+										value="6">6</option>
+									<option value="5" selected>5</option>
+								</select>
+							</div>
+							<div style="float: left">日</div>
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative; margin-bottom: 15px">
+						<div class="col-xs-3  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							白天时间:</div>
+						<div class="col-xs-2  text-left"
+							style="padding: 0px; height: 25px;">
+							<select id="daystart" name="daystart"
+								style="width: 100%; height: 25px" onchange=""><option
+									value="06:00">06:00</option>
+								<option value="08:00" selected>08:00</option>
+							</select>
+						</div>
+						<div class="col-xs-1  text-center"
+							style="padding: 0px; height: 25px;">至</div>
+						<div class="col-xs-2  text-left"
+							style="padding: 0px; height: 25px;">
+							<select id="dayend" name="dayend"
+								style="width: 100%; height: 25px" onchange=""><option
+									value="06:00">06:00</option>
+								<option value="08:00" selected>08:00</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative; margin-bottom: 15px">
+						<div class="col-xs-3  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							白天免费时长:</div>
+						<div class="col-xs-8  text-left"
+							style="padding: 0px; height: 25px;">
+							<div style="float: left">
+								<input type="text" id="dayfreestart" name="dayfreestart"
+									class="" style="height: 25px; line-height: 25px; width: 100px"
+									placeholder="">
+							</div>
+							<div style="float: left">(小车 小时)</div>
+							<div style="float: left">
+								<input type="text" id="dayfreeend" name="dayfreeend" class=""
+									style="height: 25px; line-height: 25px; width: 100px"
+									placeholder="">
+							</div>
+							<div style="float: left">(大车 小时)</div>
+
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative; margin-bottom: 15px" id="daySmallDiv">
+						<div class="col-xs-3  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							白天收费单价:</div>
+						<div class="col-xs-7 col-xs-offset-3  text-left"
+							style="padding: 0px; height: 25px;" id="daySmall">
+							<div style="float: left">
+								<select id="ruledss" name="ruledss"
+									style="width: 50px; height: 25px" onchange=""><option
+										value="1">1</option>
+									<option value="2" selected>2</option>
+								</select>
+							</div>
+							<div style="float: left">小时至</div>
+							<div style="float: left">
+								<select id="ruledse" name="ruledse"
+									style="width: 50px; height: 25px" onchange=""><option
+										value="1">1</option>
+									<option value="2" selected>2</option>
+								</select>
+							</div>
+							<div style="float: left">小时</div>
+							<div style="float: left">
+								<input type="text" id="costds" name="costds" class=""
+									style="height: 25px; line-height: 25px; width: 50px"
+									placeholder="">
+							</div>
+							<div style="float: left">元(小车/小时)</div>
+							<div style="float: left">
+								<img src="../resources/image/register/add1.png"
+									style="width: 25px; height: 25px; cursor: pointer"
+									onclick="addSmallCar(0)">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative; margin-bottom: 15px" id="dayLargeDiv">
+						<div class="col-xs-7 col-xs-offset-3 text-left"
+							style="padding: 0px; height: 25px;" id="dayLarge">
+							<div style="float: left">
+								<select id="ruledls" name="ruledls"
+									style="width: 50px; height: 25px" onchange=""><option
+										value="1">1</option>
+									<option value="2" selected>2</option>
+								</select>
+							</div>
+							<div style="float: left">小时至</div>
+							<div style="float: left">
+								<select id="ruledle" name="ruledle"
+									style="width: 50px; height: 25px" onchange=""><option
+										value="1">1</option>
+									<option value="2" selected>2</option>
+								</select>
+							</div>
+							<div style="float: left">小时</div>
+							<div style="float: left">
+								<input type="text" id="costdl" name="costdl" class=""
+									style="height: 25px; line-height: 25px; width: 50px"
+									placeholder="">
+							</div>
+							<div style="float: left">元(大车/小时)</div>
+							<div style="float: left">
+								<img src="../resources/image/register/add1.png"
+									style="width: 25px; height: 25px; cursor: pointer"
+									onclick="addLargeCar(0)">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative; margin-bottom: 15px">
+						<div class="col-xs-3  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							夜晚时间:</div>
+						<div class="col-xs-2  text-left"
+							style="padding: 0px; height: 25px;">
+							<select id="nightstart" name="nightstart"
+								style="width: 100%; height: 25px" onchange=""><option
+									value="06:00">06:00</option>
+								<option value="08:00" selected>08:00</option>
+							</select>
+						</div>
+						<div class="col-xs-1  text-center"
+							style="padding: 0px; height: 25px;">至</div>
+						<div class="col-xs-2  text-left"
+							style="padding: 0px; height: 25px;">
+							<select id="nightend" name="nightend"
+								style="width: 100%; height: 25px" onchange=""><option
+									value="06:00">06:00</option>
+								<option value="08:00" selected>08:00</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative; margin-bottom: 15px">
+						<div class="col-xs-3  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							夜晚免费时长:</div>
+						<div class="col-xs-8   text-left"
+							style="padding: 0px; height: 25px;">
+							<div style="float: left">
+								<input type="text" id="nightfreestart" name="nightfreestart"
+									class="" style="height: 25px; line-height: 25px; width: 100px"
+									placeholder="">
+							</div>
+							<div style="float: left">(小车 小时)</div>
+							<div style="float: left">
+								<input type="text" id="nightfreeend" name="nightfreeend"
+									class="" style="height: 25px; line-height: 25px; width: 100px"
+									placeholder="">
+							</div>
+							<div style="float: left">(大车 小时)</div>
+
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative; margin-bottom: 15px" id="nightSmallDiv">
+						<div class="col-xs-3  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							夜晚收费单价:</div>
+						<div class="col-xs-7 col-xs-offset-3  text-left"
+							style="padding: 0px; height: 25px;" id="nightSmall">
+							<div style="float: left">
+								<select id="rulenss" name="rulenss"
+									style="width: 50px; height: 25px" onchange=""><option
+										value="1">1</option>
+									<option value="2" selected>2</option>
+								</select>
+							</div>
+							<div style="float: left">小时至</div>
+							<div style="float: left">
+								<select id="rulense" name="rulense"
+									style="width: 50px; height: 25px" onchange=""><option
+										value="1">1</option>
+									<option value="2" selected>2</option>
+								</select>
+							</div>
+							<div style="float: left">小时</div>
+							<div style="float: left">
+								<input type="text" id="costns" name="costns" class=""
+									style="height: 25px; line-height: 25px; width: 50px"
+									placeholder="">
+							</div>
+							<div style="float: left">元(小车/小时)</div>
+							<div style="float: left">
+								<img src="../resources/image/register/add1.png"
+									style="width: 25px; height: 25px; cursor: pointer"
+									onclick="addSmallCar(1)">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative; margin-bottom: 35px" id="nightLargeDiv">
+						<div class="col-xs-7 col-xs-offset-3 text-left"
+							style="padding: 0px; height: 25px;" id="nightLarge">
+							<div style="float: left">
+								<select id="rulenls" name="rulenls"
+									style="width: 50px; height: 25px" onchange=""><option
+										value="1">1</option>
+									<option value="2" selected>2</option>
+								</select>
+							</div>
+							<div style="float: left">小时至</div>
+							<div style="float: left">
+								<select id="rulenle" name="rulenle"
+									style="width: 50px; height: 25px" onchange=""><option
+										value="1">1</option>
+									<option value="2" selected>2</option>
+								</select>
+							</div>
+							<div style="float: left">小时</div>
+							<div style="float: left">
+								<input type="text" id="costnl" name="costnl" class=""
+									style="height: 25px; line-height: 25px; width: 50px"
+									placeholder="">
+							</div>
+							<div style="float: left">元(大车/小时)</div>
+							<div style="float: left">
+								<img src="../resources/image/register/add1.png"
+									style="width: 25px; height: 25px; cursor: pointer"
+									onclick="addLargeCar(1)">
+							</div>
+						</div>
+					</div>
+					<div class="form-group form-actions"
+						style="position: relative; margin-bottom: 15px">
+						<div class="col-xs-4 col-xs-offset-4 text-left">
+							<button
+								style="height: 25px; line-height: 5px; text-align: center; width: 100%; border-radius: 10px"
+								type="button" class="btn btn-sm btn-success"
+								onclick="ruleAddComplete()">完成</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- 停车场基本信息窗口 -->
+<div class="modal fade" id="parkingInfoWin" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document" style="width: 630px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">详情</h4>
+			</div>
+			<div class="modal-body">
+				  <div class="form-group addInfoDiv" id="addInfoDiv"
+					style="width: 500px;text-align: center;">
+					<div class="col-xs-12"
+						style="position: relative;  margin-bottom: 15px">
+						<div class="col-xs-4  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							停车场名称:</div>
+						<div class="col-xs-8  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="parkname" name="parkname"
+								class="form-control" style="height: 25px; line-height: 25px"
+								placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative;  margin-bottom: 15px">
+						<div class="col-xs-4  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							停车场种类:</div>
+						<div class="col-xs-8  text-left"
+							style="padding: 0px; height: 25px;">
+							<select id="parktype" name="parktype"
+								style="width: 100%; height: 25px" onchange="typeChange()"><option
+									value="1">路测停车位(场)</option>
+								<option value="2" selected>普通营业停车场</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative;  margin-bottom: 15px">
+						<div class="col-xs-4  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							停车照片:</div>
+						<div class="col-xs-8  text-left"
+							style="padding: 0px; height: 45px;">
+							<input type="file" id="parkimg" name="parkimg"
+								class="form-control" style="height: 45px;" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative;  margin-bottom: 15px">
+						<div class="col-xs-4  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							停车场所在位置:</div>
+						<div class="col-xs-8  text-left"
+							style="padding: 0px; height: 25px;">
+							<select id="parktype" name="provice"
+								style="width: 32%; height: 25px" onchange="proviceChange()"><option
+									value="1">山东省</option>
+								<option value="2">河北省</option>
+							</select> <select id="parktype" name="city"
+								style="width: 32%; height: 25px" onchange="cityChange()"><option
+									value="1">青岛市</option>
+								<option value="2">东营市</option>
+							</select> <select id="parktype" name="area"
+								style="width: 30%; height: 25px"><option value="1">李沧区</option>
+								<option value="2">崂山区</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative;  margin-bottom: 15px">
+						<div class="col-xs-8 col-xs-offset-4 text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="address" name="address"
+								class="form-control" style="height: 25px;" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative;  margin-bottom: 15px"
+						id="acceptDiv">
+						<div class="col-xs-4  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							停车场经营许可证:</div>
+						<div class="col-xs-8  text-left"
+							style="padding: 0px; height: 45px;">
+							<input type="file" id="parkfile" name="parkfile"
+								class="form-control" style="height: 45px;" placeholder="">
+						</div>
+
+					</div>
+					<div class="col-xs-12"
+						style="position: relative;  margin-bottom: 15px">
+						<div class="col-xs-4  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							停车场车位总数:</div>
+						<div class="col-xs-8  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="parkcount" name="parkcount"
+								class="form-control" style="height: 25px;" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative;  margin-bottom: 15px">
+						<div class="col-xs-4  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							停车场法人真实姓名:</div>
+						<div class="col-xs-8  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="managername" name="managername"
+								class="form-control" style="height: 25px;" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative;  margin-bottom: 15px">
+						<div class="col-xs-4  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							停车场法人身份证号:</div>
+						<div class="col-xs-8  text-left"
+							style="padding: 0px; height: 25px;">
+							<input type="text" id="managercard" name="managercard"
+								class="form-control" style="height: 25px;" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position: relative;  margin-bottom: 15px">
+						<div class="col-xs-4  text-right"
+							style="padding: 0px; height: 25px; font-family: 黑体; color: #000; line-height: 25px">
+							停车场法人身份证照片:</div>
+						<div class="col-xs-8  text-left"
+							style="padding: 0px; height: 45px;">
+							<input type="file" id="managerfile" name="managerfile"
+								class="form-control" style="height: 45px;" placeholder="">
+						</div>
+
+					</div>
+					<div class="form-group form-actions"
+						style="position: relative;  margin-bottom: 15px">
+						<div class="col-xs-4 col-xs-offset-4 text-left">
+							<button
+								style="height: 25px; line-height: 5px; text-align: center; width: 100%; border-radius: 10px"
+								type="button" class="btn btn-sm btn-success"
+								onclick="addComplate()">完成</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

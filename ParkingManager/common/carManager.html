@@ -1,0 +1,63 @@
+<!-- 收益查询 -->
+<meta charset="utf-8">
+
+<!-- S bootstrap-table -->
+<link href="../resources/thirdparty/bootstrap/css/bootstrap-table.min.css"
+	rel="stylesheet">
+<script src="../resources/thirdparty/bootstrap/js/bootstrap-table.js"></script>
+	<!-- S EASYUI -->
+<script src="../resources/thirdparty/easyui/jquery.easyui.min.js"></script>
+<link href="../resources/thirdparty/easyui/themes/bootstrap/easyui.css" rel="stylesheet" />
+<link href="../resources/thirdparty/easyui/themes/icon.css" rel="stylesheet" />
+<script src="../resources/thirdparty/easyui/easyui-lang-zh_CN.js"></script>
+<!-- E EASYUI -->
+<script
+	src="../resources/thirdparty/bootstrap/js/bootstrap-table-zh-CN.min.js"></script>
+<!-- E bootstrap-table -->
+
+<link href="../resources/css/common/carManager.css" rel="stylesheet">
+<script src="../resources/js/commonuser/carManager.js"></script>
+<style>
+.fixed-table-container {
+	clear: none;
+}
+.clearfix{
+
+height:30px;
+}
+</style>
+
+<div class="page">
+	<div>
+		开始时间： <input placeholder="请输入日期" class="laydate-icon"
+			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+		结束时间： <input placeholder="请输入日期" class="laydate-icon"
+			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+		车辆类型： <select>
+			<option>全部</option>
+			<option>小型车</option>
+			<option>大型车</option>
+		</select>
+		<button type="button" class="btn btn-success btn-xs">查询</button>
+		<button type="button" class="btn btn-success btn-xs">导出EXCEL</button>
+	</div>
+	<div style="margin-top: 20px;font-weight:bold">
+	停车场历史在停车辆：
+	</div>
+	<div style="margin-top: 20px;">
+		在此时间段内&nbsp;&nbsp;&nbsp;&nbsp; 入场车辆共：<span class="search_result">18</span>辆&nbsp;&nbsp;&nbsp;
+		完成收费：<span class="search_result">8</span>辆 &nbsp;&nbsp;&nbsp; 总计收费：<span
+			class="search_result">44.4</span>元
+	</div>
+	<div style="width: 90%;margin-top: 5px;">
+		<div id="personGrid">
+		</div>
+	</div>
+	<div style="margin-bottom: 30px;font-weight:bold">
+	停车场实时在停车辆：
+	</div>
+	<div style="width: 90%;margin-top: 5px;">
+		<div id="personGrid1">
+		</div>
+	</div>
+</div>

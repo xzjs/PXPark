@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<link rel="icon" href="../resources/image/parking.ico">
+<title>登陆</title>
+
+<!-- Bootstrap CSS -->
+<link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="../resources\thirdparty\bootstrap\css\Cosmo.bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+<!-- custom style 
+<link href="../resources/css/common.css" rel="stylesheet">-->
+<link href="../resources/css/admin/login.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<script type="text/javascript">
+	function userLogin(){
+		window.location.href = 'main.html';
+	}
+</script>
+</head>
+<body>
+	<div class="box">
+	    <div class="col-xs-8 col-xs-offset-4 text-center" style="width:460px;color:#f90;position: absolute;top: 50%;margin-top: -260px;">
+			<h1 class="h1">平行停车管理系统</h1>
+		</div>
+		<div class="login-box col-xs-8 col-xs-offset-4">
+			<div class="login-title text-center">
+				<h2>超级管理员登录</h2>
+			</div>
+			<div class="login-content ">
+				<div class="form">
+					<form action="#" method="post">
+						<div class="form-group">
+							<div class="col-xs-12  ">
+								<div class="input-group">
+									<span class="input-group-addon"><span
+										class="glyphicon glyphicon-user"></span>
+									</span> <input type="text" id="username" name="username"
+										class="form-control" placeholder="用户名">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-12  ">
+								<div class="input-group">
+									<span class="input-group-addon"><span
+										class="glyphicon glyphicon-lock"></span>
+									</span> <input type="text" id="password" name="password"
+										class="form-control" placeholder="密码">
+								</div>
+							</div>
+						</div>
+						<div class="form-group form-actions">
+							<div class="col-xs-4 col-xs-offset-4 ">
+								<a class="btn btn-sm btn-success" href="javascript:userLogin()">
+									<span class="glyphicon glyphicon-off"></span> 登录
+								</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

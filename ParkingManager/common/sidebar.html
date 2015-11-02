@@ -1,0 +1,193 @@
+<meta charset="utf-8">
+<link href="../resources/css/common/sidebar.css" rel="stylesheet">
+<script type="text/javascript">
+	var setting = {};
+
+	var zNodes = [ {
+		name : "山东省",
+		open : true,
+		children : [ {
+			name : "济南市",
+			children : []
+		}, {
+			name : "青岛市",
+			children : [ {
+				name : "市南区"
+			}, {
+				name : "市北区"
+			} ]
+		} ]
+	} ];
+
+	$(function() {
+		$(".toobar").on("mouseenter", function() {
+			$(this).toggleClass("toobar_sel");
+			if ($(this).hasClass('toobar1')) {
+				$('#searchPanel').show();
+			} else if ($(this).hasClass('toobar2')) {
+				$('#cityPanel').show();
+			}
+		})
+		$(".toobar").on("mouseleave", function() {
+			$(this).toggleClass("toobar_sel");
+			if ($(this).hasClass('toobar1')) {
+				$('#searchPanel').hide();
+			} else if ($(this).hasClass('toobar2')) {
+				$('#cityPanel').hide();
+			}
+		})
+		$.fn.zTree.init($("#cityTree"), setting, zNodes);
+	})
+</script>
+<script type="text/javascript"> 
+
+   var myAlert = document.getElementById("alert"); 
+
+   var reg = document.getElementById("content").getElementsByTagName("a")[0]; 
+
+   var mClose = document.getElementById("close"); 
+
+   function divTanChu()
+
+   {
+   myAlert.style.display = "block"; 
+
+   myAlert.style.position = "absolute"; 
+
+   myAlert.style.top = "40%"; 
+
+   myAlert.style.left = "30%"; 
+
+   myAlert.style.marginTop = "-75px"; 
+
+   myAlert.style.marginLeft = "-150px"; 
+
+   mybg = document.createElement("div"); 
+
+   mybg.setAttribute("id","mybg"); 
+
+   mybg.style.background = "#666"; 
+
+   mybg.style.width = "100%"; 
+
+   mybg.style.height = "100%"; 
+
+   mybg.style.position = "absolute"; 
+
+   mybg.style.top = "0"; 
+
+   mybg.style.left = "0"; 
+
+   mybg.style.zIndex = "500"; 
+
+   mybg.style.opacity = "0.3"; 
+
+   mybg.style.filter = "Alpha(opacity=30)"; 
+
+    document.body.appendChild(mybg); 
+
+   document.body.style.overflow = "hidden"; 
+
+   } 
+
+   mClose.onclick = function() 
+
+   { 
+
+   myAlert.style.display = "none"; 
+
+   mybg.style.display = "none"; 
+
+   } 
+
+   </script>
+    <style> 
+
+    *{margin:0;padding:0;} 
+   #alert {border:1px solid#369;width:600px;height:400px;background:#ccc;z-index:1000;position:absolute;display:none;} 
+   </style>   
+<div style="color: #fff;">
+	<!-- S 工具按钮 -->
+	<div class="toobar toobar1">
+		<img src="../resources/image/search.png">
+		<div>搜索</div>
+
+		<div id="searchPanel"
+			style="position: absolute; left: 54px; top: 0px; width: 300px; height: 170px; z-index: 1000; display: none;">
+			<div class="panel panel-default"
+				style="height: 100%; background-color: #EFEFEF;">
+				<div class="panel-body">
+					<ul class="nav nav-tabs" role="tablist" style="height: 100%;">
+						<li role="presentation" class="active"><a href="#carNo"
+							aria-controls="carNo" role="tab" data-toggle="tab">车牌号</a></li>
+						<li role="presentation"><a href="#parking"
+							aria-controls="parking" role="tab" data-toggle="tab">停车场</a></li>
+					</ul>
+					<div class="tab-content" style="height: 100px;">
+						<div role="tabpanel" class="tab-pane active" id="carNo"
+							style="color: #000; padding: 20px 10px;">
+							<div class="form-group">
+								<label for="carNO" class="col-lg-4 control-label">车牌号:</label>
+								<div class="col-lg-8">
+									<input type="text" class="form-control input-sm"
+										id="inputcarNO" placeholder="车牌号">
+								</div>
+							</div>
+							<button type="button" class="btn btn-success btn-xs"
+								style="width: 120px; margin-top: 15px;" onclick="divTanChu()">搜索</button>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="parking"
+							style="color: #000; padding: 20px 10px;">
+							<div class="form-group">
+								<label for="parking" class="col-lg-4 control-label">停车场:</label>
+								<div class="col-lg-8">
+									<input type="text" class="form-control input-sm"
+										id="inputparking" placeholder="停车场">
+								</div>
+							</div>
+							<button type="button" class="btn btn-success btn-xs"
+								style="width: 120px; margin-top: 15px;" onclick="divTanChu()">搜索</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr class="separate_line">
+	<div class="toobar toobar2">
+		<img src="../resources/image/map.png" width="24" height="24">
+		<div>区域选择</div>
+		<div id="cityPanel"
+			style="position: absolute; left: 54px; top: 60px; bottom: 45px; width: 300px; z-index: 1000; display: none;">
+			<div class="panel panel-default"
+				style="height: 100%; background-color: #EFEFEF;">
+				<div class="panel-body">
+					<ul id="cityTree" class="ztree"></ul>
+				</div>
+			</div>
+		</div>
+		<!-- E 工具按钮 -->
+	</div>
+   
+	<!-- 天气情况 -->
+	<div class="whether">
+		<img src="../resources/image/whether.png" width="24" height="24">
+		<div>26~20℃</div>
+		<div>良</div>
+	</div>
+	 </div>
+	<div id="alert" style="padding:10px">
+	 <div style="height:40px">
+	 <div style="width:200px;height:25px;float:left"><h4>鲁B12345  消费详情：</h4></div>
+	 <div style="width:25px;height:25px;float:right;border-radius:20px"><img src="../resources/image/register/delete.png" style="cursor:pointer;width:25px;height:25px" id="close"></div>
+	 </div> 
+     <div style="height:260px;margin-bottom:20px;background-color:white">
+     </div>
+     <div class="col-xs-4 col-xs-offset-4 text-left">
+							<button
+								style="height:25px;line-height:5px;text-align:center;width:100%;border-radius:10px"
+								type="button" class="btn btn-sm btn-success"
+								onclick="costRuleSet()">导出Excel</button>
+						</div> 
+
+   </div> 

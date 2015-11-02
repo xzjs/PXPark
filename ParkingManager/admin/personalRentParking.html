@@ -1,0 +1,90 @@
+<!-- 个人招租停车场 -->
+<meta charset="utf-8">
+<!-- S bootstrap-table -->
+<link href="../resources/thirdparty/bootstrap/css/bootstrap-table.min.css"
+	rel="stylesheet">
+<script src="../resources/thirdparty/bootstrap/js/bootstrap-table.js"></script>
+<script
+	src="../resources/thirdparty/bootstrap/js/bootstrap-table-zh-CN.min.js"></script>
+<!-- E bootstrap-table -->
+
+<!-- S EASYUI -->
+<script src="../resources/thirdparty/easyui/jquery.easyui.min.js"></script>
+<link href="../resources/thirdparty/easyui/themes/bootstrap/easyui.css" rel="stylesheet" />
+<link href="../resources/thirdparty/easyui/themes/icon.css" rel="stylesheet" />
+<script src="../resources/thirdparty/easyui/easyui-lang-zh_CN.js"></script>
+<!-- E EASYUI -->
+<script src="../resources/js/admin/personalRentParking.js"></script>
+<div class="page">
+	<div style="width: 90%;margin-top: 5px;height: 80%;">
+		<div id="parkingGrid">
+		</div>
+	</div>
+</div>
+
+<!-- 对外招租车位信息详情窗口 -->
+<div class="modal fade" id="parkingDetailInfoWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">详情</h4>
+      </div>
+      <div class="modal-body">
+      	<table class="datatable" data-toggle="table" data-striped="true">
+			<thead>
+				<tr>
+					<th>车牌号</th>
+					<th>进场时间</th>
+					<th>出场时间</th>
+					<th>共消费</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>                                                      
+					<td>鲁C12345</td>
+					<td>2015/08.30/10：21</td>
+					<td>2015/08.30/15:20</td>
+					<td>12.5元</td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary">导出为EXCEL</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 对招租历史详情窗口 -->
+<div class="modal fade" id="historyDetailInfoWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">详情</h4>
+      </div>
+      <div class="modal-body">
+      	<table class="datatable" data-toggle="table" data-striped="true">
+			<thead>
+				<tr>
+					<th>车位名称</th>
+					<th>详细地址</th>
+					<th>介绍图片</th>
+					<th>出租状态</th>
+					<th>出租时间</th>
+					<th>单价</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary">导出为EXCEL</button>
+      </div>
+    </div>
+  </div>
+</div>
+
