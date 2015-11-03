@@ -1,0 +1,153 @@
+@charset "utf-8";
+
+.page h3 {
+	text-align: center;
+	font-weight: bolder;
+}
+
+/*========= S 车位充足、车位够用、车位较少、车位紧张条件选择 =========*/
+#nav_btn {
+	width: 600px;
+	margin: 20px auto;
+	height: 30px;
+}
+
+#nav_btn .item {
+	width: 24%;
+	text-align: center;
+	float: left;
+}
+
+#nav_btn .item1 {
+	border-bottom: 4px solid #00CC66;
+	color: #00CC66;
+}
+
+#nav_btn .item2 {
+	border-bottom: 4px solid #0066FF;
+	color: #0066FF;
+}
+
+#nav_btn .item3 {
+	border-bottom: 4px solid #FF9900;
+	color: #FF9900;
+}
+
+#nav_btn .item4 {
+	border-bottom: 4px solid #FF0033;
+	color: #FF0033;
+}
+/*========= E 车位充足、车位够用、车位较少、车位紧张条件选择 =========*/
+
+/*========= S 停车场图片列表 =========*/
+.parking_type_sel {
+	height: 30px;
+	text-align: right;
+}
+
+.parking_list {
+	height: 90%;
+}
+
+.parking_list .pre_btn,.parking_list  .next_btn {
+	height: 100%;
+	width: 50px;
+	position: relative;
+	cursor: pointer;
+}
+
+.parking_list .pre_btn {
+	float: left;
+}
+
+.pre_btn img,.next_btn img {
+	position: absolute;
+	top: 40%;
+}
+
+.parking_list .next_btn {
+	float: right;
+}
+
+.parking_list .content {
+	height: 100%;
+	margin: 0 60px;
+	position: relative;
+}
+
+.parking_list .content .img_content {
+	overflow: auto;
+	height: 90%;
+}
+
+.parking_list .content .img_content .row {
+	height: 100px;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.parking_list .content .img_content .row .col-md-4 {
+	margin-top: 20px;
+}
+
+.parking_content {
+	height: 100px;
+	width: 220px;
+	cursor: pointer;
+}
+
+.parking_content .title {
+	width: 100%;
+	height: 25px;
+	color: #fff;
+	font-size: 15px;
+	font-weight: 700;
+	text-align: center;
+	line-height: 1.8;
+}
+
+.parking_content .img_com{
+	height: 120px; width: 100%; position: relative;
+}
+
+.parking_content .img_com .tag{
+	position: absolute; bottom: 3px; right: 3px; font-size: 18px; font-weight: bold;
+}
+
+/*车位充足的颜色和背景色*/
+.car_num_enu_title{
+	background-color: #00CC66;
+}
+
+.car_num_enu_tag{
+	color: #00CC66;
+}
+
+/*车位够用的颜色和背景色*/
+.car_num_fit_title{
+	background-color: #0066FF;
+}
+
+.car_num_fit_tag{
+	color: #0066FF;
+}
+
+/*车位较少的颜色和背景色*/
+.car_num_less_title{
+	background-color: #FF9900;
+}
+
+.car_num_less_tag{
+	color: #FF9900;
+}
+
+/*车位紧张的颜色和背景色*/
+.car_num_short_title{
+	background-color: #FF0033;
+}
+
+.car_num_short_tag{
+	color: #FF0033;
+}
+
+/*========= E 停车场图片列表 =========*/
