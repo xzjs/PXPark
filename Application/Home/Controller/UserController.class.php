@@ -15,7 +15,9 @@ use Think\Controller;
  */
 class UserController extends Controller
 {
-	
+	/**
+	 *通过网页注册用户
+	 */
 	public function web_register() {
 		$Captcha = A('Captcha');
 		$data['code'] = 0;

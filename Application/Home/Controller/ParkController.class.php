@@ -10,6 +10,11 @@ class ParkController extends Controller {
 		
 	}
 	
+	
+	public function status($user_id=0,$park_id=0,$type=0) {
+		
+	}
+	
 	/**
 	 * 添加停车场信息
 	 */
@@ -134,4 +139,5 @@ class ParkController extends Controller {
 		
 		return round ( $calculatedDistance );
 	}
+	
 }
