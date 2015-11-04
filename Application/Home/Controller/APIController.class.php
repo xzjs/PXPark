@@ -193,13 +193,13 @@ class APIController extends Controller
     {
         $User = A('User');
         $data['code'] = 0;
-        $result = $User->detail(I('post.id'));
+        $result = $User->detail(I('param.id'));
         if ($result == -1) {
             $data['code'] = 7;
         } else {
             $u['nickname'] = $result['nickname'];
             $u['phone'] = $result['phone'];
-            $u['img'] = C('IP').__ROOT__.'/Uploads/'.$result['img'];
+            $u['img'] = C('IP').__ROOT__.C('UPLOAD').$result['img'];
             $data['user'] = $u;
         }
         echo json_encode($data);

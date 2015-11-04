@@ -10,9 +10,26 @@ class ParkController extends Controller {
 		
 	}
 	
-	
+	/**
+	 * 获取停车场列表或者指定停车场
+	 * @param number $user_id 用户Id
+	 * @param number $park_id 停车场 Id
+	 * @param number $type 停车场类型
+	 */
 	public function status($user_id=0,$park_id=0,$type=0) {
-		
+		$park=M('Park');
+		if($type!=0){
+			$condition['type']=$type;
+		}
+		if($park_id!=0){
+			$condition['id']=$park_id;
+		}
+		$result = $park->where($condition)->field('name,total_num,remain_num,img')->select();
+		for($i=0;$i<count($result);$i++){
+			$result[$i]['img']=C('IP').__ROOT__.C('PARK_IMG_PATH').$result[$i]['img'];//图片链接url
+		}
+		$data['data']=$result;
+		echo json_encode($data);
 	}
 	
 	/**
@@ -24,7 +41,7 @@ class ParkController extends Controller {
 			$upload = new \Think\Upload();// 实例化上传类
 			$upload->maxSize = 3145728;// 设置附件上传大小
 			$upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-			$upload->rootPath = './Uploads/IdImg/'; // 设置附件上传根目录
+			$upload->rootPath = '.'.C('PARK_IMG_PATH'); // 设置附件上传根目录
 			$upload->autoSub = false;
 			// 上传文件
 			$info = $upload->upload();
