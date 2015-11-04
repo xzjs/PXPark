@@ -1,31 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+<meta charset="UTF-8">
+<title></title>
 </head>
 <body>
-<form action="__URL__/add_car" method="post">
-    uid<input type="text" name="id">
-    <br>
-   no<input type="text" name="no">
-    <br>
-    type<input type="text" name="type">
-    <br>
-    <input type="submit" value="提交">
-</form>
-<form action="__URL__/my_car" method="post">
-    <br>
-    用户id（查询）<input type="text" name="id">
-    <br>
-    
-    <input type="submit" value="提交">
-</form>
-<form action="__URL__/delete_car" method="post">
-    车id（删除）<input type="text" name="id">
-    <br>
-   
-    <input type="submit" value="提交">
-</form>
+	<form action="../Parkrecord/count_flow" method="post" class="w-form">
+		<div class="tester-params">
+			<div class="form-item">
+				<label class="form-label">user_id<i class="form-must">*</i></label>
+				<div class="form-target">
+					<label class="w-text text-m text-full"><input
+						class="text-input" required="" name="user_id" placeholder=""
+						value="" type="text"></label>
+				</div>
+			</div>
+			<div class="form-item">
+				<label class="form-label">park_id</label>
+				<div class="form-target">
+					<label class="w-text text-m text-full"><input
+						class="text-input" name="park_id" 
+						type="text"></label>
+				</div>
+			</div>
+			<div class="form-item">
+				<label class="form-label">time</label>
+				<div class="form-target">
+					<label class="w-text text-m text-full"><input
+						class="text-input" name="time" 
+						type="text"></label>
+				</div>
+			</div>
+		</div>
+		<div class="tester-url">
+			<span class="api-type type-post">post</span>
+			<div class="w-text text-m text-full">
+				<input disabled=""
+					value="http://xzjs.love/PXPark/index.php/Home//Parkrecord/count_flow"
+					class="text-input">
+			</div>
+			<label class="w-btn btn-l btn-success"><input
+				class="btn-input" value="调试" type="submit"></label>
+		</div>
+	</form>
 </body>
 </html>
