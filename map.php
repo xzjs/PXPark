@@ -64,8 +64,9 @@
         <?php
             $redis = new Redis();
             $redis->connect('127.0.0.1', 6379);
-            echo "Connection to server sucessfully";
+            echo '//Connection to server sucessfully';
             $data=$redis->lRange('point',355002);
+            echo '//'.count($data);
             foreach ($data as $d) {
                 $a=explode('	',$d);
                 echo 'points.push(new BMap.Point('.$a[0].', '.$a[1].'));';
