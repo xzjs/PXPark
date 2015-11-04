@@ -21,14 +21,11 @@
     <link href="__PUBLIC__/css/common.css" rel="stylesheet">
     <link href="__PUBLIC__/css/admin/main.css" rel="stylesheet">
 
-    <link href="__PUBLIC__/css/header.css" rel="stylesheet">
-    <link href="__PUBLIC__/css/sidebar.css" rel="stylesheet">
-
     <script src="__PUBLIC__/thirdparty/jquery/jquery-1.11.2.min.js"></script>
     <script src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- S zTree -->
-    <link rel="stylesheet" href="__PUBLIC__/thirdparty/ztree/css/metroStyle/metroStyle.css" type="text/css">
+    <link rel="stylesheet" href="__PUBLIC__/thirdparty/ztree/css/metroStyle/metroStyle.css" type="text/css"></link>
     <script type="text/javascript" src="__PUBLIC__/thirdparty/ztree/js/jquery.ztree.all-3.5.js"></script>
     <!-- E zTree -->
 
@@ -54,6 +51,8 @@
 
 <div id="container">
     <div id="header">
+        <meta charset="utf-8">
+        <link href="__PUBLIC__/css/header.css" rel="stylesheet">
         <script type="text/javascript">
             $(function () {
                 $(".topMenu").on("mouseenter", function () {
@@ -161,10 +160,12 @@
                 </div>
             </nav>
         </div>
-    </div>
 
+    </div>
     <div id="mainContent">
-        <div id="siderbar">
+        <div id="sidebar">
+            <meta charset="utf-8">
+            <link href="__PUBLIC__/css/sidebar.css" rel="stylesheet">
             <script type="text/javascript">
                 var setting = {};
 
@@ -223,8 +224,7 @@
                                                                               data-toggle="tab">车牌号</a></li>
                                     <li role="presentation"><a href="#parking"
                                                                aria-controls="parking" role="tab"
-                                                               data-toggle="tab">停车场</a>
-                                    </li>
+                                                               data-toggle="tab">停车场</a></li>
                                 </ul>
                                 <div class="tab-content" style="height: 100px;">
                                     <div role="tabpanel" class="tab-pane active" id="carNo"
@@ -284,13 +284,12 @@
                     <div>26~20℃</div>
                     <div>良</div>
                 </div>
-
             </div>
         </div>
         <div id="content">
             {__CONTENT__}
         </div>
     </div>
-</div>
+
 </body>
 </html>
