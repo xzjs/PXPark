@@ -1,8 +1,8 @@
-ï»¿/** 
+/** 
  
- @Nameï¼š laydateçš®è‚¤ï¼šå¢¨ç»¿
- @Authorï¼šè´¤å¿ƒ
- @Siteï¼šhttp://sentsin.com/layui/laydate
+ @Name£º laydateÆ¤·ô£ºÄ«ÂÌ
+ @Author£ºÏÍÐÄ
+ @Site£ºhttp://sentsin.com/layui/laydate
  
 **/
 
@@ -18,14 +18,14 @@
 .laydate_body .laydate_box{border-top:none; border-bottom:none; background-color:#fff; color:#00625A;}
 .laydate_body .laydate_box input{background:none!important; color:#fff;}
 .laydate_body .laydate_box .laydate_void{color:#00E8D7!important;}
-.laydate_body .laydate_box a, .laydate_body .laydate_box a:hover{color:#00625A;}
+.laydate_body .laydate_box a, .laydate_body .laydate_box a:hover{color:#00625A;background:#009F95 }
 .laydate_body .laydate_box a:hover{color:#666;}
 .laydate_body .laydate_click{background-color:#009F95!important; color:#fff!important;}
 .laydate_body .laydate_top{border-top:1px solid #009F95; background-color:#009F95}
 .laydate_body .laydate_ym{border:1px solid #009F95; background-color:#009F95;}
 .laydate_body .laydate_ym .laydate_yms{border:1px solid #009F95; background-color:#009F95; color:#fff;}
-.laydate_body .laydate_y .laydate_yms a{border-bottom:1px solid #009F95;}
-.laydate_body .laydate_y .laydate_yms .laydate_chdown{border-top:1px solid #009F95; border-bottom:none;}
+.laydate_body .laydate_y .laydate_yms a{border-bottom:1px solid #009F95;background: #009F95;}
+.laydate_body .laydate_y .laydate_yms .laydate_chdown{border-top:1px solid #009F95; border-bottom:none;background: #009F95;}
 .laydate_body .laydate_choose{border-left:1px solid #009F95;}
 .laydate_body .laydate_chprev{border-left:none; border-right:1px solid #009F95;}
 .laydate_body .laydate_choose:hover, 
@@ -39,7 +39,7 @@
 .laydate_body .laydate_table .laydate_nothis{color:#999;}
 .laydate_body .laydate_table thead{border-bottom:1px solid #ccc; height:21px!important; line-height:21px!important;}
 .laydate_body .laydate_table thead th{}
-.laydate_body .laydate_bottom{border:1px solid #ccc; border-top:none;}
+.laydate_body .laydate_bottom{ border-top:none;}
 .laydate_body .laydate_bottom #laydate_hms{background-color:#fff;}
 .laydate_body .laydate_time{background-color:#fff;}
 .laydate_body .laydate_time1{width: 226px!important; height: 152px!important;}

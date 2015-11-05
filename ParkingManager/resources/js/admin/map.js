@@ -43,7 +43,7 @@ $(function() {
 			}
 		},
 		emphasis: {
-			color: 'rgba(0,0,0,0)'
+			color: '#ccc'
 		}
 	};
 	var radius = [40, 55];

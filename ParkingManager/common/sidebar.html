@@ -1,20 +1,41 @@
 <meta charset="utf-8">
 <link href="../resources/css/common/sidebar.css" rel="stylesheet">
+
+<!-- S bootstrap-table -->
+<link href="../resources/thirdparty/bootstrap/css/bootstrap-table.min.css"
+	rel="stylesheet">
+<script src="../resources/thirdparty/bootstrap/js/bootstrap-table.js"></script>
+<!-- E bootstrap-table -->
 <script type="text/javascript">
-	var setting = {};
+	function getFont(treeId, node) {
+		return {'color':'#fff'};
+	}
+	var setting = {
+		view : {
+			fontCss : getFont,
+			nameIsHTML : true
+		}
+	};
 
 	var zNodes = [ {
 		name : "山东省",
 		open : true,
+		iconOpen:"../resources/image/open.png", 
+		iconClose:"../resources/image/close.png",
 		children : [ {
 			name : "济南市",
+			icon:"../resources/image/leaf.png",
 			children : []
 		}, {
 			name : "青岛市",
+			iconOpen:"../resources/image/open.png", 
+			iconClose:"../resources/image/close.png",
 			children : [ {
-				name : "市南区"
+				name : "市南区",
+				icon:"../resources/image/leaf.png"
 			}, {
-				name : "市北区"
+				name : "市北区",
+				icon:"../resources/image/leaf.png"
 			} ]
 		} ]
 	} ];
@@ -38,74 +59,12 @@
 		})
 		$.fn.zTree.init($("#cityTree"), setting, zNodes);
 	})
+	
+	function showSearch(flag){
+		$('#searchResultWin').modal();
+	}
 </script>
-<script type="text/javascript"> 
 
-   var myAlert = document.getElementById("alert"); 
-
-   var reg = document.getElementById("content").getElementsByTagName("a")[0]; 
-
-   var mClose = document.getElementById("close"); 
-
-   function divTanChu()
-
-   {
-   myAlert.style.display = "block"; 
-
-   myAlert.style.position = "absolute"; 
-
-   myAlert.style.top = "40%"; 
-
-   myAlert.style.left = "30%"; 
-
-   myAlert.style.marginTop = "-75px"; 
-
-   myAlert.style.marginLeft = "-150px"; 
-
-   mybg = document.createElement("div"); 
-
-   mybg.setAttribute("id","mybg"); 
-
-   mybg.style.background = "#666"; 
-
-   mybg.style.width = "100%"; 
-
-   mybg.style.height = "100%"; 
-
-   mybg.style.position = "absolute"; 
-
-   mybg.style.top = "0"; 
-
-   mybg.style.left = "0"; 
-
-   mybg.style.zIndex = "500"; 
-
-   mybg.style.opacity = "0.3"; 
-
-   mybg.style.filter = "Alpha(opacity=30)"; 
-
-    document.body.appendChild(mybg); 
-
-   document.body.style.overflow = "hidden"; 
-
-   } 
-
-   mClose.onclick = function() 
-
-   { 
-
-   myAlert.style.display = "none"; 
-
-   mybg.style.display = "none"; 
-
-   } 
-
-   </script>
-    <style> 
-
-    *{margin:0;padding:0;} 
-   #alert {border:1px solid#369;width:600px;height:400px;background:#ccc;z-index:1000;position:absolute;display:none;} 
-   </style>   
 <div style="color: #fff;">
 	<!-- S 工具按钮 -->
 	<div class="toobar toobar1">
@@ -113,11 +72,12 @@
 		<div>搜索</div>
 
 		<div id="searchPanel"
-			style="position: absolute; left: 54px; top: 0px; width: 300px; height: 170px; z-index: 1000; display: none;">
-			<div class="panel panel-default"
-				style="height: 100%; background-color: #EFEFEF;">
-				<div class="panel-body">
-					<ul class="nav nav-tabs" role="tablist" style="height: 100%;">
+			style="position: absolute; left: 54px; top: 0px; width: 300px; height: 190px; z-index: 1000; display: none;">
+			<div 
+				style="height: 100%; background-color: #0066FF;padding: 10px;">
+				<div>
+					<ul class="nav nav-tabs" role="tablist"
+						style="height: 100%;background-color: #FFF;padding: 4px;margin: 15px;">
 						<li role="presentation" class="active"><a href="#carNo"
 							aria-controls="carNo" role="tab" data-toggle="tab">车牌号</a></li>
 						<li role="presentation"><a href="#parking"
@@ -127,67 +87,86 @@
 						<div role="tabpanel" class="tab-pane active" id="carNo"
 							style="color: #000; padding: 20px 10px;">
 							<div class="form-group">
-								<label for="carNO" class="col-lg-4 control-label">车牌号:</label>
+								<label for="carNO" class="col-lg-4 control-label"
+									style="color: #fff;">车牌号:</label>
 								<div class="col-lg-8">
 									<input type="text" class="form-control input-sm"
 										id="inputcarNO" placeholder="车牌号">
 								</div>
 							</div>
-							<button type="button" class="btn btn-success btn-xs"
-								style="width: 120px; margin-top: 15px;" onclick="divTanChu()">搜索</button>
+							<button type="button" class="btn btn-success btn-xs" onclick="showSearch(0)"
+								style="width: 120px; margin-top: 15px;">搜索</button>
 						</div>
 						<div role="tabpanel" class="tab-pane" id="parking"
 							style="color: #000; padding: 20px 10px;">
 							<div class="form-group">
-								<label for="parking" class="col-lg-4 control-label">停车场:</label>
+								<label for="parking" class="col-lg-4 control-label"
+									style="color: #fff;">停车场:</label>
 								<div class="col-lg-8">
 									<input type="text" class="form-control input-sm"
 										id="inputparking" placeholder="停车场">
 								</div>
 							</div>
-							<button type="button" class="btn btn-success btn-xs"
-								style="width: 120px; margin-top: 15px;" onclick="divTanChu()">搜索</button>
+							<button type="button" class="btn btn-success btn-xs" onclick="showSearch(1)"
+								style="width: 120px; margin-top: 15px;">搜索</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<hr class="separate_line">
 	<div class="toobar toobar2">
 		<img src="../resources/image/map.png" width="24" height="24">
 		<div>区域选择</div>
 		<div id="cityPanel"
-			style="position: absolute; left: 54px; top: 60px; bottom: 45px; width: 300px; z-index: 1000; display: none;">
-			<div class="panel panel-default"
-				style="height: 100%; background-color: #EFEFEF;">
-				<div class="panel-body">
+			style="position: absolute; left: 54px; top: 0px; bottom: 0px; width: 250px; z-index: 1000; display: none;">
+			<div
+				style="height: 100%; background-color: #0066FF;margin: 0;padding: 10px;">
+				<div>
 					<ul id="cityTree" class="ztree"></ul>
 				</div>
 			</div>
 		</div>
 		<!-- E 工具按钮 -->
 	</div>
-   
+
 	<!-- 天气情况 -->
 	<div class="whether">
 		<img src="../resources/image/whether.png" width="24" height="24">
 		<div>26~20℃</div>
 		<div>良</div>
 	</div>
-	 </div>
-	<div id="alert" style="padding:10px">
-	 <div style="height:40px">
-	 <div style="width:200px;height:25px;float:left"><h4>鲁B12345  消费详情：</h4></div>
-	 <div style="width:25px;height:25px;float:right;border-radius:20px"><img src="../resources/image/register/delete.png" style="cursor:pointer;width:25px;height:25px" id="close"></div>
-	 </div> 
-     <div style="height:260px;margin-bottom:20px;background-color:white">
-     </div>
-     <div class="col-xs-4 col-xs-offset-4 text-left">
-							<button
-								style="height:25px;line-height:5px;text-align:center;width:100%;border-radius:10px"
-								type="button" class="btn btn-sm btn-success"
-								onclick="costRuleSet()">导出Excel</button>
-						</div> 
-
-   </div> 
+	
+<!-- 搜索结果 -->
+<div class="modal fade" id="searchResultWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="color: #000;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">鲁B12345    消费详情：</h4>
+      </div>
+      <div class="modal-body">
+      	<table class="datatable" data-toggle="table" data-striped="true">
+			<thead>
+				<tr>
+					<th>进场时间</th>
+					<th>出场时间</th>
+					<th>共消费</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>                                                      
+					<td>2015/08.30/10：21</td>
+					<td>2015/08.30/15:20</td>
+					<td>12.5元</td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-xs" style="width: 130px;">导出为EXCEL</button>
+      </div>
+    </div>
+  </div>
+</div>
+	

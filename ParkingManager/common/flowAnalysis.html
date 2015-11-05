@@ -71,7 +71,7 @@
 	
 </script>
 <div class="page">
-		<div>
+		<div style="height:10%">
 			开始时间： <input placeholder="请输入日期" class="laydate-icon"
 				onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
 			结束时间： <input placeholder="请输入日期" class="laydate-icon"
@@ -81,13 +81,13 @@
 				<option>小型车</option>
 				<option>大型车</option>
 			</select>
-			<button type="button" class="btn btn-success btn-xs">查询</button>
+			<button type="button" class="btn btn-success btn-xs" style="width: 100px;height: 22px;line-height: 22px;margin-top: -4px;">查询</button>
 		</div>
-		<div style="margin-top: 20px;">
+		<div style="height:10%;padding-top:10px">
 			在此时间段内&nbsp;&nbsp;&nbsp;&nbsp; 入场车辆共：<span class="search_result">18</span>辆&nbsp;&nbsp;&nbsp;
 			完成收费：<span class="search_result">8</span>辆
 		</div>
-		<div style="background-color: #fff; margin-top: 10px;">
-			<div id="chart" style="height: 400px;"></div>
+		<div style="background-color: #fff; height:80%;position:relative;bottom:-15px">
+			<div id="chart" style="height:100%"></div>
 		</div>
 </div>

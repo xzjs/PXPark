@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+	<!-- 使IE以最高模式渲染页面 -->
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="icon" href="../resources/image/parking.ico">
+	<!-- 使360以极速模式渲染页面 -->
+	<title>登录</title>
+	<link rel="stylesheet"  href="../resources/css/admin/login.css">
+	<link rel="stylesheet"  href="../resources/css/admin/high.css">
+	<script type="text/javascript">
+		function userLogin(){
+			window.location.href="main.html";
+		}
+	</script>
+</head>
+<body>
+	<div class="out_container">
+		<div class="container">
+			<div class="logo">
+				<h1>平行停车管控平台</h1>
+				<div class="clr"></div>
+			</div>
+			<div class="log_main">
+				<img src="../resources/image/parkinglogo.png">
+				<div class="rectangle">
+					<h2>超级管理员登录</h2>
+					<form action="from" method="get">
+	  					<p>
+	  						<img src="../resources/image/manager.png" alt="">
+	  						<input type="text" placeholder="用户名" name="email"  size="10"  />
+	  					</p>
+	  					<p>
+	  						<img src="../resources/image/unlocked.png" alt="">
+	  						<input type="password" placeholder="密码"  name="pin" maxlength="18" size="10"  />
+	  					</p>
+	  					<a href="javascript:userLogin();" class="submit">登录</a>
+					</form>
+				</div>
+				<div class="clr"></div>
+			</div>
+		</div>
+		<div class="clr"></div>
+		<div class="high"></div>
+		<div class="address-footer">
+				<p>版权:青岛智能产业技术研究院</p>
+				<p>2015 all rights reserved</p>
+		</div>
+	</div>
+</body>
+</html>
