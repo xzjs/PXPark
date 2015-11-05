@@ -1,279 +1,288 @@
 <meta charset="utf-8">
 <style>
-#deleteInfoDiv{
-	height:200px;
-	width:250px;
-	background-color:#999;
-	position: absolute;
-	top:350px;
+.addInfoDiv{
+	height:530px;
+	width:100%;
+	position: relative;
 	border-radius:20px;
-	border:1px solid ;
+	padding-top:20px;
+}
+#deleteInfoDiv{
+	height:300px;
+	position: relative;
+	border-radius:20px;
 	padding-top:15px;
 }
 </style>
 <div class="login-box col-md-8 col-md-offset-2 text-center"
-			id="park-box" style="padding-top:30px;">
-			<div class="login-title text-center" style="margin-bottom:50px">
-				<h3>
-					<img height="30px" src="../resources/image/register/parking.png">停车场基本信息
-				</h3>
+	id="park-box" style="padding-top:30px;">
+	<div class="login-title text-center" style="margin-bottom:30px">
+		<h3>
+			<img height="30px" src="../resources/image/register/parking.png">停车场基本信息
+		</h3>
+	</div>
+	<div class="login-content ">
+		<div class="col-xs-12">
+			<div class="form-group">
+				<div class="col-xs-12" id="parkInfoDiv">
+					<div class="col-xs-10 col-xs-offset-1 text-center"
+						style="padding:0px;height:40px;margin-bottom:100px;position:relative">
+						<span class=" fa fa-pencil" onclick="edits()"
+							style="top:25px;right:35px;cursor:pointer;position:absolute;z-index:10"></span>
+						<span class="fa fa-remove" onclick="deletes()"
+							style="top:25px;right:10px;cursor:pointer;position:absolute;z-index:10"></span>
+						<input type="text" id="parkCompany" name="parkCompany"
+							class="form-control"
+							style="height:40px;top:10px;padding:0px;margin:0px;position:absolute"
+							readonly placeholder="">
+					</div>
+				</div>
 			</div>
-			<div class="login-content ">
-				<div class="form">
-					<div class="form-group">
-						<div class="col-xs-12" id="parkInfoDiv" style="display:block;margin-bottom:100px">
-							<div class="col-xs-8 col-xs-offset-1 text-center"
-								style="padding:0px;height:30px;">
-								 <input
-									type="text" id="parkCompany" name="parkCompany"
-									class="form-control" style="height:40px;" readonly
-									placeholder="">
-							</div>
-							<div class="col-xs-3 text-center">
-							<div style="float:left;border-right:2px solid green">
-								<img src="../resources/image/register/edit.png"
-									style="height:35px;cursor:pointer" title="编辑"
-									onclick="edits()">
-							</div>
-							<div style="float:left">
-								<img src="../resources/image/register/delete.png"
-									style="height:35px;cursor:pointer" title="删除"
-									onclick="deletes()">
-							</div>
-						</div>
-						</div>
-					</div>
-					<div class="form-group addInfoDiv" id="addInfoDiv"
-						style="display:block;background-color:#ccc">
-						<div class="col-xs-12"
-							style="position:relative;top:-10px;margin-bottom:15px">
-							<div class="col-xs-4  text-right"
-								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
-								<span class="success">停车场名称:</span></div>
-							<div class="col-xs-5  text-left" style="padding:0px;height:25px;">
-								<input type="text" id="parkname" name="parkname"
-									class="form-control" style="height:25px;line-height:25px"
-									placeholder="">
-							</div>
-						</div>
-						<div class="col-xs-12"
-							style="position:relative;top:-10px;margin-bottom:15px">
-							<div class="col-xs-4  text-right"
-								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
-								停车场种类:</div>
-							<div class="col-xs-5  text-left" style="padding:0px;height:25px;">
-								<select id="parktype" name="parktype"
-									style="width:100%;height:25px" onchange="typeChange()"><option
-										value="1">路测停车位(场)</option>
-									<option value="2" selected>普通营业停车场</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-xs-12"
-							style="position:relative;top:-10px;margin-bottom:15px">
-							<div class="col-xs-4  text-right"
-								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
-								停车照片:</div>
-							<div class="col-xs-5  text-left" style="padding:0px;height:45px;">
-								<input type="file" id="parkimg" name="parkimg"
-									class="form-control" style="height:45px;" placeholder="">
-							</div>
-							<div class="col-xs-3 text-left"
-								style="padding:0px;padding-top:0px;height:25px;color:#ccc">
-								<small>上传证件照片</small>
-							</div>
-
-						</div>
-						<div class="col-xs-12"
-							style="position:relative;top:-10px;margin-bottom:15px">
-							<div class="col-xs-4  text-right"
-								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
-								停车场所在位置:</div>
-							<div class="col-xs-5  text-left" style="padding:0px;height:25px;">
-								<select id="parktype" name="provice"
-									style="width:32%;height:25px" onchange="proviceChange()"><option
-										value="1">山东省</option>
-									<option value="2">河北省</option>
-								</select> <select id="parktype" name="city" style="width:32%;height:25px"
-									onchange="cityChange()"><option value="1">青岛市</option>
-									<option value="2">东营市</option>
-								</select> <select id="parktype" name="area" style="width:32%;height:25px"><option
-										value="1">李沧区</option>
-									<option value="2">崂山区</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-xs-12"
-							style="position:relative;top:-10px;margin-bottom:15px">
-							<div class="col-xs-5 col-xs-offset-4 text-left"
-								style="padding:0px;height:25px;">
-								<input type="text" id="address" name="address"
-									class="form-control" style="height:25px;" placeholder="">
-							</div>
-						</div>
-						<div class="col-xs-12"
-							style="position:relative;top:-10px;margin-bottom:15px"
-							id="acceptDiv">
-							<div class="col-xs-4  text-right"
-								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
-								停车场经营许可证:</div>
-							<div class="col-xs-5  text-left" style="padding:0px;height:45px;">
-								<input type="file" id="parkfile" name="parkfile"
-									class="form-control" style="height:45px;" placeholder="">
-							</div>
-							<div class="col-xs-3 text-left"
-								style="padding:0px;padding-top:0px;height:25px;color:#ccc">
-								<small>上传证件照片</small>
-							</div>
-
-						</div>
-						<div class="col-xs-12"
-							style="position:relative;top:-10px;margin-bottom:15px">
-							<div class="col-xs-4  text-right"
-								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
-								停车场车位总数:</div>
-							<div class="col-xs-5  text-left" style="padding:0px;height:25px;">
-								<input type="text" id="parkcount" name="parkcount"
-									class="form-control" style="height:25px;" placeholder="">
-							</div>
-						</div>
-						<div class="col-xs-12"
-							style="position:relative;top:-10px;margin-bottom:15px">
-							<div class="col-xs-4  text-right"
-								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
-								停车场法人真实姓名:</div>
-							<div class="col-xs-5  text-left" style="padding:0px;height:25px;">
-								<input type="text" id="managername" name="managername"
-									class="form-control" style="height:25px;" placeholder="">
-							</div>
-						</div>
-						<div class="col-xs-12"
-							style="position:relative;top:-10px;margin-bottom:15px">
-							<div class="col-xs-4  text-right"
-								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
-								停车场法人身份证号:</div>
-							<div class="col-xs-5  text-left" style="padding:0px;height:25px;">
-								<input type="text" id="managercard" name="managercard"
-									class="form-control" style="height:25px;" placeholder="">
-							</div>
-						</div>
-						<div class="col-xs-12"
-							style="position:relative;top:-10px;margin-bottom:15px">
-							<div class="col-xs-4  text-right"
-								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
-								停车场法人身份证照片:</div>
-							<div class="col-xs-5  text-left" style="padding:0px;height:45px;">
-								<input type="file" id="managerfile" name="managerfile"
-									class="form-control" style="height:45px;" placeholder="">
-							</div>
-							<div class="col-xs-3 text-left"
-								style="padding:0px;padding-top:0px;height:25px;color:#ccc">
-								<small>上传证件照片</small>
-							</div>
-
-						</div>
-						<div class="form-group form-actions"
-							style="position:relative;top:-10px;margin-bottom:15px">
-							<div class="col-xs-4 col-xs-offset-4 text-left">
-								<button
-									style="height:25px;line-height:5px;text-align:center;width:100%;border-radius:10px"
-									type="button" class="btn btn-sm btn-success"
-									onclick="addComplate()">完成</button>
-							</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="detailInfoWin" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document" style="z-index:10000">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">停车场添加</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group addInfoDiv" id="addInfoDiv">
+					<div class="col-xs-12"
+						style="position:relative;top:0px;margin-bottom:15px">
+						<div class="col-xs-3  text-right"
+							style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+							停车场名称:</div>
+						<div class="col-xs-7  text-left" style="padding:0px;height:25px;">
+							<input type="text" id="parkname" name="parkname"
+								class="form-control" style="height:25px;line-height:25px"
+								placeholder="">
 						</div>
 					</div>
-					<div class="col-xs-4 col-xs-offset-4" id="deleteInfoDiv"
-						style="display:none">
-						<div class="col-xs-12"
-							style="position:relative;top:0px;margin-bottom:35px">
-							<div class="col-xs-12  text-center"
-								style="padding:0px;height:25px;font-family:黑体;color:#f90;line-height:25px"
-								id="tishi">shanchu</div>
+					<div class="col-xs-12"
+						style="position:relative;top:0px;margin-bottom:15px">
+						<div class="col-xs-3  text-right"
+							style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+							停车场种类:</div>
+						<div class="col-xs-7  text-left" style="padding:0px;height:25px;">
+							<select id="parktype" name="parktype"
+								style="width:100%;height:25px" onchange="typeChange()"><option
+									value="1">路测停车位(场)</option>
+								<option value="2" selected>普通营业停车场</option>
+							</select>
 						</div>
-						<div class="form-group form-actions"
-							style="position:relative;top:0px;margin-bottom:15px">
-							<div class="col-xs-4 col-xs-offset-2 text-left">
-								<button
-									style="height:25px;line-height:5px;text-align:center;width:40;border-radius:10px"
-									type="button" class="btn btn-sm btn-success" onclick="yesBtn()">是</button>
-							</div>
-							<div class="col-xs-4  text-left">
-								<button
-									style="height:25px;line-height:5px;text-align:center;width:40;border-radius:10px"
-									type="button" class="btn btn-sm btn-success" onclick="noBtn()">否</button>
-							</div>
+					</div>
+					<div class="col-xs-12"
+						style="position:relative;top:0px;margin-bottom:15px">
+						<div class="col-xs-3  text-right"
+							style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+							停车照片:</div>
+						<div class="col-xs-7  text-left" style="padding:0px;height:45px;">
+							<input type="file" id="parkimg" name="parkimg"
+								class="form-control" style="height:45px;" placeholder="">
+						</div>
+						<div class="col-xs-2 text-left"
+							style="padding:0px;padding-top:0px;height:25px;color:#ccc">
+							<small>上传证件照片</small>
+						</div>
+
+					</div>
+					<div class="col-xs-12"
+						style="position:relative;top:0px;margin-bottom:15px">
+						<div class="col-xs-3  text-right"
+							style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+							停车场所在位置:</div>
+						<div class="col-xs-7  text-left" style="padding:0px;height:25px;">
+							<select id="provice" name="provice" style="width:31%;height:25px"
+								onchange="proviceChange()"><option value="1">山东省</option>
+								<option value="2">河北省</option>
+							</select> <select id="city" name="city" style="width:31%;height:25px"
+								onchange="cityChange()"><option value="1">青岛市</option>
+								<option value="2">东营市</option>
+							</select> <select id="area" name="area" style="width:31%;height:25px"><option
+									value="1">李沧区</option>
+								<option value="2">崂山区</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position:relative;top:0px;margin-bottom:15px">
+						<div class="col-xs-7 col-xs-offset-3 text-left"
+							style="padding:0px;height:25px;">
+							<input type="text" id="address" name="address"
+								class="form-control" style="height:25px;" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position:relative;top:0px;margin-bottom:15px"
+						id="acceptDiv">
+						<div class="col-xs-3  text-right"
+							style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+							停车场经营许可证:</div>
+						<div class="col-xs-7  text-left" style="padding:0px;height:45px;">
+							<input type="file" id="parkfile" name="parkfile"
+								class="form-control" style="height:45px;" placeholder="">
+						</div>
+						<div class="col-xs-2 text-left"
+							style="padding:0px;padding-top:0px;height:25px;color:#ccc">
+							<small>上传证件照片</small>
+						</div>
+
+					</div>
+					<div class="col-xs-12"
+						style="position:relative;top:0px;margin-bottom:15px">
+						<div class="col-xs-3  text-right"
+							style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+							停车场车位总数:</div>
+						<div class="col-xs-7  text-left" style="padding:0px;height:25px;">
+							<input type="text" id="parkcount" name="parkcount"
+								class="form-control" style="height:25px;" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position:relative;top:0px;margin-bottom:15px">
+						<div class="col-xs-3  text-right"
+							style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+							停车场法人真实姓名:</div>
+						<div class="col-xs-7  text-left" style="padding:0px;height:25px;">
+							<input type="text" id="managername" name="managername"
+								class="form-control" style="height:25px;" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position:relative;top:0px;margin-bottom:15px">
+						<div class="col-xs-3  text-right"
+							style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+							停车场法人身份证号:</div>
+						<div class="col-xs-7  text-left" style="padding:0px;height:25px;">
+							<input type="text" id="managercard" name="managercard"
+								class="form-control" style="height:25px;" placeholder="">
+						</div>
+					</div>
+					<div class="col-xs-12"
+						style="position:relative;top:0px;margin-bottom:15px">
+						<div class="col-xs-3  text-right"
+							style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+							停车场法人身份证照片:</div>
+						<div class="col-xs-7  text-left" style="padding:0px;height:45px;">
+							<input type="file" id="managerfile" name="managerfile"
+								class="form-control" style="height:45px;" placeholder="">
+						</div>
+						<div class="col-xs-2 text-left"
+							style="padding:0px;padding-top:0px;height:25px;color:#ccc">
+							<small>上传证件照片</small>
+						</div>
+
+					</div>
+					<div class="form-group form-actions"
+						style="position:relative;top:0px;margin-bottom:15px">
+						<div class="col-xs-4 col-xs-offset-4 text-left">
+							<button
+								style="height:25px;line-height:5px;text-align:center;width:100%;border-radius:10px;background-color:#33CC33"
+								type="button" class="btn btn-sm" onclick="addComplate()"
+								data-dismiss="modal">完成</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-4 col-xs-offset-4" id="deleteInfoDiv"
-						style="display:none">
-						<div class="col-xs-12"
-							style="position:relative;top:0px;margin-bottom:35px">
-							<div class="col-xs-12  text-center"
-								style="padding:0px;height:25px;font-family:黑体;color:#f90;line-height:25px"
-								id="tishi">shanchu</div>
+	</div>
+</div>
+<div class="modal fade" id="deleteInfoWin" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document" style="z-index:10000">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">停车场删除</h4>
+			</div>
+			<div class="modal-body">
+				<div id="deleteInfoDiv">
+					<div class="col-xs-12"
+						style="position:relative;top:0px;margin-bottom:65px;padding-top:60px">
+						<div class="col-xs-12  text-center"
+							style="padding:0px;height:30px;font-family:黑体;color:#f90; font-size:32px;line-height:30px"
+							id="tishi">shanchu</div>
+					</div>
+					<div class="form-group form-actions"
+						style="position:relative;top:0px;margin-bottom:15px">
+						<div class="col-xs-6  text-right">
+							<button
+								style="height:35px;line-height:5px;text-align:center;width:120px;border-radius:10px"
+								type="button" class="btn btn-sm btn-success"
+								data-dismiss="modal" onclick="yesBtn()">是</button>
 						</div>
-						<div class="form-group form-actions"
-							style="position:relative;top:0px;margin-bottom:15px">
-							<div class="col-xs-4 col-xs-offset-2 text-left">
-								<button
-									style="height:25px;line-height:5px;text-align:center;width:40;border-radius:10px"
-									type="button" class="btn btn-sm btn-success" onclick="yesBtn()">是</button>
-							</div>
-							<div class="col-xs-4  text-left">
-								<button
-									style="height:25px;line-height:5px;text-align:center;width:40;border-radius:10px"
-									type="button" class="btn btn-sm btn-success" onclick="noBtn()">否</button>
-							</div>
+						<div class="col-xs-6  text-left">
+							<button
+								style="height:35px;line-height:5px;text-align:center;width:120px;border-radius:10px"
+								type="button" class="btn btn-sm btn-success"
+								data-dismiss="modal" onclick="noBtn()">否</button>
 						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+	</div>
+</div>
 <script>
-//切换车场类型
-function typeChange() {
-	var type = $("#parktype").val();
-	if (type = "1") {
-		$("#acceptDiv").css("display", "none");
-	} else {
-		$("#acceptDiv").css("display", "block");
-	}
-}
-function proviceChange() {
-}
-function cityChange() {
-}
-//点击添加信息框完成按钮
-function addComplate() {
-	//先添加信息验证，判断是否可以提交完成
-	$("#addInfoDiv").css("display", "block");
-	//将信息相关内容赋值到顶框parkCompany
-	var name = $("#parkname").val();//将添加信息框需要显示的信息都定义变量传入顶框
-	$("#parkCompany").val(name + "ok......");
-	//隐藏无停车场的图标
-	$("#isNullDivTmp").css("display", "block");
-	$("#isNullDiv").css("display", "none");
-	//显示停车场信息框
-	$("#parkInfoDiv").css("display", "block");
-	$("#parkInfoDivTmp").css("display", "none");
-	$("#addInfoDiv").css("display", "none");
-
-}
-//点击修改图标
-function edits() {
-	$("#addInfoDiv").css("display", "block");
-}
-//点击删除图标
-function deletes() {
-	$("#addInfoDiv").css("display", "none");
-	$("#deleteInfoDiv").css("display", "block");
-	$("#tishi").html("确定要删除" + $("#parkCompany").val() + "?");
-}
-function yesBtn() {
-	$("#deleteInfoDiv").css("display", "none");
-	$("#parkCompany").val("");
-}
-function noBtn() {
-	$("#deleteInfoDiv").css("display", "none");
-}
+	//切换车场类型
+		function typeChange() {
+			var type = $("#parktype").val();
+			if (type == "1") {
+				$("#acceptDiv").css("display", "none");
+			} else {
+				$("#acceptDiv").css("display", "block");
+			}
+		}
+		function proviceChange() {
+		}
+		function cityChange() {
+		}
+		//点击添加信息框完成按钮
+		function addComplate() {
+			//先添加信息验证，判断是否可以提交完成
+			//将信息相关内容赋值到顶框parkCompany
+			var name = $("#parkname").val();//将添加信息框需要显示的信息都定义变量传入顶框
+			$("#parkCompany").val(name + "ok......");
+			//隐藏无停车场的图标
+			$("#isNullDiv").css("display", "none");
+			//显示停车场信息框
+			$("#parkInfoDiv").css("display", "block");
+			$('#detailInfoWin').modal();
+//			if($("#parktype").val()=="1"){
+//				$("#addImgDiv").css('display','none');
+//			}
+		}
+		//点击修改图标
+		function edits() {
+			$('#detailInfoWin').modal();
+		}
+		//点击删除图标
+		function deletes() {
+			$('#deleteInfoWin').modal();
+			$("#tishi").html("确定要删除" + $("#parkCompany").val() + "?");
+		}
+		function yesBtn() {
+			$("#deleteInfoDiv").css("display", "none");
+			$("#parkInfoDiv").css("display", "none");
+			$("#parkCompany").val("");
+			$("#isNullDiv").css("display", "block");
+		}
+		function noBtn() {
+			$("#deleteInfoDiv").css("display", "none");
+		}
+		//点击下一步，验证
+		function parkInfoCheck() {
+			$("#park-box").css("display", "none");
+			$("#zhifu-box").css("display", "block");
+		}
 </script>

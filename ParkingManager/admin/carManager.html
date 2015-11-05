@@ -15,6 +15,8 @@
 		<a href="#" id="statisticInfo">统计信息</a>
 		<a href="#" class="sel">车辆管理</a>
 		<a href="#" id="userInfo">用户信息</a>
+		<img alt="" src="../resources/image/back.png" height="25"  onclick="pageJump('realTimeStatus.html')"
+		style="float: right;cursor: pointer;">
 	</div>
 	<div style="margin: 9px;">
 			开始时间： <input placeholder="请输入日期" class="laydate-icon"
@@ -26,20 +28,18 @@
 				<option>小型车</option>
 				<option>大型车</option>
 			</select>
-			<button type="button" class="btn btn-success btn-xs">查询</button>
-			<button type="button" class="btn btn-success btn-xs">导出为EXCEL</button>
+			<button type="button" class="btn btn-success btn-xs" style="width: 80px;height: 22px;line-height: 22px;margin-top: -4px;">查询</button>
 		</div>
 	<div style="margin-top: 20px;">
-			在此时间段内&nbsp;&nbsp;&nbsp;&nbsp; 入场车辆共：<span class="search_result">18</span>辆&nbsp;&nbsp;&nbsp;
+			停车场历史在停车辆：在此时间段内&nbsp;&nbsp;&nbsp;&nbsp; 入场车辆共：<span class="search_result">18</span>辆&nbsp;&nbsp;&nbsp;
 			出场车辆共：<span class="search_result">18</span>辆&nbsp;&nbsp;&nbsp;
 			完成收费：<span class="search_result">8</span>辆
 	</div>
-	<div style="width: 90%;margin-top: 5px;">
-		<div id="personGrid">
-		</div>
+	
+	<div style="width: 100%;height: 100%;margin-top: -105px;padding-top: 145px;">
+		<div id="personGrid" style="width: 100%;height: 47%;"></div>
+		<div style="width: 100%;height: 6%;"></div>
+		<div id="realTimeParkingGrid" style="width: 100%;height: 47%; "></div>
 	</div>
-	<div style="width: 90%;margin-top: 5px;">
-		<div id="realTimeParkingGrid">
-		</div>
-	</div>
+	
 </div>

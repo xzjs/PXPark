@@ -123,7 +123,6 @@ $(function() {
 			.datagrid(
 					{
 						title : '个人招租停车场',
-						height : 840,
 						url : '',
 						method : 'GET',
 						striped : true,
@@ -136,7 +135,6 @@ $(function() {
 						nowrap : false,
 						pageSize : 10,
 						pageList : [ 10, 20, 50, 100, 150, 200 ],
-						showFooter : true,
 						columns : [ [
 								{
 									field : 'nick',
@@ -186,7 +184,7 @@ $(function() {
 									width : 100,
 									align : 'center',
 									formatter : function(value, row, index) {
-										return '<a class="parkingDetailBtn" href="#">详情</a>';
+										return '<a class="table_row_btn" href="javascript:showParkingDetail();">详情</a>';
 									}
 								},
 								{
@@ -204,7 +202,7 @@ $(function() {
 									width : 100,
 									align : 'center',
 									formatter : function(value, row, index) {
-										return '<a class="historyDetailBtn" href="#">详情</a>';
+										return '<a class="table_row_btn" href="javascript:showHistoryDetail();">详情</a>';
 									}
 								},
 								{
@@ -218,16 +216,28 @@ $(function() {
 								} ] ]
 					});
 	
+	
+					
 	$('#parkingGrid').datagrid({
 		data : getData()
 	}).datagrid('clientPaging');
 	
-	
-	$('.parkingDetailBtn').on('click', function(){
-		$('#parkingDetailInfoWin').modal();
-	});
-	
-	$('.historyDetailBtn').on('click', function(){
-		$('#historyDetailInfoWin').modal();
-	});
+	//分页工具栏上添加导出excel
+	var pager = $('#parkingGrid').datagrid('getPager');    // 得到datagrid的pager对象  
+	pager.pagination({   
+	    buttons:[{    
+	        iconCls:'icon-excel',    
+	        handler:function(){    
+	            alert('导出excel');    
+	        }    
+	    }]
+	});    
 })
+
+function showParkingDetail(){
+	$('#parkingDetailInfoWin').modal();
+}
+
+function showHistoryDetail(){
+	$('#historyDetailInfoWin').modal();
+}

@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<div class="login-box col-md-8 col-md-offset-2 text-center"
+<div class="login-box col-md-12  text-center"
 			id="login-box" style="padding-top:30px">
 			<div class="login-title text-center" style="margin-bottom:50px">
 				<h3>
@@ -10,7 +10,7 @@
 				<div class="form">
 					<div class="form-group">
 						<div class="col-xs-12  " style="margin-bottom:20px">
-							<div class="col-xs-3  text-right"
+							<div class="col-xs-4  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								用户名:</div>
 							<div class="col-xs-4  text-left" style="padding:0px;height:25px;">
@@ -18,14 +18,14 @@
 									class="form-control" style="height:25px;" onblur="nameCheck()"
 									placeholder="">
 							</div>
-							<div class="col-xs-5 text-left"
+							<div class="col-xs-4 text-left"
 								style="padding:0px;padding-top:0px;height:25px;color:#999">
 								<small id="nameTip">用户名为3~20位字母或数字组合</small>
 							</div>
 						</div>
 
 						<div class="col-xs-12  " style="margin-bottom:20px">
-							<div class="col-xs-3  text-right"
+							<div class="col-xs-4  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								输入密码:</div>
 							<div class="col-xs-4  text-left" style="padding:0px;height:25px;">
@@ -33,14 +33,14 @@
 									class="form-control" style="height:25px;" onblur="pwdCheck()"
 									placeholder="">
 							</div>
-							<div class="col-xs-5 text-left"
+							<div class="col-xs-4 text-left"
 								style="padding:0px;padding-top:0px;height:25px;color:#999">
 								<small id="pwdTip">密码至少为6位且不能为纯数字，字母区分大小写</small>
 							</div>
 						</div>
 
 						<div class="col-xs-12  " style="margin-bottom:35px">
-							<div class="col-xs-3  text-right"
+							<div class="col-xs-4  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								确认密码:</div>
 							<div class="col-xs-4  text-left" style="padding:0px;height:25px;">
@@ -48,13 +48,13 @@
 									class="form-control" style="height:25px;"
 									onblur="pwdEqualsCheck()" placeholder="">
 							</div>
-							<div class="col-xs-5 text-left"
+							<div class="col-xs-4 text-left"
 								style="padding:0px;padding-top:0px;height:25px;color:#999">
 								<small id="pwdTipEq">两次输入的密码保持一致</small>
 							</div>
 						</div>
 						<div class="col-xs-12  " style="margin-bottom:20px">
-							<div class="col-xs-3  text-right"
+							<div class="col-xs-4  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								注册人真实姓名:</div>
 							<div class="col-xs-4  text-left" style="padding:0px;height:25px;">
@@ -64,7 +64,7 @@
 						</div>
 
 						<div class="col-xs-12  " style="margin-bottom:20px">
-							<div class="col-xs-3  text-right"
+							<div class="col-xs-4  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								注册人身份证号:</div>
 							<div class="col-xs-4  text-left" style="padding:0px;height:25px;">
@@ -74,7 +74,7 @@
 						</div>
 
 						<div class="col-xs-12  " style="margin-bottom:60px">
-							<div class="col-xs-3  text-right"
+							<div class="col-xs-4  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								注册人身份证照片:</div>
 							<div class="col-xs-4 text-left" style="padding:0px;height:25px;">
@@ -83,21 +83,21 @@
 							</div>
 						</div>
 						<div class="col-xs-12  " style="margin-bottom:20px">
-							<div class="col-xs-3  text-right"
+							<div class="col-xs-4  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								注册手机号:</div>
 							<div class="col-xs-4 text-left" style="padding:0px;height:25px;">
 								<input type="text" id="phone" name="phone" class="form-control"
-									style="height:25px;" placeholder="">
+									style="height:25px;" placeholder="" onkeyup="phoneCheck()">
 							</div>
 							<div class="col-xs-2 text-left" style="height:25px;">
 								<button style="height:25px;line-height:5px;" id="codeBtn"
 									type="button" class="btn btn-sm btn-success"
-									onclick="phoneCheck()">发送验证码</button>
+									onclick="getVerifyCode()" disabled>发送验证码</button>
 							</div>
 						</div>
 						<div class="col-xs-12  " style="margin-bottom:30px">
-							<div class="col-xs-3  text-right"
+							<div class="col-xs-4  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								短信验证码:</div>
 							<div class="col-xs-4 text-left" style="padding:0px;height:25px;">
@@ -108,11 +108,11 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-xs-4 col-xs-offset-3 text-left">
+						<div class="col-xs-4 col-xs-offset-4 text-center">
 							<button
-								style="height:25px;line-height:5px;text-align:center;width:100%;border-radius:10px"
+								style="height:25px;line-height:5px;text-align:center;width:140px;border-radius:10px"
 								type="button" class="btn btn-sm btn-success"
-								onclick="userInfoCheck()">提交</button>
+								onclick="">提交</button>
 						</div>
 					</div>
 				</div>
@@ -160,28 +160,32 @@ function pwdEqualsCheck() {
 	}
 }
 //手机验证
-function phoneCheck() {
-	var patten = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
-	var phone = $("#phone").val();
-	var count = 60;
-	if (!patten.test(phone)) {
-		alert("手机号码格式不正确！");
-		return;
-	} else {
-		$("#codeBtn").html(count + "秒");
-		interval = setInterval(function() {
-			count = count - 1;
-			$("#codeBtn").html(count + "秒");
-			if (count == 0) {
-				clearInterval(interval);
-				$("#codeBtn").html("发送验证码");
-
+		function phoneCheck() {
+			var patten = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
+			var phone = $("#phone").val();
+			
+			if (!patten.test(phone)) {
+				$("#codeBtn").attr("disabled","disabled");
+			} else {
+				$("#codeBtn").removeAttr("disabled");
+				
 			}
 
-		}, 1000);
-	}
+		}
+		function getVerifyCode(){
+			var count = 60;
+			$("#codeBtn").html(count + "秒");
+			interval = setInterval(function() {
+				count = count - 1;
+				$("#codeBtn").html(count + "秒");
+				if (count == 0) {
+					clearInterval(interval);
+					$("#codeBtn").html("发送验证码");
 
-}
+				}
+
+			}, 1000);
+		}
 //下一步认证
 function userInfoCheck() {
 	clearInterval(interval);

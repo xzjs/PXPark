@@ -42,6 +42,11 @@ $(function(){
  			        text: '各种停车场使用比例',
  			        x:'center'
  			    },
+ 			    legend: {
+		        	data:['个人停车场','普通营业停车场','充电桩','路侧停车场'],
+		        	x:'right',
+		        	orient:'vertical'
+		    	},
  			    tooltip : {
  			        trigger: 'item',
  			        formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -95,11 +100,6 @@ $(function(){
  			                    {type : 'max', name: '最大值'},
  			                    {type : 'min', name: '最小值'}
  			                ]
- 			            },
- 			            markLine : {
- 			                data : [
- 			                    {type : 'average', name: '平均值'}
- 			                ]
  			            }
  			        }
  			    ]
@@ -118,15 +118,12 @@ $(function(){
 		结束时间： <input placeholder="请输入日期" class="laydate-icon"
 			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
 	</div>
-	<div class="row" style="width: 100%;height: 250px;">
-		  <div class="col-md-6" style="height: 250px;">
-		  		<div id="indexLine" style="width: 100%;height: 100%;"></div>
-		  </div>
-		  <div class="col-md-6" style="height: 250px;">
-		  		<div id="pieChart" style="width: 100%;height: 100%;"></div>
-		  </div>
+	<div style="width: 100%;height: 100%;margin-top: -25px;padding-top: 35px;">
+		<div style="height: 50%;width: 100%;">
+			<div id="indexLine" style="width: 60%;height: 100%;float: left;"></div>
+			<div id="pieChart" style="width: 40%;height: 100%;float: right;"></div>
+		</div>
+		<div id="lineChart" style="width: 100%;height: 50%;padding-top: 10px;"></div>
 	</div>
-	<div class="row" style="width: 100%;height: 250px;margin-top: 40px;">
-		<div id="lineChart" style="width: 100%;height: 100%;"></div>
-	</div>
+	
 </div>

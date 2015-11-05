@@ -5,7 +5,7 @@
 <title></title>
 </head>
 <body>
-	<form action="../Parkrecord/count_flow" method="post" class="w-form">
+	<form action="../Parkrecord/park_analyse" method="post" class="w-form">
 		<div class="tester-params">
 			<div class="form-item">
 				<label class="form-label">user_id<i class="form-must">*</i></label>
@@ -19,15 +19,23 @@
 				<label class="form-label">park_id</label>
 				<div class="form-target">
 					<label class="w-text text-m text-full"><input
-						class="text-input" name="park_id" 
+						class="text-input" name="park_id" placeholder="0" value="0"
 						type="text"></label>
 				</div>
 			</div>
 			<div class="form-item">
-				<label class="form-label">time</label>
+				<label class="form-label">start_time</label>
 				<div class="form-target">
 					<label class="w-text text-m text-full"><input
-						class="text-input" name="time" 
+						class="text-input" name="start_time" placeholder="" value=""
+						type="text"></label>
+				</div>
+			</div>
+			<div class="form-item">
+				<label class="form-label">end_time</label>
+				<div class="form-target">
+					<label class="w-text text-m text-full"><input
+						class="text-input" name="end_time" placeholder="" value=""
 						type="text"></label>
 				</div>
 			</div>
@@ -36,7 +44,7 @@
 			<span class="api-type type-post">post</span>
 			<div class="w-text text-m text-full">
 				<input disabled=""
-					value="http://xzjs.love/PXPark/index.php/Home//Parkrecord/count_flow"
+					value="http://xzjs.love/PXPark/index.php/Home//Parkrecord/park_analyse"
 					class="text-input">
 			</div>
 			<label class="w-btn btn-l btn-success"><input
