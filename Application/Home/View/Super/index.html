@@ -1,4 +1,4 @@
-<layout name="super" />
+<layout name="super"/>
 <!-- 收益查询 -->
 <script src="__PUBLIC__/thirdparty/echarts/echarts-all.js"></script>
 <script src="__PUBLIC__/js/admin/map.js"></script>
@@ -47,4 +47,83 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var car_lon = 120.246313;
+    var car_lat = 36.279778;
+    // 百度地图API功能
+    var map = new BMap.Map("map");    // 创建Map实例
+    map.centerAndZoom(new BMap.Point(car_lon, car_lat), 11);  // 初始化地图,设置中心点坐标和地图级别
+    map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+    map.setCurrentCity("青岛");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+
+    var point = new BMap.Point(car_lon, car_lat);
+    map.centerAndZoom(point, 15);
+
+    //创建小车
+    var pt = new BMap.Point(car_lon, car_lat);
+    var myIcon = new BMap.Icon("__PUBLIC__/image/car.png", new BMap.Size(28, 60));
+    var marker2 = new BMap.Marker(pt, {icon: myIcon});  // 创建标注
+    map.addOverlay(marker2);
+
+    //创建停车场
+    var url = "{:U('API/park_list')}";
+    var data = {lon: car_lon, lat: car_lat};
+    var end_lon = 0;
+    var end_lat = 0;
+    $.getJSON(url,
+            data,
+            function (result, textStatus, jqXHR) {
+                $.each(result.park_list, function (i, item) {
+                    if (end_lat == 0) {
+                        end_lon = item.lon;
+                        end_lat = item.lat;
+                    }
+                    var pt = new BMap.Point(item.lon, item.lat);
+                    var myIcon = new BMap.Icon("__PUBLIC__/image/chongzu.png", new BMap.Size(66, 75));
+                    var marker2 = new BMap.Marker(pt, {icon: myIcon});  // 创建标注
+                    map.addOverlay(marker2);
+                });
+                search_line();
+            }
+    );
+
+
+
+    //确定行车路线
+
+    function search_line() {
+     var p1 = new BMap.Point(car_lon, car_lat);
+     var p2 = new BMap.Point(end_lon, end_lat);
+        var driving2 = new BMap.DrivingRoute(map, {renderOptions: {map: map, autoViewport: true}});
+        driving2.search(p1, p2);
+        //小车跑起来
+        var driving = new BMap.DrivingRoute(map);    //驾车实例
+        driving.search(p1, p2);
+        driving.setSearchCompleteCallback(function(){
+            var pts = driving.getResults().getPlan(0).getRoute(0).getPath();    //通过驾车实例，获得一系列点的数组
+            var paths = pts.length;    //获得有几个点
+
+            var carMk = new BMap.Marker(pts[0],{icon:myIcon});
+            map.addOverlay(carMk);
+            i=0;
+            function resetMkPoint(i){
+                carMk.setPosition(pts[i]);
+                if(i < paths){
+                    setTimeout(function(){
+                        i++;
+                        resetMkPoint(i);
+                    },100);
+                }
+            }
+            setTimeout(function(){
+                resetMkPoint(5);
+            },100)
+
+        });
+    }
+
+</script>
+
+
 
