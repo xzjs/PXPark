@@ -87,9 +87,6 @@ class ParkrecordController extends Controller {
 	
 	/**
 	 * 获取近n天的停车和收费数据
-	 * @param number $user_id 用户Id
-	 * @param number $park_id 停车场Id
-	 * @param number $time 查询天数
 	 */
 	public function count_car( ) {
 		if (I('param.park_id',0)!= 0) {
@@ -100,7 +97,8 @@ class ParkrecordController extends Controller {
 		}
 		$Model = new Model ();
 		$time=strtotime("-".I('param.time',30)." day");
-		$sql = 'SELECT a.money,c.type FROM px_parkrecord AS a,px_park AS b,px_car AS c WHERE b.id=a.park_id AND c.id=a.car_id and a.end_time>'.$time.$condition.' ORDER BY a.id desc';
+		$sql = 'SELECT a.money,c.type FROM px_parkrecord AS a,px_park AS b,px_car AS c 
+				WHERE b.id=a.park_id AND c.id=a.car_id and a.end_time>'.$time.$condition.' ORDER BY a.id desc';
 		echo  $sql;
 		$result = $Model->query ( $sql );
 		$detail['small']=array("num"=>0,"money"=>0);
@@ -150,8 +148,8 @@ class ParkrecordController extends Controller {
 		$time=strtotime("-".$time." day");
 		$sql= 'SELECT px_parkrecord.id,px_parkrecord.start_time,px_parkrecord.end_time,px_parkrecord.money,px_car.no,px_user.member_id, 
 				px_parkrecord.end_time-px_parkrecord.start_time as time FROM px_parkrecord,px_car,px_park,px_user,px_user_car WHERE (px_parkrecord.start_time 
-				between '.$in_time.' and '.$out_time.' OR px_parkrecord.end_time between '.$in_time.' and '.$out_time.
-		')and px_park.id=px_parkrecord.park_id and px_parkrecord.car_id=px_car.id and px_car.id=px_user_car.car_id and px_user_car.user_id=px_user.id '.$condition;
+				between '.$in_time.' and '.$out_time.' OR px_parkrecord.end_time between '.$in_time.' and '.$out_time.') and px_park.id=px_parkrecord.park_id 
+				and px_parkrecord.car_id=px_car.id and px_car.id=px_user_car.car_id and px_user_car.user_id=px_user.id '.$condition;
 		$result = $Model->query ( $sql );
 		$json_array=array();
 		for($i=0;$i<count($result);$i++){
