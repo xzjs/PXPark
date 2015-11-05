@@ -16,13 +16,13 @@ class ParkController extends Controller {
 	 * @param number $park_id 停车场 Id
 	 * @param number $type 停车场类型
 	 */
-	public function status($user_id=0,$park_id=0,$type=0) {
+	public function status() {
 		$park=M('Park');
-		if($type!=0){
-			$condition['type']=$type;
+		if(I('param.type',0)!=0){
+			$condition['type']=I('param.type');
 		}
-		if($park_id!=0){
-			$condition['id']=$park_id;
+		if(I('param.park_id',0)!=0){
+			$condition['id']=I('param.park_id');
 		}
 		$result = $park->where($condition)->field('name,total_num,remain_num,img')->select();
 		for($i=0;$i<count($result);$i++){
