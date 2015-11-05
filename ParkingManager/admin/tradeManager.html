@@ -19,78 +19,18 @@
 <script src="../resources/js/admin/tradeManager.js"></script>
 
 <div class="page">
-	<div>
-		停车场类型： <select>
-			<option>全部</option>
+	<div style="width: 100%;height: 100%;">
+		<div id="tradeGrid">
+		</div>
+	</div>
+</div>
+
+<div id="tb" style="padding:2px 5px;">
+     停车场类型
+      <select class="easyui-combobox" panelHeight="auto" style="width:150px;">
+         <option>全部</option>
 			<option>普通收费停车场</option>
 			<option>路侧公共停车场</option>
 			<option>个人车位</option>
-		</select>
-	</div>
-	<div style="width: 90%;margin-top: 5px;height: 80%;">
-		<div id="tradeGrid">
-		</div>
-		<!-- <!-- 设置data-url后台请求地址  -->
-		<table class="datatable" data-toggle="table" data-striped="true"
-			data-pagination="true" data-locale="zh-CN"
-			data-pagination-first-text="首页" data-pagination-pre-text="上一页"
-			data-pagination-next-text="下一页" data-pagination-last-text="末页"
-			data-page-size="10">
-			<thead>
-				<tr>
-					<th data-align="center" data-width="25"></th>
-					<th>车牌号</th>
-					<th>付费用户名</th>
-					<th>付费用户手机号</th>
-					<th>所停停车场</th>
-					<th>所停车位</th>
-					<th>停车场注册手机号</th>
-					<th>入场时间</th>
-					<th>出场时间</th>
-					<th>共消费</th>
-					<th>管理状态</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>
-						<select style="color: #000;">
-							<option>正常</option>
-							<option>返款</option>
-							<option>暂停交易</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>
-						<select style="color: #000;">
-							<option>正常</option>
-							<option>暂时封号</option>
-							<option>永久封号</option>
-						</select>
-					</td>
-				</tr>
-			</tbody>
-		</table> -->
-	</div>
-</div>
+      </select>
+  </div>

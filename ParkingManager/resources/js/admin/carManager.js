@@ -122,20 +122,16 @@ $(function() {
 		return rows;
 	}
 	$('#personGrid').datagrid({
-		title: '停车场历史在停车辆',
-		height: 340,
 		url: '',
 		method: 'GET',
 		striped: true,
 		fitColumns: true,
-		rownumbers: true,
 		rownumbers: true,
 		singleSelect: true,
 		pagination: true,
 		nowrap: false,
 		pageSize: 10,
 		pageList: [10, 20, 50, 100, 150, 200],
-		showFooter: true,
 		columns: [[{
 			field: 'cheh',
 			title: '车牌号码',
@@ -174,20 +170,17 @@ $(function() {
 		}]]
 	});
 	$('#realTimeParkingGrid').datagrid({
-		title: '停车场实时在停车辆',
-		height: 340,
+		title: '停车场实时在停车辆：场内在停车总共888辆',
 		url: '',
 		method: 'GET',
 		striped: true,
 		fitColumns: true,
-		rownumbers: true,
 		rownumbers: true,
 		singleSelect: true,
 		pagination: true,
 		nowrap: false,
 		pageSize: 10,
 		pageList: [10, 20, 50, 100, 150, 200],
-		showFooter: true,
 		columns: [[{
 			field: 'cheh',
 			title: '车牌号码',
@@ -223,7 +216,27 @@ $(function() {
 	$('#personGrid').datagrid({
 		data: getData()
 	}).datagrid('clientPaging');
+	// 分页工具栏上添加导出excel
+	var pager = $('#personGrid').datagrid('getPager'); // 得到datagrid的pager对象
+	pager.pagination({
+		buttons: [{
+			iconCls: 'icon-excel',
+			handler: function() {
+				alert('导出excel');
+			}
+		}]
+	});
 	$('#realTimeParkingGrid').datagrid({
 		data: getData()
 	}).datagrid('clientPaging');
+	// 分页工具栏上添加导出excel
+	var pager = $('#realTimeParkingGrid').datagrid('getPager'); // 得到datagrid的pager对象
+	pager.pagination({
+		buttons: [{
+			iconCls: 'icon-excel',
+			handler: function() {
+				alert('导出excel');
+			}
+		}]
+	});
 });

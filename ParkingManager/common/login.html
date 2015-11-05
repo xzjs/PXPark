@@ -1,102 +1,83 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<link rel="icon" href="../resources/image/parking.ico">
-<title>登陆</title>
-
-<!-- Bootstrap CSS -->
-<link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="../resources\thirdparty\bootstrap\css\Cosmo.bootstrap.min.css"
-	rel="stylesheet">
-
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
-<!-- custom style 
-<link href="../resources/css/common.css" rel="stylesheet">-->
-<link href="../resources/css/common/login.css" rel="stylesheet">
-
-<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-<!--[if lt IE 9]>
-      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-<script src="../resources/js/commonuser/login.js"></script>
-<script type="text/javascript">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+	<!-- 使IE以最高模式渲染页面 -->
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	
-</script>
+	<!-- 使360以极速模式渲染页面 -->
+	<title>登录</title>
+	<link rel="icon" href="../resources/image/parking.ico">
+	<link rel="stylesheet"  href="../resources/css/common/login.css">
+	<link rel="stylesheet"  href="../resources/css/common/high.css">
+	
+	<link href="../resources/thirdparty/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="../resources/thirdparty/bootstrap/css/Cosmo.bootstrap.min.css"
+	rel="stylesheet">
+	
+	
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="../resources/thirdparty/bootstrap/js/bootstrap.js"></script>
+	<script src="../resources/js/commonuser/login.js"></script>
 </head>
 <body>
-	<div class="box text-center">
-		<div class="col-xs-8 col-xs-offset-4 text-center" style="width:460px;color:#f90;position: absolute;top: 50%;margin-top: -260px;">
-			<h1 class="h1">平行停车管理系统</h1>
-		</div>
-
-		<div class="login-box col-xs-8 col-xs-offset-4">
-			<div class="login-title text-center">
-				<h2>管理员登录</h2>
+	<div class="out_container">
+		<div class="container">
+			<div class="logo">
+				<h1>平行停车管控平台</h1>
+				<div class="clr"></div>
 			</div>
-			<div class="login-content ">
-				<div class="form">
-					<form action="#" method="post">
-						<div class="form-group">
-							<div class="col-xs-6 link" style="padding-bottom:15px">
-								<input type="radio" name="radio" value="luce">路侧公共停车场
-							</div>
-							<div class="col-xs-6 link" style="padding-bottom:15px">
-								<input type="radio" name="radio" value="putong">普通停车场
-							</div>
+			<div class="log_main">
+				<img src="../resources/image/parkinglogo.png">
+				<div class="rectangle">
+					<h2>管理员登录</h2>
+					<form action="from" method="get">
+						<div style="margin-left: 15px;">
+							<input type="radio" id="luce" name="loginType" checked="checked" value="luce">路侧公共停车场
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="putong" name="loginType" value="putong">普通停车场
 						</div>
-						<div class="form-group">
-							<div class="col-xs-12  ">
-								<div class="input-group">
-									<span class="input-group-addon"><span
-										class="glyphicon glyphicon-user"></span> </span> <input type="text"
-										id="username" name="username" class="form-control"
-										placeholder="用户名">
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-xs-12  ">
-								<div class="input-group">
-									<span class="input-group-addon"><span
-										class="glyphicon glyphicon-lock"></span> </span> <input type="text"
-										id="password" name="password" class="form-control"
-										placeholder="密码">
-								</div>
-							</div>
-						</div>
-						<div class="form-group form-actions">
-							<div class="col-xs-4 col-xs-offset-4 ">
-								<a class="btn btn-sm btn-success" href="javascript:userLogin()">
-									<span class="glyphicon glyphicon-off"></span> 登录
-								</a>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-xs-6 col-xs-offset-6">
-								<p class="text-center remove-margin">
-									<small>还没注册?</small> <a href="javascript:userRegister()"><small>注册</small>
-									</a>
-								</p>
-							</div>
-						</div>
+	  					<p>
+	  						<img src="../resources/image/manager.png" alt="">
+	  						<input type="text" placeholder="用户名" name="email"  size="10" autoComplete="false" />
+	  					</p>
+	  					<p>
+	  						<img src="../resources/image/unlocked.png" alt="">
+	  						<input type="password" placeholder="密码"  name="pin" maxlength="18" size="10"  />
+	  					</p>
+	  					<div style="margin-left: 155px;margin-top: 10px;">还没注册？<a href="javascript:userRegister()" style="color: #E75D2F;">注册</a></div>
+	  					<a class="submit" href="javascript:userLogin()">登录</a>
 					</form>
 				</div>
+				<div class="clr"></div>
 			</div>
 		</div>
+		<div class="clr"></div>
+		<div class="high"></div>
+		<div class="address-footer">
+				<p>版权:青岛智能产业技术研究院</p>
+				<p>2015 all rights reserved</p>
+		</div>
 	</div>
+	
+	<div class="modal fade" id="registerWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">选择注册用户类型</h4>
+      </div>
+      <div class="modal-body" align="center">
+      	<button type="button" class="btn btn-success" onclick="goToRegisterPage(0)" data-dismiss="modal"  style="width: 200px;">普通停车场用户</button>
+		<button type="button" class="btn btn-info" onclick="goToRegisterPage(1)"  data-dismiss="modal"  style="width: 200px;margin-left: 100px;">路侧停车场用户</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
 </body>
 </html>

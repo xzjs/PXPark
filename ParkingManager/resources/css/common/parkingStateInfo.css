@@ -1,25 +1,29 @@
 @charset "utf-8";
-
+div{
+	padding:0px;
+	margin:0px;
+}
 .page_state {
 	width: 270px;
 	height: 100%;
 	border: 2px solid #000000;
 	border-bottom: none;
 	border-top: none;
+	
 }
 
 .page_state .title {
 	width: 100%;
 	background-color: #363636;
 	height: 30px;
-	line-height: 2.4;
-	font-size: 15px; text-align : center;
+	padding-top:5%;
+	font-size: 15px; 
 	color: #fff;
 	text-align: center;
 }
 
 .state_block {
-	padding: 10px 10px 17px 10px;
+	padding: 5px 10px 17px 10px;
 	margin: 0 auto;
 }
 
@@ -39,30 +43,27 @@
 
 .state_block .car_sum {
 	float:right;
-	margin-top:25px;
+	margin-top:10%;
 	width: 80px;
-	height:100px;
 	border: 1px solid #ccc;
 	color: red;
 	font-weight: 900;
 	font-size: 40px;
-	padding-top: 35px;
+	text-align:center
 }
 
 .state_block .left{
 	width: 220px;
 	float: left;
-	height:100px;
 }
 
 .state_block .left div,.state_block .right div{
-	margin: 8px 0px;
+	margin: 0px;
 	font-weight: 900;
 }
 
 .state_block .right{
 	width: 20px;
-	height:100px;
 	float:right;
 }
 

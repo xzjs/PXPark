@@ -5,7 +5,8 @@
 <script src="../resources/thirdparty/echarts/echarts-all.js"></script>
 <script type="text/javascript">
 $(function(){
-	$('.page_right').load('parkingStateInfo.html');
+	//$('.static_right').load('parkingStateInfo.html');
+	
 	var option_indexLine = {
 			 title : {
  			        text: ' 近30天停车类型收益关系图'
@@ -66,8 +67,7 @@ $(function(){
 			        }
 			    ]
 		};
- 		var chart = echarts.init($('#indexLine')[0]); 
- 		chart.setOption(option_indexLine);
+ 		
  		
  		var option_pie = {
  			    title : {
@@ -94,8 +94,6 @@ $(function(){
  			        }
  			    ]
  			};
- 		var chart = echarts.init($('#pieChart')[0]); 
- 		chart.setOption(option_pie);
  		
  		var option_line = {
  			    title : {
@@ -121,7 +119,7 @@ $(function(){
  			        {
  			            type : 'value',
  			            axisLabel : {
- 			                formatter: '{value} °C'
+ 			                formatter: '{value} 辆'
  			            }
  			        }
  			    ],
@@ -135,11 +133,6 @@ $(function(){
  			                    {type : 'max', name: '最大值'},
  			                    {type : 'min', name: '最小值'}
  			                ]
- 			            },
- 			            markLine : {
- 			                data : [
- 			                    {type : 'average', name: '平均值'}
- 			                ]
  			            }
  			        },
  			        {
@@ -150,20 +143,21 @@ $(function(){
  			                data : [
  			                    {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
  			                ]
- 			            },
- 			            markLine : {
- 			                data : [
- 			                    {type : 'average', name : '平均值'}
- 			                ]
  			            }
  			        }
  			    ]
  			};
  		
- 		var chart = echarts.init($('#lineChart')[0]); 
- 		chart.setOption(option_line);
  		
- 		
+ 		 $(".static_right").load("parkingStateInfo.html", function(){
+    		var chart = echarts.init($('#indexLine')[0]); 
+ 			chart.setOption(option_indexLine);
+ 			var chart1 = echarts.init($('#pieChart')[0]); 
+ 			chart1.setOption(option_pie);
+ 			var chart2 = echarts.init($('#lineChart')[0]); 
+ 			chart2.setOption(option_line);
+    	}
+ 	 );
 });
 </script>
 <div class="page">
@@ -172,17 +166,16 @@ $(function(){
 			<a href="#" class="sel">统计信息</a>
 			<a href="#" id="carManager">车辆管理</a>
 			<a href="#" id="userInfo">用户信息</a>
+				<img alt="" src="../resources/image/back.png" height="25" onclick="pageJump('realTimeStatus.html')"
+				 style="float: right;cursor: pointer;margin-right: 25px;">
 		</div>
-		<div style="height: 250px;width:99%;padding: 10px;">
-			<div style="width: 60%;height: 100%;float: left;">
-				<div id="indexLine" style="width: 100%;height: 100%;"></div>
+		
+		<div style="width: 100%;height: 100%;padding-top: 45px;margin-top: -35px;">
+			<div style="height: 50%;width: 100%;">
+				<div id="indexLine" style="width: 60%;height: 100%;float: left;"></div>
+				<div id="pieChart" style="width:40%;height: 100%;float: right;"></div>
 			</div>
-			<div style="width: 40%;height: 100%;float: right;">
-				<div id="pieChart" style="width: 100%;height: 100%;"></div>
-			</div>
-		</div>
-		<div style="height: 250px;width:80%;padding: 10px;margin-top: 40px;">
-			<div id="lineChart" style="width: 100%;height: 100%;"></div>
+			<div id="lineChart" style="width: 100%;height: 50%;"></div>
 		</div>
 	
 	<div class="static_right"></div>
