@@ -62,7 +62,7 @@
 
     //创建小车
     var pt = new BMap.Point(car_lon, car_lat);
-    var myIcon = new BMap.Icon("__PUBLIC__/image/car.png", new BMap.Size(70, 26));
+    var myIcon = new BMap.Icon("__PUBLIC__/image/car.png", new BMap.Size(28, 60));
     var marker2 = new BMap.Marker(pt, {icon: myIcon});  // 创建标注
     map.addOverlay(marker2);
 
@@ -80,7 +80,7 @@
                         end_lat = item.lat;
                     }
                     var pt = new BMap.Point(item.lon, item.lat);
-                    var myIcon = new BMap.Icon("__PUBLIC__/image/chongzu.png", new BMap.Size(30, 34));
+                    var myIcon = new BMap.Icon("__PUBLIC__/image/chongzu.png", new BMap.Size(66, 75));
                     var marker2 = new BMap.Marker(pt, {icon: myIcon});  // 创建标注
                     map.addOverlay(marker2);
                 });
