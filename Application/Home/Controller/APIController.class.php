@@ -203,7 +203,7 @@ class APIController extends Controller
         } else {
             $u['nickname'] = $result['nickname'];
             $u['phone'] = $result['phone'];
-            $u['img'] = C('IP').__ROOT__.C('UPLOAD').$result['img'];
+            $u['img'] =$this->get_url(C('UPLOAD').$result['img']);
             $data['user'] = $u;
         }
         echo json_encode($data);
