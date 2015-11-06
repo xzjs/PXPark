@@ -43,6 +43,9 @@
 .icon-undo{
 	background:url('icons/undo.png') no-repeat center center;
 }
+.icon-excel{
+	background:url('icons/excel.png') no-repeat center center;
+}
 .icon-redo{
 	background:url('icons/redo.png') no-repeat center center;
 }

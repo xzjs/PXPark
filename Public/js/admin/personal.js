@@ -124,12 +124,10 @@ $(function() {
 			.datagrid(
 					{
 						title : '用户列表',
-						height : 840,
 						url : '',
 						method : 'GET',
 						striped : true,
 						fitColumns : true,
-						rownumbers : true,
 						rownumbers : true,
 						fit : true,
 						singleSelect : true,
@@ -137,7 +135,6 @@ $(function() {
 						nowrap : false,
 						pageSize : 10,
 						pageList : [ 10, 20, 50, 100, 150, 200 ],
-						showFooter : true,
 						columns : [ [
 								{
 									field : 'nick',
@@ -187,7 +184,7 @@ $(function() {
 									width : 100,
 									align : 'center',
 									formatter : function(value, row, index) {
-										return '<a class="detailBtn" href="#">详情</a>';
+										return '<a class="table_row_btn" href="javascript:showDetail();" >详情</a>';
 									}
 								},
 								{
@@ -204,8 +201,18 @@ $(function() {
 	$('#personGrid').datagrid({
 		data : getData()
 	}).datagrid('clientPaging');
-	$('.detailBtn').on('click', function() {
-		$('#detailInfoWin').modal();
+	//分页工具栏上添加导出excel
+	var pager = $('#personGrid').datagrid('getPager');    // 得到datagrid的pager对象  
+	pager.pagination({   
+	    buttons:[{    
+	        iconCls:'icon-excel',    
+	        handler:function(){    
+	            alert('导出excel');    
+	        }    
+	    }]
+	});    
+});
 
-	});
-})
+function showDetail(){
+	$('#detailInfoWin').modal();
+}

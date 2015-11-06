@@ -77,10 +77,52 @@ var parkingList = [{
 	'img': '/PXPark/Public/image/parkingDemo.png',
 	'usingNum': '23',
 	'sumNum': '100'
+}, {
+	'id':0,
+	'title': '青岛创业大厦停车场',
+	'img': '../resources/image/parkingDemo.png',
+	'usingNum': '89',
+	'sumNum': '100'
+}, {
+	'id':0,
+	'title': '青岛创业大厦停车场',
+	'img': '../resources/image/parkingDemo.png',
+	'usingNum': '27',
+	'sumNum': '100'
+}, {
+	'id':0,
+	'title': '青岛创业大厦停车场',
+	'img': '../resources/image/parkingDemo.png',
+	'usingNum': '60',
+	'sumNum': '100'
+}, {
+	'id':0,
+	'title': '青岛创业大厦停车场',
+	'img': '../resources/image/parkingDemo.png',
+	'usingNum': '45',
+	'sumNum': '100'
+}, {
+	'id':0,
+	'title': '青岛创业大厦停车场',
+	'img': '../resources/image/parkingDemo.png',
+	'usingNum': '89',
+	'sumNum': '100'
+}, {
+	'id':0,
+	'title': '青岛创业大厦停车场',
+	'img': '../resources/image/parkingDemo.png',
+	'usingNum': '56',
+	'sumNum': '100'
+}, {
+	'id':0,
+	'title': '青岛创业大厦停车场',
+	'img': '../resources/image/parkingDemo.png',
+	'usingNum': '23',
+	'sumNum': '100'
 }];
 var nowPage = 1;
 var sumPage = 2;
-var pageSize = 9;
+var pageSize = 15;
 // 各种车数量情况对应的颜色
 var carNumType = {};
 carNumType['ENOUGH'] = ['car_num_enu_title', 'car_num_enu_tag'];

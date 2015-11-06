@@ -215,8 +215,9 @@ $(function() {
 })
 
 function showCompreMangerDetail(){
+
 	
 	var url="compreManagerDetail";
     window.location.href=url;
-	//U("Super/compreManagerDetail");
+	
 }

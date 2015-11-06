@@ -42,24 +42,28 @@
 		function phoneCheck() {
 			var patten = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
 			var phone = $("#phone").val();
-			var count = 60;
+			
 			if (!patten.test(phone)) {
-				alert("手机号码格式不正确！");
-				return;
+				$("#codeBtn").attr("disabled","disabled");
 			} else {
-				$("#codeBtn").html(count + "秒");
-				interval = setInterval(function() {
-					count = count - 1;
-					$("#codeBtn").html(count + "秒");
-					if (count == 0) {
-						clearInterval(interval);
-						$("#codeBtn").html("发送验证码");
-
-					}
-
-				}, 1000);
+				$("#codeBtn").removeAttr("disabled");
+				
 			}
 
+		}
+		function getVerifyCode(){
+			var count = 60;
+			$("#codeBtn").html(count + "秒");
+			interval = setInterval(function() {
+				count = count - 1;
+				$("#codeBtn").html(count + "秒");
+				if (count == 0) {
+					clearInterval(interval);
+					$("#codeBtn").html("发送验证码");
+
+				}
+
+			}, 1000);
 		}
 		//下一步认证
 		function userInfoCheck() {
@@ -79,12 +83,12 @@
 		}
 		//点击加号图标
 		function parkAdd() {
-			$("#addInfoDiv").css("display", "block");
+			$('#detailInfoWin').modal();
 		}
 		//切换车场类型
 		function typeChange() {
 			var type = $("#parktype").val();
-			if (type = "1") {
+			if (type == "1") {
 				$("#acceptDiv").css("display", "none");
 			} else {
 				$("#acceptDiv").css("display", "block");
@@ -97,27 +101,25 @@
 		//点击添加信息框完成按钮
 		function addComplate() {
 			//先添加信息验证，判断是否可以提交完成
-			$("#addInfoDiv").css("display", "block");
 			//将信息相关内容赋值到顶框parkCompany
 			var name = $("#parkname").val();//将添加信息框需要显示的信息都定义变量传入顶框
 			$("#parkCompany").val(name + "ok......");
 			//隐藏无停车场的图标
-			$("#isNullDivTmp").css("display", "block");
 			$("#isNullDiv").css("display", "none");
 			//显示停车场信息框
 			$("#parkInfoDiv").css("display", "block");
-			$("#parkInfoDivTmp").css("display", "none");
-			$("#addInfoDiv").css("display", "none");
-
+			$('#detailInfoWin').modal();
+//			if($("#parktype").val()=="1"){
+//				$("#addImgDiv").css('display','none');
+//			}
 		}
 		//点击修改图标
 		function edits() {
-			$("#addInfoDiv").css("display", "block");
+			$('#detailInfoWin').modal();
 		}
 		//点击删除图标
 		function deletes() {
-			$("#addInfoDiv").css("display", "none");
-			$("#deleteInfoDiv").css("display", "block");
+			$('#deleteInfoWin').modal();
 			$("#tishi").html("确定要删除" + $("#parkCompany").val() + "?");
 		}
 		function yesBtn() {
@@ -154,9 +156,11 @@
 		//收费规则添加
 		function ruleAdd(flag) {
 			if (flag == 4) {
+				$('#addRuleInfoWin').modal();
 				$("#addRuleDiv").css("display", "block");
 				$("#ruleTimeDiv").css("display", "block");
 			} else {
+				$('#addRuleInfoWin').modal();
 				$("#addRuleDiv").css("display", "block");
 				$("#ruleTimeDiv").css("display", "none");
 			}
@@ -168,9 +172,11 @@
 		//收费规则编辑
 		function ruleEdit(flag) {
 			if (flag == 4) {
+				$('#addRuleInfoWin').modal();
 				$("#addRuleDiv").css("display", "block");
 				$("#ruleTimeDiv").css("display", "block");
 			} else {
+				$('#addRuleInfoWin').modal();
 				$("#addRuleDiv").css("display", "block");
 				$("#ruleTimeDiv").css("display", "none");
 			}
@@ -179,30 +185,37 @@
 		//收费规则删除
 		function ruleDelete(flag) {
 		    //后台操作
-			if (flag == 4) {
+			
 				//后台操作，更新select
-			}
+			$('#deleteInfoWin').modal();
+			$("#tishi").html("确定要删除此规则吗?");	//后台操作，更新select
+			
 		}
 		//添加小车收费规则 0白天 1夜晚
 		function addSmallCar(flag) {
 		    if(flag==0){
-		    $("#daySmallDiv").append($("#daySmall").clone());
+		    $("#daySmallDiv").append($("#daySmall").clone().css("display",'block'));
 		    //alert($("#addRuleDiv").height());
 		    $("#addRuleDiv").css("height",$("#addRuleDiv").height()+30);
 		    }else{
-		    $("#nightSmallDiv").append($("#nightSmall").clone());
+		    $("#nightSmallDiv").append($("#nightSmall").clone().css("display",'block'));
 		    //alert($("#addRuleDiv").height());
 		    $("#addRuleDiv").css("height",$("#addRuleDiv").height()+30);
 		    }
 			
 		}
+		//删除小车
+		function removeCar(flag) {
+		    $(flag).parent().parent().remove();
+			
+		}
 		//添加大车收费规则
 		function addLargeCar(flag) {
 			if(flag==0){
-		    $("#dayLargeDiv").append($("#dayLarge").clone());
+		    $("#dayLargeDiv").append($("#dayLarge").clone().css("display",'block'));
 		    $("#addRuleDiv").css("height",$("#addRuleDiv").height()+30);
 		    }else{
-		     $("#nightLargeDiv").append($("#nightLarge").clone());
+		     $("#nightLargeDiv").append($("#nightLarge").clone().css("display",'block'));
 		    $("#addRuleDiv").css("height",$("#addRuleDiv").height()+30);
 		    }
 		}
@@ -211,3 +224,45 @@
 		alert("注册结束！");
 		window.location.href="login.html";
 		}
+		$(function() {
+			var Accordion = function(el, multiple) {
+				this.el = el || {};
+				this.multiple = multiple || false;
+
+				// Variables privadas
+				var links = this.el.find('.link');
+				// Evento
+				links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown);
+			};
+
+			Accordion.prototype.dropdown = function(e) {
+				var $el = e.data.el;
+					$this = $(this),
+					$next = $this.next();
+
+					$next.slideToggle();
+				$this.parent().toggleClass('open');
+
+				if (!e.data.multiple) {
+					$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+				};
+
+			};	
+
+			var accordion = new Accordion($('#accordion'), false);
+			var accordion1 = new Accordion($('#accordion1'), false);
+			var accordion2 = new Accordion($('#accordion2'), false);
+			var accordion3 = new Accordion($('#accordion3'), false);
+			$(".fa-check").each(function(index, element) {
+		        $(this).click(function(){
+					$(".fa-check").css("color","#000");
+					$(this).css("color","green");
+					});
+		    });
+			
+			$(".fa-remove").each(function(index, element) {
+		        $(this).click(function(){
+					ruleDelete();
+					});
+		    });
+		});
