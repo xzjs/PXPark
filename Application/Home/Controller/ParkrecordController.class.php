@@ -82,7 +82,8 @@ class ParkrecordController extends Controller {
 				"in" => $in,
 				"out" => $out
 		);
-		echo json_encode ( $array );
+		$this->assign ( 'flow_detail', json_encode ( $array ));
+		$this->display ( );
 	}
 	
 	/**
@@ -141,43 +142,48 @@ class ParkrecordController extends Controller {
 		if(I('param.user_id',0)!=0){
 			$condition.=" and px_park.user_id=".I('param.user_id');
 		}
-		$in_time=strtotime(I('param.start_time'));
-		$out_time=strtotime(I('param.end_time'));
-		
-		$Model = new Model ();
-		$time=strtotime("-".$time." day");
-		$sql= 'SELECT px_parkrecord.id,px_parkrecord.start_time,px_parkrecord.end_time,px_parkrecord.money,px_car.no,px_user.member_id, 
-				px_parkrecord.end_time-px_parkrecord.start_time as time FROM px_parkrecord,px_car,px_park,px_user,px_user_car WHERE (px_parkrecord.start_time 
-				between '.$in_time.' and '.$out_time.' OR px_parkrecord.end_time between '.$in_time.' and '.$out_time.') and px_park.id=px_parkrecord.park_id 
-				and px_parkrecord.car_id=px_car.id and px_car.id=px_user_car.car_id and px_user_car.user_id=px_user.id '.$condition;
-		$result = $Model->query ( $sql );
+		if((I('param.start_time',0)!=0)&&(I('param.end_time',0)!=0)){
+			$in_time=strtotime(I('param.start_time'));
+			$out_time=strtotime(I('param.end_time'));
+			$condition.=' and (px_parkrecord.start_time between '.$in_time.' and '.$out_time.' OR px_parkrecord.end_time between '.$in_time.' and '.$out_time.')';
+		}
 		$json_array=array();
-		for($i=0;$i<count($result);$i++){
-			if(($result[$i]['start_time']>=$in_time)&&($result[$i]['start_time']>=$in_time))
-				$json_array['in_num']++;
-			if(($result[$i]['end_time']>=$in_time)&&($result[$i]['end_time']>=$in_time))
-				$json_array['finish_num']++;
-			$json_array['money']+=$result[$i]['money'];
-			$json_array['cars'][$i]['car_no']=$result[$i]['no'];
-			$json_array['cars'][$i]['start_time']=$result[$i]['start_time'];
-			$json_array['cars'][$i]['end_time']=$result[$i]['end_time'];
-			$json_array['cars'][$i]['time']=$result[$i]['time'];
-			$json_array['cars'][$i]['money']=$result[$i]['money'];
-			switch ($result[$i]['member_id']) {
-				case 1:
-					$json_array['cars'][$i]['member_id']='普通会员';
-				break;
-				case 2:
-					$json_array['cars'][$i]['member_id']='白银会员';
+		if($condition!=""){
+			$Model = new Model ();
+			$time=strtotime("-".$time." day");
+			$sql= 'SELECT px_parkrecord.id,px_parkrecord.start_time,px_parkrecord.end_time,px_parkrecord.money,px_car.no,px_user.member_id, 
+					px_parkrecord.end_time-px_parkrecord.start_time as time FROM px_parkrecord,px_car,px_park,px_user,px_user_car WHERE px_park.id=px_parkrecord.park_id 
+					and px_parkrecord.car_id=px_car.id and px_car.id=px_user_car.car_id and px_user_car.user_id=px_user.id '.$condition;
+			$result = $Model->query ( $sql );
+			for($i=0;$i<count($result);$i++){
+				if(($result[$i]['start_time']>=$in_time)&&($result[$i]['start_time']>=$in_time))
+					$json_array['in_num']++;
+				if(($result[$i]['end_time']>=$in_time)&&($result[$i]['end_time']>=$in_time))
+					$json_array['finish_num']++;
+				$json_array['money']+=$result[$i]['money'];
+				$json_array['cars'][$i]['car_no']=$result[$i]['no'];
+				$json_array['cars'][$i]['start_time']=$result[$i]['start_time'];
+				$json_array['cars'][$i]['end_time']=$result[$i]['end_time'];
+				$json_array['cars'][$i]['time']=$result[$i]['time'];
+				$json_array['cars'][$i]['money']=$result[$i]['money'];
+				switch ($result[$i]['member_id']) {
+					case 1:
+						$json_array['cars'][$i]['member_id']='普通会员';
 					break;
-				case 3:
-					$json_array['cars'][$i]['member_id']='黄金会员';
+					case 2:
+						$json_array['cars'][$i]['member_id']='白银会员';
+						break;
+					case 3:
+						$json_array['cars'][$i]['member_id']='黄金会员';
+						break;
+					default:
+						$json_array['cars'][$i]['member_id']='';
 					break;
-				default:
-					$json_array['cars'][$i]['member_id']='';
-				break;
+				}
 			}
 		}
-		echo json_encode($json_array);
+		$this->assign ( 'income_detail', json_encode($json_array));
+		$this->display ( );
+		
 	}
 }

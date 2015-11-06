@@ -1,0 +1,51 @@
+<!-- 收益查询 -->
+<layout name="common"/>
+<meta charset="utf-8">
+
+<!-- S bootstrap-table -->
+<link href="__PUBLIC__/thirdparty/bootstrap/css/bootstrap-table.min.css"
+	rel="stylesheet">
+<script src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap-table.js"></script>
+<script
+	src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap-table-zh-CN.min.js"></script>
+	<!-- S EASYUI -->
+<script src="__PUBLIC__/thirdparty/easyui/jquery.easyui.min.js"></script>
+<link href="__PUBLIC__/thirdparty/easyui/themes/bootstrap/easyui.css" rel="stylesheet" />
+<link href="__PUBLIC__/thirdparty/easyui/themes/icon.css" rel="stylesheet" />
+<script src="__PUBLIC__/thirdparty/easyui/easyui-lang-zh_CN.js"></script>
+<!-- E EASYUI -->
+
+<script src="__PUBLIC__/js/commonuser/queryIncome.js"></script>
+<!-- E bootstrap-table -->
+
+<link href="__PUBLIC__/css/common/queryIncome.css" rel="stylesheet">
+<style>
+.fixed-table-container {
+	clear: none;
+}
+</style>
+
+<div class="page">
+	<div style="height:10%">
+		开始时间： <input placeholder="请输入日期" class="laydate-icon"
+			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+		结束时间： <input placeholder="请输入日期" class="laydate-icon"
+			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+		车辆类型： <select>
+			<option>全部</option>
+			<option>小型车</option>
+			<option>大型车</option>
+		</select>
+		<button type="button" class="btn btn-success btn-xs" style="width: 110px;height: 22px;line-height: 22px;margin-top: -4px;">查询</button>
+		<button type="button" class="btn btn-success btn-xs" style="width: 110px;height: 22px;line-height: 22px;margin-top: -4px;">导出Excel</button>
+	</div>
+	<div style="height:5%">
+		在此时间段内&nbsp;&nbsp;&nbsp;&nbsp; 入场车辆共：<span class="search_result">18</span>辆&nbsp;&nbsp;&nbsp;
+		完成收费：<span class="search_result">8</span>辆 &nbsp;&nbsp;&nbsp; 总计收费：<span
+			class="search_result">44.4</span>元
+	</div>
+		<div style="width: 100%;margin-top: 5px;height: 85%;">
+		<div id="personGrid">
+		</div>
+	</div>
+</div>

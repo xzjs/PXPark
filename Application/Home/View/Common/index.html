@@ -89,7 +89,7 @@
 	 			    },
 	 			    legend: {
 	 			        orient : 'vertical',
-	 			        x : 'left',
+	 			        x : 'right',
 	 			        data:['免费小车','免费大车','收费小车','收费大车']
 	 			    },
 	 			    calculable : true,
@@ -135,7 +135,7 @@
 	 			        {
 	 			            type : 'value',
 	 			            axisLabel : {
-	 			                formatter: '{value} °C'
+	 			                formatter: '{value} 辆'
 	 			            }
 	 			        }
 	 			    ],
@@ -182,15 +182,15 @@
 </script>
 
 <div class="page">
-		<div class="row" style="width: 100%;height: 250px;">
-			  <div class="col-md-6" style="height: 250px;">
+		<div class="row" style="width: 100%;height: 55%;">
+			  <div  style="height: 100%;width:60%;float:left">
 			  		<div id="lineBarChart" style="width: 100%;height: 100%;"></div>
 			  </div>
-			  <div class="col-md-6" style="height: 250px;">
+			  <div  style="height: 100%;width:40%;float:right">
 			  		<div id="pieChart" style="width: 100%;height: 100%;"></div>
 			  </div>
 		</div>
-		<div class="row" style="width: 100%;height: 250px;margin-top: 40px;">
+		<div class="row" style="width: 100%;height: 45%;position:relative;bottom:-15px">
 			<div id="lineChart" style="width: 100%;height: 100%;"></div>
 		</div>
 </div>
