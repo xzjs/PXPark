@@ -90,8 +90,8 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="topMenu">
                                 <button type="button" class="btn btn-default btn-md" style="height: 52px;"
-                                        onclick="javascript:pageJump('map.html')">
-                                    <img width="25" height="25" src="__PUBLIC__/image/zonglan.png"> 总览
+                                        onclick="{:U('Super/map')}">
+                                       <img width="25" height="25" src="__PUBLIC__/image/zonglan.png"> 总览
                                 </button>
                             </li>
 
@@ -144,9 +144,9 @@
                                 系统管控 <span class="fa fa-sort-down"></span>
                             </a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="javascript:pageJump('activityManager.html')"><i
+                                    <li><a href="{:U('SystemConth/activityManager')}"><i
                                             class="fa fa-cogs fa-fw"></i> 活动管理</a></li>
-                                    <li><a href="javascript:pageJump('tradeManager.html')"><i
+                                    <li><a href="{:U('SystemConth/tradeManager')}"><i
                                             class="fa fa-cny fa-fw"></i> 交易管理</a></li>
                                 </ul>
                             </li>
