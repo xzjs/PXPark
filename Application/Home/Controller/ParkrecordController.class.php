@@ -535,6 +535,8 @@ class ParkrecordController extends Controller {
 					
 			}
 		}
+		$this->display();
+		
 	}
 }
 

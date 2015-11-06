@@ -1,0 +1,206 @@
+<layout name="common"/>
+<meta charset="utf-8">
+<div class="login-box col-md-12  text-center"
+			id="login-box" style="padding-top:30px">
+			<div class="login-title text-center" style="margin-bottom:50px">
+				<h3>
+					<img height="30px" src="__PUBLIC__/image/register/user.png">用户注册基本信息
+				</h3>
+			</div>
+			<div class="login-content ">
+				<div class="form">
+					<div class="form-group">
+						<div class="col-xs-12  " style="margin-bottom:20px">
+							<div class="col-xs-4  text-right"
+								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+								用户名:</div>
+							<div class="col-xs-4  text-left" style="padding:0px;height:25px;">
+								<input type="text" id="username" name="username"
+									class="form-control" style="height:25px;" onblur="nameCheck()"
+									placeholder="">
+							</div>
+							<div class="col-xs-4 text-left"
+								style="padding:0px;padding-top:0px;height:25px;color:#999">
+								<small id="nameTip">用户名为3~20位字母或数字组合</small>
+							</div>
+						</div>
+
+						<div class="col-xs-12  " style="margin-bottom:20px">
+							<div class="col-xs-4  text-right"
+								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+								输入密码:</div>
+							<div class="col-xs-4  text-left" style="padding:0px;height:25px;">
+								<input type="password" id="password" name="password"
+									class="form-control" style="height:25px;" onblur="pwdCheck()"
+									placeholder="">
+							</div>
+							<div class="col-xs-4 text-left"
+								style="padding:0px;padding-top:0px;height:25px;color:#999">
+								<small id="pwdTip">密码至少为6位且不能为纯数字，字母区分大小写</small>
+							</div>
+						</div>
+
+						<div class="col-xs-12  " style="margin-bottom:35px">
+							<div class="col-xs-4  text-right"
+								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+								确认密码:</div>
+							<div class="col-xs-4  text-left" style="padding:0px;height:25px;">
+								<input type="password" id="password1" name="password1"
+									class="form-control" style="height:25px;"
+									onblur="pwdEqualsCheck()" placeholder="">
+							</div>
+							<div class="col-xs-4 text-left"
+								style="padding:0px;padding-top:0px;height:25px;color:#999">
+								<small id="pwdTipEq">两次输入的密码保持一致</small>
+							</div>
+						</div>
+						<div class="col-xs-12  " style="margin-bottom:20px">
+							<div class="col-xs-4  text-right"
+								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+								注册人真实姓名:</div>
+							<div class="col-xs-4  text-left" style="padding:0px;height:25px;">
+								<input type="text" id="factname" name="factname"
+									class="form-control" style="height:25px;" placeholder="">
+							</div>
+						</div>
+
+						<div class="col-xs-12  " style="margin-bottom:20px">
+							<div class="col-xs-4  text-right"
+								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+								注册人身份证号:</div>
+							<div class="col-xs-4  text-left" style="padding:0px;height:25px;">
+								<input type="text" id="cardNo" name="cardNo"
+									class="form-control" style="height:25px;" placeholder="">
+							</div>
+						</div>
+
+						<div class="col-xs-12  " style="margin-bottom:60px">
+							<div class="col-xs-4  text-right"
+								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+								注册人身份证照片:</div>
+							<div class="col-xs-4 text-left" style="padding:0px;height:25px;">
+								<input type="file" id="cardfile" name="cardfile"
+									class="form-control" style="height:45px;" placeholder="">
+							</div>
+						</div>
+						<div class="col-xs-12  " style="margin-bottom:20px">
+							<div class="col-xs-4  text-right"
+								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+								注册手机号:</div>
+							<div class="col-xs-4 text-left" style="padding:0px;height:25px;">
+								<input type="text" id="phone" name="phone" class="form-control"
+									style="height:25px;" placeholder="" onkeyup="phoneCheck()">
+							</div>
+							<div class="col-xs-2 text-left" style="height:25px;">
+								<button style="height:25px;line-height:5px;" id="codeBtn"
+									type="button" class="btn btn-sm btn-success"
+									onclick="getVerifyCode()" disabled>发送验证码</button>
+							</div>
+						</div>
+						<div class="col-xs-12  " style="margin-bottom:30px">
+							<div class="col-xs-4  text-right"
+								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
+								短信验证码:</div>
+							<div class="col-xs-4 text-left" style="padding:0px;height:25px;">
+								<input type="text" id="message" name="message"
+									class="form-control" style="height:25px;" placeholder="">
+							</div>
+
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-4 col-xs-offset-4 text-center">
+							<button
+								style="height:25px;line-height:5px;text-align:center;width:140px;border-radius:10px"
+								type="button" class="btn btn-sm btn-success"
+								onclick="">提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<script>
+var interval;
+//用户名验证
+function nameCheck() {
+	var patten = /^[a-zA-Z0-9]{3,20}$/;//用户名正则
+
+	if (!patten.test($("#username").val())) {
+		$("#username").val("");
+		$("#nameTip").html("用户名不合规范");
+		$("#nameTip").css("color", "red");
+	} else {
+		$("#nameTip").html("可用");
+		$("#nameTip").css("color", "green");
+	}
+
+}
+//密码验证
+function pwdCheck() {
+	var patten = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,22}$/;//密码正则
+	if (!patten.test($("#password").val())) {
+		$("#password").val("");
+		$("#pwdTip").html("密码格式错误");
+		$("#pwdTip").css("color", "red");
+	} else {
+		$("#pwdTip").css("color", "green");
+		$("#pwdTip").html("可用");
+	}
+}
+//再次输入密码验证
+function pwdEqualsCheck() {
+	var pwd = $("#password").val();
+	var pwd1 = $("#password1").val();
+	if (pwd1 != null && pwd == pwd1 && pwd1 != "") {
+		$("#pwdTipEq").html("正确");
+		$("#pwdTipEq").css("color", "green");
+	} else {
+		$("#pwdTipEq").html("请正确填写密码");
+		$("#pwdTipEq").css("color", "red");
+		$("#password1").val("");
+	}
+}
+//手机验证
+		function phoneCheck() {
+			var patten = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
+			var phone = $("#phone").val();
+			
+			if (!patten.test(phone)) {
+				$("#codeBtn").attr("disabled","disabled");
+			} else {
+				$("#codeBtn").removeAttr("disabled");
+				
+			}
+
+		}
+		function getVerifyCode(){
+			var count = 60;
+			$("#codeBtn").html(count + "秒");
+			interval = setInterval(function() {
+				count = count - 1;
+				$("#codeBtn").html(count + "秒");
+				if (count == 0) {
+					clearInterval(interval);
+					$("#codeBtn").html("发送验证码");
+
+				}
+
+			}, 1000);
+		}
+//下一步认证
+function userInfoCheck() {
+	clearInterval(interval);
+	var username = $("#username").val();
+	var password = $("#password").val();
+	var password1 = $("#password1").val();
+	var phone = $("#phone").val();
+	var message = $("#message").val();
+	/* if(username==null||password==null||phone==null||username==""||password==""||phone==""||password1!=password||message==null||message==""){
+	   alert("仍有未正确填写用户信息！");
+	   return;
+	}else{ */
+	$("#login-box").hide();
+	$("#park-box").show();
+	//}
+}
+</script>
