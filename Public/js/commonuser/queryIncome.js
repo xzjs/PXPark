@@ -120,7 +120,6 @@ $(function() {
 	$('#personGrid')
 			.datagrid(
 					{
-						height : 340,
 						url : '',
 						method : 'GET',
 						striped : true,
@@ -133,7 +132,6 @@ $(function() {
 						nowrap : false,
 						pageSize : 10,
 						pageList : [ 10, 20, 50, 100, 150, 200 ],
-						showFooter : true,
 						columns : [ [
 								{
 									field : 'cheh',
@@ -181,4 +179,14 @@ $(function() {
 		$('#detailInfoWin').modal();
 
 	});
+	//分页工具栏上添加导出excel
+	var pager = $('#personGrid').datagrid('getPager');    // 得到datagrid的pager对象  
+	pager.pagination({   
+	    buttons:[{    
+	        iconCls:'icon-excel',    
+	        handler:function(){    
+	            alert('导出excel');    
+	        }    
+	    }]
+	});    
 })

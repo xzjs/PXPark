@@ -11,9 +11,10 @@
     		})
     		$(".topMenu").on("mouseleave", function() {
     			if ($(this).is(".open")) {
-    				 $(this).children(":first").find('span').attr('class','fa fa-sort-down')
-    				$(this).children(":first").dropdown("toggle")
+    				$(this).children(":first").dropdown("toggle");
     		    }
+    		    $(this).children(":first").find('span').attr('class','fa fa-sort-down');
+    		    $(this).children(":first").blur();
     		})
     	})
     </script>
@@ -36,8 +37,8 @@
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 
-					<li class="dropdown topMenu nav_item"><a href="#"
-						class="dropdown-toggle" data-toggle="dropdown" role="button"
+					<li class="dropdown topMenu nav_item"><a href="#" onclick="javascript:pageJump('showInfo.html',this,3)"
+						class="dropdown-toggle nav_item" data-toggle="dropdown" role="button"
 						aria-expanded="false"> <img width="25" height="25" src="../resources/image/tjfx.png">  
 							统计分析 <span class="fa fa-sort-down"></span>
 					</a>
@@ -48,14 +49,14 @@
 									class="fa fa-money fa-fw"></i> 收益查询</a></li>
 							<li class="nav_item" onclick="javascript:pageJump('flowAnalysis.html',this,1)"><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 流量分析</a></li>
 						</ul></li>
-					<li class="dropdown nav_item" onclick="pageJump('carManager.html',this,0)"> 
-						<span style="color: #fff;width: 127px;display: block;padding: 14.5px 0px 14.5px 35px;cursor: pointer;">
-							<img width="25" height="25" src="../resources/image/carManage.png">车辆管理
-						</span>
+					
+					<li class="dropdown topMenu nav_item"><a href="#" onclick="pageJump('carManager.html',this,3)"
+						class="dropdown-toggle nav_item" data-toggle="dropdown"
+						role="button" aria-expanded="false"> <img width="25" height="25" src="../resources/image/carManage.png"> 车辆管理</a>
 					</li>
 
-					<li class="dropdown topMenu nav_item" ><a href="#"
-						class="dropdown-toggle" data-toggle="dropdown" role="button"
+					<li class="dropdown topMenu nav_item" ><a href="#" onclick="javascript:pageJump('userInfoDefend.html',this,3)"
+						class="dropdown-toggle nav_item" data-toggle="dropdown" role="button"
 						aria-expanded="false">  <img width="25" height="25" src="../resources/image/infoDefend.png"> 
 							信息维护<span class="fa fa-sort-down"></span>
 					</a>
@@ -67,8 +68,8 @@
 							<li class="nav_item" onclick="javascript:pageJump('payInfoDefend.html',this,1)"><a href="#"><i class="fa fa-user-md fa-fw"></i> 支付信息</a></li>
 						</ul></li>
 						
-					<li class="dropdown topMenu nav_item"><a href="#"
-						class="dropdown-toggle" data-toggle="dropdown" role="button"
+					<li class="dropdown topMenu nav_item"><a href="#" onclick="javascript:pageJump('ruleInfoDefend.html',this,3)"
+						class="dropdown-toggle nav_item" data-toggle="dropdown" role="button"
 						aria-expanded="false">  <img width="22" height="22" src="../resources/image/systemSet.png"> 
 							系统设置 <span class="fa fa-sort-down"></span>
 					</a>

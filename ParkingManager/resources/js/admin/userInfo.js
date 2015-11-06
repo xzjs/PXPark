@@ -77,23 +77,28 @@ function ruleDelete(flag) {
 //添加小车收费规则 0白天 1夜晚
 function addSmallCar(flag) {
     if(flag==0){
-    $("#daySmallDiv").append($("#daySmall").clone());
+    $("#daySmallDiv").append($("#daySmall").clone().css("display",'block'));
     //alert($("#addRuleDiv").height());
     $("#addRuleDiv").css("height",$("#addRuleDiv").height()+30);
     }else{
-    $("#nightSmallDiv").append($("#nightSmall").clone());
+    $("#nightSmallDiv").append($("#nightSmall").clone().css("display",'block'));
     //alert($("#addRuleDiv").height());
     $("#addRuleDiv").css("height",$("#addRuleDiv").height()+30);
     }
 	
 }
+//删除小车
+function removeCar(flag) {
+    $(flag).parent().parent().remove();
+	
+}
 //添加大车收费规则
 function addLargeCar(flag) {
 	if(flag==0){
-    $("#dayLargeDiv").append($("#dayLarge").clone());
+    $("#dayLargeDiv").append($("#dayLarge").clone().css("display",'block'));
     $("#addRuleDiv").css("height",$("#addRuleDiv").height()+30);
     }else{
-     $("#nightLargeDiv").append($("#nightLarge").clone());
+     $("#nightLargeDiv").append($("#nightLarge").clone().css("display",'block'));
     $("#addRuleDiv").css("height",$("#addRuleDiv").height()+30);
     }
 }

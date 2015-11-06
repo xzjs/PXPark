@@ -1,9 +1,9 @@
 var map; // 地图
 $(function() {
 	/* S 初始化地图 */
-	/*map = new BMap.Map("map");
+	map = new BMap.Map("map");
 	map.centerAndZoom(new BMap.Point(118.207244, 36.018531), 12);
-	map.enableScrollWheelZoom();*/
+	map.enableScrollWheelZoom();
 	var labelTop = {
 		normal: {
 			label: {
@@ -43,7 +43,7 @@ $(function() {
 			}
 		},
 		emphasis: {
-			color: 'rgba(0,0,0,0)'
+			color: '#ccc'
 		}
 	};
 	var radius = [40, 55];
