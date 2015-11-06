@@ -14,5 +14,8 @@ use Think\Controller;
  * @package Home\Controller
  */
 class SuperController extends Controller{
-
+/* function zhishu_analysise() {
+	$this->display();
+	
+} */
 }

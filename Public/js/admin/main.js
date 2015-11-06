@@ -3,6 +3,10 @@
  * 
  * @param page
  */
+function pjump(){
+	var url="map";
+    window.location.href=url;
+}
 function pageJump(page, me, flag) {
 	$('#content').load(page);
 	

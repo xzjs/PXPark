@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<link rel="icon" href="__PUBLIC__/image/parking.ico">
+<title>平行停车管控平台</title>
+
+<!-- Bootstrap CSS -->
+<link href="__PUBLIC__/thirdparty/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="__PUBLIC__/thirdparty/bootstrap/css/Cosmo.bootstrap.min.css"
+	rel="stylesheet">
+
+ <!-- Font Awesome -->
+ <link rel="stylesheet" href="__PUBLIC__/thirdparty/font-awesome/css/font-awesome.min.css">
+
+<!-- custom style -->
+<link href="__PUBLIC__/css/common/common.css" rel="stylesheet">
+<link href="__PUBLIC__/css/common/main.css" rel="stylesheet">
+
+<script src="__PUBLIC__/thirdparty/jquery/jquery-1.11.2.min.js"></script>
+<script src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- S zTree -->
+<link rel="stylesheet" href="__PUBLIC__/thirdparty/ztree/css/metroStyle/metroStyle.css" type="text/css"></link>
+<script type="text/javascript" src="__PUBLIC__/thirdparty/ztree/js/jquery.ztree.all-3.5.js"></script>
+<!-- E zTree -->
+
+<!-- S datetimepicker -->
+<script src="__PUBLIC__/thirdparty/laydate/laydate.js"></script>
+<link href="__PUBLIC__/thirdparty/laydate/need/laydate.css" rel="stylesheet">
+<link href="__PUBLIC__/thirdparty/laydate/skins/molv/laydate.css" rel="stylesheet">
+<!-- E datetimepicker -->	
+	
+<!-- custom js -->
+<script type="text/javascript" src="__PUBLIC__/js/commonuser/main.js"></script>
+
+<!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->   
+    <!-- <script type="text/javascript">
+    	$(function(){
+    		$('#header').load('headerCommon.html');
+    		$('#sidebar').load('sidebar.html');
+    		$('#rightSidebar').load('parkingStateInfo.html');
+    		$('#content').load('content.html');
+    	})
+    </script> -->
+</head>
+<body>
+
+	<div id="container">
+		<div id="header">
+		
+		
+		
+		<meta charset="utf-8">
+<link href="__PUBLIC__/css/common/header.css" rel="stylesheet">
+<script type="text/javascript">
+    	$(function(){
+    		$(".topMenu").on("mouseenter", function() {
+    		    if ($(this).is(".open")) {
+    		        return
+    		    }
+    		    $(this).children(":first").find('span').attr('class','fa fa-sort-up')
+    		    $(this).children(":first").dropdown("toggle")
+    		})
+    		$(".topMenu").on("mouseleave", function() {
+    			if ($(this).is(".open")) {
+    				$(this).children(":first").dropdown("toggle");
+    		    }
+    		    $(this).children(":first").find('span').attr('class','fa fa-sort-down');
+    		    $(this).children(":first").blur();
+    		})
+    	})
+    </script>
+
+    
+<div>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div style="padding:0px 20px 0 0px;">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<div class="logo">
+					<span style="color:white">停车场管理后台</span>
+				</div>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+
+					<li class="dropdown topMenu nav_item"><a href="#" onclick="javascript:pageJump('showInfo.html',this,3)"
+						class="dropdown-toggle nav_item" data-toggle="dropdown" role="button"
+						aria-expanded="false"> <img width="25" height="25" src="__PUBLIC__/image/tjfx.png">  
+							统计分析 <span class="fa fa-sort-down"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li class="nav_item" ><a href="{:U('Common/index')}"><i
+									class="fa fa-info fa-fw"></i> 信息展示</a></li>
+							<li class="nav_item" ><a href="{:U('Parkrecord/count_income')}"><i
+									class="fa fa-money fa-fw"></i> 收益查询</a></li>
+							<li class="nav_item" ><a href="{:U('Parkrecord/park_analyse')}"><i class="fa fa-bar-chart-o fa-fw"></i> 流量分析</a></li>
+						</ul></li>
+					
+					<li class="dropdown topMenu nav_item"><a href="#" onclick="pageJump('carManager.html',this,3)"
+						class="dropdown-toggle nav_item" data-toggle="dropdown"
+						role="button" aria-expanded="false"> <img width="25" height="25" src="__PUBLIC__/image/carManage.png"> 车辆管理</a>
+					</li>
+					
+					<!-- <li class="dropdown nav_item" > 
+						<span style="color: #fff;width: 127px;display: block;padding: 14.5px 0px 14.5px 35px;cursor: pointer;"><a href="{:U('Car/car_manage')}">
+							<img width="25" height="25" src="__PUBLIC__/image/carManage.png">车辆管理</a>
+						</span>
+					</li> -->
+
+					<li class="dropdown topMenu nav_item" ><a href="#" onclick="javascript:pageJump('userInfoDefend.html',this,3)"
+						class="dropdown-toggle nav_item" data-toggle="dropdown" role="button"
+						aria-expanded="false">  <img width="25" height="25" src="__PUBLIC__/image/infoDefend.png"> 
+							信息维护<span class="fa fa-sort-down"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li class="nav_item" ><a href="{:U('User/user_info')}"><i
+									class="fa fa-android fa-fw"></i>用户基本信息</a></li>
+							<li class="nav_item" ><a href="{:U('Park/park_info')}"><i
+									class="fa fa-android fa-fw"></i>停车场信息</a></li>
+							<li class="nav_item" ><a href="{:U('Pay/pay_info')}"><i 
+									class="fa fa-user-md fa-fw"></i>支付信息</a></li>
+						</ul></li>
+						
+					<li class="dropdown topMenu nav_item"><a href="#" onclick="javascript:pageJump('ruleInfoDefend.html',this,3)"
+						class="dropdown-toggle nav_item" data-toggle="dropdown" role="button"
+						aria-expanded="false">  <img width="22" height="22" src="__PUBLIC__/image/systemSet.png"> 
+							系统设置 <span class="fa fa-sort-down"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li class="nav_item" ><a href="{:U('Rule/rule_info')}"><i
+									class="fa fa-android fa-fw"></i> 收费规则维护</a></li>
+							<li class="nav_item"><a href="{:U('Message/feedback')}"><i
+									class="fa fa-android fa-fw"></i> 意见反馈</a></li>
+						</ul></li>
+					<li class="dropdown nav_item" onclick=""> 
+						<span style="color: #fff;width: 127px;display: block;padding: 14.5px 0px 14.5px 35px;cursor: pointer;">
+							<img width="25" height="25" src="__PUBLIC__/image/signOut.png">
+							注销
+						</span>
+					</li>
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+</div>
+		
+		
+		
+		
+		</div>
+		<div id="mainContent">
+			<div id="sidebar">
+			
+			
+			<meta charset="utf-8">
+<link href="__PUBLIC__/css/common/sidebar.css" rel="stylesheet">
+
+<!-- S bootstrap-table -->
+<link
+	href="__PUBLIC__/thirdparty/bootstrap/css/bootstrap-table.min.css"
+	rel="stylesheet">
+<script src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap-table.js"></script>
+<!-- E bootstrap-table -->
+<script type="text/javascript">
+	function getFont(treeId, node) {
+		return {'color':'#fff'};
+	}
+	var setting = {
+		view : {
+			fontCss : getFont,
+			nameIsHTML : true
+		}
+	};
+
+	var zNodes = [ {
+		name : "山东省",
+		open : true,
+		iconOpen:"__PUBLIC__/image/open.png", 
+		iconClose:"__PUBLIC__/image/close.png",
+		children : [ {
+			name : "济南市",
+			icon:"__PUBLIC__/image/leaf.png",
+			children : []
+		}, {
+			name : "青岛市",
+			iconOpen:"__PUBLIC__/image/open.png", 
+			iconClose:"__PUBLIC__/image/close.png",
+			children : [ {
+				name : "市南区",
+				icon:"__PUBLIC__/image/leaf.png"
+			}, {
+				name : "市北区",
+				icon:"__PUBLIC__/image/leaf.png"
+			} ]
+		} ]
+	} ];
+
+	$(function() {
+		$(".toobar").on("mouseenter", function() {
+			$(this).toggleClass("toobar_sel");
+			if ($(this).hasClass('toobar1')) {
+				$('#searchPanel').show();
+			} else if ($(this).hasClass('toobar2')) {
+				$('#cityPanel').show();
+			}
+		})
+		$(".toobar").on("mouseleave", function() {
+			$(this).toggleClass("toobar_sel");
+			if ($(this).hasClass('toobar1')) {
+				$('#searchPanel').hide();
+			} else if ($(this).hasClass('toobar2')) {
+				$('#cityPanel').hide();
+			}
+		})
+		$.fn.zTree.init($("#cityTree"), setting, zNodes);
+	})
+	
+	function showSearch(flag){
+		$('#searchResultWin').modal();
+	}
+</script>
+
+<div style="color: #fff;">
+	<!-- S 工具按钮 -->
+	<div class="toobar toobar1">
+		<img src="__PUBLIC__/image/search.png">
+		<div>搜索</div>
+
+		<div id="searchPanel"
+			style="position: absolute; left: 54px; top: 0px; width: 300px; height: 190px; z-index: 1000; display: none;">
+			<div style="height: 100%; background-color: #0066FF; padding: 10px;">
+				<div>
+					<ul class="nav nav-tabs" role="tablist"
+						style="height: 100%; background-color: #FFF; padding: 4px; margin: 15px;">
+						<li role="presentation" class="active"><a href="#carNo"
+							aria-controls="carNo" role="tab" data-toggle="tab">车牌号</a></li>
+						<li role="presentation"><a href="#parking"
+							aria-controls="parking" role="tab" data-toggle="tab">停车场</a></li>
+					</ul>
+					<div class="tab-content" style="height: 100px;">
+						<div role="tabpanel" class="tab-pane active" id="carNo"
+							style="color: #000; padding: 20px 10px;">
+							<div class="form-group">
+								<label for="carNO" class="col-lg-4 control-label"
+									style="color: #fff;">车牌号:</label>
+								<div class="col-lg-8">
+									<input type="text" class="form-control input-sm"
+										id="inputcarNO" placeholder="车牌号">
+								</div>
+							</div>
+							<button type="button" class="btn btn-success btn-xs"
+								onclick="showSearch(0)" style="width: 120px; margin-top: 15px;">搜索</button>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="parking"
+							style="color: #000; padding: 20px 10px;">
+							<div class="form-group">
+								<label for="parking" class="col-lg-4 control-label"
+									style="color: #fff;">停车场:</label>
+								<div class="col-lg-8">
+									<input type="text" class="form-control input-sm"
+										id="inputparking" placeholder="停车场">
+								</div>
+							</div>
+							<button type="button" class="btn btn-success btn-xs"
+								onclick="showSearch(1)" style="width: 120px; margin-top: 15px;">搜索</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="toobar toobar2">
+		<img src="__PUBLIC__/image/map.png" width="24" height="24">
+		<div>区域选择</div>
+		<div id="cityPanel"
+			style="position: absolute; left: 54px; top: 0px; bottom: 0px; width: 250px; z-index: 1000; display: none;">
+			<div
+				style="height: 100%; background-color: #0066FF; margin: 0; padding: 10px;">
+				<div>
+					<ul id="cityTree" class="ztree"></ul>
+				</div>
+			</div>
+		</div>
+		<!-- E 工具按钮 -->
+	</div>
+
+	<!-- 天气情况 -->
+	<div class="whether">
+		<img src="__PUBLIC__/image/whether.png" width="24" height="24">
+		<div>26~20℃</div>
+		<div>良</div>
+	</div>
+
+	<!-- 搜索结果 -->
+	<div class="modal fade" id="searchResultWin" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" style="color: #000;">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">鲁B12345 消费详情：</h4>
+				</div>
+				<div class="modal-body">
+					<table class="datatable" data-toggle="table" data-striped="true">
+						<thead>
+							<tr>
+								<th>进场时间</th>
+								<th>出场时间</th>
+								<th>共消费</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>2015/08.30/10：21</td>
+								<td>2015/08.30/15:20</td>
+								<td>12.5元</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-xs"
+						style="width: 130px;">导出为EXCEL</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+			
+			</div>
+			<div id="rightSidebar">
+			
+			<meta charset="utf-8">
+<link href="__PUBLIC__/css/common/parkingStateInfo.css" rel="stylesheet">
+<div class="page_state">
+    <div style="height:31%">
+    <div class="title" style="height:20%">停车场实时信息</div>
+	<div class="state_block" style="height:80%">
+		<div class="car_num" style="height:100%">
+			<div style="height:16%">&nbsp;总车位数：&nbsp;&nbsp;<span>120</span></div>
+			<div style="height:16%">剩余车位数：&nbsp;&nbsp;<span>20</span></div>
+			<div style="height:16%">场内车里数：&nbsp;&nbsp;<span>105</span></div>
+			<div style="height:16%">已结算车数：&nbsp;&nbsp;<span>100</span></div>
+			<div style="height:16%">未结算车数：&nbsp;&nbsp;<span>5</span></div>
+		</div>
+		<div class="car_sum" style="height:40%">
+			<div class="col-xs-12" style="height:33%"></div>
+			<div class="col-xs-12" style="height:34%">8.5</div>
+			<div class="col-xs-12" style="height:33%"></div>
+		</div>
+	</div>
+    </div>
+	<div style="height:23%">
+	<div class="title" style="height:25%">停车场当日收益</div>
+	<div class="state_block" style="height:75%">
+		<div class="left" style="height:100%">
+			<div style="height:33%">当日大型车收益：&nbsp;&nbsp;<span>500</span></div>
+			<div style="height:33%">当日小型车收益：&nbsp;&nbsp;<span>500</span></div>
+			<div style="height:34%">&nbsp;&nbsp;当日总收益：&nbsp;&nbsp;<span>10000</span></div>
+		</div>
+		<div class="right" style="height:100%">
+			<div style="height:33%">元</div>
+			<div style="height:33%">元</div>
+			<div style="height:34%">元</div>
+		</div>
+	</div>
+	</div>
+	<div style="height:23%">
+	<div class="title" style="height:25%">停车场当月累计收益10月</div>
+	<div class="state_block" style="height:75%">
+		<div class="left" style="height:100%">
+			<div style="height:33%">&nbsp;&nbsp;&nbsp;当月累计总收益：<span>50000.36</span></div>
+			<div style="height:33%">当月小型车累计总收益：<span>20000.36</span></div>
+			<div style="height:34%">当月大型车累计总收益：<span>30000</span></div>
+		</div>
+		<div class="right" style="height:100%">
+			<div style="height:33%">元</div>
+			<div style="height:33%">元</div>
+			<div style="height:34%">元</div>
+		</div>
+	</div>
+	</div>
+	<div style="height:23%">
+	<div class="title" style="height:25%">停车场当年累计收益 2015年</div>
+	<div class="state_block" style="height:75%">
+		<div class="left" style="height:100%">
+			<div style="height:33%">&nbsp;&nbsp;&nbsp;当年累计总收益：<span>50000.36</span></div>
+			<div style="height:33%">当年小型车累计总收益：<span>20000.36</span></div>
+			<div style="height:34%">当年大型车累计总收益：<span>30000</span></div>
+		</div>
+		<div class="right" style="height:100%">
+			<div style="height:33%">元</div>
+			<div style="height:33%">元</div>
+			<div style="height:34%">元</div>
+		</div>
+	</div>
+	</div>
+	
+	
+	
+</div>
+			
+			</div>
+			<div id="content" style="overflow:auto">
+			
+			{__CONTENT__}
+			
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+
+
+
+

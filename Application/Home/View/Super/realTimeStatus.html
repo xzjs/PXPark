@@ -1,0 +1,53 @@
+<layout name="super"/>
+<!-- 停车场实时状态 -->
+<meta charset="utf-8">
+<link href="__PUBLIC__/css/admin/realTimeStatus.css" rel="stylesheet">
+<script src="__PUBLIC__/js/admin/realTimeStatus.js"></script>
+<div class="page">
+	<h3>停车场营运实时状态</h3>
+	<div id="nav_btn">
+		<div class="item item1">车位充足</div>
+		<div class="item item2">车位够用</div>
+		<div class="item item3">车位较少</div>
+		<div class="item item4">车位紧张</div>
+	</div>
+	<div class="parking_type_sel">
+		停车场类型： <select>
+			<option>全部</option>
+			<option>普通收费停车场</option>
+			<option>路侧公共停车场</option>
+			<option>个人车位</option>
+		</select>
+	</div>
+
+	<div class="parking_list" style="height: 100%;margin-top: -130px;padding-top: 136px;">
+		<div class="pre_btn">
+			<img src="__PUBLIC__/image/pre.png" onclick="gotoPrePage()"/>
+		</div>
+		<div class="next_btn">
+			<img src="__PUBLIC__/image/next.png" onclick="gotoNextPage()"/>
+		</div>
+		<div class="content">
+			<div class="img_content" >
+				<div  id="parkingList" style="background-color: red;">
+					<div class="col-sm-3"  id="demoItem" style="display: none;width: 230px;margin-bottom: 15px;width: 20%;min-width: 230px;">
+						<div class="parking_content" data-id="">
+							<div class="title"></div>
+							<div class="img_com">
+								<img id="parkingImg" src="__PUBLIC__/image/parkingDemo.png" width="140"
+									height="120" style="float: left;"> <img
+									src="__PUBLIC__/image/P.png" width="80" height="120"
+									style="float: right;"> <span class="tag"><span
+									id="usingNum"></span>/<span id="sumNum"></span></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row"
+				style="height: 20px; position: absolute; bottom: 0; left: 47%; margin-left: 0; margin-right: 0;">
+				<span style="font-size: 19px; font-weight: bold;"><span id="nowPage">1</span>/<span id="sumPage">20</span></span>
+			</div>
+		</div>
+	</div>
+</div>
