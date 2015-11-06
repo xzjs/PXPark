@@ -312,7 +312,6 @@ h1 a {
 			</div>
 		</div>
 	</div>
-		
 		<div class="modal fade" id="addRuleInfoWin"  tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
@@ -329,10 +328,10 @@ h1 a {
 						style="display:none;height:540px">
 						<div class="col-xs-12"
 							style="position:relative;top:-0;margin-bottom:15px">
-							<div class="col-xs-2  text-right"
+							<div class="col-xs-3  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								规则名称:</div>
-							<div class="col-xs-10  text-left" style="padding:0px;height:25px;">
+							<div class="col-xs-9  text-left" style="padding:0px;height:25px;">
 								<input type="text" id="rulename" name="rulename"
 									class="form-control" style="height:25px;line-height:25px"
 									placeholder="">
@@ -341,10 +340,10 @@ h1 a {
 						<div class="col-xs-12"
 							style="position:relative;top:-0;margin-bottom:15px"
 							id="ruleTimeDiv" style="display:none">
-							<div class="col-xs-2  text-right"
+							<div class="col-xs-3  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								规则日期:</div>
-							<div class="col-xs-10  text-left" style="padding:0px;height:25px;">
+							<div class="col-xs-9  text-left" style="padding:0px;height:25px;">
 								<div style="float:left">
 									<select id="ruleyears" name="ruleyears"
 										style="width:60;height:25px" onchange=""><option
@@ -368,7 +367,7 @@ h1 a {
 										<option value="5" selected>5</option>
 									</select>
 								</div>
-								<div style="float:left">日&nbsp;至</div>
+								<div style="float:left">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;至</div>
 								<div style="float:left">
 									<select id="ruleyeare" name="ruleyeare"
 										style="width:60;height:25px" onchange=""><option
@@ -397,7 +396,7 @@ h1 a {
 						</div>
 						<div class="col-xs-12"
 							style="position:relative;top:-0;margin-bottom:15px">
-							<div class="col-xs-2  text-right"
+							<div class="col-xs-3  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								白天时间:</div>
 							<div class="col-xs-2  text-left" style="padding:0px;height:25px;">
@@ -418,20 +417,68 @@ h1 a {
 						</div>
 						<div class="col-xs-12"
 							style="position:relative;top:-0;margin-bottom:15px">
-							<div class="col-xs-2  text-right"
+							<div class="col-xs-3  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								白天免费时长:</div>
-							<div class="col-xs-10  text-left" style="padding:0px;height:25px;">
+							<div class="col-xs-9  text-left" style="padding:0px;height:25px;">
 								<div style="float:left">
-									<input type="text" id="dayfreestart" name="dayfreestart"
-										class="" style="height:25px;line-height:25px;width:100px"
-										placeholder="">
+									<select id="dayfreestart" name="dayfreestart" style="width: 70px;">
+										<option value=0>0</option>
+										<option value=1>1</option>
+										<option value=2>2</option>
+										<option value=3>3</option>
+										<option value=4>4</option>
+										<option value=5>5</option>
+										<option value=6>6</option>
+										<option value=7>7</option>
+										<option value=8>8</option>
+										<option value=9>9</option>
+										<option value=10>10</option>
+										<option value=11>11</option>
+										<option value=12>12</option>
+										<option value=13>13</option>
+										<option value=14>14</option>
+										<option value=15>15</option>
+										<option value=16>16</option>
+										<option value=17>17</option>
+										<option value=18>18</option>
+										<option value=19>19</option>
+										<option value=20>20</option>
+										<option value=21>21</option>
+										<option value=22>22</option>
+										<option value=23>23</option>
+										<option value=24>24</option>
+									</select>
 								</div>
 								<div style="float:left">(小车 小时)</div>
 								<div style="float:left">
-									<input type="text" id="dayfreeend" name="dayfreeend" class=""
-										style="height:25px;line-height:25px ;width:100px"
-										placeholder="">
+									<select id="dayfreeend" name="dayfreeend" style="width: 70px;">
+										<option value=0>0</option>
+										<option value=1>1</option>
+										<option value=2>2</option>
+										<option value=3>3</option>
+										<option value=4>4</option>
+										<option value=5>5</option>
+										<option value=6>6</option>
+										<option value=7>7</option>
+										<option value=8>8</option>
+										<option value=9>9</option>
+										<option value=10>10</option>
+										<option value=11>11</option>
+										<option value=12>12</option>
+										<option value=13>13</option>
+										<option value=14>14</option>
+										<option value=15>15</option>
+										<option value=16>16</option>
+										<option value=17>17</option>
+										<option value=18>18</option>
+										<option value=19>19</option>
+										<option value=20>20</option>
+										<option value=21>21</option>
+										<option value=22>22</option>
+										<option value=23>23</option>
+										<option value=24>24</option>
+									</select>
 								</div>
 								<div style="float:left">(大车 小时)</div>
 
@@ -440,11 +487,16 @@ h1 a {
 						<div class="col-xs-12"
 							style="position:relative;top:-0;margin-bottom:15px"
 							id="daySmallDiv">
-							<div class="col-xs-2  text-right"
+							<div class="col-xs-3  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								白天收费单价:</div>
-							<div class="col-xs-10 col-xs-offset-2  text-left"
-								style="padding:0px;height:25px;" id="daySmall">
+							<div class="col-xs-3" style="padding:0px">小车(元/小时)
+							<img src="../resources/image/register/add1.png"
+										style="width:25px;height:25px;cursor:pointer;float:right;top:-2px"
+										onclick="addSmallCar(0)">
+							</div>
+							<div class="col-xs-9 col-xs-offset-3  text-left"
+								style="padding:0px;height:25px;display:none" id="daySmall">
 								<div style="float:left">
 									<select id="ruledss" name="ruledss"
 										style="width:50px;height:25px" onchange=""><option
@@ -463,22 +515,27 @@ h1 a {
 								<div style="float:left">小时</div>
 								<div style="float:left">
 									<input type="text" id="costds" name="costds" class=""
-										style="height:25px;line-height:25px ;width:50px"
+										style="height:26px;line-height:26px ;width:50px"
 										placeholder="">
 								</div>
 								<div style="float:left">元(小车/小时)</div>
 								<div style="float:left">
-									<img src="../resources/image/register/add1.png"
+									<img src="../resources/image/register/delete.png"
 										style="width:25px;height:25px;cursor:pointer"
-										onclick="addSmallCar(0)">
+										onclick="removeCar(this)">
 								</div>
 							</div>
 						</div>
 						<div class="col-xs-12"
 							style="position:relative;top:-0;margin-bottom:15px"
 							id="dayLargeDiv">
-							<div class="col-xs-10 col-xs-offset-2 text-left"
-								style="padding:0px;height:25px;" id="dayLarge">
+							<div class="col-xs-3 col-xs-offset-3" style="padding:0px">大车(元/小时)
+							<img src="../resources/image/register/add1.png"
+										style="width:25px;height:25px;cursor:pointer;float:right;top:-2px"
+										onclick="addLargeCar(0)">
+							</div>
+							<div class="col-xs-9 col-xs-offset-3 text-left"
+								style="padding:0px;height:25px;display:none" id="dayLarge">
 								<div style="float:left">
 									<select id="ruledls" name="ruledls"
 										style="width:50px;height:25px" onchange=""><option
@@ -502,15 +559,15 @@ h1 a {
 								</div>
 								<div style="float:left">元(大车/小时)</div>
 								<div style="float:left">
-									<img src="../resources/image/register/add1.png"
+									<img src="../resources/image/register/delete.png"
 										style="width:25px;height:25px;cursor:pointer"
-										onclick="addLargeCar(0)">
+										onclick="removeCar(this)">
 								</div>
 							</div>
 						</div>
 						<div class="col-xs-12"
 							style="position:relative;top:-0;margin-bottom:15px">
-							<div class="col-xs-2  text-right"
+							<div class="col-xs-3  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								夜晚时间:</div>
 							<div class="col-xs-2  text-left" style="padding:0px;height:25px;">
@@ -532,21 +589,69 @@ h1 a {
 						</div>
 						<div class="col-xs-12"
 							style="position:relative;top:-0;margin-bottom:15px">
-							<div class="col-xs-2  text-right"
+							<div class="col-xs-3  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								夜晚免费时长:</div>
-							<div class="col-xs-10   text-left"
+							<div class="col-xs-9   text-left"
 								style="padding:0px;height:25px;">
 								<div style="float:left">
-									<input type="text" id="nightfreestart" name="nightfreestart"
-										class="" style="height:25px;line-height:25px;width:100px"
-										placeholder="">
+									<select id="nightfreestart" name="nightfreestart" style="width: 70px;">
+										<option value=0>0</option>
+										<option value=1>1</option>
+										<option value=2>2</option>
+										<option value=3>3</option>
+										<option value=4>4</option>
+										<option value=5>5</option>
+										<option value=6>6</option>
+										<option value=7>7</option>
+										<option value=8>8</option>
+										<option value=9>9</option>
+										<option value=10>10</option>
+										<option value=11>11</option>
+										<option value=12>12</option>
+										<option value=13>13</option>
+										<option value=14>14</option>
+										<option value=15>15</option>
+										<option value=16>16</option>
+										<option value=17>17</option>
+										<option value=18>18</option>
+										<option value=19>19</option>
+										<option value=20>20</option>
+										<option value=21>21</option>
+										<option value=22>22</option>
+										<option value=23>23</option>
+										<option value=24>24</option>
+									</select>
 								</div>
 								<div style="float:left">(小车 小时)</div>
 								<div style="float:left">
-									<input type="text" id="nightfreeend" name="nightfreeend"
-										class="" style="height:25px;line-height:25px ;width:100px"
-										placeholder="">
+									<select id="nightfreeend" name="nightfreeend" style="width: 70px;">
+										<option value=0>0</option>
+										<option value=1>1</option>
+										<option value=2>2</option>
+										<option value=3>3</option>
+										<option value=4>4</option>
+										<option value=5>5</option>
+										<option value=6>6</option>
+										<option value=7>7</option>
+										<option value=8>8</option>
+										<option value=9>9</option>
+										<option value=10>10</option>
+										<option value=11>11</option>
+										<option value=12>12</option>
+										<option value=13>13</option>
+										<option value=14>14</option>
+										<option value=15>15</option>
+										<option value=16>16</option>
+										<option value=17>17</option>
+										<option value=18>18</option>
+										<option value=19>19</option>
+										<option value=20>20</option>
+										<option value=21>21</option>
+										<option value=22>22</option>
+										<option value=23>23</option>
+										<option value=24>24</option>
+									</select>
 								</div>
 								<div style="float:left">(大车 小时)</div>
 
@@ -555,11 +660,16 @@ h1 a {
 						<div class="col-xs-12"
 							style="position:relative;top:-0;margin-bottom:15px"
 							id="nightSmallDiv">
-							<div class="col-xs-2  text-right"
+							<div class="col-xs-3  text-right"
 								style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
 								夜晚收费单价:</div>
-							<div class="col-xs-10 col-xs-offset-2  text-left"
-								style="padding:0px;height:25px;" id="nightSmall">
+							<div class="col-xs-3" style="padding:0px">小车(元/小时)
+							<img src="../resources/image/register/add1.png"
+										style="width:25px;height:25px;cursor:pointer;float:right;top:-2px"
+										onclick="addSmallCar(1)">
+							</div>	
+							<div class="col-xs-9 col-xs-offset-3  text-left"
+								style="padding:0px;height:25px;display:none" id="nightSmall">
 								<div style="float:left">
 									<select id="rulenss" name="rulenss"
 										style="width:50px;height:25px" onchange=""><option
@@ -583,17 +693,22 @@ h1 a {
 								</div>
 								<div style="float:left">元(小车/小时)</div>
 								<div style="float:left">
-									<img src="../resources/image/register/add1.png"
+									<img src="../resources/image/register/delete.png"
 										style="width:25px;height:25px;cursor:pointer"
-										onclick="addSmallCar(1)">
+										onclick="removeCar(this)">
 								</div>
 							</div>
 						</div>
 						<div class="col-xs-12"
 							style="position:relative;top:-0;margin-bottom:35px"
 							id="nightLargeDiv">
-							<div class="col-xs-10 col-xs-offset-2 text-left"
-								style="padding:0px;height:25px;" id="nightLarge">
+							<div class="col-xs-3 col-xs-offset-3" style="padding:0px">大车(元/小时)
+							<img src="../resources/image/register/add1.png"
+										style="width:25px;height:25px;cursor:pointer;float:right;top:-2px"
+										onclick="addLargeCar(1)">
+							</div>
+							<div class="col-xs-9 col-xs-offset-3 text-left"
+								style="padding:0px;height:25px;display:none" id="nightLarge">
 								<div style="float:left">
 									<select id="rulenls" name="rulenls"
 										style="width:50px;height:25px" onchange=""><option
@@ -617,9 +732,9 @@ h1 a {
 								</div>
 								<div style="float:left">元(大车/小时)</div>
 								<div style="float:left">
-									<img src="../resources/image/register/add1.png"
+									<img src="../resources/image/register/delete.png"
 										style="width:25px;height:25px;cursor:pointer"
-										onclick="addLargeCar(1)">
+										onclick="removeCar(this)">
 								</div>
 							</div>
 						</div>
@@ -691,23 +806,28 @@ h1 a {
 		//添加小车收费规则 0白天 1夜晚
 		function addSmallCar(flag) {
 		    if(flag==0){
-		    $("#daySmallDiv").append($("#daySmall").clone());
+		    $("#daySmallDiv").append($("#daySmall").clone().css("display",'block'));
 		    //alert($("#addRuleDiv").height());
 		    $("#addRuleDiv").css("height",$("#addRuleDiv").height()+30);
 		    }else{
-		    $("#nightSmallDiv").append($("#nightSmall").clone());
+		    $("#nightSmallDiv").append($("#nightSmall").clone().css("display",'block'));
 		    //alert($("#addRuleDiv").height());
 		    $("#addRuleDiv").css("height",$("#addRuleDiv").height()+30);
 		    }
 			
 		}
+		//删除小车
+		function removeCar(flag) {
+		    $(flag).parent().parent().remove();
+			
+		}
 		//添加大车收费规则
 		function addLargeCar(flag) {
 			if(flag==0){
-		    $("#dayLargeDiv").append($("#dayLarge").clone());
+		    $("#dayLargeDiv").append($("#dayLarge").clone().css("display",'block'));
 		    $("#addRuleDiv").css("height",$("#addRuleDiv").height()+30);
 		    }else{
-		     $("#nightLargeDiv").append($("#nightLarge").clone());
+		     $("#nightLargeDiv").append($("#nightLarge").clone().css("display",'block'));
 		    $("#addRuleDiv").css("height",$("#addRuleDiv").height()+30);
 		    }
 		}

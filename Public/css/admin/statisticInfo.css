@@ -7,11 +7,11 @@
 
 .static_left {
 	margin-right: 250px;
-	height: 90%;
+	height: 100%;
 }
 
 .static_right {
-	height: 90%;
+	height: 99%;
 	width: 270px;
 	position: absolute;
 	right: 1px;
@@ -24,18 +24,18 @@
 }
 
 .sta_nav a {
-	background-color: #00A65A;
+	background-color: #00CCFF;
 	width: 100px;
 	height: 100%;
 	display: inline-block;
 	float: left;
 	color: #fff;
 	text-align: center;
-	line-height: 30px;
+	line-height: 2.9;
 	border-right: 1px solid #00C66B;
 	font-weight: bold;
 }
 
 .sta_nav .sel{
-	background-color: #00C66B;
+	background-color: #01FF33;
 }

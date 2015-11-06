@@ -30,15 +30,14 @@
 
 #rightSidebar{
 	float: right;
-	width: 290px;
+	width: 271px;
 	height: 100%;
-	overflow-y:scroll;
 }
 
 #content {
-	margin:0 295px 0 59px !important; 
-	margin:0 292px 0 56px; 
-	height: 90%;
+	margin:0px 272px 0 55px !important; 
+	margin:0px 272px 0 55px; 
+	height: 100%;
 }
 
 /*======= 子页面 =========*/

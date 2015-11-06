@@ -20,8 +20,6 @@ html,body {
 	line-height:70px; 
 }
 .login-box {
-	width: 100%;
-	max-width:1000px;
 	height: 300px;
 	top: 50px;
 	
@@ -29,7 +27,6 @@ html,body {
 
 .form {
 	width: 100%;
-	max-width:1000px;
 	height: 275px;
 	margin: 35px auto 0px auto;
 	padding-top: 25px;
@@ -37,7 +34,6 @@ html,body {
 .login-content {
 	height: 300px;
 	width: 100%;
-	max-width:1000px;
 	float: left;
 }		
 	
@@ -63,7 +59,7 @@ html,body {
 	margin:0;
 	padding:0;
 	height:30px;
-	font-family:é»‘ä½“;
+	font-family:ºÚÌå;
 }
 
 .link p {
@@ -77,19 +73,13 @@ html,body {
 .addInfoDiv{
 	height:530px;
 	width:100%;
-	background-color:#999;
 	position: relative;
-	top: 300px;
 	border-radius:20px;
-	border:1px solid ;
+	padding-top:20px;
 }
 #deleteInfoDiv{
-	height:200px;
-	width:250px;
-	background-color:#999;
-	position: absolute;
-	top:350px;
+	height:300px;
+	position: relative;
 	border-radius:20px;
-	border:1px solid ;
 	padding-top:15px;
 }

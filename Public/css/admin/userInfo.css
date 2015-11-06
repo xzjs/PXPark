@@ -5,20 +5,20 @@
 }
 
 .manag_nav a {
-	background-color: #00A65A;
+	background-color: #00CCFF;
 	width: 100px;
 	height: 100%;
 	display: inline-block;
 	float: left;
 	color: #fff;
 	text-align: center;
-	line-height: 30px;
+	line-height: 2.9;
 	border-right: 1px solid #00C66B;
 	font-weight: bold;
 }
 
 .manag_nav .sel{
-	background-color: #00C66B;
+	background-color: #01FF33;
 }
 
 
@@ -82,12 +82,8 @@
 	border-radius:20px;
 }
 #deleteInfoDiv{
-	height:200px;
-	width:250px;
-	background-color:#999;
-	position: absolute;
-	top:350px;
+	height:300px;
+	position: relative;
 	border-radius:20px;
-	border:1px solid ;
 	padding-top:15px;
 }
