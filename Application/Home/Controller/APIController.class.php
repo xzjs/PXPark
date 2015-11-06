@@ -20,9 +20,13 @@ class APIController extends Controller
      */
     public function privacy()
     {
-        $car = A('Car');
-        $result = $car->getprivacy();
-        echo $result;
+        $Privacy=A('Privacy');
+        $id=$Privacy->get_privacy();
+        $data=array(
+            'code'=>0,
+            'url'=>$this->get_url('/index.php/Home/Privacy/detail/id/'.$id)
+        );
+        echo json_encode($data);
     }
 
     /**
@@ -294,4 +298,12 @@ class APIController extends Controller
         echo json_encode($data);
     }
 
+    /**
+     * 获取拼接url
+     * @param $arg 参数
+     * @return string 拼接好的字符串
+     */
+    private function get_url($arg){
+        return C('IP').__ROOT__.$arg;
+    }
 }
