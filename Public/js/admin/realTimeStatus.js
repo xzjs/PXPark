@@ -2,79 +2,79 @@
 var parkingList = [{
 	'id':0,
 	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
+	'img': '/PXPark/Public/image/parkingDemo.png',
 	'usingNum': '90',
 	'sumNum': '100'
 }, {
 	'id':0,
 	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
+	'img': '/PXPark/Public/image/parkingDemo.png',
 	'usingNum': '40',
 	'sumNum': '100'
 }, {
 	'id':0,
 	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
+	'img': '/PXPark/Public/image/parkingDemo.png',
 	'usingNum': '60',
 	'sumNum': '100'
 }, {
 	'id':0,
 	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
+	'img': '/PXPark/Public/image/parkingDemo.png',
 	'usingNum': '60',
 	'sumNum': '100'
 }, {
 	'id':0,
 	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
+	'img': '/PXPark/Public/image/parkingDemo.png',
 	'usingNum': '78',
 	'sumNum': '100'
 }, {
 	'id':0,
 	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
+	'img': '/PXPark/Public/image/parkingDemo.png',
 	'usingNum': '99',
 	'sumNum': '100'
 }, {
 	'id':0,
 	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
+	'img': '/PXPark/Public/image/parkingDemo.png',
 	'usingNum': '89',
 	'sumNum': '100'
 }, {
 	'id':0,
 	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
+	'img': '/PXPark/Public/image/parkingDemo.png',
 	'usingNum': '27',
 	'sumNum': '100'
 }, {
 	'id':0,
 	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
+	'img': '/PXPark/Public/image/parkingDemo.png',
 	'usingNum': '60',
 	'sumNum': '100'
 }, {
 	'id':0,
 	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
+	'img': '/PXPark/Public/image/parkingDemo.png',
 	'usingNum': '45',
 	'sumNum': '100'
 }, {
 	'id':0,
 	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
+	'img': '/PXPark/Public/image/parkingDemo.png',
 	'usingNum': '89',
 	'sumNum': '100'
 }, {
 	'id':0,
 	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
+	'img': '/PXPark/Public/image/parkingDemo.png',
 	'usingNum': '56',
 	'sumNum': '100'
 }, {
 	'id':0,
 	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
+	'img': '/PXPark/Public/image/parkingDemo.png',
 	'usingNum': '23',
 	'sumNum': '100'
 }];
