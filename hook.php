@@ -18,6 +18,9 @@ $myfile=fopen("log.txt","w");
 fwrite($myfile,$read);
 fclose($myfile);
 
+
+
 pclose($handle);
+
 
 
