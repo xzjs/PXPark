@@ -58,7 +58,7 @@ class APIController extends Controller
 
         } else {
             if ($list == NULL) {
-                //$code = 9; // 结果为空
+                $code = 9; // 结果为空
             } else {
                 $code = 4;//内部出错
             }
@@ -198,14 +198,18 @@ class APIController extends Controller
         $User = A('User');
         $data['code'] = 0;
         $result = $User->detail(I('param.id'));
-        if ($result == -1) {
+        $result_spend=$User->getSpend(I('param.id'));
+        if ($result == -1||$result_spend==-1) {
             $data['code'] = 7;
         } else {
             $u['nickname'] = $result['nickname'];
-            $u['phone'] = $result['phone'];
+            $u['phone'] = $result['phone'];  
+            $u['remain'] = $result['remain'];
+            $u['consume'] = $result_spend[0]['consum'];
             $u['img'] =$this->get_url(C('UPLOAD').$result['img']);
             $data['user'] = $u;
         }
+      
         echo json_encode($data);
     }
 
