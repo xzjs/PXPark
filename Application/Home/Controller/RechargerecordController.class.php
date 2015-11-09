@@ -27,7 +27,7 @@ class RechargerecordController extends Controller {
 		}
 	}
 	/**
-	 * 查询停车记录
+	 * 查询充值记录
 	 * 
 	 * @param number $user_id
 	 *        	用户id

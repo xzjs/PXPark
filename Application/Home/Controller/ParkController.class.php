@@ -91,7 +91,10 @@ class ParkController extends Controller {
 				) 
 		);
 		$park = M ( 'Park' );
-		$result = $park->where ( $condition )->field ( 'id,name,lon,lat,price,remain_num as remain,total_num as total' )->select ();
+		$result = $park->where ( $condition )->field ( 'id,name,lon,lat,price,remain_num as remain,total_num as total,img' )->select ();
+		for($i=0;$i<count($result);$i++){
+			$result[$i]['img']=C('IP').__ROOT__.C('PARK_IMG_PATH').$result[$i]['img'];//图片链接url
+		}
 		$distance = array ();
 		for($i = 0; $i < count ( $result ); $i ++) {
 			$distance [] = $this->getDistance ( $lat, $lon, $result [$i] ['lat'], $result [$i] ['lon'] );
