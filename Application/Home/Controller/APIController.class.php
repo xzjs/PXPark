@@ -301,7 +301,7 @@ class APIController extends Controller
     /**
      * 获取拼接url
      * @param $arg 参数
-     * @return string 拼接好的字符串
+     * @return string 拼接好的字符  串
      */
     private function get_url($arg){
         return C('IP').__ROOT__.$arg;
