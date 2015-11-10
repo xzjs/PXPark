@@ -303,12 +303,36 @@ class APIController extends Controller
     public function park_detail()
     {
         $park = A('Park');
-        $reslut = $park->getDetail(I('param.id'));
-        if (count($reslut) == 0)
+        $result = $park->getDetail(I('param.id'));
+        if (count($result) == 0)
             $data['code'] = 7;
         else
             $data['code'] = 0;
-        $data['park'] = $reslut;
+        $data['msg']='正常返回';
+        $str='';
+        foreach ($result['Rule'] as $r) {
+            $Rule=D('Rule');
+            $rs=$Rule->relation(true)->find($r['id']);
+            //var_dump($rs);
+            $str.=$rs['Ruletype']['name'].'\n'.$rs['name'].'\n';
+            foreach ($rs['Ruletime'] as $rt) {
+                $str.=$rt['start_time'].'小时到'.$rt['end_time'].'小时'.$rt['fee'].'元'.'\n';
+            }
+        }
+        $d=array(
+            'id'=>$result['id'],
+            'name'=>$result['name'],
+            'lon'=>$result['lon'],
+            'lat'=>$result['lat'],
+            'price'=>$result['price'],
+            'remain'=>$result['remain_num'],
+            'total'=>$result['total_num'],
+            'img'=>$this->get_url(C('UPLOAD').$result['img']),
+            'rule'=>$str
+        );
+
+        //var_dump($result);
+        $data['park']=$d;
         echo json_encode($data);
     }
 

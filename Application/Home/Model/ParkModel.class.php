@@ -1,13 +1,13 @@
 <?php
 
 namespace Home\Model;
-use Think\Model;
+use Think\Model\RelationModel;
 /**
  * 停车场模型
  * createtime:2015年10月29日 上午10:04:15
  * @author xiuge
  */
-class ParkModel extends Model {
+class ParkModel extends RelationModel {
 	protected $_validate = array(
 			array('total_num','require','总车位数不能为空'),
 			array('type','require','停车场种类不能为空'),
@@ -17,5 +17,9 @@ class ParkModel extends Model {
 			array('licence_image','require','许可证不能为空'),
 			array('legal_person','require','法人不能为空'),
 			array('legal_person_no','require','法人编号不能为空'),
+	);
+
+	protected $_link = array(
+		'Rule'=> self::HAS_MANY,
 	);
 }
