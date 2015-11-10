@@ -329,7 +329,8 @@ class APIController extends Controller
             'total'=>$result['total_num'],
             'img'=>$this->get_url(C('UPLOAD').$result['img']),
             'rule'=>$str,
-            'type'=>$result['type']
+            'type'=>$result['type'],
+            'address'=>$result['address']
         );
 
         //var_dump($result);
