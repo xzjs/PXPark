@@ -1,9 +1,13 @@
 var map; // 地图
 $(function() {
 	/* S 初始化地图 */
-	map = new BMap.Map("map");
-	map.centerAndZoom(new BMap.Point(118.207244, 36.018531), 12);
-	map.enableScrollWheelZoom();
+	try{
+		map = new BMap.Map("map");
+		map.centerAndZoom(new BMap.Point(118.207244, 36.018531), 12);
+		map.enableScrollWheelZoom();
+	}catch(e){
+		
+	}
 	var labelTop = {
 		normal: {
 			label: {
@@ -29,7 +33,7 @@ $(function() {
 					baseline: 'top'
 				}
 			}
-		},
+		}
 	}
 	var labelBottom = {
 		normal: {
@@ -71,18 +75,22 @@ $(function() {
 		var tag = $(this).attr('data-tag');
 		if(tag == '0') {
 			$('#chartCon').hide();
+			$('#showInfo').hide();
 			$(this).attr('data-tag', '1');
 			$('#showText').html('显示');
 		} else {
 			$('#chartCon').show();
+			$('#showInfo').show();
 			$(this).attr('data-tag', '0');
 			$('#showText').html('隐藏');
 		}
 	});
 	$('#conditionBtn').on('click', function() {
-		$('#condition').show();
+		$('#condition').toggleClass('is_show');
 	});
-	$('#mapWinClose').on('click', function() {
-		$('#condition').hide();
+	$('.float_panel').on('click', function() {
+		$(this).addClass('float_panel_sel');
+		$(this).prev().removeClass('float_panel_sel');
+		$(this).next().removeClass('float_panel_sel');
 	});
 });
