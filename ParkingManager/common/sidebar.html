@@ -2,8 +2,7 @@
 <link href="../resources/css/common/sidebar.css" rel="stylesheet">
 
 <!-- S bootstrap-table -->
-<link
-	href="../resources/thirdparty/bootstrap/css/bootstrap-table.min.css"
+<link href="../resources/thirdparty/bootstrap/css/bootstrap-table.min.css"
 	rel="stylesheet">
 <script src="../resources/thirdparty/bootstrap/js/bootstrap-table.js"></script>
 <!-- E bootstrap-table -->
@@ -74,10 +73,11 @@
 
 		<div id="searchPanel"
 			style="position: absolute; left: 54px; top: 0px; width: 300px; height: 190px; z-index: 1000; display: none;">
-			<div style="height: 100%; background-color: #0066FF; padding: 10px;">
+			<div 
+				style="height: 100%; background-color: #0066FF;padding: 10px;">
 				<div>
 					<ul class="nav nav-tabs" role="tablist"
-						style="height: 100%; background-color: #FFF; padding: 4px; margin: 15px;">
+						style="height: 100%;background-color: #FFF;padding: 4px;margin: 15px;">
 						<li role="presentation" class="active"><a href="#carNo"
 							aria-controls="carNo" role="tab" data-toggle="tab">车牌号</a></li>
 						<li role="presentation"><a href="#parking"
@@ -94,8 +94,8 @@
 										id="inputcarNO" placeholder="车牌号">
 								</div>
 							</div>
-							<button type="button" class="btn btn-success btn-xs"
-								onclick="showSearch(0)" style="width: 120px; margin-top: 15px;">搜索</button>
+							<button type="button" class="btn btn-success btn-xs" onclick="showSearch(0)"
+								style="width: 120px; margin-top: 15px;">搜索</button>
 						</div>
 						<div role="tabpanel" class="tab-pane" id="parking"
 							style="color: #000; padding: 20px 10px;">
@@ -107,8 +107,8 @@
 										id="inputparking" placeholder="停车场">
 								</div>
 							</div>
-							<button type="button" class="btn btn-success btn-xs"
-								onclick="showSearch(1)" style="width: 120px; margin-top: 15px;">搜索</button>
+							<button type="button" class="btn btn-success btn-xs" onclick="showSearch(1)"
+								style="width: 120px; margin-top: 15px;">搜索</button>
 						</div>
 					</div>
 				</div>
@@ -121,7 +121,7 @@
 		<div id="cityPanel"
 			style="position: absolute; left: 54px; top: 0px; bottom: 0px; width: 250px; z-index: 1000; display: none;">
 			<div
-				style="height: 100%; background-color: #0066FF; margin: 0; padding: 10px;">
+				style="height: 100%; background-color: #0066FF;margin: 0;padding: 10px;">
 				<div>
 					<ul id="cityTree" class="ztree"></ul>
 				</div>
@@ -136,42 +136,37 @@
 		<div>26~20℃</div>
 		<div>良</div>
 	</div>
-
-	<!-- 搜索结果 -->
-	<div class="modal fade" id="searchResultWin" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" style="color: #000;">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">鲁B12345 消费详情：</h4>
-				</div>
-				<div class="modal-body">
-					<table class="datatable" data-toggle="table" data-striped="true">
-						<thead>
-							<tr>
-								<th>进场时间</th>
-								<th>出场时间</th>
-								<th>共消费</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>2015/08.30/10：21</td>
-								<td>2015/08.30/15:20</td>
-								<td>12.5元</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary btn-xs"
-						style="width: 130px;">导出为EXCEL</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	
+<!-- 搜索结果 -->
+<div class="modal fade" id="searchResultWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="color: #000;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">鲁B12345    消费详情：</h4>
+      </div>
+      <div class="modal-body">
+      	<table class="datatable" data-toggle="table" data-striped="true">
+			<thead>
+				<tr>
+					<th>进场时间</th>
+					<th>出场时间</th>
+					<th>共消费</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>                                                      
+					<td>2015/08.30/10：21</td>
+					<td>2015/08.30/15:20</td>
+					<td>12.5元</td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-xs" style="width: 130px;">导出为EXCEL</button>
+      </div>
+    </div>
+  </div>
 </div>
+	
