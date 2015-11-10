@@ -28,6 +28,7 @@ class PrivacyController extends Controller
     public function detail($id){
         $Privacy=D('Privacy');
         $data=$Privacy->find($id);
-        echo $data['content'];
+        $this->assign('content',$data['content']);
+        $this->show();
     }
 }
