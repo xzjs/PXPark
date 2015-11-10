@@ -21,6 +21,9 @@ function pageJump(page, me, flag) {
 		$(me).blur();
 	}
 }
+function pageJump1(page){
+	window.location.href=page;
+}
 function removeNavBG() {
 	$('.nav_item').each(function(i, ele) {
 		$(ele).removeClass('nav_selected');
