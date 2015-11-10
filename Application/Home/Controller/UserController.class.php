@@ -95,11 +95,14 @@ return  $result;
 	 * @param $pwd 密码
 	 * @return int -1:电话号码已存在;-2:内部错误;正数:返回的插入id
 	 */
-    public function register($phone,$nickname,$pwd){
+    public function register($phone,$nickname,$pwd,$type=1){
         $User=D("User");
-        $data['phone']=$phone;
-        $data['nickname']=$nickname;
-        $data['pwd']=$pwd;
+		$data=array(
+			'phone'=>$phone,
+			'nickname'=>$nickname,
+			'pwd'=>$pwd,
+			'type'=>$type
+		);
         if($User->create($data)){
             $result=$User->add();
             if($result){
