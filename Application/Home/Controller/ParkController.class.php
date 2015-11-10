@@ -103,19 +103,38 @@ class ParkController extends Controller {
 		
 		return $result;
 	}
-	
+
 	/**
-	 * 根据停车场id查询该停车场详细信息
-	 * 
-	 * @param number $park_id
-	 *        	停车场id
+	 * 获取停车场详细信息
+	 * @param int $park_id 停车场id
+	 * @return mixed 停车场详细信息
 	 */
 	public function getDetail($park_id = 0) {
-		$park = M ( 'Park' );
-		$condition ['id'] = $park_id;
+		$park = D( 'Park' );
+		/*$condition ['id'] = $park_id;
 		$result = $park->where ( $condition )->field ( 'id,name,lon,lat,price,remain_num as remain,total_num as total,
 				type,address,img' )->select ();
+<<<<<<< HEAD
 		return $result;
+=======
+		return $result;*/
+		return $park->relation(true)->find($park_id);
+
+	}
+	
+	/**
+	 * 获取停车记录
+	 * 
+	 * @param number $use_id
+	 *        	用户id
+	 */
+	public function getRecord($user_id = 0) {
+		$Model = new Model ();
+		$sql = 'select c.name as park_name,d.no as car_no,a.start_time,a.end_time,a.money from px_parkrecord as a, 
+				px_user_car as b,px_park as c,px_car as d where a.car_id=b.car_id and b.user_id=' . $user_id . ' 
+						and b.status=1 and a.park_id=c.id and b.car_id=d.id order by a.id';
+		$result = $Model->query ( $sql );
+		return  $result;
 	}
 	
 	/**

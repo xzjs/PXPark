@@ -8,6 +8,7 @@
 namespace Home\Controller;
 
 use Think\Controller;
+use Org\Util\String;
 
 /**
  * API控制器
@@ -15,6 +16,39 @@ use Think\Controller;
  */
 class APIController extends Controller
 {
+	/**
+	 * 获取支付宝信息
+	 */
+	function get_alipay(){
+		//ini_set('date.timezone','Asia/Shanghai');
+		$order_no=(String)date("Ymdhms")+rand(1,10);
+		$date=array(
+				"pid"=>'2088121188830505',
+				"account"=>'qdhuitianpingxing@163.com ',
+				"private_key"=>'',
+				"public_key"=>'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB',
+				"order_no"=>$order_no,
+				"notify_url"=>'http://27.223.89.130:48082/PXPark/index.php/Home/API/recharge_add'
+				
+				
+		);
+		$array=array(
+			"code"=>'0',
+				"msg"=>'正常返回',
+				"data"=>$date,
+		 
+		
+		);
+		echo json_encode($array);
+	}
+	function timetostring($str){
+		$cliptime=explode("-",$str);
+		$result="";
+		for($i=0;$i<count($cliptime);$i++){
+			$result=$result.$cliptime[$i];
+		}
+		return $result;
+	}
     /**
      * 使用条款
      */
@@ -198,14 +232,18 @@ class APIController extends Controller
         $User = A('User');
         $data['code'] = 0;
         $result = $User->detail(I('param.id'));
-        if ($result == -1) {
+        $result_spend=$User->getSpend(I('param.id'));
+        if ($result == -1||$result_spend==-1) {
             $data['code'] = 7;
         } else {
             $u['nickname'] = $result['nickname'];
-            $u['phone'] = $result['phone'];
+            $u['phone'] = $result['phone'];  
+            $u['remain'] = $result['remain'];
+            $u['consume'] = $result_spend[0]['consum'];
             $u['img'] =$this->get_url(C('UPLOAD').$result['img']);
             $data['user'] = $u;
         }
+      
         echo json_encode($data);
     }
 
@@ -265,12 +303,36 @@ class APIController extends Controller
     public function park_detail()
     {
         $park = A('Park');
-        $reslut = $park->getDetail(I('param.id'));
-        if (count($reslut) == 0)
+        $result = $park->getDetail(I('param.id'));
+        if (count($result) == 0)
             $data['code'] = 7;
         else
             $data['code'] = 0;
-        $data['park'] = $reslut;
+        $data['msg']='正常返回';
+        $str='';
+        foreach ($result['Rule'] as $r) {
+            $Rule=D('Rule');
+            $rs=$Rule->relation(true)->find($r['id']);
+            //var_dump($rs);
+            $str.=$rs['Ruletype']['name'].'\n'.$rs['name'].'\n';
+            foreach ($rs['Ruletime'] as $rt) {
+                $str.=$rt['start_time'].'小时到'.$rt['end_time'].'小时'.$rt['fee'].'元'.'\n';
+            }
+        }
+        $d=array(
+            'id'=>$result['id'],
+            'name'=>$result['name'],
+            'lon'=>$result['lon'],
+            'lat'=>$result['lat'],
+            'price'=>$result['price'],
+            'remain'=>$result['remain_num'],
+            'total'=>$result['total_num'],
+            'img'=>$this->get_url(C('UPLOAD').$result['img']),
+            'rule'=>$str
+        );
+
+        //var_dump($result);
+        $data['park']=$d;
         echo json_encode($data);
     }
 
