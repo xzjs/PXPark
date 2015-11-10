@@ -27,16 +27,17 @@
 
 <div class="page">
 	<div style="height:10%">
-		开始时间： <input placeholder="请输入日期" class="laydate-icon"
+		开始时间： <input placeholder="请输入日期" class="laydate-icon" id="income_start_time"
 			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-		结束时间： <input placeholder="请输入日期" class="laydate-icon"
+		结束时间： <input placeholder="请输入日期" class="laydate-icon" id="income_end_time"
 			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-		车辆类型： <select>
+		车辆类型： <select id="income_car_category">
 			<option>全部</option>
 			<option>小型车</option>
 			<option>大型车</option>
 		</select>
-		<button type="button" onclick="getCountIncome()" class="btn btn-success btn-xs" style="width: 110px;height: 22px;line-height: 22px;margin-top: -4px;">查询</button>
+		<button type="button" 
+		onclick="getCountIncome('{:U('Parkrecord/count_income')}',$('input#income_start_time').val()),$('input#income_end_time').val())，$('select#income_car_category').val()))" class="btn btn-success btn-xs" style="width: 110px;height: 22px;line-height: 22px;margin-top: -4px;">查询</button>
 		<button type="button" class="btn btn-success btn-xs" style="width: 110px;height: 22px;line-height: 22px;margin-top: -4px;">导出Excel</button>
 	</div>
 	<div style="height:5%">
@@ -44,11 +45,28 @@
 		完成收费：<span class="search_result">8</span>辆 &nbsp;&nbsp;&nbsp; 总计收费：<span
 			class="search_result">44.4</span>元
 	</div>
-		<div style="width: 100%;margin-top: 5px;height: 85%;">
+	<div style="width: 100%;margin-top: 5px;height: 85%;">
 		<div id="personGrid">
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
-
+function getCountIncome(url,start,end,car_category) {
+	$.post(url, {
+		id:1
+		start_time : start,
+		end_time : end,
+		type : car_category,
+		user_id : 1
+	}, function(data, status) {
+		if (status == 4 || status == "success") {
+			var bus_info = eval(data);
+			var bus_list = "";
+			for (var i = 0; i < bus_info.length; i++) {
+				bus_list += "<li><a href='#'>" + bus_info[i].no + "</a></li>";
+			}
+			$("ul#bus_no_selector").html(bus_list);
+		}
+	});
+}
 </script>
