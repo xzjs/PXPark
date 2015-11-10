@@ -8,6 +8,7 @@
 namespace Home\Controller;
 
 use Think\Controller;
+use Org\Util\String;
 
 /**
  * API控制器
@@ -15,6 +16,39 @@ use Think\Controller;
  */
 class APIController extends Controller
 {
+	/**
+	 * 获取支付宝信息
+	 */
+	function get_alipay(){
+		//ini_set('date.timezone','Asia/Shanghai');
+		$order_no=(String)date("Ymdhms")+rand(1,10);
+		$date=array(
+				"pid"=>'2088121188830505',
+				"account"=>'qdhuitianpingxing@163.com ',
+				"private_key"=>'',
+				"public_key"=>'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB',
+				"order_no"=>$order_no,
+				"notify_url"=>'http://27.223.89.130:48082/PXPark/index.php/Home/API/recharge_add'
+				
+				
+		);
+		$array=array(
+			"code"=>'0',
+				"msg"=>'正常返回',
+				"data"=>$date,
+		 
+		
+		);
+		echo json_encode($array);
+	}
+	function timetostring($str){
+		$cliptime=explode("-",$str);
+		$result="";
+		for($i=0;$i<count($cliptime);$i++){
+			$result=$result.$cliptime[$i];
+		}
+		return $result;
+	}
     /**
      * 使用条款
      */
