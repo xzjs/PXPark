@@ -119,22 +119,6 @@ class ParkController extends Controller {
 	}
 	
 	/**
-	 * 获取停车记录
-	 * 
-	 * @param number $use_id
-	 *        	用户id
-	 */
-	public function getRecord($user_id = 0) {
-		$Model = new Model ();
-		$sql = 'select c.name as park_name,d.no as car_no,a.start_time,a.end_time,a.money from px_parkrecord as a, 
-				px_user_car as b,px_park as c,px_car as d where a.car_id=b.car_id and b.user_id=' . $user_id . ' 
-						and b.status=1 and a.park_id=c.id and b.car_id=d.id order by a.id';
-		$result = $Model->query ( $sql );
-		return  $result;
-		//echo (count ( $result ) != 0) ? json_encode ( $result ) : null;
-	}
-	
-	/**
 	 * 根据两点间的经纬度计算距离
 	 *
 	 * @param float $lat

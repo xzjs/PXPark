@@ -32,10 +32,10 @@ class RechargerecordController extends Controller {
 	 * @param number $user_id
 	 *        	用户id
 	 */
-	public function getList($user_id = 0) {
+	public function getList($user_id = 0,$page=10,$num=1) {
 		$Recharge = M ( 'Rechargerecord' );
 		$condition ['user_id'] = $user_id;
-		$result = $Recharge->where ( $condition )->field('type,money,time')->select ();
+		$result = $Recharge->where ( $condition )->page($num,$page)->field('type,money,time')->select ();
 		for($i=0;$i<count($result);$i++){
 			if($result[$i]['type']==1)
 				$result[$i]['type']="支付宝";

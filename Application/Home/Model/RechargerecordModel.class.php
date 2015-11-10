@@ -16,7 +16,7 @@ use Think\Model;
 class RechargerecordModel extends Model {
 	
 	protected $_validate = array(
-			array('user_id','require','用户id必须'),
+			array('id','require','用户id必须'),
 	);
  
 	protected $_auto = array (

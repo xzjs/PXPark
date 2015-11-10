@@ -152,4 +152,14 @@ class UserController extends Controller
             return -1;
         }
     }
+    
+    public function forget() {
+    	$json='{
+    "code": 0,
+    "msg": "正常返回",
+    "data": [
+    ]
+}';
+    	return $json;
+    }
 }

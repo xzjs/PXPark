@@ -274,10 +274,13 @@ class APIController extends Controller
         echo json_encode($data);
     }
 
+    /**
+     * 查询停车记录
+     */
     public function record()
     {
-        $park = A('Park');
-        $reslut = $park->getRecord(I('param.id'));
+        $parkrecord = A('Parkrecord');
+        $reslut = $parkrecord->getRecord(I('param.id'),I('param.page',10),I('param.num',1));
         if (count($reslut) == 0)
             $data['code'] = 7;
         else
@@ -286,16 +289,38 @@ class APIController extends Controller
         echo json_encode($data);
     }
 
-    public function rechange()
+    /**
+     * 查询充值记录
+     */
+    public function recharge()
     {
-        $park = A('Rechargerecord');
-        $reslut = $park->getList(I('param.id'));
+        $recharge = A('Rechargerecord');
+        $reslut = $recharge->getList(I('param.id'),I('param.page'),I('param.num'));
         if (count($reslut) == 0)
             $data['code'] = 7;
         else
             $data['code'] = 0;
         $data['record'] = $reslut;
         echo json_encode($data);
+    }
+    
+    /**
+     * 增加充值记录
+     */
+    public function recharge_add() {
+    	/* $recharge = A('Rechargerecord');
+    	$reslut = $recharge->add(I('param.id'),I('param.id'),I('param.id')); */
+    	$json='{"code": 0,"msg": "正常返回","data": []}';
+    	echo $json;
+    }
+    
+    /**
+     * 
+     */
+    public function forget() {
+    	$user = A('User');
+    	$reslut = $user->forget();
+    	echo $reslut;	
     }
 
     /**

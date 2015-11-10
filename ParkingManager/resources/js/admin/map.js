@@ -29,7 +29,7 @@ $(function() {
 					baseline: 'top'
 				}
 			}
-		},
+		}
 	}
 	var labelBottom = {
 		normal: {
@@ -71,18 +71,22 @@ $(function() {
 		var tag = $(this).attr('data-tag');
 		if(tag == '0') {
 			$('#chartCon').hide();
+			$('#showInfo').hide();
 			$(this).attr('data-tag', '1');
 			$('#showText').html('显示');
 		} else {
 			$('#chartCon').show();
+			$('#showInfo').show();
 			$(this).attr('data-tag', '0');
 			$('#showText').html('隐藏');
 		}
 	});
 	$('#conditionBtn').on('click', function() {
-		$('#condition').show();
+		$('#condition').toggleClass('is_show');
 	});
-	$('#mapWinClose').on('click', function() {
-		$('#condition').hide();
+	$('.float_panel').on('click', function() {
+		$(this).addClass('float_panel_sel');
+		$(this).prev().removeClass('float_panel_sel');
+		$(this).next().removeClass('float_panel_sel');
 	});
 });
