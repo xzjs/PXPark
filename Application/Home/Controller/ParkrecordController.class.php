@@ -617,29 +617,30 @@ class ParkrecordController extends Controller {
 				if(($result[$i]['end_time']>=$in_time)&&($result[$i]['end_time']>=$in_time))
 					$json_array['finish_num']++;
 				$json_array['money']+=$result[$i]['money'];
-				$json_array['cars'][$i]['car_no']=$result[$i]['no'];
-				$json_array['cars'][$i]['start_time']=$result[$i]['start_time'];
-				$json_array['cars'][$i]['end_time']=$result[$i]['end_time'];
-				$json_array['cars'][$i]['time']=$result[$i]['time'];
-				$json_array['cars'][$i]['money']=$result[$i]['money'];
+				$json_array['rows'][$i]['car_no']=$result[$i]['no'];
+				$json_array['rows'][$i]['start_time']=($result[$i]['start_time'])?date("Y-m-d h:i:sa",$result[$i]['start_time']):'';
+				$json_array['rows'][$i]['end_time']=($result[$i]['end_time'])?date("Y-m-d h:i:sa",$result[$i]['end_time']):'';
+				$time_num=time()-$result[$i]['start_time'];
+				$json_array['rows'][$i]['time']=$result[$i]['time']?($this->time_tran($result[$i]['time'])):($this->time_tran($time_num));
+				$json_array['rows'][$i]['money']=$result[$i]['money'];
 				switch ($result[$i]['member_id']) {
 					case 1:
-						$json_array['cars'][$i]['member_id']='普通会员';
+						$json_array['rows'][$i]['member_id']='普通会员';
 						break;
 					case 2:
-						$json_array['cars'][$i]['member_id']='白银会员';
+						$json_array['rows'][$i]['member_id']='白银会员';
 						break;
 					case 3:
-						$json_array['cars'][$i]['member_id']='黄金会员';
+						$json_array['rows'][$i]['member_id']='黄金会员';
 						break;
 					default:
-						$json_array['cars'][$i]['member_id']='';
+						$json_array['rows'][$i]['member_id']='';
 						break;
 				}
 			}
 		}
-		$this->assign ( 'income_detail', json_encode($json_array));
-		$this->display ( );
+		$json_array['total']=count($json_array['rows']);
+		echo json_encode($json_array);
 	
 	}
 	
@@ -655,8 +656,34 @@ class ParkrecordController extends Controller {
 				px_user_car as b,px_park as c,px_car as d where a.car_id=b.car_id and b.user_id=' . $user_id . '
 						and b.status=1 and a.park_id=c.id and b.car_id=d.id order by a.id limit '.$page*($num-1).','.$page;
 		$result = $Model->query ( $sql );
-		return  $result;
+		return $result;
 	}
+	
+private function time_tran($the_time) {
+	  
+   $dur=$the_time;  
+   if($dur < 0){  
+        return $the_time;  
+   }else{  
+        if($dur < 60){  
+         return $dur.'秒';  
+        }else{  
+             if($dur < 3600){  
+              return floor($dur/60).'分钟';  
+             }else{  
+                  if($dur < 86400){  
+                     return floor($dur/3600).'小时';  
+                  }else{  
+                       if($dur < 259200000){ //3天内  
+                            return floor($dur/86400).'天';  
+                       }else{  
+                            return $the_time;  
+                       }  
+                  }  
+            }  
+        }  
+   }  
+}  
 	
 }
 
