@@ -25,8 +25,7 @@ class CarController extends Controller
 		$list= M()->table(array('px_user_car'=>'uc','px_car'=>'car'))->field('car.id,car.no,car.type')->where('car.id=uc.car_id'.' and status=2'.' and uc.user_id='.$id)->select();
 		//$list = $caridfind->where ( 'status=2'.' and2 px_user_id='.$id )->getField('px_car_id',true);// 查找用户id下的车辆id
 		for($i=0;$i<count($list);$i++){
-			if($list[$i]['type']==1)$list[$i]['type']='小车';
-			if($list[$i]['type']==2)$list[$i]['type']='大车';
+			$list[$i]=$list[$i]==1?'大车':'小车';
 		}
 		if ($list) {
 			$code = 0;// 0：成功
