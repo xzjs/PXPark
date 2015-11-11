@@ -3,10 +3,6 @@
  * 
  * @param page
  */
-function pjump(){
-	var url="map";
-    window.location.href=url;
-}
 function pageJump(page, me, flag) {
 	$('#content').load(page);
 	
@@ -24,6 +20,9 @@ function pageJump(page, me, flag) {
 		$(me).parent().children().eq(1).children().eq(0).addClass('nav_selected');
 		$(me).blur();
 	}
+}
+function pageJump1(page){
+	window.location.href=page;
 }
 function removeNavBG() {
 	$('.nav_item').each(function(i, ele) {

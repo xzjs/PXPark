@@ -1,9 +1,13 @@
 var map; // 地图
 $(function() {
 	/* S 初始化地图 */
-	map = new BMap.Map("map");
-	map.centerAndZoom(new BMap.Point(118.207244, 36.018531), 12);
-	map.enableScrollWheelZoom();
+	try{
+		map = new BMap.Map("map");
+		map.centerAndZoom(new BMap.Point(118.207244, 36.018531), 12);
+		map.enableScrollWheelZoom();
+	}catch(e){
+		
+	}
 	var labelTop = {
 		normal: {
 			label: {
