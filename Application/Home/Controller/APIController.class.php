@@ -365,8 +365,8 @@ class APIController extends Controller
                 $Park=D('Park');
                 $Car=D('Car');
                 $record_list=array(
-                    'park_name'=>$Park->find($result[$i]['park_id'])->data()->getField('name'),
-                    'car_no'=>$Car->find($result[$i]['car_id'])->data()->getField('no'),
+                    'park_name'=>$Park->find($result[$i]['park_id'])->data().name,
+                    'car_no'=>$Car->find($result[$i]['car_id'])->data().no,
                     'start_time'=>$result[$i]['start_time'],
                     'end_time'=>$result[$i]['end_time'],
                     'money'=>$result[$i]['money']
