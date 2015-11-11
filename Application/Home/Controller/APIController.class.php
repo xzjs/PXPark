@@ -344,7 +344,7 @@ class APIController extends Controller
     public function record()
     {
         $parkrecord = A('Parkrecord');
-        $reslut = $parkrecord->getRecord(I('param.id'),I('param.page',10),I('param.num',1));
+        $reslut = $parkrecord->getRecord(I('param.id'),I('param.page',1),I('param.num',10));
         if (count($reslut) == 0)
             $data['code'] = 7;
         else
