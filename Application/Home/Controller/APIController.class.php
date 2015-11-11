@@ -355,23 +355,23 @@ class APIController extends Controller
         } else {
             $data['code'] = 0;
         }
-        $page=I('post.page');
-        $num=I('post.num');
-        if(($page-1)*$num>$result_num){
-            $data['record']=array();
-        }else{
-            $end=$page*$num>$result_num?$result_num:$page*$num;
-            for($i=($page-1)*$num;$i<$end;$i++){
-                $Park=D('Park');
-                $Car=D('Car');
-                $record_list=array(
-                    'park_name'=>$Park->where('id='.$result[$i]['park_id'])->getField('name'),
-                    'car_no'=>$Car->where('id='.$result[$i]['car_id'])->getField('no'),
-                    'start_time'=>$result[$i]['start_time'],
-                    'end_time'=>$result[$i]['end_time'],
-                    'money'=>$result[$i]['money']
+        $page = I('post.page', 0);
+        $num = I('post.num', 0);
+        $data['record'] = array();
+        if (($page - 1) * $num <= $result_num) {
+            $end = $page * $num > $result_num ? $result_num : $page * $num;
+            $end = $end == 0 ? $result_num : $end;
+            for ($i = ($page - 1) * $num; $i < $end; $i++) {
+                $Park = D('Park');
+                $Car = D('Car');
+                $record_list = array(
+                    'park_name' => $Park->where('id=' . $result[$i]['park_id'])->getField('name'),
+                    'car_no' => $Car->where('id=' . $result[$i]['car_id'])->getField('no'),
+                    'start_time' => date('Y-m-d H:i:s',$result[$i]['start_time']),
+                    'end_time' => date('Y-m-d H:i:s',$result[$i]['end_time']),
+                    'money' => $result[$i]['money']
                 );
-                array_push($data['record'],$record_list);
+                array_push($data['record'], $record_list);
             }
         }
         echo json_encode($data);

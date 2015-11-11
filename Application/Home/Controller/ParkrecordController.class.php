@@ -667,7 +667,7 @@ class ParkrecordController extends Controller {
 				array_push($data,$l);
 			}
 		}
-		var_dump($data);
+		//var_dump($data);
 		return $data;
 	}
 	
