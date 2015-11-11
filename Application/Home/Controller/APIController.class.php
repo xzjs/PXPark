@@ -377,14 +377,50 @@ class APIController extends Controller
     	$json='{"code": 0,"msg": "正常返回","data": []}';
     	echo $json;
     }
-    
+
     /**
-     * 
+     * 忘记密码
      */
     public function forget() {
-    	$user = A('User');
-    	$reslut = $user->forget();
-    	echo $reslut;	
+        $Captcha = A('Captcha');
+        $data['code'] = 0;
+        $code_status = $Captcha->verify(I('post.phone'), I('post.captcha'));
+        switch ($code_status) {
+            case 1:
+                $data['code'] = 1;
+                break;
+            case 2:
+                $data['code'] = 2;
+                break;
+            case 3:
+                $data['code'] = 5;
+                break;
+            default:
+                break;
+        }
+        if ($data['code'] == 0) {
+            $User = A('User');
+            $UserModel=D('User');
+            $id=$UserModel->where('phone="'.I('post.phone').'"')->getField('id');
+            if($id) {
+                $result = $User->forget($id, I('post.pwd'));
+                switch ($result) {
+                    case -1:
+                        $data['code'] = 3;
+                        break;
+                    case -2:
+                        $data['code'] = 4;
+                        break;
+                    default:
+                        break;
+                }
+            }else{
+                $data['code']=5;
+            }
+        }
+        $data['msg']="正常返回";
+        $data['data']=array();
+        echo json_encode($data);
     }
 
     /**

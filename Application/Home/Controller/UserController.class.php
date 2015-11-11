@@ -164,14 +164,16 @@ return  $result;
             return -1;
         }
     }
-    
-    public function forget() {
-    	$json='{
-    "code": 0,
-    "msg": "正常返回",
-    "data": [
-    ]
-}';
-    	return $json;
+
+	/**
+	 * 用户忘记密码
+	 * @param $id 用户id
+	 * @param $pwd 修改后的pwd
+	 * @return int 0:正常
+	 */
+    public function forget($id,$pwd) {
+		$User=D('User');
+		$User->where('id='.$id)->setField('pwd',md5($pwd));
+		return 0;
     }
 }
