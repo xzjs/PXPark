@@ -14,8 +14,36 @@ use Think\Controller;
  * @package Home\Controller
  */
 class SuperController extends Controller{
-/* function zhishu_analysise() {
-	$this->display();
+	/**
+	 * 
+	 */
+	function  coming_zhishu_line(){
+		$park = A('Park');
+		$result=$park->coming_zhishu_line();
+		echo $result;
+	}
+	/**
+	 * 获取日期段内停车指数
+	 */
+	function zhishu_line(){
+		 $park = A('Park');
+		$stime=strtotime (I('post.stime'));
+		$etime=strtotime(I('post.etime'));
+		$result=$park->zhishu_line($stime,$etime);
+		
+		echo $result; 
+	//	echo "hah";
+	}
+	/**
+	 * 获取个停车场个数
+	 */
+ function pie_parks() {
+
+ 	$park = A('Park');
+ 	$result= $park->get_parks_num();
+ 	
+ 	//echo $array;
+ 	echo json_encode( $result);
 	
-} */
+} 
 }

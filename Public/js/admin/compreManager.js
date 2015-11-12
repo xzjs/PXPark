@@ -215,5 +215,9 @@ $(function() {
 })
 
 function showCompreMangerDetail(){
-	pageJump('compreManagerDetail.html');
+
+	
+	var url="compreManagerDetail";
+    window.location.href=url;
+	
 }

@@ -89,9 +89,9 @@ class ParkrecordController extends Controller {
 	/**
 	 * 停车场车次分析
 	 */
-	public function park_analyse() {
-		$park_id = I ( 'post.park_id' );
-		
+	function park_analyse() {
+		//$park_id = I ( 'post.park_id' );
+		$park_id =1;
 		if (! I ( 'post.start_time' ))
 			$t = 24;
 		else {
@@ -538,6 +538,9 @@ class ParkrecordController extends Controller {
 		$this->display();
 		
 	}
+}
+
+
 	/**
 	 * 获取近n天的停车和收费数据
 	 */
@@ -551,7 +554,7 @@ class ParkrecordController extends Controller {
 		}
 		$Model = new Model ();
 		$time=strtotime("-".I('param.time',30)." day");
-		$sql = 'SELECT a.money,c.type FROM px_parkrecord AS a,px_park AS b,px_car AS c
+		$sql = 'SELECT a.money,c.type FROM px_parkrecord AS a,px_park AS b,px_car AS c 
 				WHERE b.id=a.park_id AND c.id=a.car_id and a.end_time>'.$time.$condition.' ORDER BY a.id desc';
 		echo  $sql;
 		$result = $Model->query ( $sql );
@@ -575,7 +578,7 @@ class ParkrecordController extends Controller {
 				$detail['big_free']['money']+=$value['money'];
 			}
 		}
-		echo json_encode($detail);
+		echo json_encode($detail); 
 	}
 	
 	/**
@@ -607,9 +610,9 @@ class ParkrecordController extends Controller {
 		if($condition!=""){
 			$Model = new Model ();
 			$time=strtotime("-".$time." day");
-			$sql= 'SELECT px_parkrecord.id,px_parkrecord.start_time,px_parkrecord.end_time,px_parkrecord.money,px_car.no,px_user.member_id,
-					px_parkrecord.end_time-px_parkrecord.start_time as time FROM px_parkrecord,px_car,px_park,px_user,px_user_car WHERE px_park.id=px_parkrecord.park_id
-					and px_parkrecord.car_id=px_car.id and px_car.id=px_user_car.car_id and px_user_car.user_id=px_user.id '.$condition.'order by px_parkrecord.id desc';
+			$sql= 'SELECT px_parkrecord.id,px_parkrecord.start_time,px_parkrecord.end_time,px_parkrecord.money,px_car.no,px_user.member_id, 
+					px_parkrecord.end_time-px_parkrecord.start_time as time FROM px_parkrecord,px_car,px_park,px_user,px_user_car WHERE px_park.id=px_parkrecord.park_id 
+					and px_parkrecord.car_id=px_car.id and px_car.id=px_user_car.car_id and px_user_car.user_id=px_user.id '.$condition;
 			$result = $Model->query ( $sql );
 			for($i=0;$i<count($result);$i++){
 				if(($result[$i]['start_time']>=$in_time)&&($result[$i]['start_time']>=$in_time))
@@ -625,17 +628,17 @@ class ParkrecordController extends Controller {
 				$json_array['rows'][$i]['money']=$result[$i]['money'];
 				switch ($result[$i]['member_id']) {
 					case 1:
-						$json_array['rows'][$i]['member_id']='普通会员';
-						break;
+						$json_array['cars'][$i]['member_id']='普通会员';
+					break;
 					case 2:
-						$json_array['rows'][$i]['member_id']='白银会员';
+						$json_array['cars'][$i]['member_id']='白银会员';
 						break;
 					case 3:
-						$json_array['rows'][$i]['member_id']='黄金会员';
+						$json_array['cars'][$i]['member_id']='黄金会员';
 						break;
 					default:
-						$json_array['rows'][$i]['member_id']='';
-						break;
+						$json_array['cars'][$i]['member_id']='';
+					break;
 				}
 			}
 		}
