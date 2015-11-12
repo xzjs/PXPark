@@ -317,7 +317,6 @@ class APIController extends Controller
         foreach ($result['Rule'] as $r) {
             $Rule = D('Rule');
             $rs = $Rule->relation(true)->find($r['id']);
-            //var_dump($rs);
             $str .= $rs['Ruletype']['name'] . '\n' . $rs['name'] . '\n';
             foreach ($rs['Ruletime'] as $rt) {
                 $str .= $rt['start_time'] . '小时到' . $rt['end_time'] . '小时' . $rt['fee'] . '元' . '\n';
@@ -336,8 +335,6 @@ class APIController extends Controller
             'type' => $result['type'],
             'address' => $result['address']
         );
-
-        //var_dump($result);
         $data['park'] = $d;
         echo json_encode($data);
     }
@@ -398,7 +395,7 @@ class APIController extends Controller
     public function recharge_add()
     {
         $recharge = A('Rechargerecord');
-        $reslut = $recharge->add(I('param.user_id'),I('param.money'),I('param.type'));
+        $reslut = $recharge->add(I('param.id'),I('param.money'),I('param.type'));
         
         $json['code'] =0;
         $json['msg']="正常返回";
