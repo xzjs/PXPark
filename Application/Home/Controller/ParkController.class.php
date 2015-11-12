@@ -13,6 +13,7 @@ class ParkController extends Controller {
 	 * 
 	 */
 	function coming_zhishu_line(){
+		$park_id=1;
 		$now = strtotime ( "now " );
 		$cout_start;
 		$cut_time = $now - 24 * 60 * 60;
@@ -42,7 +43,7 @@ class ParkController extends Controller {
 					$value[$h] = 0;
 				}
 				$result=M()->query("SELECT num ,time FROM px_target WHERE
-						$cut_time<=time ORDER BY TIME ");
+						$cut_time<=time  AND park_id=$park_id ORDER BY TIME ");
 				//echo "ctime".$cut_time;
 				for($j=0;$j<count ( $result );$j++){
 					$shour = date ( "H", $result [$j] ['time'] );
@@ -76,11 +77,11 @@ class ParkController extends Controller {
 	 * 
 	 */
 	function zhishu_line($stime,$etime){
-	
+	$park_id=1;
 		$s=$stime;
 		$e=$etime;
 		$result=M()->query("SELECT num ,time FROM px_target WHERE
-				$stime<=time AND time<=$etime+86400 ORDER BY TIME ");
+				$stime<=time AND time<=$etime+86400 AND park_id=$park_id ORDER BY TIME ");
 		
 	    $i=0;
 		$num=0;

@@ -90,8 +90,8 @@ class ParkrecordController extends Controller {
 	 * 停车场车次分析
 	 */
 	function park_analyse() {
-		$park_id = I ( 'post.park_id' );
-		
+		//$park_id = I ( 'post.park_id' );
+		$park_id =1;
 		if (! I ( 'post.start_time' ))
 			$t = 24;
 		else {
