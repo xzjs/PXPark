@@ -21,7 +21,16 @@ class RechargerecordController extends Controller {
 		$Recharge = D ( 'Rechargerecord' );
 		$recharge=array("user_id"=>$id,"money"=>$money,"type"=>$type);
 		if ($Recharge->create ($recharge)) {
-			$result = $Recharge->add ();
+			$user=M('User');
+			$result=$user->find($id);
+			if($result){
+				$result1=$user->where('id='.$id)->setInc('remain',$money);
+				$result2 = $Recharge->add ();
+				$result=$result1&&$result2;
+			}else{
+				$result=null;
+			}
+			return  $result;
 		} else {
 			$this->error ( $Recharge->getError () );
 		}
