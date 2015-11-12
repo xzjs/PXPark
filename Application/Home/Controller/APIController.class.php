@@ -8,7 +8,6 @@
 namespace Home\Controller;
 
 use Think\Controller;
-use Org\Util\String;
 
 /**
  * API控制器
@@ -452,7 +451,7 @@ class APIController extends Controller
     /**
      * 获取拼接url
      * @param $arg 参数
-     * @return string 拼接好的字符  串
+     * @return string 拼接好的字符串
      */
     private function get_url($arg)
     {

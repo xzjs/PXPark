@@ -667,7 +667,10 @@ class ParkrecordController extends Controller {
 				array_push($data,$l);
 			}
 		}
-		//var_dump($data);
+		usort($data,function($a,$b){
+			return $a['time']>$b['time']?-1:1;
+		});
+		var_dump($data);
 		return $data;
 	}
 	
