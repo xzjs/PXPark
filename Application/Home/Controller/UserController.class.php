@@ -80,7 +80,7 @@ class UserController extends Controller
 		if ($result) {
 				echo "<script>window.alert(\"注册成功！\"),location.href='".U('Common/user_info?id='.$result)."';</script>";//添加成功
 			} else {
-				echo '数据添加错误！';//添加失败
+				echo '数据添加错误！';//添加 失败
 			}
 		} else {
 			$this->error($User->getError());;//自动验证失败
