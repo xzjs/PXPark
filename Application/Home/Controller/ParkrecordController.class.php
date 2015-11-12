@@ -670,7 +670,6 @@ class ParkrecordController extends Controller {
 		usort($data,function($a,$b){
 			return $a['time']>$b['time']?-1:1;
 		});
-		var_dump($data);
 		return $data;
 	}
 	
