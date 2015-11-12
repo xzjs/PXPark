@@ -17,6 +17,8 @@ class RechargerecordModel extends Model {
 	
 	protected $_validate = array(
 			array('id','require','用户id必须'),
+			array('type','require','充值类型必须'),
+			array('money','require','充值金额必须'),
 	);
  
 	protected $_auto = array (

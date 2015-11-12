@@ -17,9 +17,10 @@ class RechargerecordController extends Controller {
 	/**
 	 * 添加充值记录
 	 */
-	public function add() {
+	public function add($id,$money,$type) {
 		$Recharge = D ( 'Rechargerecord' );
-		if ($Recharge->create ()) {
+		$recharge=array("user_id"=>$id,"money"=>$money,"type"=>$type);
+		if ($Recharge->create ($recharge)) {
 			$result = $Recharge->add ();
 			var_dump ( $result );
 		} else {
@@ -38,7 +39,7 @@ class RechargerecordController extends Controller {
 		if($page==0&&$num==0){
 			$result = $Recharge->where ( $condition )->field('type,money,time')->select ();
 		}else{
-			$result = $Recharge->where ( $condition )->page($num,$page)->field('type,money,time')->select ();
+			$result = $Recharge->where ( $condition )->page($page,$num)->field('type,money,time')->select ();
 		}
 		for($i=0;$i<count($result);$i++){
 			if($result[$i]['type']==1)
