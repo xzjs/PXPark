@@ -399,8 +399,11 @@ class APIController extends Controller
     {
         $recharge = A('Rechargerecord');
         $reslut = $recharge->add(I('param.user_id'),I('param.money'),I('param.type'));
-        $json = '{"code": 0,"msg": "正常返回","data": []}';
-        echo $json;
+        
+        $json['code'] =0;
+        $json['msg']="正常返回";
+        $json['data']=array();
+        echo json_encode($json);
     }
 
     /**

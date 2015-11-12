@@ -28,7 +28,8 @@ return  $result;
 	 *通过网页注册用户
 	 */
 	public function web_register($username,$password,$factname,$cardNo,$phone,$message) {
-		$Captcha = A('Captcha');
+		echo "<script>window.alert(\"注册成功！\"),location.href=;</script>";//添加成功
+		/* $Captcha = A('Captcha');
 		$data['code'] = 0;
 		$code_status = $Captcha->verify($phone,$message);
 		switch ($code_status) {
@@ -76,7 +77,7 @@ return  $result;
 				$result=$User->add();
 			}
 		if ($result) {
-				echo "数据添加成功";//添加成功
+				echo "<script>window.alert(\"注册成功！\")location.href=\"{:U('Common/car_manage？id=1')}\";</script>";//添加成功
 			} else {
 				echo '数据添加错误！';//添加失败
 			}
@@ -85,7 +86,7 @@ return  $result;
 		}
 	}else{
 		echo "验证码验证失败";
-	}
+	} */
 	}
 	/**
 	 * 用户注册
