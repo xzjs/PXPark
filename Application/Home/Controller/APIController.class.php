@@ -395,7 +395,7 @@ class APIController extends Controller
     public function recharge_add()
     {
         $recharge = A('Rechargerecord');
-        $reslut = $recharge->add(I('param.user_id'),I('param.money'),I('param.type'));
+        $reslut = $recharge->add(I('param.id'),I('param.money'),I('param.type'));
         if($reslut){
         	$json['code'] =0;
         	$json['msg']="正常返回";
