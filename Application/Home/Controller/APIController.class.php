@@ -395,11 +395,16 @@ class APIController extends Controller
     public function recharge_add()
     {
         $recharge = A('Rechargerecord');
-        $reslut = $recharge->add(I('param.id'),I('param.money'),I('param.type'));
-        
-        $json['code'] =0;
-        $json['msg']="正常返回";
-        $json['data']=array();
+        $reslut = $recharge->add(I('param.user_id'),I('param.money'),I('param.type'));
+        if(!$reslut){
+        	$json['code'] =0;
+        	$json['msg']="正常返回";
+        	$json['data']=array();
+        }else{
+        	$json['code'] =4;
+        	$json['msg']="内部错误";
+        	$json['data']=array();
+        }
         echo json_encode($json);
     }
 

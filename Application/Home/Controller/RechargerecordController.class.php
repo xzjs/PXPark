@@ -22,7 +22,6 @@ class RechargerecordController extends Controller {
 		$recharge=array("user_id"=>$id,"money"=>$money,"type"=>$type);
 		if ($Recharge->create ($recharge)) {
 			$result = $Recharge->add ();
-			//var_dump ( $result );
 		} else {
 			$this->error ( $Recharge->getError () );
 		}
