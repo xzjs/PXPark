@@ -47,6 +47,7 @@ class UserController extends Controller
 		if ($data['code'] == 0) {
 			
 		$validate_rules = array(
+				
 				array('phone','','手机号已经被注册！',0,'unique',1),
 				array('nickname','require','用户名必须！'),
 				array('pwd','require','密码必须！'),
