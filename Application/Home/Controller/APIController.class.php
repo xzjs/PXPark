@@ -359,7 +359,7 @@ class APIController extends Controller
     public function recharge()
     {
         $recharge = A('Rechargerecord');
-        $reslut = $recharge->getList(I('param.id'),I('param.page'),I('param.num'));
+        $reslut = $recharge->getList(I('param.id'),I('param.page',0),I('param.num'),0);
         if (count($reslut) == 0)
             $data['code'] = 7;
         else

@@ -14,5 +14,22 @@ use Think\Controller;
  * @package Home\Controller
  */
 class CommonController extends Controller{
+	
+	public function user_info() {
+		$user = A( 'User' );
+		$result=$user->detail(I('param.id',0));
+		if($result==-1)
+			$this->display('user_register');
+		else{
+			$this->assign('data',$result);
+			$this->display('user_update');
+		}
+	}
+	
+	public function web_register($cardfile=0) {
+		$user=A('User');
+		$x=I('param.cardfile');
+		$result=$user->web_register(I('param.username'),I('param.password'),I('param.factname'),I('param.cardNo'),I('param.phone'),I('param.message'));
+	}
 
 }

@@ -27,10 +27,10 @@ return  $result;
 	 * 
 	 *通过网页注册用户
 	 */
-	public function web_register() {
+	public function web_register($username,$password,$factname,$cardNo,$phone,$message) {
 		$Captcha = A('Captcha');
 		$data['code'] = 0;
-		$code_status = $Captcha->verify(I('post.phone'), I('post.captcha'));
+		$code_status = $Captcha->verify($phone,$message);
 		switch ($code_status) {
 			case 1:
 				$data['code'] = 1;
@@ -51,18 +51,23 @@ return  $result;
 				array('nickname','require','用户名必须！'),
 				array('pwd','require','密码必须！'),
 				array('name','require','真实姓名必须！'),
-				array('card_img','require','省份证照片必须！'),
 				array('card_no','require','身份证号必须！'),
 				array('phone','require','手机号必须！'),
-				array('captcha','require','验证码必须！'),
 		);//动态验证规则
 		
 		$auto_rules = array (
 				array('pwd','md5',3,'function') , // 对password字段在新增和编辑的时候使md5函数处理
 		);//动态生成规则
+		$User=D('User');
+		/* $User->nickname=$username;
+		$User->pwd=$password;
+		$User->name=$factname;
+		$User->card_no=$cardNo;
+		$User->card_img=$cardfile;
+		$User->phone=$phone; */
 		
-		$User = D("User"); // 实例化User对象
-		if ($User->validate($validate_rules)->auto($auto_rules)->create()){
+		$user = array("nickname"=>$username,"pwd"=>$password,"name"=>$factname,"card_no"=>$cardNo,"phone"=>$phone); // 实例化User对象 
+		if ($User->validate($validate_rules)->auto($auto_rules)->create($user)){
 			$upload = new \Think\Upload();// 实例化上传类
 			$upload->maxSize = 3145728;// 设置附件上传大小
 			$upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
@@ -73,7 +78,7 @@ return  $result;
 			if (!$info) {
 				$result=null;
 			} else {
-				$User->card_img = $info['card_img']['savename'];
+				$User->card_img = $info['card_file']['savename'];
 				$result=$User->add();
 			}
 		if ($result) {
@@ -82,7 +87,7 @@ return  $result;
 				echo '数据添加错误！';//添加失败
 			}
 		} else {
-			echo "验证失败";//自动验证失败
+			$this->error($User->getError());;//自动验证失败
 		}
 	}else{
 		echo "验证码验证失败";
