@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+<meta charset="UTF-8">
+<title></title>
 </head>
 <body>
-<form action="http://121.42.49.35/PXPark/index.php/Home/API/record" method="post">
-    用户ID<input type="text" name="id">
-    <input type="submit" value="提交">
-</form>
+	<form action="__URL__/user" method="post" class="w-form">
+		<div class="tester-params">
+			<div class="form-item">
+				<label class="form-label">id<i class="form-must">*</i></label>
+				<div class="form-target">
+					<label class="w-text text-m text-full"><input
+						class="text-input" required="" name="id" placeholder="" value=""
+						type="text"></label>
+				</div>
+			</div>
+		</div>
+		<div class="tester-url">
+			<span class="api-type type-post">post</span>
+			<div class="w-text text-m text-full">
+				<input disabled=""
+					value="http://27.223.89.130:48082/PXPark/index.php/Home/API/user"
+					class="text-input">
+			</div>
+			<label class="w-btn btn-l btn-success"><input
+				class="btn-input" value="调试" type="submit"></label>
+		</div>
+	</form>
 </body>
 </html>
