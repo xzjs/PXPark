@@ -3,6 +3,7 @@ $(document).ready(
 			 showpie();
 		     coming_zhishu_line();
 			 zhishu_line();
+			 
           }
 		);
 
