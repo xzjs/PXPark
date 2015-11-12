@@ -42,6 +42,7 @@ class RechargerecordController extends Controller {
 			$result = $Recharge->where ( $condition )->page($page,$num)->field('type,money,time')->select ();
 		}
 		for($i=0;$i<count($result);$i++){
+			$result[$i]['time']=date("Y-m-d h:i:sa",$result[$i]['time']);
 			if($result[$i]['type']==1)
 				$result[$i]['type']="支付宝";
 			elseif($result[$i]['type']==2)
