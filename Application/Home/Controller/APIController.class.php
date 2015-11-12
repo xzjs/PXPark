@@ -331,6 +331,7 @@ class APIController extends Controller
                     'type'=>$rt['type']==1?'白天':'夜晚',
                     'car_type'=>$rt['car_type']==1?'大车':'小车'
                 )) ;
+
             }
             array_push($str,$rule_temp);
         }
