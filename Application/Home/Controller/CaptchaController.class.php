@@ -15,6 +15,10 @@ use Think\Controller;
  */
 class CaptchaController extends Controller
 {
+    /**
+     * 创建验证码
+     * @param $phone 用户手机号
+     */
     public function create($phone){
         $Captcha=D('Captcha');
         $data['captcha']='1234';

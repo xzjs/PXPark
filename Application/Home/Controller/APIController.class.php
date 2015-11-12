@@ -16,49 +16,53 @@ use Org\Util\String;
  */
 class APIController extends Controller
 {
-	/**
-	 * 获取支付宝信息
-	 */
-	function get_alipay(){
-		//ini_set('date.timezone','Asia/Shanghai');
-		$order_no=(String)date("Ymdhms")+rand(1,10);
-		$date=array(
-				"pid"=>'2088121188830505',
-				"account"=>'qdhuitianpingxing@163.com ',
-				"private_key"=>'',
-				"public_key"=>'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB',
-				"order_no"=>$order_no,
-				"notify_url"=>'http://27.223.89.130:48082/PXPark/index.php/Home/API/recharge_add'
-				
-				
-		);
-		$array=array(
-			"code"=>'0',
-				"msg"=>'正常返回',
-				"data"=>$date,
-		 
-		
-		);
-		echo json_encode($array);
-	}
-	function timetostring($str){
-		$cliptime=explode("-",$str);
-		$result="";
-		for($i=0;$i<count($cliptime);$i++){
-			$result=$result.$cliptime[$i];
-		}
-		return $result;
-	}
+    /**
+     * 获取支付宝信息
+     */
+    function get_alipay()
+    {
+        //ini_set('date.timezone','Asia/Shanghai');
+        $order_no = (String)date("Ymdhms") + rand(1, 10);
+        $date = array(
+            "pid" => '2088121188830505',
+            "account" => 'qdhuitianpingxing@163.com ',
+            "private_key" => '',
+            "public_key" => 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB',
+            "order_no" => $order_no,
+            "notify_url" => 'http://27.223.89.130:48082/PXPark/index.php/Home/API/recharge_add'
+
+
+        );
+        $array = array(
+            "code" => '0',
+            "msg" => '正常返回',
+            "data" => $date,
+
+
+        );
+        echo json_encode($array);
+    }
+
+    function timetostring($str)
+    {
+        $cliptime = explode("-", $str);
+        $result = "";
+        for ($i = 0; $i < count($cliptime); $i++) {
+            $result = $result . $cliptime[$i];
+        }
+        return $result;
+    }
+
     /**
      * 使用条款
      */
     public function privacy()
     {
-        $Privacy=A('Privacy');
-        $id=$Privacy->get_privacy();
-        $data=array(
-            'code'=>0,
-            'url'=>$this->get_url('/index.php/Home/Privacy/detail/id/'.$id)
+        $Privacy = A('Privacy');
+        $id = $Privacy->get_privacy();
+        $data = array(
+            'code' => 0,
+            'url' => $this->get_url('/index.php/Home/Privacy/detail/id/' . $id)
         );
         echo json_encode($data);
     }
@@ -184,8 +188,8 @@ class APIController extends Controller
     public function change_pwd()
     {
         $Captcha = A('Captcha');
-        $User=D('User');
-        $data_user=$User->find(I('post.id'));
+        $User = D('User');
+        $data_user = $User->find(I('post.id'));
         $data['code'] = 0;
         $code_status = $Captcha->verify($data_user['phone'], I('post.captcha'));
         switch ($code_status) {
@@ -232,18 +236,18 @@ class APIController extends Controller
         $User = A('User');
         $data['code'] = 0;
         $result = $User->detail(I('param.id'));
-        $result_spend=$User->getSpend(I('param.id'));
-        if ($result == -1||$result_spend==-1) {
+        $result_spend = $User->getSpend(I('param.id'));
+        if ($result == -1 || $result_spend == -1) {
             $data['code'] = 7;
         } else {
             $u['nickname'] = $result['nickname'];
-            $u['phone'] = $result['phone'];  
+            $u['phone'] = $result['phone'];
             $u['remain'] = $result['remain'];
             $u['consume'] = $result_spend[0]['consum'];
-            $u['img'] =$this->get_url(C('UPLOAD').$result['img']);
+            $u['img'] = $this->get_url(C('UPLOAD') . $result['img']);
             $data['user'] = $u;
         }
-      
+
         echo json_encode($data);
     }
 
@@ -308,33 +312,33 @@ class APIController extends Controller
             $data['code'] = 7;
         else
             $data['code'] = 0;
-        $data['msg']='正常返回';
-        $str='';
+        $data['msg'] = '正常返回';
+        $str = '';
         foreach ($result['Rule'] as $r) {
-            $Rule=D('Rule');
-            $rs=$Rule->relation(true)->find($r['id']);
+            $Rule = D('Rule');
+            $rs = $Rule->relation(true)->find($r['id']);
             //var_dump($rs);
-            $str.=$rs['Ruletype']['name'].'\n'.$rs['name'].'\n';
+            $str .= $rs['Ruletype']['name'] . '\n' . $rs['name'] . '\n';
             foreach ($rs['Ruletime'] as $rt) {
-                $str.=$rt['start_time'].'小时到'.$rt['end_time'].'小时'.$rt['fee'].'元'.'\n';
+                $str .= $rt['start_time'] . '小时到' . $rt['end_time'] . '小时' . $rt['fee'] . '元' . '\n';
             }
         }
-        $d=array(
-            'id'=>$result['id'],
-            'name'=>$result['name'],
-            'lon'=>$result['lon'],
-            'lat'=>$result['lat'],
-            'price'=>$result['price'],
-            'remain'=>$result['remain_num'],
-            'total'=>$result['total_num'],
-            'img'=>$this->get_url(C('UPLOAD').$result['img']),
-            'rule'=>$str,
-            'type'=>$result['type'],
-            'address'=>$result['address']
+        $d = array(
+            'id' => $result['id'],
+            'name' => $result['name'],
+            'lon' => $result['lon'],
+            'lat' => $result['lat'],
+            'price' => $result['price'],
+            'remain' => $result['remain_num'],
+            'total' => $result['total_num'],
+            'img' => $this->get_url(C('UPLOAD') . $result['img']),
+            'rule' => $str,
+            'type' => $result['type'],
+            'address' => $result['address']
         );
 
         //var_dump($result);
-        $data['park']=$d;
+        $data['park'] = $d;
         echo json_encode($data);
     }
 
@@ -344,12 +348,32 @@ class APIController extends Controller
     public function record()
     {
         $parkrecord = A('Parkrecord');
-        $reslut = $parkrecord->getRecord(I('param.id'),I('param.page',10),I('param.num',1));
-        if (count($reslut) == 0)
+        $result = $parkrecord->getRecord(I('param.id'));
+        $result_num = count($result);
+        if ($result_num == 0) {
             $data['code'] = 7;
-        else
+        } else {
             $data['code'] = 0;
-        $data['record'] = $reslut;
+        }
+        $page = I('post.page', 0);
+        $num = I('post.num', 0);
+        $data['record'] = array();
+        if (($page - 1) * $num <= $result_num) {
+            $end = $page * $num > $result_num ? $result_num : $page * $num;
+            $end = $end == 0 ? $result_num : $end;
+            for ($i = ($page - 1) * $num; $i < $end; $i++) {
+                $Park = D('Park');
+                $Car = D('Car');
+                $record_list = array(
+                    'park_name' => $Park->where('id=' . $result[$i]['park_id'])->getField('name'),
+                    'car_no' => $Car->where('id=' . $result[$i]['car_id'])->getField('no'),
+                    'start_time' => date('Y-m-d H:i:s',$result[$i]['start_time']),
+                    'end_time' => date('Y-m-d H:i:s',$result[$i]['end_time']),
+                    'money' => $result[$i]['money']
+                );
+                array_push($data['record'], $record_list);
+            }
+        }
         echo json_encode($data);
     }
 
@@ -367,24 +391,62 @@ class APIController extends Controller
         $data['record'] = $reslut;
         echo json_encode($data);
     }
-    
+
     /**
      * 增加充值记录
      */
-    public function recharge_add() {
-    	/* $recharge = A('Rechargerecord');
-    	$reslut = $recharge->add(I('param.id'),I('param.id'),I('param.id')); */
-    	$json='{"code": 0,"msg": "正常返回","data": []}';
-    	echo $json;
+    public function recharge_add()
+    {
+        /* $recharge = A('Rechargerecord');
+        $reslut = $recharge->add(I('param.id'),I('param.id'),I('param.id')); */
+        $json = '{"code": 0,"msg": "正常返回","data": []}';
+        echo $json;
     }
-    
+
     /**
-     * 
+     * 忘记密码
      */
-    public function forget() {
-    	$user = A('User');
-    	$reslut = $user->forget();
-    	echo $reslut;	
+    public function forget()
+    {
+        $Captcha = A('Captcha');
+        $data['code'] = 0;
+        $code_status = $Captcha->verify(I('post.phone'), I('post.captcha'));
+        switch ($code_status) {
+            case 1:
+                $data['code'] = 1;
+                break;
+            case 2:
+                $data['code'] = 2;
+                break;
+            case 3:
+                $data['code'] = 5;
+                break;
+            default:
+                break;
+        }
+        if ($data['code'] == 0) {
+            $User = A('User');
+            $UserModel = D('User');
+            $id = $UserModel->where('phone="' . I('post.phone') . '"')->getField('id');
+            if ($id) {
+                $result = $User->forget($id, I('post.pwd'));
+                switch ($result) {
+                    case -1:
+                        $data['code'] = 3;
+                        break;
+                    case -2:
+                        $data['code'] = 4;
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                $data['code'] = 5;
+            }
+        }
+        $data['msg'] = "正常返回";
+        $data['data'] = array();
+        echo json_encode($data);
     }
 
     /**
@@ -392,7 +454,8 @@ class APIController extends Controller
      * @param $arg 参数
      * @return string 拼接好的字符  串
      */
-    private function get_url($arg){
-        return C('IP').__ROOT__.$arg;
+    private function get_url($arg)
+    {
+        return C('IP') . __ROOT__ . $arg;
     }
 }

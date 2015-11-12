@@ -643,20 +643,32 @@ class ParkrecordController extends Controller {
 		echo json_encode($json_array);
 	
 	}
-	
+
 	/**
 	 * 获取停车记录
-	 *
-	 * @param number $use_id
-	 *        	用户id
+	 * @param $user_id 用户id
+	 * @return array 结果数组
 	 */
-	public function getRecord($user_id,$page,$num) {
-		$Model = new Model ();
+	public function getRecord($user_id) {
+		/*$Model = new Model ();
 		$sql = 'select c.name as park_name,d.no as car_no,a.start_time,a.end_time,a.money from px_parkrecord as a,
 				px_user_car as b,px_park as c,px_car as d where a.car_id=b.car_id and b.user_id=' . $user_id . '
 						and b.status=1 and a.park_id=c.id and b.car_id=d.id order by a.id limit '.$page*($num-1).','.$page;
 		$result = $Model->query ( $sql );
-		return $result;
+		return $result;*/
+		$User=D('User');
+		$user_data=$User->relation(true)->find($user_id);
+		//var_dump($user_data);
+		$data=array();
+		foreach ($user_data['Car'] as $car) {
+			$Parkrecord=D('Parkrecord');
+			$list=$Parkrecord->where('car_id='.$car['id'])->select();
+			foreach ($list as $l) {
+				array_push($data,$l);
+			}
+		}
+		//var_dump($data);
+		return $data;
 	}
 	
 private function time_tran($the_time) {
