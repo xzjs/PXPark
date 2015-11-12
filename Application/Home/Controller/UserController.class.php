@@ -59,14 +59,8 @@ return  $result;
 				array('pwd','md5',3,'function') , // 对password字段在新增和编辑的时候使md5函数处理
 		);//动态生成规则
 		$User=D('User');
-		/* $User->nickname=$username;
-		$User->pwd=$password;
-		$User->name=$factname;
-		$User->card_no=$cardNo;
-		$User->card_img=$cardfile;
-		$User->phone=$phone; */
-		
 		$user = array("nickname"=>$username,"pwd"=>$password,"name"=>$factname,"card_no"=>$cardNo,"phone"=>$phone); // 实例化User对象 
+		
 		if ($User->validate($validate_rules)->auto($auto_rules)->create($user)){
 			$upload = new \Think\Upload();// 实例化上传类
 			$upload->maxSize = 3145728;// 设置附件上传大小
@@ -78,7 +72,7 @@ return  $result;
 			if (!$info) {
 				$result=null;
 			} else {
-				$User->card_img = $info['card_file']['savename'];
+				$User->card_img = $info['cardfile']['savename'];
 				$result=$User->add();
 			}
 		if ($result) {
