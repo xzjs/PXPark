@@ -20,8 +20,8 @@ class UserController extends Controller
 	 */
 	public function getSpend($uid){
 		$result=M()->query("SELECT SUM(px_parkrecord.money) AS consum  FROM px_parkrecord,px_user_car WHERE px_user_car.user_id=$uid  AND px_user_car.status=1 AND px_user_car.car_id=px_parkrecord.car_id   AND px_parkrecord.end_time>( UNIX_TIMESTAMP(NOW())-25920000)");
-return  $result;
-//echo "ff0".$result[0]['consum'];
+       return  $result;
+      //echo "ff0".$result[0]['consum'];
 	}
 	/**
 	 * 

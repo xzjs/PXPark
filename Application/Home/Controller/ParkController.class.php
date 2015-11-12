@@ -9,6 +9,148 @@ class ParkController extends Controller {
 	public function index() {
 		
 	}
+	/**
+	 * 
+	 */
+	function coming_zhishu_line(){
+		$now = strtotime ( "now " );
+		$cout_start;
+		$cut_time = $now - 24 * 60 * 60;
+		$now_h = date ( "H", $now )+1 ;
+		        $p=0;
+				$n=$now_h-1;
+				for($h = 23; $h >=0; $h --) {
+					
+					if($n-$p>=0)
+					$ti[$h] = $n-$p;
+					else 
+					$ti[$h] = $n-$p+24;
+					$p++;
+					
+				}
+				for ($j=0;$j< 24; $j ++){
+					$time[$j]=$ti[$j].":00";
+					//echo "t:".$time[$j]."<br>";
+				}
+				for($h = 0; $h < 24; $h ++) {
+					$sum [$h] = 0;
+				}
+				for($h = 0; $h < 24; $h ++) {
+					$sum_num[$h] = 0;
+				}
+				for($h = 0; $h < 24; $h ++) {
+					$value[$h] = 0;
+				}
+				$result=M()->query("SELECT num ,time FROM px_target WHERE
+						$cut_time<=time ORDER BY TIME ");
+				//echo "ctime".$cut_time;
+				for($j=0;$j<count ( $result );$j++){
+					$shour = date ( "H", $result [$j] ['time'] );
+					if ($shour > $now_h)
+						$ns = $shour - $now_h;
+					else
+					{
+						$ns = $shour - $now_h + 24;
+					}
+				//	echo "ns:".$ns."<br>";
+					$sum_num[$ns]++;
+					//	echo "sum_mum:".$sum_num[$ns]."<br>";
+						
+					$sum[$ns]=$sum[$ns]+$result [$j] ['num'];
+					//	echo "sum:".$sum[$ns]."<br>";
+				}
+				//echo "num:".count($result)."<br>";
+				for($h = 0; $h < 24; $h ++) {
+					$value[$h] = round($sum[$h]/$sum_num[$h],2)*10;
+					//echo "valeu:".$value[$h]."<br>";
+				}
+				$array=array(
+						"time"=>$time,
+						"value"=>$value,
+				);
+				//echo "ww".json_encode($array);
+				return  json_encode($array);
+	}
+	/**
+	 * 获取日期段内停车指数
+	 * 
+	 */
+	function zhishu_line($stime,$etime){
+	
+		$s=$stime;
+		$e=$etime;
+		$result=M()->query("SELECT num ,time FROM px_target WHERE
+				$stime<=time AND time<=$etime+86400 ORDER BY TIME ");
+		
+	    $i=0;
+		$num=0;
+		$time;
+		$value;
+		$sum;
+		$sum_num;
+		while($s<=$e){
+				
+			$time[$i]=date ( "m-d",$s);
+			$s=$s+86400;
+			
+			$i++;
+			$num++;
+		}
+	//	echo "nuddm:".$num."<br>";
+		for($h = 0; $h < $num; $h ++) {
+			$sum [$h] = 0;
+		}
+		for($h = 0; $h < $num; $h ++) {
+			$sum_num[$h] = 0;
+		}
+		for($h = 0; $h < $num; $h ++) {
+			$value[$h] = 0;
+		}
+		for($j=0;$j<count ( $result );$j++){
+			$d=date('Y-m-d', $result [$j] ['time']);
+			//echo "d:".$d."<br>";
+			$ns=(int)((strtotime($d)-$stime)/86400);
+			//echo "ns:".$ns."<br>";
+			$sum_num[$ns]++;
+		//	echo "sum_mum:".$sum_num[$ns]."<br>";
+			
+			$sum[$ns]=$sum[$ns]+$result [$j] ['num'];
+		//	echo "sum:".$sum[$ns]."<br>";
+		}
+		//echo "num:".count($result)."<br>";
+		for($h = 0; $h < $num; $h ++) {
+			$value[$h] = round($sum[$h]/$sum_num[$h],2)*10;
+		//	echo "valeu:".$value[$h]."<br>";
+		}
+		$array=array(
+				"time"=>$time,
+				"value"=>$value,
+		);
+		//echo "ww".json_encode($array);
+		return  json_encode($array);
+	}
+	/**
+	 * 获取各类停车场数量
+	 */
+	function get_parks_num(){
+		$result=M()->query("SELECT id ,TYPE FROM px_park ");
+		$pu_n=0;
+		$lu_n=0;
+		$ge_n=0;
+		$ch_n=0;
+		for($i=0;$i<count($result);$i++){
+		if ($result[$i]['type']==1){$pu_n++;}
+		if($result[$i]['type']==2){$lu_n++;}
+		if ($result[$i]['type']==3){$ge_n++;}
+		}
+		$array=array(
+				"pu"=>$pu_n,
+				"lu"=>$lu_n,
+				"ge"=>$ge_n,
+				"ch"=>$ch_n,
+		);
+		return  $array;
+	}
 	
 	/**
 	 * 获取停车场列表或者指定停车场
