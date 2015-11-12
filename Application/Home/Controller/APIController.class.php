@@ -289,14 +289,15 @@ class APIController extends Controller
      */
     public function park_list()
     {
-        //$park_model=D('Park');
-        //if($park_model->create())
-        $data['code'] = 0;
-        /* else
-            $data['code']=4; */
         $park = A('Park');
         $reslut = $park->getList(I('param.lon'), I('param.lat'));
-        $data['park_list'] = $reslut;
+        if(!$reslut){
+        	$data['code']=4;
+        }else{
+        	$data['code'] = 0;
+        	$data['msg'] = "正常返回";
+        	$data['park_list'] = $reslut;
+        }
         echo json_encode($data);
     }
 
@@ -396,8 +397,8 @@ class APIController extends Controller
      */
     public function recharge_add()
     {
-        /* $recharge = A('Rechargerecord');
-        $reslut = $recharge->add(I('param.id'),I('param.id'),I('param.id')); */
+        $recharge = A('Rechargerecord');
+        $reslut = $recharge->add(I('param.user_id'),I('param.money'),I('param.type'));
         $json = '{"code": 0,"msg": "正常返回","data": []}';
         echo $json;
     }
