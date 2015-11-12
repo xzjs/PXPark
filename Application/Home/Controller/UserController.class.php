@@ -20,7 +20,7 @@ class UserController extends Controller
 	 */
 	public function getSpend($uid){
 		$result=M()->query("SELECT SUM(px_parkrecord.money) AS consum  FROM px_parkrecord,px_user_car WHERE px_user_car.user_id=$uid  AND px_user_car.status=1 AND px_user_car.car_id=px_parkrecord.car_id   AND px_parkrecord.end_time>( UNIX_TIMESTAMP(NOW())-25920000)");
-return  $result;
+		return  $result;
 //echo "ff0".$result[0]['consum'];
 	}
 	/**
@@ -29,7 +29,7 @@ return  $result;
 	 */
 	public function web_register($username,$password,$factname,$cardNo,$phone,$message) {
 		echo "<script>window.alert(\"注册成功！\"),location.href=;</script>";//添加成功
-		/* $Captcha = A('Captcha');
+		$Captcha = A('Captcha');
 		$data['code'] = 0;
 		$code_status = $Captcha->verify($phone,$message);
 		switch ($code_status) {
@@ -58,6 +58,7 @@ return  $result;
 		
 		$auto_rules = array (
 				array('pwd','md5',3,'function') , // 对password字段在新增和编辑的时候使md5函数处理
+				array('remain','0'),//新增的时候设为0
 		);//动态生成规则
 		$User=D('User');
 		$user = array("nickname"=>$username,"pwd"=>$password,"name"=>$factname,"card_no"=>$cardNo,"phone"=>$phone); // 实例化User对象 
@@ -86,7 +87,7 @@ return  $result;
 		}
 	}else{
 		echo "验证码验证失败";
-	} */
+	}
 	}
 	/**
 	 * 用户注册
