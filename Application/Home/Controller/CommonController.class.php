@@ -34,7 +34,39 @@ class CommonController extends Controller{
 	
 	public function pay_info() {
 		$Pay=A('Pay');
-		$result=$Pay->pay_info();
+		$user_id=I('session.user')['user_id'];//$_SESSION('user')['id'];
+		if($user_id){
+			$result=$Pay->pay_info($user_id);
+			$this->assign('data',$result);
+			$this->display();
+		}
+	}
+	
+	public function add_pay() {
+		$Pay = D ( 'Pay' );
+		if ($Pay->create ()) {
+			$user_id=$_SESSION('user')['id'];
+			$Pay->user_id=$user_id;
+			$pay=M('Pay');
+			if(!$pay->where('user_id='.$user_id)->find()){
+				$result = $Pay->add ();
+				if ($result) {
+					echo "<script>window.alert(\"添加成功！\"),location.href='".U('Common/pay_info?id='.$result)."';</script>";//添加成功
+				} else {
+					$this->error ( '数据添加错误！' );
+				}
+			}else{
+				$result=$Pay->where('user_id=1')->save();
+				if ($result) {
+					echo "<script>window.alert(\"修改成功！\"),location.href='".U('Common/pay_info?id='.$result)."';</script>";//添加成功
+				} else {
+					$this->error ( '数据添加错误！' );
+				}
+			}
+		} else {
+			$this->error ( $Pay->getError () );
+		}
+		
 	}
 
 }
