@@ -26,10 +26,15 @@ class CommonController extends Controller{
 		}
 	}
 	
-	public function web_register($cardfile=0) {
+	public function web_register() {
 		$user=A('User');
 		$x=I('param.cardfile');
 		$result=$user->web_register(I('param.username'),I('param.password'),I('param.factname'),I('param.cardNo'),I('param.phone'),I('param.message'));
+	}
+	
+	public function pay_info() {
+		$Pay=A('Pay');
+		$result=$Pay->pay_info();
 	}
 
 }

@@ -20,16 +20,15 @@ class UserController extends Controller
 	 */
 	public function getSpend($uid){
 		$result=M()->query("SELECT SUM(px_parkrecord.money) AS consum  FROM px_parkrecord,px_user_car WHERE px_user_car.user_id=$uid  AND px_user_car.status=1 AND px_user_car.car_id=px_parkrecord.car_id   AND px_parkrecord.end_time>( UNIX_TIMESTAMP(NOW())-25920000)");
-       return  $result;
-      //echo "ff0".$result[0]['consum'];
+		return  $result;
+//echo "ff0".$result[0]['consum'];
 	}
 	/**
 	 * 
 	 *通过网页注册用户
 	 */
 	public function web_register($username,$password,$factname,$cardNo,$phone,$message) {
-		echo "<script>window.alert(\"注册成功！\"),location.href=;</script>";//添加成功
-		/* $Captcha = A('Captcha');
+		$Captcha = A('Captcha');
 		$data['code'] = 0;
 		$code_status = $Captcha->verify($phone,$message);
 		switch ($code_status) {
@@ -48,6 +47,7 @@ class UserController extends Controller
 		if ($data['code'] == 0) {
 			
 		$validate_rules = array(
+				
 				array('phone','','手机号已经被注册！',0,'unique',1),
 				array('nickname','require','用户名必须！'),
 				array('pwd','require','密码必须！'),
@@ -58,6 +58,7 @@ class UserController extends Controller
 		
 		$auto_rules = array (
 				array('pwd','md5',3,'function') , // 对password字段在新增和编辑的时候使md5函数处理
+				array('remain','0'),//新增的时候设为0
 		);//动态生成规则
 		$User=D('User');
 		$user = array("nickname"=>$username,"pwd"=>$password,"name"=>$factname,"card_no"=>$cardNo,"phone"=>$phone); // 实例化User对象 
@@ -77,16 +78,16 @@ class UserController extends Controller
 				$result=$User->add();
 			}
 		if ($result) {
-				echo "<script>window.alert(\"注册成功！\")location.href=\"{:U('Common/car_manage？id=1')}\";</script>";//添加成功
+				echo "<script>window.alert(\"注册成功！\"),location.href='".U('Common/user_info?id='.$result)."';</script>";//添加成功
 			} else {
-				echo '数据添加错误！';//添加失败
+				echo '数据添加错误！';//添加 失败
 			}
 		} else {
-			$this->error($User->getError());;//自动验证失败
+			$this->error($User->getError());//自动验证失败
 		}
 	}else{
 		echo "验证码验证失败";
-	} */
+	}
 	}
 	/**
 	 * 用户注册

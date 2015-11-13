@@ -19,6 +19,7 @@ class UserModel extends RelationModel {
 
     protected $_auto = array (
         array('pwd','md5',3,'function') , // 对password字段在新增和编辑的时候使md5函数处理
+    	array('remain','0'),//新增的时候设为0
     );
 
     protected $_link = array(
