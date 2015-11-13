@@ -91,13 +91,14 @@ class ParkrecordController extends Controller {
 	 */
 	function park_analyse() {
 		//$park_id = I ( 'post.park_id' );
-		$park_id =1;
-		if (! I ( 'post.start_time' ))
-			$t = 24;
-		else {
+		$park_id =0;//所有停车厂
+		
+			$t = I ( 'post.time' );
+		
 			$start_time = I ( 'post.start_time' );
 			$end_time = I ( 'post.end_time' );
-		}
+		
+		//echo $start_time;
 		$now = strtotime ( "now " );
 		
 		$cout_start;
@@ -131,7 +132,7 @@ class ParkrecordController extends Controller {
 					
 				}
 				for ($j=0;$j< 24; $j ++){
-					$time[$j]=$ti[$j];
+					$time[$j]=$ti[$j].":00";
 				
 				}
 			//	sort($time);
@@ -152,19 +153,13 @@ class ParkrecordController extends Controller {
 					
 					$business[$num] = $business[$num] + 1;
 					$total[$num] = $total[$num] + 1;
-					// echo "shour" . $shour . "<br>";
-					// echo "num" . $num . "<br>";
-					// echo "svalue" . $in [abs ( $now_h - $shour )] . "<br>";
 				}
-				
-				
-				
-				$resut_stime = M ()->query //路测（2）车厂查询结果
+			$resut_stime = M ()->query //路测（2）车厂查询结果
 				( "SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
                   AND px_parkrecord.park_id=px_park.id
 						AND px_parkrecord.start_time>$cut_time
                    ORDER BY start_time asc " );
-				
+			//echo "f".count ( $resut_stime );
 				for($i = 0; $i < count ( $resut_stime ); $i ++) {
 					$shour = date ( "H", $resut_stime [$i] ['start_time'] );
 					if ($shour > $now_h)
@@ -176,9 +171,6 @@ class ParkrecordController extends Controller {
 						
 					$side[$num] = $side[$num] + 1;
 					$total[$num] = $total[$num] + 1;
-					// echo "shour" . $shour . "<br>";
-					// echo "num" . $num . "<br>";
-					// echo "svalue" . $in [abs ( $now_h - $shour )] . "<br>";
 				}
 			
 				$resut_ptime = M ()->query //私家车（3）车厂查询结果
@@ -210,14 +202,11 @@ class ParkrecordController extends Controller {
 						"private" => $private ,
 						"total"=>$total,
 				);
-				/* $d=strtotime('2015-7-2');
-				$as=strtotime('2015-7-1');
-				echo "ffffffffff".$d; 
-				$ns=(int)(($d-$as)/86400);
-				echo "d".$ns;*/
+			
 				echo json_encode ( $array );
 			}
 			if($start_time ){
+				//echo "fse";
 				$start_day=date ( "d",strtotime( $start_time) );
 				$start_month=date ( "m",strtotime( $start_time) );
 				$end_day=date ( "d", strtotime($end_time ));
@@ -253,7 +242,7 @@ class ParkrecordController extends Controller {
 				}
 				//echo"fse".$end_time;
 				$as=strtotime($start_time);
-				$ae=strtotime($end_time);
+				$ae=strtotime($end_time)+86400;
 			    $resut_btime = M ()->query //商业车厂(1)查询结果
 				( "SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
                   AND px_parkrecord.park_id=px_park.id
@@ -279,18 +268,18 @@ class ParkrecordController extends Controller {
 					for($j=0;$j<count ( $resut_stime );$j++)
 					{  $d=date('Y-m-d', $resut_stime [$j] ['start_time']);
 						
-					$dd=strtotime(date('Y-m-d',$as));
 					$ns=(int)((strtotime($d)-$dd)/86400);
 					$side[$ns]=$side[$ns]+1;
 					$total[$ns] = $total[$ns] + 1;
 					}
 						
-						$resut_ptime = M ()->query //路测车厂(2)查询结果
+						$resut_ptime = M ()->query //私人车厂(3)查询结果
 						( "SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
 							AND px_parkrecord.park_id=px_park.id
 							AND px_parkrecord.start_time>=$as
 							AND px_parkrecord.start_time<=$ae
 							ORDER BY start_time asc " );
+						
 						/* echo "as".$as;
 						echo "ae".$ae;
 						echo "uu".count( $resut_ptime ); */
@@ -469,7 +458,7 @@ class ParkrecordController extends Controller {
 				}
 				//echo"fse".$end_time;
 				$as=strtotime($start_time);
-				$ae=strtotime($end_time);
+				$ae=strtotime($end_time)+86400;
 				$resut_btime = M ()->query //商业车厂(1)查询结果
 				( "SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
 						AND px_parkrecord.park_id=px_park.id
@@ -535,7 +524,7 @@ class ParkrecordController extends Controller {
 					
 			}
 		}
-		$this->display();
+		
 		
 	}
 
