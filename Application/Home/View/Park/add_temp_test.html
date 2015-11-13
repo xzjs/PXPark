@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form action="__URL__/add" method="post" enctype="multipart/form-data">
+    停车场名称<input type="text" name="name"><br>
+    经度<input type="text" name="lon"><br>
+    纬度<input type="text" name="lat"><br>
+    车位总数<input type="text" name="total_num"><br>
+    停车场图片<input type="file" name="img"><br>
+    停车场地址<input type="text" name="address"><br>
+    <input type="submit" value="提交">
+</form>
+<table>
+    <volist name="list" id="vo">
+        <tr>
+            <td>{$vo.name}</td>
+            <td>{$vo.lon}</td>
+            <td>{$vo.lat}</td>
+            <td>{$vo.total_num}</td>
+            <td>{$vo.address}</td>
+            <td><a href="http://{:C('IP')}/PXPark{:C('PARK_IMG_PATH')}{$vo.img}">{:C('IP')}/PXPark{:C('PARK_IMG_PATH')}{$vo.img}</a></td>
+        </tr>
+    </volist>
+</table>
+</body>
+</html>
