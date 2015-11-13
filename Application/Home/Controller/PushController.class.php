@@ -22,19 +22,22 @@ use JPush\Exception\APIRequestException;
 
 class PushController extends Controller
 {
-    public function easy_push($id){
+    public function easy_push($id,$content){
         $br = '<br/>';
         $spilt = ' - ';
         $master_secret = '3dd1c77ac980516110338aa5';
         $app_key='ab36dbc34e0501604d25974e';
         JPushLog::setLogHandlers(array(new StreamHandler('jpush.log', Logger::DEBUG)));
         $client = new JPushClient($app_key, $master_secret);
-        $ex['key']=1;
+        $json=array(
+            'type'=>1
+        );
+        //echo $json;
         try {
             $result = $client->push()
                 ->setPlatform(M\all)
                 ->setAudience(M\alias(array($id)))
-                ->setNotification(M\notification('Hi, JPush',M/android('hi,android', $title=null, $builder_id=null, $extras=$ex)))
+                ->setNotification(M\notification('Hi, JPush',M\android('hi,android', $title=null, $builder_id=null, $extras=$json)))
                 ->printJSON()
                 ->send();
             echo 'Push Success.' . $br;
