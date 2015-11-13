@@ -312,7 +312,6 @@ class APIController extends Controller
             $data['code'] = 0;
         $data['msg'] = '正常返回';
         $str=array();
-        //var_dump($result);
         foreach ($result['Rule'] as $r) {
             $Rule = D('Rule');
             $rs = $Rule->relation(true)->find($r['id']);
