@@ -43,7 +43,7 @@ class CommonController extends Controller{
 	 */
 	public function pay_info() {
 		$Pay=A('Pay');
-		$user_id=I('session.user')['user_id'];//$_SESSION('user')['id'];
+		$user_id=$_SESSION['user']['user_id'];
 		if($user_id){
 			$result=$Pay->pay_info($user_id);
 			$this->assign('data',$result);
@@ -57,7 +57,7 @@ class CommonController extends Controller{
 	public function add_pay() {
 		$Pay = D ( 'Pay' );
 		if ($Pay->create ()) {
-			$user_id=I('session.user')['user_id'];
+			$user_id=$_SESSION['user']['user_id'];
 			$Pay->user_id=$user_id;
 			$pay=M('Pay');
 			if(!$pay->where('user_id='.$user_id)->find()){
@@ -69,7 +69,7 @@ class CommonController extends Controller{
 				}
 			}else{
 				$result=$Pay->where('user_id='.$user_id)->save();
-				if ($result) {
+				if ($result||$result==0) {
 					echo "<script>window.alert(\"修改成功！\"),location.href='".U('Common/pay_info?id='.$result)."';</script>";//添加成功
 				} else {
 					$this->error ( '数据添加错误！' );
@@ -83,16 +83,16 @@ class CommonController extends Controller{
 	public function add_message() {
 		$Message = D ( 'Message' );
 		if ($Message->create ()) {
-			$user_id=I('session.user')['user_id'];
+			$user_id=$_SESSION['user']['user_id'];
 			$Message->user_id=$user_id;
 			$result=$Message->add();
 			if ($result) {
-				echo "<script>window.alert(\"添加成功！\"),location.href='".U('Common/add_message')."';</script>";//添加成功
+				echo "<script>window.alert(\"添加成功！\"),location.href='".U('Common/feedback')."';</script>";//添加成功
 			} else {
 				$this->error ( '数据添加错误！' );
 			}
 		} else {
-			$this->error ( $Message->getError () );
+			$this->error ( $Message->getError ());
 		}
 	}
 		
