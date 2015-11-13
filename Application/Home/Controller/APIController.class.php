@@ -82,8 +82,6 @@ class APIController extends Controller
 
     /**
      * 我的车辆查询
-     *
-     * @param $id 用户id
      */
     public function my_car()
     {
