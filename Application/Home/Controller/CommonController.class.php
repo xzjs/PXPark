@@ -15,6 +15,9 @@ use Think\Controller;
  */
 class CommonController extends Controller{
 	
+	/**
+	 * 获取用户信息
+	 */
 	public function user_info() {
 		$user = A( 'User' );
 		$result=$user->detail(I('param.id',0));
@@ -26,12 +29,18 @@ class CommonController extends Controller{
 		}
 	}
 	
+	/**
+	 * 停车场管理员用户注册
+	 */
 	public function web_register() {
 		$user=A('User');
 		$x=I('param.cardfile');
 		$result=$user->web_register(I('param.username'),I('param.password'),I('param.factname'),I('param.cardNo'),I('param.phone'),I('param.message'));
 	}
 	
+	/**
+	 * 支付账户信息
+	 */
 	public function pay_info() {
 		$Pay=A('Pay');
 		$user_id=I('session.user')['user_id'];//$_SESSION('user')['id'];
@@ -42,10 +51,13 @@ class CommonController extends Controller{
 		}
 	}
 	
+	/**
+	 * 新增或者更新支付账户信息
+	 */
 	public function add_pay() {
 		$Pay = D ( 'Pay' );
 		if ($Pay->create ()) {
-			$user_id=$_SESSION('user')['id'];
+			$user_id=I('session.user')['user_id'];
 			$Pay->user_id=$user_id;
 			$pay=M('Pay');
 			if(!$pay->where('user_id='.$user_id)->find()){
@@ -56,7 +68,7 @@ class CommonController extends Controller{
 					$this->error ( '数据添加错误！' );
 				}
 			}else{
-				$result=$Pay->where('user_id=1')->save();
+				$result=$Pay->where('user_id='.$user_id)->save();
 				if ($result) {
 					echo "<script>window.alert(\"修改成功！\"),location.href='".U('Common/pay_info?id='.$result)."';</script>";//添加成功
 				} else {
@@ -66,7 +78,22 @@ class CommonController extends Controller{
 		} else {
 			$this->error ( $Pay->getError () );
 		}
-		
 	}
-
+	
+	public function add_message() {
+		$Message = D ( 'Message' );
+		if ($Message->create ()) {
+			$user_id=I('session.user')['user_id'];
+			$Message->user_id=$user_id;
+			$result=$Message->add();
+			if ($result) {
+				echo "<script>window.alert(\"添加成功！\"),location.href='".U('Common/add_message')."';</script>";//添加成功
+			} else {
+				$this->error ( '数据添加错误！' );
+			}
+		} else {
+			$this->error ( $Message->getError () );
+		}
+	}
+		
 }
