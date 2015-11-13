@@ -83,7 +83,7 @@ class UserController extends Controller
 				echo '数据添加错误！';//添加 失败
 			}
 		} else {
-			$this->error($User->getError());;//自动验证失败
+			$this->error($User->getError());//自动验证失败
 		}
 	}else{
 		echo "验证码验证失败";
