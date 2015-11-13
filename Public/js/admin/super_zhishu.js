@@ -1,12 +1,14 @@
 $(document).ready(
 		 function(){
-			 showpie();
-		     coming_zhishu_line();
+		 showpie();
+		    coming_zhishu_line();
 			 zhishu_line();
-			 
+			// hh();
           }
 		);
-
+function hh(){
+	alert("ff");
+}
 /**
  * 未来24小时停车指数预测曲线
  */
@@ -57,6 +59,7 @@ function  coming_zhishu_line(){
      			                    {type : 'max', name: '最大值'},
      			                    {type : 'min', name: '最小值'}
      			                ]
+     			        
      			            }
      			        }
      			    ]
@@ -144,6 +147,7 @@ function  zhishu_line(){
           }
 });
 }
+
 function showpie(){
         // 按需加载
            // alert("fff");
