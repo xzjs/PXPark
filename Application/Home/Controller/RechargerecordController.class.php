@@ -35,19 +35,21 @@ class RechargerecordController extends Controller {
 			$this->error ( $Recharge->getError () );
 		}
 	}
+
 	/**
 	 * 查询充值记录
-	 * 
-	 * @param number $user_id
-	 *        	用户id
+	 * @param int $user_id 用户id
+	 * @param int $page 页码
+	 * @param int $num 每页显示条目
+	 * @return mixed 关联数组
 	 */
 	public function getList($user_id = 0,$page=0,$num=0) {
 		$Recharge = M ( 'Rechargerecord' );
 		$condition ['user_id'] = $user_id;
 		if($page==0&&$num==0){
-			$result = $Recharge->where ( $condition )->field('type,money,time')->select ();
+			$result = $Recharge->where ( $condition )->order('time desc')->field('type,money,time')->select ();
 		}else{
-			$result = $Recharge->where ( $condition )->page($page,$num)->field('type,money,time')->select ();
+			$result = $Recharge->where ( $condition )->page($page,$num)->order('time desc')->field('type,money,time')->select ();
 		}
 		for($i=0;$i<count($result);$i++){
 			$result[$i]['time']=date("Y-m-d h:i:sa",$result[$i]['time']);

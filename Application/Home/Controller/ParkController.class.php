@@ -155,9 +155,6 @@ class ParkController extends Controller {
 	
 	/**
 	 * 获取停车场列表或者指定停车场
-	 * @param number $user_id 用户Id
-	 * @param number $park_id 停车场 Id
-	 * @param number $type 停车场类型
 	 */
 	public function status() {
 		$park=M('Park');
@@ -188,9 +185,10 @@ class ParkController extends Controller {
 			$upload->autoSub = false;
 			// 上传文件
 			$info = $upload->upload();
-			$park->img=$info[0]['savename'];
+			/*$park->img=$info[0]['savename'];
 			$park->licence_img=$info[1]['savename'];
-			$park->id_img=$info[2]['savename'];
+			$park->id_img=$info[2]['savename'];*/
+			$park->img=$info['img']['savename'];
 			$park->remain_num = 0;
 			$park->user_id=session('name');
 			$result = $park->add();
@@ -202,6 +200,13 @@ class ParkController extends Controller {
 		} else {
 			$this->error ( $park->getError () );//验证失败
 		}
+	}
+
+	/**
+	 * 给城市Ω增加停车场的接口
+	 */
+	public function add_temp(){
+
 	}
 	
 	/**
@@ -305,5 +310,13 @@ class ParkController extends Controller {
 		
 		return round ( $calculatedDistance );
 	}
-	
+
+	/**
+	 * 给城市所增加停车场的接口
+	 */
+	public function add_temp_test(){
+		$Park=D('Park');
+		$this->assign('list',$Park->select());
+		$this->show();
+	}
 }

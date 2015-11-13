@@ -3,6 +3,7 @@ namespace Home\Controller;
 use Think\Controller;
 class IndexController extends Controller {
     public function index(){
-        $this->show('测试webhook,1','utf-8');
+        $str=date('Y-m-d H-i-sa',time());
+        $this->show($str,'utf-8');
     }
 }
