@@ -8,7 +8,7 @@ use Think\Model\RelationModel;
  * @author xiuge
  */
 class ParkModel extends RelationModel {
-	protected $_validate = array(
+	/*protected $_validate = array(
 			array('total_num','require','总车位数不能为空'),
 			array('type','require','停车场种类不能为空'),
 			array('address','require','地址不能为空'),
@@ -17,7 +17,7 @@ class ParkModel extends RelationModel {
 			array('licence_image','require','许可证不能为空'),
 			array('legal_person','require','法人不能为空'),
 			array('legal_person_no','require','法人编号不能为空'),
-	);
+	);*/
 
 	protected $_link = array(
 		'Rule'=> self::HAS_MANY,
