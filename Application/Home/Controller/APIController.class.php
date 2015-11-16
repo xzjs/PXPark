@@ -465,6 +465,19 @@ class APIController extends Controller
     }
 
     /**
+     * 用户反馈接口
+     */
+    public function response(){
+        $Response=A('Response');
+        $data=array(
+            'code'=>$Response->add()>0?0:4,
+            'msg'=>'正常返回',
+            'data'=>array()
+        );
+        echo json_encode($data);
+    }
+
+    /**
      * 获取拼接url
      * @param $arg 参数
      * @return string 拼接好的字符串
