@@ -19,10 +19,20 @@ class CaptchaController extends Controller
      * 创建验证码
      * @param $phone 用户手机号
      */
-    public function create($phone){
-        $Captcha=D('Captcha');
-        $data['captcha']='1234';
-        $data['phone']=$phone;
+    public function create($phone)
+    {
+        $username = 'qdzn';       //用户账号
+        $password = 'asd9999';    //密码
+        $apikey = 'd2628322a39875c7d28b0209dbaa3ed3';    //密码
+        $mobile = $phone;    //号手机码
+        $code=rand(1000,9999);
+        $content = "您的短信验证码是：$code";        //内容
+//即时发送
+        $result = $this->sendSMS($username, $password, $mobile, $content, $apikey);
+        echo $result;
+        $Captcha = D('Captcha');
+        $data['captcha'] = $code;
+        $data['phone'] = $phone;
         $Captcha->create($data);
         $Captcha->add();
     }
