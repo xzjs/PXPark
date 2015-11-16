@@ -23,6 +23,7 @@ class UserController extends Controller
 		return  $result;
 //echo "ff0".$result[0]['consum'];
 	}
+
 	/**
 	 * 
 	 *通过网页注册用户
@@ -89,6 +90,7 @@ class UserController extends Controller
 		echo "验证码验证失败";
 	}
 	}
+
 	/**
 	 * 用户注册
 	 * @param $phone 手机号
@@ -177,4 +179,8 @@ class UserController extends Controller
 		$User->where('id='.$id)->setField('pwd',md5($pwd));
 		return 0;
     }
+
+	public function logout(){
+
+	}
 }
