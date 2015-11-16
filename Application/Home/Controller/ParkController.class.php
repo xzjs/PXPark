@@ -189,8 +189,8 @@ class ParkController extends Controller {
 			$park->licence_img=$info[1]['savename'];
 			$park->id_img=$info[2]['savename'];*/
 			$park->img=$info['img']['savename'];
-			$park->remain_num = 0;
-			$park->user_id=session('name');
+			$park->remain_num = $park->total_num;
+			$park->user_id=$_SESSION('name');
 			$result = $park->add();
 			if ($result) {
 				$this->success ( '数据添加成功！' );//添加成功
@@ -200,13 +200,6 @@ class ParkController extends Controller {
 		} else {
 			$this->error ( $park->getError () );//验证失败
 		}
-	}
-
-	/**
-	 * 给城市Ω增加停车场的接口
-	 */
-	public function add_temp(){
-
 	}
 	
 	/**
