@@ -43,7 +43,7 @@ class CommonController extends Controller{
 	 */
 	public function pay_info() {
 		$Pay=A('Pay');
-		$user_id=I('session.user')['user_id'];//$_SESSION('user')['id'];
+		$user_id=$_SESSION['user']['user_id'];//$_SESSION('user')['id'];
 		if($user_id){
 			$result=$Pay->pay_info($user_id);
 			$this->assign('data',$result);

@@ -31,7 +31,7 @@ class CaptchaController extends Controller
         $result = $this->sendSMS($username, $password, $mobile, $content, $apikey);
         echo $result;
         $Captcha = D('Captcha');
-        $data['captcha'] = '1234';
+        $data['captcha'] = $code;
         $data['phone'] = $phone;
         $Captcha->create($data);
         $Captcha->add();
