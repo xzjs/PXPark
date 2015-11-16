@@ -54,7 +54,7 @@ class CommonController extends Controller{
 	/**
 	 * 新增或者更新支付账户信息
 	 */
-	public function add_pay() {
+	public function add_pay() {  
 		$Pay = D ( 'Pay' );
 		if ($Pay->create ()) {
 			$user_id=$_SESSION['user']['user_id'];
