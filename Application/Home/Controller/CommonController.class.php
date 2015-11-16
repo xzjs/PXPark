@@ -57,7 +57,7 @@ class CommonController extends Controller{
 	public function add_pay() {
 		$Pay = D ( 'Pay' );
 		if ($Pay->create ()) {
-			$user_id=I('session.user')['user_id'];
+			$user_id=$_SESSION['user']['user_id'];
 			$Pay->user_id=$user_id;
 			$pay=M('Pay');
 			if(!$pay->where('user_id='.$user_id)->find()){
@@ -83,7 +83,7 @@ class CommonController extends Controller{
 	public function add_message() {
 		$Message = D ( 'Message' );
 		if ($Message->create ()) {
-			$user_id=I('session.user')['user_id'];
+			$user_id=$_SESSION['user']['user_id'];
 			$Message->user_id=$user_id;
 			$result=$Message->add();
 			if ($result) {
