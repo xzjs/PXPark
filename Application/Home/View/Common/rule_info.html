@@ -176,6 +176,19 @@
         color: #FFF;
     }
 </style>
+<style>
+    .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+    .ui-timepicker-div dl { text-align: left; }
+    .ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+    .ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+    .ui-timepicker-div td { font-size: 90%; }
+    .ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+    .ui_tpicker_hour_label,.ui_tpicker_minute_label,.ui_tpicker_second_label,
+    .ui_tpicker_millisec_label,.ui_tpicker_time_label{padding-left:20px}
+</style>
+<link href="__PUBLIC__/css/jquery-ui.css">
+<script src="__PUBLIC__/js/jquery-ui.js"></script>
+<script src="__PUBLIC__/js/jquery-ui-timepicker-addon.js"></script>
 <div class="login-box col-md-8 col-md-offset-2 text-center"
      id="rule-box">
     <div class="login-title text-center" style="margin-bottom:50px;padding-top:20px">
@@ -354,72 +367,14 @@
                         <div class="col-xs-12"
                              style="position:relative;top:-0;margin-bottom:15px"
                              id="ruleTimeDiv" style="display:none">
-                            <div class="col-xs-3  text-right"
-                                 style="padding:0px;height:25px;font-family:黑体;color:#000;line-height:25px">
-                                规则日期:
-                            </div>
-                            <div class="col-xs-9  text-left" style="padding:0px;height:25px;">
-                                <div style="float:left">
-                                    <select id="ruleyears" name="ruleyears"
-                                            style="width:60;height:25px" onchange="">
-                                        <option
-                                                value="2014">2014
-                                        </option>
-                                        <option value="2013" selected>2013</option>
-                                    </select>
-                                </div>
-                                <div style="float:left">年</div>
-                                <div style="float:left">
-                                    <select id="rulemonths" name="rulemonths"
-                                            style="width:30;height:25px" onchange="">
-                                        <option
-                                                value="6">6
-                                        </option>
-                                        <option value="5" selected>5</option>
-                                    </select>
-                                </div>
-                                <div style="float:left">月</div>
-                                <div style="float:left">
-                                    <select id="ruledays" name="ruledays"
-                                            style="width:30;height:25px" onchange="">
-                                        <option
-                                                value="6">6
-                                        </option>
-                                        <option value="5" selected>5</option>
-                                    </select>
-                                </div>
-                                <div style="float:left">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;至</div>
-                                <div style="float:left">
-                                    <select id="ruleyeare" name="ruleyeare"
-                                            style="width:60;height:25px" onchange="">
-                                        <option
-                                                value="2014">2014
-                                        </option>
-                                        <option value="2013" selected>2013</option>
-                                    </select>
-                                </div>
-                                <div style="float:left">年</div>
-                                <div style="float:left">
-                                    <select id="rulemonthe" name="rulemonthe"
-                                            style="width:40;height:25px" onchange="">
-                                        <option
-                                                value="6">6
-                                        </option>
-                                        <option value="5" selected>5</option>
-                                    </select>
-                                </div>
-                                <div style="float:left">月</div>
-                                <div style="float:left">
-                                    <select id="ruledaye" name="ruledaye"
-                                            style="width:40;height:25px" onchange="">
-                                        <option
-                                                value="6">6
-                                        </option>
-                                        <option value="5" selected>5</option>
-                                    </select>
-                                </div>
-                                <div style="float:left">日</div>
-                            </div>
+                            规则日期： <input placeholder="请输入日期" class="laydate-icon"
+                                         id="income_start_time"
+                                         onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"
+                                         name="start_date">
+                            到 <input placeholder="请输入日期" class="laydate-icon"
+                                     id="income_end_time"
+                                     onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" name="end_date">
+
                         </div>
                         <div class="col-xs-12"
                              style="position:relative;top:-0;margin-bottom:15px">
@@ -428,23 +383,13 @@
                                 白天时间:
                             </div>
                             <div class="col-xs-2  text-left" style="padding:0px;height:25px;">
-                                <select id="daystart" name="daystart"
-                                        style="width:100%;height:25px" onchange="">
-                                    <option
-                                            value="06:00">06:00
-                                    </option>
-                                    <option value="08:00" selected>08:00</option>
-                                </select>
+                                <input type="text" id="example" style="width:100%;height:25px" name="start_time_day"/>
                             </div>
                             <div class="col-xs-1  text-center"
                                  style="padding:0px;height:25px;">至
                             </div>
                             <div class="col-xs-2  text-left" style="padding:0px;height:25px;">
-                                <select id="dayend" name="dayend" style="width:100%;height:25px"
-                                        onchange="">
-                                    <option value="06:00">06:00</option>
-                                    <option value="08:00" selected>08:00</option>
-                                </select>
+                                <input type="text"  style="width:100%;height:25px" name="end_time_day"/>
                             </div>
                         </div>
                         <div class="col-xs-12"
@@ -455,7 +400,7 @@
                             </div>
                             <div class="col-xs-9  text-left" style="padding:0px;height:25px;">
                                 <div style="float:left">
-                                    <select id="dayfreestart" name="dayfreestart" style="width: 70px;">
+                                    <select name="free_time_day_small" id="dayfreestart"  style="width: 70px;">
                                         <option value=0>0</option>
                                         <option value=1>1</option>
                                         <option value=2>2</option>
@@ -485,7 +430,7 @@
                                 </div>
                                 <div style="float:left">(小车 小时)</div>
                                 <div style="float:left">
-                                    <select id="dayfreeend" name="dayfreeend" style="width: 70px;">
+                                    <select id="dayfreeend" name="free_time_day_big" style="width: 70px;">
                                         <option value=0>0</option>
                                         <option value=1>1</option>
                                         <option value=2>2</option>
@@ -532,17 +477,17 @@
                             <div class="col-xs-9 col-xs-offset-3  text-left"
                                  style="padding:0px;height:25px;display:none" id="daySmall">
                                 <div style="float:left">
-                                    <select id="ruledss" name="ruledss"
+                                    <select id="ruledss" name="day_small_start_time[]"
                                             style="width:50px;height:25px" onchange="">
                                         <option
                                                 value="1">1
-                                        </option>
+                                               </option>
                                         <option value="2" selected>2</option>
                                     </select>
                                 </div>
                                 <div style="float:left">小时至</div>
                                 <div style="float:left">
-                                    <select id="ruledse" name="ruledse"
+                                    <select id="ruledse" name="day_small_end_time[]"
                                             style="width:50px;height:25px" onchange="">
                                         <option
                                                 value="1">1
@@ -552,7 +497,7 @@
                                 </div>
                                 <div style="float:left">小时</div>
                                 <div style="float:left">
-                                    <input type="text" id="costds" name="costds" class=""
+                                    <input type="text" id="costds" name="day_small_fee" class=""
                                            style="height:26px;line-height:26px ;width:50px"
                                            placeholder="">
                                 </div>
@@ -575,7 +520,7 @@
                             <div class="col-xs-9 col-xs-offset-3 text-left"
                                  style="padding:0px;height:25px;display:none" id="dayLarge">
                                 <div style="float:left">
-                                    <select id="ruledls" name="ruledls"
+                                    <select id="ruledls" name="day_big_start_time[]"
                                             style="width:50px;height:25px" onchange="">
                                         <option
                                                 value="1">1
@@ -585,7 +530,7 @@
                                 </div>
                                 <div style="float:left">小时至</div>
                                 <div style="float:left">
-                                    <select id="ruledle" name="ruledle"
+                                    <select id="ruledle" name="day_big_end_time[]"
                                             style="width:50px;height:25px" onchange="">
                                         <option
                                                 value="1">1
@@ -595,7 +540,7 @@
                                 </div>
                                 <div style="float:left">小时</div>
                                 <div style="float:left">
-                                    <input type="text" id="costdl" name="costdl" class=""
+                                    <input type="text" id="costdl" name="day_big_fee" class=""
                                            style="height:25px;line-height:25px ;width:50px"
                                            placeholder="">
                                 </div>
@@ -941,4 +886,9 @@
         });
     });
 
+</script>
+<script type="text/javascript">
+    $(function(){
+        $('#example').timepicker({});
+    });
 </script>
