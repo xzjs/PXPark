@@ -9,8 +9,45 @@ class ParkController extends Controller {
 	public function index() {
 		
 	}
+	
 	/**
-	 * 
+	 *停车厂实时状态
+	 */
+	function chewei_status($type){
+	
+		$ty=$type;
+		if($type==0){
+		
+		$result=M()->query("SELECT NAME ,img, total_num,remain_num FROM px_park  ");		
+		
+		}
+		else{
+		
+			$result=M()->query("SELECT NAME ,img, total_num,remain_num FROM px_park where type=$ty ");
+			
+		}
+	 	$arry=array();
+	
+		for($i=0;$i<count($result);$i++){
+		$remain=$result[$i]['total_num']-$result[$i]['remain_num'];
+	
+		$arry[$i]=array(
+				'id'=>$i,
+				'title'=>$result[$i]['name'],
+				'img'=>'/PXPark/Public/image/'.$result[$i]['img'],
+				'usingNum'=>$remain,
+				'sumNum'=>$result[$i]['total_num'],
+				
+		);
+		
+		} 
+	
+		return  json_encode($arry);
+		
+	}
+	
+	/**yu
+	 * 未来指数曲线
 	 */
 	function coming_zhishu_line(){
 		$park_id=1;
@@ -70,8 +107,10 @@ class ParkController extends Controller {
 						"value"=>$value,
 				);
 				//echo "ww".json_encode($array);
+		
 				return  json_encode($array);
 	}
+	
 	/**
 	 * 获取日期段内停车指数
 	 * 
@@ -130,6 +169,7 @@ class ParkController extends Controller {
 		//echo "ww".json_encode($array);
 		return  json_encode($array);
 	}
+	
 	/**
 	 * 获取各类停车场数量
 	 */
