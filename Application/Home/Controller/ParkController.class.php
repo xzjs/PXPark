@@ -5,13 +5,48 @@ namespace Home\Controller;
 use Think\Controller;
 use Think\Model;
 
-class ParkController extends Controller
-{
-    public function index()
-    {
-
-    }
-
+class ParkController extends Controller {
+	public function index() {
+		
+	}
+	
+	/**
+	 *停车厂实时状态
+	 */
+	function chewei_status($type){
+	
+		$ty=$type;
+		if($type==0){
+		
+		$result=M()->query("SELECT NAME ,img, total_num,remain_num FROM px_park  ");		
+		
+		}
+		else{
+		
+			$result=M()->query("SELECT NAME ,img, total_num,remain_num FROM px_park where type=$ty ");
+			
+		}
+	 	$arry=array();
+	
+		for($i=0;$i<count($result);$i++){
+		$remain=$result[$i]['total_num']-$result[$i]['remain_num'];
+	
+		$arry[$i]=array(
+				'id'=>$i,
+				'title'=>$result[$i]['name'],
+				'img'=>'/PXPark/Public/image/'.$result[$i]['img'],
+				'usingNum'=>$remain,
+				'sumNum'=>$result[$i]['total_num'],
+				
+		);
+		
+		} 
+	
+		return  json_encode($arry);
+		
+	}
+	
+	
     /**
      *
      */

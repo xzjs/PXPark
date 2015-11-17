@@ -15,7 +15,18 @@ use Think\Controller;
  */
 class SuperController extends Controller{
 	/**
-	 * 
+	 * 停车状态
+	 */
+	function chewei_status(){
+	$park = A('Park');
+		//echo "suer".$
+		$result=$park->chewei_status(I('post.type'));
+		//echo "rr".I('post.type');
+		echo $result;
+	}
+	
+	/**
+	 * 未来24停车指数
 	 */
 	function  coming_zhishu_line(){
 		$park = A('Park');
