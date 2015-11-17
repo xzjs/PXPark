@@ -486,7 +486,7 @@ class APIController extends Controller
         $data=array(
             'code'=>4,
             'msg'=>'正常返回',
-            'data'=>[]
+            'data'=>array()
         );
         if($result){
             $data['code']=0;
