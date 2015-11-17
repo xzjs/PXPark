@@ -10,7 +10,7 @@ namespace Home\Controller;
 use Think\Controller;
 
 /**
- * 超级管理员控制器
+ * 普通管理员管理员控制器
  * @package Home\Controller
  */
 class CommonController extends Controller{
