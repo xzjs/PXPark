@@ -15,6 +15,7 @@ use Think\Model;
  * @package Home\Controller
  */
 class CommonController extends Controller{
+
 	public function index() {
 		$user_id=1;
 		$Model = new Model ();
@@ -213,10 +214,11 @@ class CommonController extends Controller{
 
 	public function rule_add(){
 		$Rule=A('Rule');
-		$rule_result=$Rule->add();
+        $day_small_start_times=I('post.day_small_start_time[]');
+		/*$rule_result=$Rule->add();
 		if($rule_result){
 			$day_small_start_times=I('post.day_small_start_time[]');
-		}
+		}*/
 	}
 		
 }

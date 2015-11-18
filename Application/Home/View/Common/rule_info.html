@@ -177,14 +177,38 @@
     }
 </style>
 <style>
-    .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
-    .ui-timepicker-div dl { text-align: left; }
-    .ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
-    .ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
-    .ui-timepicker-div td { font-size: 90%; }
-    .ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
-    .ui_tpicker_hour_label,.ui_tpicker_minute_label,.ui_tpicker_second_label,
-    .ui_tpicker_millisec_label,.ui_tpicker_time_label{padding-left:20px}
+    .ui-timepicker-div .ui-widget-header {
+        margin-bottom: 8px;
+    }
+
+    .ui-timepicker-div dl {
+        text-align: left;
+    }
+
+    .ui-timepicker-div dl dt {
+        height: 25px;
+        margin-bottom: -25px;
+    }
+
+    .ui-timepicker-div dl dd {
+        margin: 0 10px 10px 65px;
+    }
+
+    .ui-timepicker-div td {
+        font-size: 90%;
+    }
+
+    .ui-tpicker-grid-label {
+        background: none;
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .ui_tpicker_hour_label, .ui_tpicker_minute_label, .ui_tpicker_second_label,
+    .ui_tpicker_millisec_label, .ui_tpicker_time_label {
+        padding-left: 20px
+    }
 </style>
 <link href="__PUBLIC__/css/jquery-ui.css">
 <script src="__PUBLIC__/js/jquery-ui.js"></script>
@@ -351,6 +375,7 @@
             <div class="modal-body">
                 <form action="{:U('Common/rule_add')}" method="post">
                     <input type="hidden" id="ruletype_id">
+
                     <div class="form-group addInfoDiv" id="addRuleDiv"
                          style="display:none;height:540px">
                         <div class="col-xs-12"
@@ -390,7 +415,7 @@
                                  style="padding:0px;height:25px;">至
                             </div>
                             <div class="col-xs-2  text-left" style="padding:0px;height:25px;">
-                                <input type="text"  style="width:100%;height:25px" name="end_time_day"/>
+                                <input type="text" style="width:100%;height:25px" name="end_time_day"/>
                             </div>
                         </div>
                         <div class="col-xs-12"
@@ -401,7 +426,7 @@
                             </div>
                             <div class="col-xs-9  text-left" style="padding:0px;height:25px;">
                                 <div style="float:left">
-                                    <select name="free_time_day_small" id="dayfreestart"  style="width: 70px;">
+                                    <select name="free_time_day_small" id="dayfreestart" style="width: 70px;">
                                         <option value=0>0</option>
                                         <option value=1>1</option>
                                         <option value=2>2</option>
@@ -482,7 +507,7 @@
                                             style="width:50px;height:25px" onchange="">
                                         <option
                                                 value="1">1
-                                               </option>
+                                        </option>
                                         <option value="2" selected>2</option>
                                     </select>
                                 </div>
@@ -733,11 +758,7 @@
                         <div class="form-group form-actions"
                              style="position:relative;top:-0;margin-bottom:15px">
                             <div class="col-xs-4 col-xs-offset-4 text-left">
-                                <button
-                                        style="height:25px;line-height:5px;text-align:center;width:100%;border-radius:10px;background-color:#33CC33"
-                                        type="button" class="btn btn-sm btn-success"
-                                        onclick="ruleAddComplete()" data-dismiss="modal">完成
-                                </button>
+                                <input type="submit" value="完成了" style="height:25px;line-height:5px;text-align:center;width:100%;border-radius:10px;background-color:#33CC33" class="btn btn-sm btn-success"  data-dismiss="modal">
                             </div>
                         </div>
                     </div>
@@ -878,7 +899,7 @@
 
 </script>
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         $('#example').timepicker({});
     });
 </script>

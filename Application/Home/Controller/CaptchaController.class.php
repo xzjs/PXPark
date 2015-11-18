@@ -21,9 +21,11 @@ class CaptchaController extends Controller
      */
     public function create($phone)
     {
-        $username = 'qdzn';       //用户账号
-        $password = 'asd9999';    //密码
-        $apikey = 'd2628322a39875c7d28b0209dbaa3ed3';    //密码
+        $Info=M('Info');
+        $data=$Info->find();
+        $username = $data['username'];       //用户账号
+        $password = $data['password'];    //密码
+        $apikey = $data['apikey'];    //密码
         $mobile = $phone;    //号手机码
         $code=rand(1000,9999);
         $content = "您的短信验证码是：$code";        //内容
