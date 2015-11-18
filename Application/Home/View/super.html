@@ -25,7 +25,7 @@
     <script src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- S zTree -->
-    <link rel="stylesheet" href="__PUBLIC__/thirdparty/ztree/css/metroStyle/metroStyle.css" type="text/css"></link>
+    <link rel="stylesheet" href="__PUBLIC__/thirdparty/ztree/css/metroStyle/metroStyle.css" type="text/css">
     <script type="text/javascript" src="__PUBLIC__/thirdparty/ztree/js/jquery.ztree.all-3.5.js"></script>
     <!-- E zTree -->
 
@@ -65,13 +65,15 @@
                         return
                     }
                     $(this).children(":first").find('span').attr('class', 'fa fa-sort-up')
-                    $(this).children(":first").dropdown("toggle")
+                    $(this).children(":first").dropdown("toggle");
+
                 })
                 $(".topMenu").on("mouseleave", function () {
                     if ($(this).is(".open")) {
-                        $(this).children(":first").find('span').attr('class', 'fa fa-sort-down')
-                        $(this).children(":first").dropdown("toggle")
+                        $(this).children(":first").dropdown("toggle");
                     }
+                    $(this).children(":first").find('span').attr('class', 'fa fa-sort-down');
+                    $(this).children(":first").blur();
                 })
             })
         </script>
@@ -172,21 +174,48 @@
         <div id="sidebar">
             <meta charset="utf-8">
             <link href="__PUBLIC__/css/admin/sidebar.css" rel="stylesheet">
+
+            <!-- S bootstrap-table -->
+            <link href="__PUBLIC__/thirdparty/bootstrap/css/bootstrap-table.min.css"
+                  rel="stylesheet">
+            <script src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap-table.js"></script>
+
+            <style>
+                .ztree li a.curSelectedNode {
+                    background-color: #FF4400 !important;
+                }
+            </style>
+
             <script type="text/javascript">
-                var setting = {};
+                function getFont(treeId, node) {
+                    return {'color': '#fff'};
+                }
+                var setting = {
+                    view: {
+                        fontCss: getFont,
+                        nameIsHTML: true
+                    }
+                };
 
                 var zNodes = [{
                     name: "山东省",
                     open: true,
+                    iconOpen: "__PUBLIC__/image/open.png",
+                    iconClose: "__PUBLIC__/image/close.png",
                     children: [{
                         name: "济南市",
+                        icon: "__PUBLIC__/image/leaf.png",
                         children: []
                     }, {
                         name: "青岛市",
+                        iconOpen: "__PUBLIC__/image/open.png",
+                        iconClose: "__PUBLIC__/image/close.png",
                         children: [{
-                            name: "市南区"
+                            name: "市南区",
+                            icon: "__PUBLIC__/image/leaf.png"
                         }, {
-                            name: "市北区"
+                            name: "市北区",
+                            icon: "__PUBLIC__/image/leaf.png"
                         }]
                     }]
                 }];
@@ -210,6 +239,10 @@
                     })
                     $.fn.zTree.init($("#cityTree"), setting, zNodes);
                 })
+
+                function showSearch(flag) {
+                    $('#searchResultWin').modal();
+                }
             </script>
 
             <div style="color: #fff;">
@@ -220,11 +253,12 @@
                     <div>搜索</div>
 
                     <div id="searchPanel"
-                         style="position: absolute; left: 54px; top: 0px; width: 300px; height: 170px; z-index: 1000; display: none;">
-                        <div class="panel panel-default"
-                             style="height: 100%; background-color: #EFEFEF;">
-                            <div class="panel-body">
-                                <ul class="nav nav-tabs" role="tablist" style="height: 100%;">
+                         style="position: absolute; left: 54px; top: 0px; width: 300px; height: 210px; z-index: 1000; display: none;">
+                        <div
+                                style="height: 100%; background-color: #0066FF;padding: 10px;">
+                            <div>
+                                <ul class="nav nav-tabs" role="tablist"
+                                    style="height: 100%;background-color: #FFF;padding: 4px;margin: 15px;">
                                     <li role="presentation" class="active"><a href="#carNo"
                                                                               aria-controls="carNo" role="tab"
                                                                               data-toggle="tab">车牌号</a></li>
@@ -236,28 +270,30 @@
                                     <div role="tabpanel" class="tab-pane active" id="carNo"
                                          style="color: #000; padding: 20px 10px;">
                                         <div class="form-group">
-                                            <label for="carNO" class="col-lg-4 control-label">车牌号:</label>
+                                            <label for="carNO" class="col-lg-4 control-label"
+                                                   style="color: #fff;">车牌号:</label>
 
                                             <div class="col-lg-8">
                                                 <input type="text" class="form-control input-sm"
                                                        id="inputcarNO" placeholder="车牌号">
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-success btn-xs"
+                                        <button type="button" class="btn btn-success btn-xs" onclick="showSearch(0)"
                                                 style="width: 120px; margin-top: 15px;">搜索
                                         </button>
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="parking"
                                          style="color: #000; padding: 20px 10px;">
                                         <div class="form-group">
-                                            <label for="parking" class="col-lg-4 control-label">停车场:</label>
+                                            <label for="parking" class="col-lg-4 control-label"
+                                                   style="color: #fff;">停车场:</label>
 
                                             <div class="col-lg-8">
                                                 <input type="text" class="form-control input-sm"
                                                        id="inputparking" placeholder="停车场">
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-success btn-xs"
+                                        <button type="button" class="btn btn-success btn-xs" onclick="showSearch(1)"
                                                 style="width: 120px; margin-top: 15px;">搜索
                                         </button>
                                     </div>
@@ -266,16 +302,15 @@
                         </div>
                     </div>
                 </div>
-                <hr class="separate_line">
                 <div class="toobar toobar2">
                     <img src="__PUBLIC__/image/map.png" width="24" height="24">
 
                     <div>区域选择</div>
                     <div id="cityPanel"
-                         style="position: absolute; left: 54px; top: 60px; bottom: 45px; width: 300px; z-index: 1000; display: none;">
-                        <div class="panel panel-default"
-                             style="height: 100%; background-color: #EFEFEF;">
-                            <div class="panel-body">
+                         style="position: absolute; left: 54px; top: 0px; bottom: 0px; width: 250px; z-index: 1000; display: none;">
+                        <div
+                                style="height: 100%; background-color: #0066FF;margin: 0;padding: 10px;">
+                            <div>
                                 <ul id="cityTree" class="ztree"></ul>
                             </div>
                         </div>
@@ -290,12 +325,48 @@
                     <div>26~20℃</div>
                     <div>良</div>
                 </div>
+
+                <!-- 搜索结果 -->
+                <div class="modal fade" id="searchResultWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     style="color: #000;">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">鲁B12345 消费详情：</h4>
+                            </div>
+                            <div class="modal-body">
+                                <table class="datatable" data-toggle="table" data-striped="true">
+                                    <thead>
+                                    <tr>
+                                        <th>进场时间</th>
+                                        <th>出场时间</th>
+                                        <th>共消费</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>2015/08.30/10：21</td>
+                                        <td>2015/08.30/15:20</td>
+                                        <td>12.5元</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary btn-xs" style="width: 130px;">导出为EXCEL
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="content">
             {__CONTENT__}
         </div>
     </div>
-
+</div>
 </body>
 </html>
