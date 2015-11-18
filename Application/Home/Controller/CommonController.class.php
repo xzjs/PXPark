@@ -11,7 +11,7 @@ use Think\Controller;
 use Think\Model;
 
 /**
- * 超级管理员控制器
+ * 普通管理员管理员控制器
  * @package Home\Controller
  */
 class CommonController extends Controller{
@@ -211,4 +211,12 @@ class CommonController extends Controller{
 		}
 	}
 
+	public function rule_add(){
+		$Rule=A('Rule');
+		$rule_result=$Rule->add();
+		if($rule_result){
+			$day_small_start_times=I('post.day_small_start_time[]');
+		}
+	}
+		
 }

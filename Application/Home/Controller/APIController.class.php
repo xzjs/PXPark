@@ -312,7 +312,7 @@ class APIController extends Controller
             $data['code'] = 0;
         $data['msg'] = '正常返回';
         $str=array();
-        foreach ($result['Rule'] as $r) {
+        /*foreach ($result['Rule'] as $r) {
             $Rule = D('Rule');
             $rs = $Rule->relation(true)->find($r['id']);
             //var_dump($rs);
@@ -331,7 +331,7 @@ class APIController extends Controller
 
             }
             array_push($str,$rule_temp);
-        }
+        }*/
         $d = array(
             'id' => $result['id'],
             'name' => $result['name'],
@@ -341,7 +341,11 @@ class APIController extends Controller
             'remain' => $result['remain_num'],
             'total' => $result['total_num'],
             'img' => $this->get_url(C('PARK_IMG_PATH') . $result['img']),
-            'rule' => $str,
+            'rule' => array(
+                'type'=>'梯度收费',
+                'price'=>5,
+                'note'=>'价格受节假日的影响而变化'
+            ),
             'type' => $result['type'],
             'address' => $result['address']
         );
