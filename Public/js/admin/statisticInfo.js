@@ -1,9 +1,16 @@
 $(function() {
-	$('.static_right').load('parkingStateInfo.html');
+//	$('.static_right').load('parkingStateInfo.html');
+	$('.sel').on('click', function() {
+		 window.location.href='/PXPark/index.php/Home/Super/statisticInfo.html';
+		
+	});
 	$('#carManager').on('click', function() {
-		pageJump('carManager.html');
+		 window.location.href='/PXPark/index.php/Home/Super/carManager.html';
+		
 	});
 	$('#userInfo').on('click', function() {
-		pageJump('userInfo.html');
+		window.location.href='/PXPark/index.php/Home/Super/userInfo.html';
+		
 	});
+	
 });

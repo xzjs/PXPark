@@ -1,9 +1,15 @@
 $(function() {
-	$('#carManager').on('click', function() {
-		pageJump('carManager.html');
+	$('.statisticInfo').on('click', function() {
+		 window.location.href='/PXPark/index.php/Home/Super/statisticInfo.html';
+		
 	});
-	$('#statisticInfo').on('click', function() {
-		pageJump('statisticInfo.html');
+	$('#carManager').on('click', function() {
+		 window.location.href='/PXPark/index.php/Home/Super/carManager.html';
+		
+	});
+	$('#userInfo').on('click', function() {
+		window.location.href='/PXPark/index.php/Home/Super/userInfo.html';
+		
 	});
 });
 function edits(){
