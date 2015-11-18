@@ -349,7 +349,8 @@
                 <h4 class="modal-title" id="myModalLabel">收费规则添加</h4>
             </div>
             <div class="modal-body">
-                <form action="{:U('Rule/add')}" method="post">
+                <form action="{:U('Common/rule_add')}" method="post">
+                    <input type="hidden" id="ruletype_id">
                     <div class="form-group addInfoDiv" id="addRuleDiv"
                          style="display:none;height:540px">
                         <div class="col-xs-12"
@@ -559,25 +560,13 @@
                                 夜晚时间:
                             </div>
                             <div class="col-xs-2  text-left" style="padding:0px;height:25px;">
-                                <select id="nightstart" name="nightstart"
-                                        style="width:100%;height:25px" onchange="">
-                                    <option
-                                            value="06:00">06:00
-                                    </option>
-                                    <option value="08:00" selected>08:00</option>
-                                </select>
+                                <input type="text" name="start_time_night" style="width:100%;height:25px">
                             </div>
                             <div class="col-xs-1  text-center"
                                  style="padding:0px;height:25px;">至
                             </div>
                             <div class="col-xs-2  text-left" style="padding:0px;height:25px;">
-                                <select id="nightend" name="nightend"
-                                        style="width:100%;height:25px" onchange="">
-                                    <option
-                                            value="06:00">06:00
-                                    </option>
-                                    <option value="08:00" selected>08:00</option>
-                                </select>
+                                <input type="text" name="end_time_night" style="width:100%;height:25px">
                             </div>
                         </div>
                         <div class="col-xs-12"
@@ -589,7 +578,7 @@
                             <div class="col-xs-9   text-left"
                                  style="padding:0px;height:25px;">
                                 <div style="float:left">
-                                    <select id="nightfreestart" name="nightfreestart" style="width: 70px;">
+                                    <select id="nightfreestart" name="free_time_night_small" style="width: 70px;">
                                         <option value=0>0</option>
                                         <option value=1>1</option>
                                         <option value=2>2</option>
@@ -619,7 +608,7 @@
                                 </div>
                                 <div style="float:left">(小车 小时)</div>
                                 <div style="float:left">
-                                    <select id="nightfreeend" name="nightfreeend" style="width: 70px;">
+                                    <select id="nightfreeend" name="free_time_night_big" style="width: 70px;">
                                         <option value=0>0</option>
                                         <option value=1>1</option>
                                         <option value=2>2</option>
@@ -666,7 +655,7 @@
                             <div class="col-xs-9 col-xs-offset-3  text-left"
                                  style="padding:0px;height:25px;display:none" id="nightSmall">
                                 <div style="float:left">
-                                    <select id="rulenss" name="rulenss"
+                                    <select id="rulenss" name="night_small_start_time[]"
                                             style="width:50px;height:25px" onchange="">
                                         <option
                                                 value="1">1
@@ -676,7 +665,7 @@
                                 </div>
                                 <div style="float:left">小时至</div>
                                 <div style="float:left">
-                                    <select id="rulense" name="rulense"
+                                    <select id="rulense" name="night_small_end_time[]"
                                             style="width:50px;height:25px" onchange="">
                                         <option
                                                 value="1">1
@@ -686,7 +675,7 @@
                                 </div>
                                 <div style="float:left">小时</div>
                                 <div style="float:left">
-                                    <input type="text" id="costns" name="costns" class=""
+                                    <input type="text" id="costns" name="night_small_fee[]" class=""
                                            style="height:25px;line-height:25px ;width:50px"
                                            placeholder="">
                                 </div>
@@ -709,7 +698,7 @@
                             <div class="col-xs-9 col-xs-offset-3 text-left"
                                  style="padding:0px;height:25px;display:none" id="nightLarge">
                                 <div style="float:left">
-                                    <select id="rulenls" name="rulenls"
+                                    <select id="rulenls" name="night_big_start_time[]"
                                             style="width:50px;height:25px" onchange="">
                                         <option
                                                 value="1">1
@@ -719,7 +708,7 @@
                                 </div>
                                 <div style="float:left">小时至</div>
                                 <div style="float:left">
-                                    <select id="rulenle" name="rulenle"
+                                    <select id="rulenle" name="night_big_end_time[]"
                                             style="width:50px;height:25px" onchange="">
                                         <option
                                                 value="1">1
@@ -729,7 +718,7 @@
                                 </div>
                                 <div style="float:left">小时</div>
                                 <div style="float:left">
-                                    <input type="text" id="costnl" name="costnl" class=""
+                                    <input type="text" id="costnl" name="night_big_fee[]" class=""
                                            style="height:25px;line-height:25px ;width:50px"
                                            placeholder="">
                                 </div>
@@ -781,6 +770,7 @@
             $("#addRuleDiv").css("display", "block");
             $("#ruleTimeDiv").css("display", "none");
         }
+        $('#ruletype_id').val(flag);
     }
     function ruleAddComplete() {
         //关闭div

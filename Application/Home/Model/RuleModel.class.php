@@ -2,7 +2,7 @@
 namespace Home\Model;
 use Think\Model\RelationModel;
 class RuleModel extends RelationModel{
-	protected $_validate = array(
+	/*protected $_validate = array(
 			array('name','require','规则名必须存在！'), 
 			array('park_id','require','停车场id必须存在！'),  
 			array('ruletype_id','require','规则名必须存在！'), 
@@ -14,7 +14,7 @@ class RuleModel extends RelationModel{
 			array('free_time_night','require','夜晚免费时间！'), 
 			
 			
-	);
+	);*/
 
 	protected $_link = array(
 		'Ruletype'=> self::BELONGS_TO,
