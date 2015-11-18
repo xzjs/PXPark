@@ -340,7 +340,7 @@ class APIController extends Controller
             'price' => $result['price'],
             'remain' => $result['remain_num'],
             'total' => $result['total_num'],
-            'img' => $this->get_url(C('UPLOAD') . $result['img']),
+            'img' => $this->get_url(C('PARK_IMG_PATH') . $result['img']),
             'rule' => $str,
             'type' => $result['type'],
             'address' => $result['address']
