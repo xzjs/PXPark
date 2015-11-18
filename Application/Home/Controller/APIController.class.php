@@ -340,7 +340,7 @@ class APIController extends Controller
             'price' => $result['price'],
             'remain' => $result['remain_num'],
             'total' => $result['total_num'],
-            'img' => $this->get_url(C('UPLOAD') . $result['img']),
+            'img' => $this->get_url(C('PARK_IMG_PATH') . $result['img']),
             'rule' => $str,
             'type' => $result['type'],
             'address' => $result['address']
@@ -461,6 +461,41 @@ class APIController extends Controller
         }
         $data['msg'] = "正常返回";
         $data['data'] = array();
+        echo json_encode($data);
+    }
+
+    /**
+     * 用户反馈接口
+     */
+    public function response(){
+        $Response=A('Response');
+        $data=array(
+            'code'=>$Response->add()>0?0:4,
+            'msg'=>'正常返回',
+            'data'=>array()
+        );
+        echo json_encode($data);
+    }
+
+    /**
+     * 获取app版本号
+     */
+    public function app(){
+        $Version=A('Version');
+        $result=$Version->get_version(I('post.type'));
+        $data=array(
+            'code'=>4,
+            'msg'=>'正常返回',
+            'data'=>array()
+        );
+        if($result){
+            $data['code']=0;
+            $data['data']=array(
+                'latest_version'=>$result['latest_version'],
+                'lowest_version'=>$result['lowest_version'],
+                'url'=>$result['url']
+            );
+        }
         echo json_encode($data);
     }
 

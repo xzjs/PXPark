@@ -210,5 +210,5 @@ class CommonController extends Controller{
 			$this->error ( $Message->getError ());
 		}
 	}
-		
+
 }

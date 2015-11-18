@@ -1,125 +1,5 @@
-//模拟数据
-var parkingList = [{
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '/PXPark/Public/image/parkingDemo.png',
-	'usingNum': '90',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '/PXPark/Public/image/parkingDemo.png',
-	'usingNum': '40',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '/PXPark/Public/image/parkingDemo.png',
-	'usingNum': '60',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '/PXPark/Public/image/parkingDemo.png',
-	'usingNum': '60',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '/PXPark/Public/image/parkingDemo.png',
-	'usingNum': '78',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '/PXPark/Public/image/parkingDemo.png',
-	'usingNum': '99',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '/PXPark/Public/image/parkingDemo.png',
-	'usingNum': '89',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '/PXPark/Public/image/parkingDemo.png',
-	'usingNum': '27',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '/PXPark/Public/image/parkingDemo.png',
-	'usingNum': '60',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '/PXPark/Public/image/parkingDemo.png',
-	'usingNum': '45',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '/PXPark/Public/image/parkingDemo.png',
-	'usingNum': '89',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '/PXPark/Public/image/parkingDemo.png',
-	'usingNum': '56',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '/PXPark/Public/image/parkingDemo.png',
-	'usingNum': '23',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
-	'usingNum': '89',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
-	'usingNum': '27',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
-	'usingNum': '60',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
-	'usingNum': '45',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
-	'usingNum': '89',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
-	'usingNum': '56',
-	'sumNum': '100'
-}, {
-	'id':0,
-	'title': '青岛创业大厦停车场',
-	'img': '../resources/image/parkingDemo.png',
-	'usingNum': '23',
-	'sumNum': '100'
-}];
+var type
+var parkingList;
 var nowPage = 1;
 var sumPage = 2;
 var pageSize = 15;
@@ -130,14 +10,49 @@ carNumType['FIT'] = ['car_num_fit_title', 'car_num_fit_tag'];
 carNumType['LESS'] = ['car_num_less_title', 'car_num_less_tag'];
 carNumType['SHORT'] = ['car_num_short_title', 'car_num_short_tag'];
 $(function() {
-	$('#nowPage').html(nowPage);
-	$('#sumPage').html(sumPage);
-	renderParking();
-	$('.parking_content').on('click',function(){
+	//alert("ffs");
+	
+	//alert("ffs");
+	sendtype();
+
+	/*$('.parking_content').on('click',function(){
 		var id = $(this).attr('data-id');
-		pageJump('statisticInfo.html');
-	});
+		alert("ffs");
+		 pageJump('statisticInfo.html');
+	});*/
 })
+function sendtype(){
+// 获取被选中的option标签
+ type = $('select  option:selected').val();
+
+   $('#nowPage').html(nowPage);
+	$('#sumPage').html(sumPage);
+	park();
+	
+	renderParking();
+	
+}
+
+function park(){
+// parkingList = 2;
+	// alert("park");
+	$.ajax({
+        url:"../Super/chewei_status",
+        type:"post",
+        ContentType:"application/json",
+        data:{type},
+        async :false,
+        success:function(data){
+        // alert(data.length);
+           var d=eval("(" + data+ ")");
+        parkingList = d;
+       // alert("d"+parkingList);
+         
+}
+        });
+	
+        	
+}
 
 /**
  * 上一页
@@ -185,12 +100,17 @@ function calculateType(usingNum, sumNum) {
  * 渲染停车场列表
  */
 function renderParking() {
+	// alert("ff");
 	$('#parkingList').children(':gt(0)').remove();
 	var beginPage = (nowPage - 1) * pageSize;
 	var endPage = beginPage + pageSize - 1;
-	for( var i = beginPage; i <= endPage; i++) {
+	//alert("edn"+endPage);
+    // alert("渲染"+parkingList);
+	for( var i = beginPage; i <endPage; i++) {
 		var demoItem = $('#demoItem').clone();
 		var parking = parkingList[i];
+		
+		if(parking!='' && parking!=undefined && parking!=null){
 		var usingType = calculateType(parking.usingNum, parking.sumNum);
 		$(demoItem).find('.parking_content').attr('data-id', parking.id);
 		$(demoItem).find('.title').html(parking.title).addClass(carNumType[usingType][0]);
@@ -200,4 +120,10 @@ function renderParking() {
 		$(demoItem).show();
 		$('#parkingList').append($(demoItem));
 	}
+		}
+	$('.parking_content').on('click',function(){
+		var id = $(this).attr('data-id');
+		
+		 window.location.href='http://localhost:8090/PXPark/index.php/Home/Super/statisticInfo.html';
+	});
 }

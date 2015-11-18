@@ -6,7 +6,7 @@ $(function() {
 		map.centerAndZoom(new BMap.Point(118.207244, 36.018531), 12);
 		map.enableScrollWheelZoom();
 	}catch(e){
-		
+
 	}
 	var labelTop = {
 		normal: {
