@@ -15,6 +15,15 @@ use Think\Controller;
  */
 class SuperController extends Controller{
 	/**
+	 * 停车厂综合管控
+	 */
+	function cManager(){
+		$park =A('Park');
+		$result=$park->compreManager(I('post.type'));
+		echo $result;
+	}
+	
+	/**
 	 * 停车状态
 	 */
 	function chewei_status(){
