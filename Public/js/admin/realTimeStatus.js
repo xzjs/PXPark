@@ -1,10 +1,3 @@
-/*$(document).ready(
-		 function(){
-			 parkingList();
-		    
-          }
-		);*/
- 
 var type
 var parkingList;
 var nowPage = 1;
@@ -17,25 +10,32 @@ carNumType['FIT'] = ['car_num_fit_title', 'car_num_fit_tag'];
 carNumType['LESS'] = ['car_num_less_title', 'car_num_less_tag'];
 carNumType['SHORT'] = ['car_num_short_title', 'car_num_short_tag'];
 $(function() {
-	//
+	//alert("ffs");
+	
+	//alert("ffs");
 	sendtype();
+
+	/*$('.parking_content').on('click',function(){
+		var id = $(this).attr('data-id');
+		alert("ffs");
+		 pageJump('statisticInfo.html');
+	});*/
 })
 function sendtype(){
- //获取被选中的option标签
+// 获取被选中的option标签
  type = $('select  option:selected').val();
- //alert("ff"+type);
- $('#nowPage').html(nowPage);
+
+   $('#nowPage').html(nowPage);
 	$('#sumPage').html(sumPage);
 	park();
+	
 	renderParking();
-	$('.parking_content').on('click',function(){
-		var id = $(this).attr('data-id');
-		pageJump('statisticInfo.html');
-	});
+	
 }
+
 function park(){
-//	 parkingList = 2;
-  
+// parkingList = 2;
+	// alert("park");
 	$.ajax({
         url:"../Super/chewei_status",
         type:"post",
@@ -46,7 +46,7 @@ function park(){
         // alert(data.length);
            var d=eval("(" + data+ ")");
         parkingList = d;
-       //  alert("d"+parkingList);
+       // alert("d"+parkingList);
          
 }
         });
@@ -98,16 +98,17 @@ function calculateType(usingNum, sumNum) {
  * 渲染停车场列表
  */
 function renderParking() {
-	//alert("ff");
+	// alert("ff");
 	$('#parkingList').children(':gt(0)').remove();
 	var beginPage = (nowPage - 1) * pageSize;
 	var endPage = beginPage + pageSize - 1;
-	
-    //alert("渲染"+parkingList);
-	for( var i = beginPage; i <= endPage; i++) {
+	//alert("edn"+endPage);
+    // alert("渲染"+parkingList);
+	for( var i = beginPage; i <endPage; i++) {
 		var demoItem = $('#demoItem').clone();
 		var parking = parkingList[i];
-		// alert("渲染"+parkingList[i]);
+		
+		if(parking!='' && parking!=undefined && parking!=null){
 		var usingType = calculateType(parking.usingNum, parking.sumNum);
 		$(demoItem).find('.parking_content').attr('data-id', parking.id);
 		$(demoItem).find('.title').html(parking.title).addClass(carNumType[usingType][0]);
@@ -117,4 +118,10 @@ function renderParking() {
 		$(demoItem).show();
 		$('#parkingList').append($(demoItem));
 	}
+		}
+	$('.parking_content').on('click',function(){
+		var id = $(this).attr('data-id');
+		
+		 window.location.href='http://localhost:8090/PXPark/index.php/Home/Super/statisticInfo.html';
+	});
 }

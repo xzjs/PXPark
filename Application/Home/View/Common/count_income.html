@@ -34,9 +34,9 @@
 			id="income_end_time"
 			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
 		车辆类型： <select id="income_car_category">
-			<option>全部</option>
-			<option>小型车</option>
-			<option>大型车</option>
+			<option >全部</option>
+			<option value="1">小型车</option>
+			<option value="2">大型车</option>
 		</select>
 		<button type="button"
 			onclick="getCountIncome('{:U('Parkrecord/count_income')}',$('input#income_start_time').val(),$('input#income_end_time').val(),$('select#income_car_category').val())"

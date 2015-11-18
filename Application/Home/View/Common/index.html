@@ -5,6 +5,24 @@
 <script src="__PUBLIC__/thirdparty/echarts/echarts-all.js"></script>
 <script type="text/javascript">
 	$(function(){
+		var columInfo = eval({$columInfo});
+		var pieInfo = eval({$pieInfo});
+		var lineInfo = eval({$lineInfo});
+		for (var i = 0; i < columInfo.length; i++) {
+			if(columInfo[i].big==null)
+				columInfo[i].big=0;
+			if(columInfo[i].small==null)
+				columInfo[i].small=0;
+			if(columInfo[i].money==null)
+				columInfo[i].money=0;
+		} 
+		for (var i = 0; i < lineInfo.length; i++) {
+			if(lineInfo[i].cnt==null)
+				lineInfo[i].cnt=0;
+			if(lineInfo[i].cnt_end==null)
+				lineInfo[i].cnt_end=0;
+		}
+		
 		$('.page_right').load('parkingStateInfo.html');
 		var option_lineBar = {
 				 title : {
@@ -27,8 +45,11 @@
 			    xAxis : [
 			        {
 			            type : 'category',
-			            data : ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19'
-			                    ,'20','21','22','23','24','25','26','27','28','29','30']
+			            data : [columInfo[0].date,columInfo[1].date,columInfo[2].date,columInfo[3].date,columInfo[4].date,columInfo[5].date,columInfo[6].date,
+			                    columInfo[7].date,columInfo[8].date,columInfo[9].date,columInfo[10].date,columInfo[11].date,columInfo[12].date,columInfo[13].date,
+			                    columInfo[14].date,columInfo[15].date,columInfo[16].date,columInfo[17].date,columInfo[18].date,columInfo[19].date,columInfo[20].date,
+			                    columInfo[21].date,columInfo[21].date,columInfo[23].date,columInfo[24].date,columInfo[25].date,columInfo[26].date,columInfo[27].date,
+			                    columInfo[28].date,columInfo[29].date]
 			                    
 			        }
 			    ],
@@ -54,24 +75,30 @@
 			        {
 			            name:'大型车',
 			            type:'bar',
-			            data:[2, 4, 7, 23, 25, 76, 135, 162, 32, 20, 6, 3,
-			                  2, 4, 7, 23, 25, 76, 135, 162, 32, 20, 6, 3
-			                  , 135, 162, 32, 20, 6, 3]
+			            data:[columInfo[0].big,columInfo[1].big,columInfo[2].big,columInfo[3].big,columInfo[4].big,columInfo[5].big,columInfo[6].big,
+			                    columInfo[7].big,columInfo[8].big,columInfo[9].big,columInfo[10].big,columInfo[11].big,columInfo[12].big,columInfo[13].big,
+			                    columInfo[14].big,columInfo[15].big,columInfo[16].big,columInfo[17].big,columInfo[18].big,columInfo[19].big,columInfo[20].big,
+			                    columInfo[21].big,columInfo[21].big,columInfo[23].big,columInfo[24].big,columInfo[25].big,columInfo[26].big,columInfo[27].big,
+			                    columInfo[28].big,columInfo[29].big]
 			        },
 			        {
 			            name:'小型车',
 			            type:'bar',
-			            data:[22, 44, 72, 23, 35, 76, 135, 162, 32, 2, 65, 32,
-			                  2, 4, 7, 23, 25, 76, 35, 12, 2, 0, 6, 3
-			                  , 15, 62, 32, 20, 6, 3]
+			            data:[columInfo[0].small,columInfo[1].small,columInfo[2].small,columInfo[3].small,columInfo[4].small,columInfo[5].small,columInfo[6].small,
+			                    columInfo[7].small,columInfo[8].small,columInfo[9].small,columInfo[10].small,columInfo[11].small,columInfo[12].small,columInfo[13].small,
+			                    columInfo[14].small,columInfo[15].small,columInfo[16].small,columInfo[17].small,columInfo[18].small,columInfo[19].small,columInfo[20].small,
+			                    columInfo[21].small,columInfo[21].small,columInfo[23].small,columInfo[24].small,columInfo[25].small,columInfo[26].small,columInfo[27].small,
+			                    columInfo[28].small,columInfo[29].small]
 			        },
 			        {
 			            name:'收益',
 			            type:'line',
 			            yAxisIndex: 1,
-			            data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2,
-			                  2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2,
-			                  20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+			            data:[columInfo[0].money,columInfo[1].money,columInfo[2].money,columInfo[3].money,columInfo[4].money,columInfo[5].money,columInfo[6].money,
+			                    columInfo[7].money,columInfo[8].money,columInfo[9].money,columInfo[10].money,columInfo[11].money,columInfo[12].money,columInfo[13].money,
+			                    columInfo[14].money,columInfo[15].money,columInfo[16].money,columInfo[17].money,columInfo[18].money,columInfo[19].money,columInfo[20].money,
+			                    columInfo[21].money,columInfo[21].money,columInfo[23].money,columInfo[24].money,columInfo[25].money,columInfo[26].money,columInfo[27].money,
+			                    columInfo[28].money,columInfo[29].money]
 			        }
 			    ]
 			};
@@ -100,10 +127,10 @@
 	 			            radius : '55%',
 	 			            center: ['50%', '60%'],
 	 			            data:[
-	 			                {value:335, name:'免费小车'},
-	 			                {value:310, name:'免费大车'},
-	 			                {value:234, name:'收费小车'},
-	 			                {value:135, name:'收费大车'}
+	 			                {value:pieInfo.small_free, name:'免费小车'},
+	 			                {value:pieInfo.big_free, name:'免费大车'},
+	 			                {value:pieInfo.small, name:'收费小车'},
+	 			                {value:pieInfo.big, name:'收费大车'}
 	 			            ]
 	 			        }
 	 			    ]
@@ -127,8 +154,10 @@
 	 			        {
 	 			            type : 'category',
 	 			            boundaryGap : false,
-	 			            data :  ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19'
-	 			                    ,'20','21','22','23']
+	 			            data :  [ lineInfo[0].time,lineInfo[1].time,lineInfo[2].time,lineInfo[3].time,lineInfo[4].time,lineInfo[5].time,lineInfo[6].time,
+	 			                    lineInfo[7].time,lineInfo[8].time,lineInfo[9].time,lineInfo[10].time,lineInfo[11].time,lineInfo[12].time,lineInfo[13].time,
+				                    lineInfo[14].time,lineInfo[15].time,lineInfo[16].time,lineInfo[17].time,lineInfo[18].time,lineInfo[19].time,lineInfo[20].time,
+				                    lineInfo[21].time,lineInfo[21].time,lineInfo[23].time]
 	 			        }
 	 			    ],
 	 			    yAxis : [
@@ -143,33 +172,30 @@
 	 			        {
 	 			            name:'驶离流量',
 	 			            type:'line',
-	 			            data:[11, 11, 15, 13, 12, 13, 10,11, 11, 15, 13, 12, 13, 10,11, 11, 15, 13, 12, 13, 10,12,34],
+	 			            data:[lineInfo[0].cnt,lineInfo[1].cnt,lineInfo[2].cnt,lineInfo[3].cnt,lineInfo[4].cnt,lineInfo[5].cnt,lineInfo[6].cnt,
+	 			                    lineInfo[7].cnt,lineInfo[8].cnt,lineInfo[9].cnt,lineInfo[10].cnt,lineInfo[11].cnt,lineInfo[12].cnt,lineInfo[13].cnt,
+				                    lineInfo[14].cnt,lineInfo[15].cnt,lineInfo[16].cnt,lineInfo[17].cnt,lineInfo[18].cnt,lineInfo[19].cnt,lineInfo[20].cnt,
+				                    lineInfo[21].cnt,lineInfo[21].cnt,lineInfo[23].cnt],
 	 			            markPoint : {
 	 			                data : [
 	 			                    {type : 'max', name: '最大值'},
 	 			                    {type : 'min', name: '最小值'}
 	 			                ]
 	 			            },
-	 			            markLine : {
-	 			                data : [
-	 			                    {type : 'average', name: '平均值'}
-	 			                ]
-	 			            }
 	 			        },
 	 			        {
 	 			            name:'驶入流量',
 	 			            type:'line',
-	 			           data:[4, 8, 1, 13, 1, 13, 10,11, 12, 15, 13, 87, 13, 10,1, 11, 15, 13, 4, 13, 8,2,4],
-	 			            markPoint : {
-	 			                data : [
-	 			                    {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
-	 			                ]
-	 			            },
-	 			            markLine : {
-	 			                data : [
-	 			                    {type : 'average', name : '平均值'}
-	 			                ]
-	 			            }
+	 			           data:[lineInfo[0].cnt_end,lineInfo[1].cnt_end,lineInfo[2].cnt_end,lineInfo[3].cnt_end,lineInfo[4].cnt_end,lineInfo[5].cnt_end,lineInfo[6].cnt_end,
+	 			                    lineInfo[7].cnt_end,lineInfo[8].cnt_end,lineInfo[9].cnt_end,lineInfo[10].cnt_end,lineInfo[11].cnt_end,lineInfo[12].cnt_end,lineInfo[13].cnt_end,
+				                    lineInfo[14].cnt_end,lineInfo[15].cnt_end,lineInfo[16].cnt_end,lineInfo[17].cnt_end,lineInfo[18].cnt_end,lineInfo[19].cnt_end,lineInfo[20].cnt_end,
+				                    lineInfo[21].cnt_end,lineInfo[21].cnt_end,lineInfo[23].cnt_end],
+				                    markPoint : {
+			 			                data : [
+			 			                    {type : 'max', name: '最大值'},
+			 			                    {type : 'min', name: '最小值'}
+			 			                ]
+			 			            }, 
 	 			        }
 	 			    ]
 	 			};
