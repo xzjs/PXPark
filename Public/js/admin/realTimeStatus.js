@@ -124,6 +124,6 @@ function renderParking() {
 	$('.parking_content').on('click',function(){
 		var id = $(this).attr('data-id');
 		
-		 window.location.href='http://localhost:8090/PXPark/index.php/Home/Super/statisticInfo.html';
+		 window.location.href='http://192.168.4.97:48082/PXPark/index.php/Home/Super/statisticInfo.html';
 	});
 }
