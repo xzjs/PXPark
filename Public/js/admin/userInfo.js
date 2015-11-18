@@ -1,5 +1,5 @@
 $(function() {
-	$('.statisticInfo').on('click', function() {
+	$('#statisticInfo').on('click', function() {
 		 window.location.href='/PXPark/index.php/Home/Super/statisticInfo.html';
 		
 	});
