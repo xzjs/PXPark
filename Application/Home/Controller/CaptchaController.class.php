@@ -22,10 +22,10 @@ class CaptchaController extends Controller
     public function create($phone)
     {
         $Info=M('Info');
-        $data=$Info->find();
-        $username = $data['username'];       //用户账号
-        $password = $data['password'];    //密码
-        $apikey = $data['apikey'];    //密码
+        $data_info=$Info->find();
+        $username = $data_info['username'];       //用户账号
+        $password = $data_info['password'];    //密码
+        $apikey = $data_info['apikey'];    //密码
         $mobile = $phone;    //号手机码
         $code=rand(1000,9999);
         $content = "您的短信验证码是：$code";        //内容

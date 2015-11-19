@@ -39,7 +39,7 @@ $(function() {
 		data.rows = state.allRows.slice(start, end);
 		return data;
 	}
-
+a();
 	var loadDataMethod = $.fn.datagrid.methods.loadData;
 	var deleteRowMethod = $.fn.datagrid.methods.deleteRow;
 	$.extend($.fn.datagrid.methods, {
@@ -199,7 +199,7 @@ $(function() {
 					});
 	
 	$('#personGrid').datagrid({
-		data : getData()
+		data : result
 	}).datagrid('clientPaging');
 	//分页工具栏上添加导出excel
 	var pager = $('#personGrid').datagrid('getPager');    // 得到datagrid的pager对象  
@@ -212,6 +212,23 @@ $(function() {
 	    }]
 	});    
 });
+var result;
+function a(){
+	
+	//var type = $('select  option:selected').val();
+	 $.ajax({
+		 url:"../Super/persons_info",
+	        type:"post",
+	        ContentType:"application/json",
+	        //data:{type},
+	        async :false,
+	        success:function(data){
+	        // alert(data.length);
+	           var d=eval("(" + data+ ")");
+	       result= d;
+	       }
+	 });
+}
 
 function showDetail(){
 	$('#detailInfoWin').modal();
