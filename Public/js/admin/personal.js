@@ -214,7 +214,7 @@ a();
 });
 var result;
 function a(){
-	alert("ff");
+	
 	//var type = $('select  option:selected').val();
 	 $.ajax({
 		 url:"../Super/persons_info",
