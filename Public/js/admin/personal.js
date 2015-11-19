@@ -39,7 +39,7 @@ $(function() {
 		data.rows = state.allRows.slice(start, end);
 		return data;
 	}
-a();
+   a();
 	var loadDataMethod = $.fn.datagrid.methods.loadData;
 	var deleteRowMethod = $.fn.datagrid.methods.deleteRow;
 	$.extend($.fn.datagrid.methods, {
@@ -177,14 +177,16 @@ a();
 									title : '用户积分',
 									width : 100,
 									align : 'center'
+										
 								},
 								{
 									field : 'parkingHistory',
 									title : '停车历史',
 									width : 100,
+									// value:201,
 									align : 'center',
 									formatter : function(value, row, index) {
-										return '<a class="table_row_btn" href="javascript:showDetail();" >详情</a>';
+									return '<a class="table_row_btn" href="javascript:showDetail('+index+');" >详情</a>';
 									}
 								},
 								{
@@ -201,8 +203,8 @@ a();
 	$('#personGrid').datagrid({
 		data : result
 	}).datagrid('clientPaging');
-	//分页工具栏上添加导出excel
-	var pager = $('#personGrid').datagrid('getPager');    // 得到datagrid的pager对象  
+	// 分页工具栏上添加导出excel
+	var pager = $('#personGrid').datagrid('getPager');    // 得到datagrid的pager对象
 	pager.pagination({   
 	    buttons:[{    
 	        iconCls:'icon-excel',    
@@ -213,23 +215,73 @@ a();
 	});    
 });
 var result;
+var uid=[];
 function a(){
 	
-	//var type = $('select  option:selected').val();
+	// var type = $('select option:selected').val();
 	 $.ajax({
 		 url:"../Super/persons_info",
 	        type:"post",
 	        ContentType:"application/json",
-	        //data:{type},
+	        // data:{type},
 	        async :false,
 	        success:function(data){
-	        // alert(data.length);
+	         
 	           var d=eval("(" + data+ ")");
 	       result= d;
+	      // alert(d[0]['uid']);
+	      for(var i=0;i<d.length;i++){
+	    	   uid[i]=d[i]['uid'];
+	    	 // alert("d"+uid[i]);
+	       }
 	       }
 	 });
 }
 
-function showDetail(){
-	$('#detailInfoWin').modal();
+function showDetail(c){
+	var u_id=uid[c];
+	alert(u_id);
+	$.ajax({
+		 url:"../Super/getparkrecord",
+	        type:"post",
+	        ContentType:"application/json",
+	        data:{u_id},
+	        async :false,
+	        success:function(data){
+	       // alert("ff");
+	           var ds=eval("(" + data+ ")");
+	         // window.location.href=window.location.href;
+	          // var ds="";
+	          // alert(ds.length);
+	         // var table=document.createElement("table");
+	       /*  $('#sss').remove(); 
+	       var tbody=document.createElement('tbody');
+	         tbody.id="sss";
+	        document.getElementById("ppp").appendChild(tbody);*/
+	           $("#ppp").html("");
+	           for(var i=0;i<ds.length;i++){
+	             var tr=document.createElement("tr");// 创建tr
+	        	 var td1=document.createElement("td");// 创建td
+	        	    td1.innerHTML=ds[i]['car_no'];
+	        	    tr.appendChild(td1);
+	        	 var td2=document.createElement("td");// 创建td
+	        	    td2.innerHTML=ds[i]['stime'];
+	        	    tr.appendChild(td2);
+	        	 var td3=document.createElement("td");// 创建td
+	        	    td3.innerHTML=ds[i]['etime'];
+	        	    tr.appendChild(td3);
+	        	 var td4=document.createElement("td");// 创建td
+	        	    td4.innerHTML=ds[i]['money'];
+	        	    tr.appendChild(td4);
+	        	  // table.appendChild(tr);
+	        	    document.getElementById("ppp").appendChild(tr);
+	        	 }
+	           
+	        
+	        	 $('#detailInfoWin').modal();
+	       }
+	      
+	       
+	 });
+	
 }
