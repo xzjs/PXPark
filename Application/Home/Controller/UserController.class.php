@@ -16,6 +16,32 @@ use Think\Controller;
 class UserController extends Controller
 {
 	/**
+	 * 获取所有普通用户信息
+	 */
+	function persons_info(){
+		$result=M()->query("SELECT nickname,phone,NAME,card_no,member_id,score FROM px_user WHERE TYPE=1");
+		$arry=array();
+		
+		for($i=0;$i<count($result);$i++){
+			$arry[$i]=array(
+					'id'=>$i+1,
+					'nick'=>$result[$i]['nickname'],
+					'telphone'=>$result[$i]['phone'],
+					'name'=>$result[$i]['name'],
+					'cardId'=>$result[$i]['card_no'],
+					'memeberLevel' => '',
+				    'creditLevel'=>'',
+					'points'=>$result[$i]['score'],
+		
+			);
+		
+		}
+		
+		return  json_encode($arry);
+		
+	}
+	
+	/**
 	 * 获取用户一个月内消费
 	 */
 	public function getSpend($uid){

@@ -15,6 +15,16 @@ use Think\Controller;
  */
 class SuperController extends Controller{
 	/**
+	 * 获取所有普通用户信息
+	 * 目前荣誉等级为空
+	 */
+	 function persons_info(){
+		$user=A('User');
+		$result=$user->persons_info();
+		echo $result;
+	}
+	
+	/**
 	 * 停车厂综合管控
 	 */
 	function cManager(){
