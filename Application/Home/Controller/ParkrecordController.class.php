@@ -528,7 +528,55 @@ class ParkrecordController extends Controller {
 		
 	}
 
+	/**
+	 * 获取某时间段内的驶入驶出流量及收益
+	 */
+	public function count_flow_info() {
+		$condition="";
+		if (I('param.park_id',0)!= 0) {
+			$condition.=" and px_parkrecord.park_id=".I('param.park_id');
+		}
+		if(I('param.type',0)!=0){
+			$condition.="and px_car.type=".I('param.type');
+		}
+		if(I('param.flag',0)!=0){
+			$condition.=" and px_parkrecord.end_time is null";
+		}
+		if(I('param.user_id',0)!=0){
+			$condition.=" and px_park.user_id=".I('param.user_id');
+		}
+		if((I('param.start_time',0)!=0)&&(I('param.end_time',0)!=0)){
+			$date=$this->prDates(I('param.start_time',0),I('param.end_time',0));
+			$in_time=strtotime(I('param.start_time'));
+			$out_time=strtotime(I('param.end_time'));
+			$in_condition=$condition.' and px_parkrecord.start_time between '.$in_time.' and '.$out_time;
+			$out_condition=$condition.' and px_parkrecord.end_time between '.$in_time.' and '.$out_time;
+		}
+		if($condition!=""){
+			$Model = new Model ();
+			$sql_in_money= 'SELECT FROM_UNIXTIME(px_parkrecord.start_time,"%m-%d") atime, COUNT(*) cnt,SUM(px_parkrecord.money) money  FROM px_parkrecord,px_car,px_park WHERE px_park.id=px_parkrecord.park_id and px_parkrecord.car_id=px_car.id '.$in_condition.' GROUP  BY FROM_UNIXTIME(px_parkrecord.start_time,"%m-%d")';
+			$result_line = $Model->query ( $sql_in_money );
+			$sql_out='SELECT FROM_UNIXTIME(px_parkrecord.start_time,"%m-%d") atime, COUNT(*) cnt FROM px_parkrecord,px_car,px_park WHERE px_park.id=px_parkrecord.park_id and px_parkrecord.car_id=px_car.id '.$out_condition.' GROUP  BY FROM_UNIXTIME(px_parkrecord.start_time,"%m-%d")';
+			$result_line_end = $Model->query ( $sql_out );
+			for($i=0;$i<count($date);$i++){
+				$line_chart[$i]['date']=$date[$i];
+				for($j=0;$j<count($result_line);$j++){
+					if($result_line[$j]['atime']==$date[$i]){
+						$line_chart[$i]['cnt']=$result_line[$j]['cnt'];
+						$line_chart[$i]['money']=$result_line[$j]['money'];
+					}
+				}
+				for($j=0;$j<count($result_line_end);$j++){
+					if($result_line_end[$j]['atime']==$date[$i]){
+						$line_chart[$i]['cnt_end']=$result_line_end[$j]['cnt'];
+					}
+				}
+			}
+			echo json_encode($line_chart);
+		}
+	}
 
+	
 	/**
 	 * 获取近n天的停车和收费数据
 	 */
@@ -662,6 +710,16 @@ class ParkrecordController extends Controller {
 			return $a['time']>$b['time']?-1:1;
 		});
 		return $data;
+	}
+	private function prDates($start,$end){
+		$date=array();
+		$dt_start = strtotime($start);
+		$dt_end = strtotime($end);
+		while ($dt_start<=$dt_end){
+			array_push($date,date('m-d',$dt_start));
+			$dt_start = strtotime('+1 day',$dt_start);
+		}
+		return $date;
 	}
 	
 private function time_tran($the_time) {

@@ -15,6 +15,7 @@ use Think\Model;
  * @package Home\Controller
  */
 class CommonController extends Controller{
+
 	public function index() {
 		$user_id=1;
 		$Model = new Model ();
@@ -100,10 +101,10 @@ class CommonController extends Controller{
 		$last_month=strtotime("last Month")+mktime(0,0,0,date("m"),date("d")+1,date("Y"))-time();
 		//var_dump(date("Y-m-d h:i:sa",$last_day));
 		$sql_line="SELECT FROM_UNIXTIME(a.start_time,'%m-%d') atime, COUNT(*) cnt,SUM(a.money) money FROM px_parkrecord AS a,px_user AS b,px_car AS c,px_park AS d 
-			WHERE b.id=".$user_id." AND b.id=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.start_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.start_time,'%m-%d')";
+			WHERE ".$user_id."=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.start_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.start_time,'%m-%d')";
 		$result_line = $Model->query ( $sql_line );
 		$sql_line="SELECT FROM_UNIXTIME(a.end_time,'%m-%d') atime, COUNT(*) cnt FROM px_parkrecord AS a,px_user AS b,px_car AS c,px_park AS d
-			WHERE b.id=".$user_id." AND b.id=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.end_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.end_time,'%m-%d')";
+			WHERE ".$user_id."=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.end_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.end_time,'%m-%d')";
 		$result_line_end = $Model->query ( $sql_line );
 		//var_dump($result_line);
 		//var_dump($result_line_end);
@@ -123,8 +124,8 @@ class CommonController extends Controller{
 			}
 		}
 		//var_dump($line_chart);
-		$this->assign ( 'columInfo', json_encode ( $colum_chart ) );
-		//$this->display ();
+		$this->assign ( 'lineInfo', json_encode ( $line_chart ) );
+		$this->display ("park_analyse");
 	}
 	
 	/**
@@ -213,10 +214,11 @@ class CommonController extends Controller{
 
 	public function rule_add(){
 		$Rule=A('Rule');
-		$rule_result=$Rule->add();
+        $day_small_start_times=I('post.day_small_start_time[]');
+		/*$rule_result=$Rule->add();
 		if($rule_result){
 			$day_small_start_times=I('post.day_small_start_time[]');
-		}
+		}*/
 	}
 		
 }

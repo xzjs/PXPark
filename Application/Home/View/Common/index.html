@@ -8,19 +8,42 @@
 		var columInfo = eval({$columInfo});
 		var pieInfo = eval({$pieInfo});
 		var lineInfo = eval({$lineInfo});
+		
+		var dateList=new Array();
+		var bigCarList=new Array();
+		var smallCarList=new Array();
+		var incomeList=new Array();
+		
+		var timeList=new Array();
+		var inList=new Array();
+		var outList=new Array();
+		
 		for (var i = 0; i < columInfo.length; i++) {
+			dateList[i]=columInfo[i].date;
 			if(columInfo[i].big==null)
-				columInfo[i].big=0;
+				bigCarList[i]=0;
+			else
+				bigCarList[i]=columInfo[i].big;
 			if(columInfo[i].small==null)
-				columInfo[i].small=0;
+				smallCarList[i]=0;
+			else
+				smallCarList[i]=columInfo[i].small;
 			if(columInfo[i].money==null)
-				columInfo[i].money=0;
-		} 
+				incomeList[i]=0;
+			else
+				incomeList[i]=columInfo[i].money;
+		}
+		
 		for (var i = 0; i < lineInfo.length; i++) {
+			timeList[i]=lineInfo[i].time;
 			if(lineInfo[i].cnt==null)
-				lineInfo[i].cnt=0;
+				inList[i]=0;
+			else
+				inList[i]=lineInfo[i].cnt;
 			if(lineInfo[i].cnt_end==null)
-				lineInfo[i].cnt_end=0;
+				outList[i]=0;
+			else
+				outList[i]=lineInfo[i].cnt_end;
 		}
 		
 		$('.page_right').load('parkingStateInfo.html');
@@ -45,11 +68,7 @@
 			    xAxis : [
 			        {
 			            type : 'category',
-			            data : [columInfo[0].date,columInfo[1].date,columInfo[2].date,columInfo[3].date,columInfo[4].date,columInfo[5].date,columInfo[6].date,
-			                    columInfo[7].date,columInfo[8].date,columInfo[9].date,columInfo[10].date,columInfo[11].date,columInfo[12].date,columInfo[13].date,
-			                    columInfo[14].date,columInfo[15].date,columInfo[16].date,columInfo[17].date,columInfo[18].date,columInfo[19].date,columInfo[20].date,
-			                    columInfo[21].date,columInfo[21].date,columInfo[23].date,columInfo[24].date,columInfo[25].date,columInfo[26].date,columInfo[27].date,
-			                    columInfo[28].date,columInfo[29].date]
+			            data : dateList
 			                    
 			        }
 			    ],
@@ -75,30 +94,18 @@
 			        {
 			            name:'大型车',
 			            type:'bar',
-			            data:[columInfo[0].big,columInfo[1].big,columInfo[2].big,columInfo[3].big,columInfo[4].big,columInfo[5].big,columInfo[6].big,
-			                    columInfo[7].big,columInfo[8].big,columInfo[9].big,columInfo[10].big,columInfo[11].big,columInfo[12].big,columInfo[13].big,
-			                    columInfo[14].big,columInfo[15].big,columInfo[16].big,columInfo[17].big,columInfo[18].big,columInfo[19].big,columInfo[20].big,
-			                    columInfo[21].big,columInfo[21].big,columInfo[23].big,columInfo[24].big,columInfo[25].big,columInfo[26].big,columInfo[27].big,
-			                    columInfo[28].big,columInfo[29].big]
+			            data:bigCarList
 			        },
 			        {
 			            name:'小型车',
 			            type:'bar',
-			            data:[columInfo[0].small,columInfo[1].small,columInfo[2].small,columInfo[3].small,columInfo[4].small,columInfo[5].small,columInfo[6].small,
-			                    columInfo[7].small,columInfo[8].small,columInfo[9].small,columInfo[10].small,columInfo[11].small,columInfo[12].small,columInfo[13].small,
-			                    columInfo[14].small,columInfo[15].small,columInfo[16].small,columInfo[17].small,columInfo[18].small,columInfo[19].small,columInfo[20].small,
-			                    columInfo[21].small,columInfo[21].small,columInfo[23].small,columInfo[24].small,columInfo[25].small,columInfo[26].small,columInfo[27].small,
-			                    columInfo[28].small,columInfo[29].small]
+			            data:smallCarList
 			        },
 			        {
 			            name:'收益',
 			            type:'line',
 			            yAxisIndex: 1,
-			            data:[columInfo[0].money,columInfo[1].money,columInfo[2].money,columInfo[3].money,columInfo[4].money,columInfo[5].money,columInfo[6].money,
-			                    columInfo[7].money,columInfo[8].money,columInfo[9].money,columInfo[10].money,columInfo[11].money,columInfo[12].money,columInfo[13].money,
-			                    columInfo[14].money,columInfo[15].money,columInfo[16].money,columInfo[17].money,columInfo[18].money,columInfo[19].money,columInfo[20].money,
-			                    columInfo[21].money,columInfo[21].money,columInfo[23].money,columInfo[24].money,columInfo[25].money,columInfo[26].money,columInfo[27].money,
-			                    columInfo[28].money,columInfo[29].money]
+			            data:incomeList
 			        }
 			    ]
 			};
@@ -154,10 +161,7 @@
 	 			        {
 	 			            type : 'category',
 	 			            boundaryGap : false,
-	 			            data :  [ lineInfo[0].time,lineInfo[1].time,lineInfo[2].time,lineInfo[3].time,lineInfo[4].time,lineInfo[5].time,lineInfo[6].time,
-	 			                    lineInfo[7].time,lineInfo[8].time,lineInfo[9].time,lineInfo[10].time,lineInfo[11].time,lineInfo[12].time,lineInfo[13].time,
-				                    lineInfo[14].time,lineInfo[15].time,lineInfo[16].time,lineInfo[17].time,lineInfo[18].time,lineInfo[19].time,lineInfo[20].time,
-				                    lineInfo[21].time,lineInfo[21].time,lineInfo[23].time]
+	 			            data :  timeList
 	 			        }
 	 			    ],
 	 			    yAxis : [
@@ -172,10 +176,7 @@
 	 			        {
 	 			            name:'驶离流量',
 	 			            type:'line',
-	 			            data:[lineInfo[0].cnt,lineInfo[1].cnt,lineInfo[2].cnt,lineInfo[3].cnt,lineInfo[4].cnt,lineInfo[5].cnt,lineInfo[6].cnt,
-	 			                    lineInfo[7].cnt,lineInfo[8].cnt,lineInfo[9].cnt,lineInfo[10].cnt,lineInfo[11].cnt,lineInfo[12].cnt,lineInfo[13].cnt,
-				                    lineInfo[14].cnt,lineInfo[15].cnt,lineInfo[16].cnt,lineInfo[17].cnt,lineInfo[18].cnt,lineInfo[19].cnt,lineInfo[20].cnt,
-				                    lineInfo[21].cnt,lineInfo[21].cnt,lineInfo[23].cnt],
+	 			            data:inList,
 	 			            markPoint : {
 	 			                data : [
 	 			                    {type : 'max', name: '最大值'},
@@ -186,10 +187,7 @@
 	 			        {
 	 			            name:'驶入流量',
 	 			            type:'line',
-	 			           data:[lineInfo[0].cnt_end,lineInfo[1].cnt_end,lineInfo[2].cnt_end,lineInfo[3].cnt_end,lineInfo[4].cnt_end,lineInfo[5].cnt_end,lineInfo[6].cnt_end,
-	 			                    lineInfo[7].cnt_end,lineInfo[8].cnt_end,lineInfo[9].cnt_end,lineInfo[10].cnt_end,lineInfo[11].cnt_end,lineInfo[12].cnt_end,lineInfo[13].cnt_end,
-				                    lineInfo[14].cnt_end,lineInfo[15].cnt_end,lineInfo[16].cnt_end,lineInfo[17].cnt_end,lineInfo[18].cnt_end,lineInfo[19].cnt_end,lineInfo[20].cnt_end,
-				                    lineInfo[21].cnt_end,lineInfo[21].cnt_end,lineInfo[23].cnt_end],
+	 			           data:outList,
 				                    markPoint : {
 			 			                data : [
 			 			                    {type : 'max', name: '最大值'},
