@@ -1,3 +1,9 @@
+<?php 
+session_start();
+if(isset($_SESSION['user']['user_id']))
+	$_SESSION['user']['user_id']=1;
+	$_SESSION['park_id']=1;
+ ?>
 <layout name="common"/>
 <!-- 信息展示 -->
 <meta charset="utf-8">
