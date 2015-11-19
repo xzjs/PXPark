@@ -195,10 +195,13 @@ class CommonController extends Controller{
 		}
 	}
 	
+	/**
+	 * 新增用户反馈信息
+	 */
 	public function add_message() {
 		$Message = D ( 'Message' );
 		if ($Message->create ()) {
-			//$user_id=$_SESSION['user']['user_id'];
+			$user_id=$_SESSION['user']['user_id'];
 			$user_id=1;
 			$Message->user_id=$user_id;
 			$result=$Message->add();
@@ -212,6 +215,7 @@ class CommonController extends Controller{
 		}
 	}
 
+	
 	public function rule_add(){
 		$Rule=A('Rule');
         $day_small_start_times=I('post.day_small_start_time[]');
@@ -219,6 +223,35 @@ class CommonController extends Controller{
 		if($rule_result){
 			$day_small_start_times=I('post.day_small_start_time[]');
 		}*/
+	}
+	
+	public function get_park_info() {
+		$Model = new Model ();
+		
+		
+		
+		if(I('param.park_id',0)!=0){
+			$condition=' where px_parkrecord.park_id='.I('param.park_id') ;
+		}else{
+			$condition=',px_park where px_parkrecord.park_id=px_park.id and px_park.user_id='.I('param.user_id') ;
+		}
+		$condition_today=$condition." and px_parkrecord.end_time>".strtotime("today");
+		$condition_tomonth=$condition." and px_parkrecord.end_time>".mktime(0,0,0,date('m'),1,date('Y'));
+		$condition_toyear=$condition." and px_parkrecord.end_time>".mktime(0,0,0,1,1,date('Y'));
+		$sql_income="select px_car.type,SUM(px_parkrecord.money) money from px_parkrecord,px_car".$condition_today." and px_car.id=px_parkrecord.car_id GROUP BY px_car.type order by px_car.type asc";
+		$result_income[0] = $Model->query ( $sql_income );
+		$sql_income="select px_car.type,SUM(px_parkrecord.money) money from px_parkrecord,px_car".$condition_tomonth." and px_car.id=px_parkrecord.car_id GROUP BY px_car.type order by px_car.type asc";
+		$result_income[1] = $Model->query ( $sql_income );
+		$sql_income="select px_car.type,SUM(px_parkrecord.money) money from px_parkrecord,px_car".$condition_toyear." and px_car.id=px_parkrecord.car_id GROUP BY px_car.type order by px_car.type asc";
+		$result_income[2] = $Model->query ( $sql_income );
+		$income_info[0]['date']=date("d号");
+		$income_info[1]['date']=date("m月");
+		$income_info[2]['date']=date("Y年");
+		for($i=0;$i<3;$i++){
+			$income_info[$i]['small']=$result_income[$i][0]['money'];
+			$income_info[$i]['big']=$result_income[$i][1]['money'];
+		}
+		echo json_encode($income_info);
 	}
 		
 }
