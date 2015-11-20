@@ -5,89 +5,93 @@ namespace Home\Controller;
 use Think\Controller;
 use Think\Model;
 
-class ParkController extends Controller {
-	public function index() {
-		
-	}
-	/**
-	 * 
-	 */
-	function compreManager($type){
-	$ty=$type;
-		if($ty==0){
-		
-		$result=M()->query("SELECT px_park.name AS parkname ,px_park.type, px_park.address, px_park.total_num,px_user.name,px_user.nickname,px_user.phone FROM px_user,px_park WHERE px_park.user_id=px_user.id ");		
-		
-		}
-		else{
-		
-			$result=M()->query("SELECT px_park.name AS parkname ,px_park.type, px_park.address, px_park.total_num,px_user.name,px_user.nickname,px_user.phone FROM px_user,px_park WHERE px_park.user_id=px_user.id AND px_park.type=$ty ");
-			
-		}
-	 	$arry=array();
-	
-		for($i=0;$i<count($result);$i++){
-		//$remain=$result[$i]['total_num']-$result[$i]['remain_num'];
-	    $typename;
-	   if($result[$i]['type']==1)
-	   	$typename='普通收费停车厂';
-	   if($result[$i]['type']==2)
-	   	$typename='路测公共停车厂';
-	   if($result[$i]['type']==3)
-	   	$typename='个人车位';
-		$arry[$i]=array(
-				'id'=>$i+1,
-				'停车场名称'=>$result[$i]['parkname'],
-				'注册用户名'=>$result[$i]['nickname'],
-				'停车场类型'=>$typename,
-				'停车场管理者'=>$result[$i]['name'],
-				'注册手机号'=>$result[$i]['phone'],
-				'停车场详细地址'=>$result[$i]['address'],
-				'停车场车位数'=>$result[$i]['total_num'],
-				
-		);
-		
-		} 
-	
-		return  json_encode($arry);
-	}
-	/**
-	 *停车厂实时状态
-	 */
-	function chewei_status($type){
-	
-		$ty=$type;
-		if($type==0){
-		
-		$result=M()->query("SELECT NAME ,img, total_num,remain_num FROM px_park  ");		
-		
-		}
-		else{
-		
-			$result=M()->query("SELECT NAME ,img, total_num,remain_num FROM px_park where type=$ty ");
-			
-		}
-	 	$arry=array();
-	
-		for($i=0;$i<count($result);$i++){
-		$remain=$result[$i]['total_num']-$result[$i]['remain_num'];
-	
-		$arry[$i]=array(
-				'id'=>$i,
-				'title'=>$result[$i]['name'],
-				'img'=>'/PXPark/Public/image/'.$result[$i]['img'],
-				'usingNum'=>$remain,
-				'sumNum'=>$result[$i]['total_num'],
-				
-		);
-		
-		} 
-	
-		return  json_encode($arry);
-		
-	}
-	
-	
+class ParkController extends Controller
+{
+    public function index()
+    {
+
+    }
+
+    /**
+     *
+     */
+    function compreManager($type)
+    {
+        $ty = $type;
+        if ($ty == 0) {
+
+            $result = M()->query("SELECT px_park.name AS parkname ,px_park.type, px_park.address, px_park.total_num,px_user.name,px_user.nickname,px_user.phone FROM px_user,px_park WHERE px_park.user_id=px_user.id ");
+
+        } else {
+
+            $result = M()->query("SELECT px_park.name AS parkname ,px_park.type, px_park.address, px_park.total_num,px_user.name,px_user.nickname,px_user.phone FROM px_user,px_park WHERE px_park.user_id=px_user.id AND px_park.type=$ty ");
+
+        }
+        $arry = array();
+
+        for ($i = 0; $i < count($result); $i++) {
+            //$remain=$result[$i]['total_num']-$result[$i]['remain_num'];
+            $typename;
+            if ($result[$i]['type'] == 1)
+                $typename = '普通收费停车厂';
+            if ($result[$i]['type'] == 2)
+                $typename = '路测公共停车厂';
+            if ($result[$i]['type'] == 3)
+                $typename = '个人车位';
+            $arry[$i] = array(
+                'id' => $i + 1,
+                '停车场名称' => $result[$i]['parkname'],
+                '注册用户名' => $result[$i]['nickname'],
+                '停车场类型' => $typename,
+                '停车场管理者' => $result[$i]['name'],
+                '注册手机号' => $result[$i]['phone'],
+                '停车场详细地址' => $result[$i]['address'],
+                '停车场车位数' => $result[$i]['total_num'],
+
+            );
+
+        }
+
+        return json_encode($arry);
+    }
+
+    /**
+     *停车厂实时状态
+     */
+    function chewei_status($type)
+    {
+
+        $ty = $type;
+        if ($type == 0) {
+
+            $result = M()->query("SELECT NAME ,img, total_num,remain_num FROM px_park  ");
+
+        } else {
+
+            $result = M()->query("SELECT NAME ,img, total_num,remain_num FROM px_park where type=$ty ");
+
+        }
+        $arry = array();
+
+        for ($i = 0; $i < count($result); $i++) {
+            $remain = $result[$i]['total_num'] - $result[$i]['remain_num'];
+
+            $arry[$i] = array(
+                'id' => $i,
+                'title' => $result[$i]['name'],
+                'img' => '/PXPark/Public/image/' . $result[$i]['img'],
+                'usingNum' => $remain,
+                'sumNum' => $result[$i]['total_num'],
+
+            );
+
+        }
+
+        return json_encode($arry);
+
+    }
+
+
     /**
      *
      */
@@ -406,6 +410,32 @@ class ParkController extends Controller {
     {
         $Park = D('Park');
         $this->assign('list', $Park->select());
+        $this->show();
+    }
+
+    /**
+     * 城市所需要的修改停车场剩余车位数的信息
+     */
+    public function update_remain(){
+        $Park=D('Park');
+        $data=array(
+            'id'=>3,
+            'remain_num'=>I('post.remain')
+        );
+        if($Park->save($data)){
+            $this->success('修改成功');
+        }else{
+            $this->error('修改失败');
+        }
+    }
+
+    /**
+     * 修改剩余车位数页面
+     */
+    public function update_remain_temp(){
+        $Park=D('Park');
+        $data=$Park->find(3);
+        $this->assign('remain',$data['remain_num']);
         $this->show();
     }
 }
