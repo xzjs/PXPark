@@ -458,12 +458,12 @@ class ParkController extends Controller {
         $Park=D('Park');
         $data=array(
             'id'=>3,
-            'remain_num'=>I('post.remain')
+            'remain_num'=>(170-I('post.remain'))
         );
         if($Park->save($data)){
             $this->success('修改成功');
         }else{
-            $this->error('修改失败');
+            $this->error($Park->getDbError());
         }
     }
 
@@ -473,7 +473,7 @@ class ParkController extends Controller {
     public function update_remain_temp(){
         $Park=D('Park');
         $data=$Park->find(3);
-        $this->assign('remain',$data['remain_num']);
+        $this->assign('remain',$data['total_num']-$data['remain_num']);
         $this->show();
     }
 }
