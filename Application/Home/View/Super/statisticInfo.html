@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if(isset($_SESSION['user']['user_id']))
+
 	$_SESSION['user']['user_id']=1;
 	$_SESSION['park_id']=1;
  ?>
@@ -9,7 +9,7 @@ if(isset($_SESSION['user']['user_id']))
 <meta charset="utf-8">
 <link href="__PUBLIC__/css/admin/statisticInfo.css" rel="stylesheet">
 <script src="__PUBLIC__/js/admin/statisticInfo.js"></script>
-<!-- /<script src="__PUBLIC__/js/admin/tingche.js"></script> -->
+
 <script src="__PUBLIC__/thirdparty/echarts/echarts-all.js"></script>
 <script type="text/javascript">
 $(function(){
