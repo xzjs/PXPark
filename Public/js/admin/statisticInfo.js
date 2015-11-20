@@ -12,5 +12,6 @@ $(function() {
 		window.location.href='/PXPark/index.php/Home/Super/userInfo.html';
 		
 	});
+
 	
 });

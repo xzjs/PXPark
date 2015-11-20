@@ -21,7 +21,9 @@ class CommonController extends Controller{
 	 * 获取首页图标信息
 	 */
 	public function index() {
-		
+		session_start();
+		$_SESSION['user']['user_id']=1;
+		$_SESSION['park_id']=1;
 		if(I('param.park_id',0)!=0){
 			$condition=' where a.park_id='.I('param.park_id') ;
 		}else{
@@ -35,6 +37,7 @@ class CommonController extends Controller{
 		$last_month=strtotime("last Month")+mktime(0,0,0,date("m"),date("d")+1,date("Y"))-time();//30天前的零点
 		$sql_small = "SELECT FROM_UNIXTIME(a.start_time,'%m-%d') atime, COUNT(*) cnt,SUM(a.money) money FROM px_parkrecord AS a,px_car AS c "
 				.$condition." AND c.type=1 AND a.car_id=c.id AND a.start_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.start_time,'%m-%d')";
+		echo $sql_small;
 		$result_small = $Model->query ( $sql_small );
 		
 		$sql_big = "SELECT FROM_UNIXTIME(a.start_time,'%m-%d') atime, COUNT(*) cnt,SUM(a.money) money FROM px_parkrecord AS a,px_car AS c "
@@ -245,9 +248,10 @@ class CommonController extends Controller{
 	 * ajax获取停车场信息和收益状况
 	 */
 	public function get_park_info() {
+		
 		$Model = new Model ();
 		if(I('param.park_id',0)!=0){
-			$condition=' where px_parkrecord.park_id='.I('param.park_id') ;
+			$condition=' where px_parkrecord.park_id='.I('param.park_id');
 		}else{
 			if(I('param.user_id',0)==0)
 				$user_id=$_SESSION['user']['user_id'];
@@ -271,6 +275,38 @@ class CommonController extends Controller{
 			$income_info[$i]['small']=$result_income[$i][0]['money'];
 			$income_info[$i]['big']=$result_income[$i][1]['money'];
 		}
+		
+		if(I('param.park_id',0)!=0){
+			$condition1=' where px_park.id='.I('param.park_id');
+		}else{
+			if(I('param.user_id',0)==0)
+				$user_id=$_SESSION['user']['user_id'];
+			else
+				$user_id=I('param.user_id',0);
+			$condition1=' where px_park.user_id='.$user_id ;
+		}
+		$sql_park="select sum(px_park.total_num) total,sum(px_park.remain_num) remain from px_park ".$condition1;
+		$result = $Model->query ( $sql_park );
+		$sql_park="select count(*) cnt from px_parkrecord ".$condition." and px_parkrecord.money is null";
+		$result_unpayed = $Model->query ( $sql_park );
+		$sql_park="select count(*) cnt from px_parkrecord ".$condition." and px_parkrecord.money is not null";
+		$result_payed = $Model->query ( $sql_park );
+		if(I('param.park_id',0)!=0){
+			$condition2=' where px_berth.park_id='.I('param.park_id');
+		}else{
+			if(I('param.user_id',0)==0)
+				$user_id=$_SESSION['user']['user_id'];
+			else
+				$user_id=I('param.user_id',0);
+			$condition2=' where px_berth.park_id=px_park.id and px_park.user_id='.$user_id ;
+		}
+		$sql="select count(*) cnt from px_berth ".$condition2." and px_berth.is_null=1";
+		$result_used = $Model->query ( $sql);
+		$income_info[3]['total']=$result[0]['total'];
+		$income_info[3]['remain']=$result[0]['remain'];
+		$income_info[3]['unpayed']=$result_unpayed[0]['cnt'];
+		$income_info[3]['payed']=$result_payed[0]['cnt'];
+		$income_info[3]['used']=$result_used[0]['cnt'];
 		echo json_encode($income_info);
 	}
 		

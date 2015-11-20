@@ -386,15 +386,21 @@ $(function(){
 	}, function(datas, status) {
 		if (status == 4 || status == "success") {
 			var incomeInfo = eval(datas);
-			for (var i = 0; i < incomeInfo.length; i++) {
+			for (var i = 0; i < incomeInfo.length-1; i++) {
 				if(incomeInfo[i].big==null)
 					incomeInfo[i].big=0;
 				if(incomeInfo[i].small==null)
 					incomeInfo[i].small=0;
 				if(incomeInfo[i].money==null)
 					incomeInfo[i].money=0;
-				
 			}
+
+			$("span#total_num").text(incomeInfo[3].total);
+			$("span#remain_num").text(incomeInfo[3].remain);
+			$("span#exit_num").text(incomeInfo[3].used);
+			$("span#payed_num").text(incomeInfo[3].payed);
+			$("span#unpayed_num").text(+incomeInfo[3].unpayed);
+			
 			$("div#today_info").text("停车场当日收益 "+incomeInfo[0].date);
 			$("div#tomonth_info").text("停车场当月累计收益 "+incomeInfo[1].date);
 			$("div#toyear_info").text("停车场当年累计收益  "+incomeInfo[2].date);
@@ -407,6 +413,7 @@ $(function(){
 			$("span#toyear_big_income").text(incomeInfo[2].big);
 			$("span#toyear_small_income").text(incomeInfo[2].small);
 			$("span#toyear_total_income").text(incomeInfo[2].big+incomeInfo[0].small);
+			
 		}
 	});
 })
@@ -418,19 +425,19 @@ $(function(){
 						<div class="state_block" style="height: 80%">
 							<div class="car_num" style="height: 100%">
 								<div style="height: 16%">
-									&nbsp;总车位数：&nbsp;&nbsp;<span id="total_num">120</span>
+									&nbsp;总车位数：&nbsp;&nbsp;<span id="total_num"></span>
 								</div>
 								<div style="height: 16%">
-									剩余车位数：&nbsp;&nbsp;<span id="remain_num">20</span>
+									剩余车位数：&nbsp;&nbsp;<span id="remain_num"></span>
 								</div>
 								<div style="height: 16%">
-									场内车辆数：&nbsp;&nbsp;<span id="exit_num">105</span>
+									场内车辆数：&nbsp;&nbsp;<span id="exit_num"></span>
 								</div>
 								<div style="height: 16%">
-									已结算车数：&nbsp;&nbsp;<span id="payed_num">100</span>
+									已结算车数：&nbsp;&nbsp;<span id="payed_num"></span>
 								</div>
 								<div style="height: 16%">
-									未结算车数：&nbsp;&nbsp;<span id="unpayed_num">5</span>
+									未结算车数：&nbsp;&nbsp;<span id="unpayed_num"></span>
 								</div>
 							</div>
 							<div class="car_sum" style="height: 40%">
