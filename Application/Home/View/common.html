@@ -381,8 +381,8 @@
 $(function(){
 	
 	$.post("get_park_info", {
-		park_id:1,
-		user_id : 1
+		park_id:<?php echo $_SESSION['park_id']?>,
+		user_id : <?php echo $_SESSION['user']['user_id']?>
 	}, function(datas, status) {
 		if (status == 4 || status == "success") {
 			var incomeInfo = eval(datas);
@@ -407,7 +407,6 @@ $(function(){
 			$("span#toyear_big_income").text(incomeInfo[2].big);
 			$("span#toyear_small_income").text(incomeInfo[2].small);
 			$("span#toyear_total_income").text(incomeInfo[2].big+incomeInfo[0].small);
-
 		}
 	});
 })

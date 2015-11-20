@@ -11,23 +11,34 @@ use Think\Controller;
 use Think\Model;
 
 /**
- * 普通管理员管理员控制器
- * @package Home\Controller
+ * 普通管理员控制器
+ * createtime:2015年11月19日 下午4:24:17
+ * @author xiuge
  */
 class CommonController extends Controller{
 
+	/**
+	 * 获取首页图标信息
+	 */
 	public function index() {
-		$user_id=1;
+		
+		if(I('param.park_id',0)!=0){
+			$condition=' where a.park_id='.I('param.park_id') ;
+		}else{
+			if(I('param.user_id',0)==0)
+				$user_id=$_SESSION['user']['user_id'];
+			else
+				$user_id=I('param.user_id',0);
+			$condition=',px_park AS d WHERE a.park_id=d.id AND d.user_id='.$user_id ;
+		}
 		$Model = new Model ();
-		$last_month=strtotime("last Month")+mktime(0,0,0,date("m"),date("d")+1,date("Y"))-time();
-		//var_dump(date("Y-m-d h:i:sa",$last_month));
-		$sql_small = "SELECT FROM_UNIXTIME(a.start_time,'%m-%d') atime, COUNT(*) cnt,SUM(a.money) money FROM px_parkrecord AS a,px_user AS b,px_car AS c,px_park AS d 
-			WHERE c.type=1 AND b.id=".$user_id." AND b.id=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.start_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.start_time,'%m-%d')";
+		$last_month=strtotime("last Month")+mktime(0,0,0,date("m"),date("d")+1,date("Y"))-time();//30天前的零点
+		$sql_small = "SELECT FROM_UNIXTIME(a.start_time,'%m-%d') atime, COUNT(*) cnt,SUM(a.money) money FROM px_parkrecord AS a,px_car AS c "
+				.$condition." AND c.type=1 AND a.car_id=c.id AND a.start_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.start_time,'%m-%d')";
 		$result_small = $Model->query ( $sql_small );
 		
-		$sql_big = "SELECT FROM_UNIXTIME(a.start_time,'%m-%d') atime, COUNT(*) cnt,SUM(a.money) money FROM px_parkrecord AS a,px_user AS b,px_car AS c,px_park AS d
-			WHERE c.type=2 AND b.id=".$user_id." AND b.id=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.start_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.start_time,'%m-%d') ORDER BY
-			FROM_UNIXTIME(a.start_time,'%m-%d') DESC LIMIT 0,30";
+		$sql_big = "SELECT FROM_UNIXTIME(a.start_time,'%m-%d') atime, COUNT(*) cnt,SUM(a.money) money FROM px_parkrecord AS a,px_car AS c "
+				.$condition." AND c.type=2 AND a.car_id=c.id AND a.start_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.start_time,'%m-%d')";
 		$result_big = $Model->query ( $sql_big );
 		
 		for($i=0;$i<30;$i++){
@@ -46,11 +57,9 @@ class CommonController extends Controller{
 				}
 			}
 		}
-		//var_dump($colum_chart);
 		
-		$sql_pie = "SELECT COUNT(*) cnt, c.type,SUM(a.money) money FROM px_parkrecord AS a,px_user AS b,px_car AS c,px_park AS d WHERE b.id=".$user_id." AND b.id=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.start_time>".$last_month." GROUP BY c.type,a.money";
+		$sql_pie = "SELECT COUNT(*) cnt, c.type,SUM(a.money) money FROM px_parkrecord AS a,px_car AS c ".$condition." and a.car_id=c.id AND a.start_time>".$last_month." GROUP BY c.type,a.money";
 		$result_pie = $Model->query ( $sql_pie );
-		//var_dump($result_pie);
 		$pie=array("small"=>0,"small_free"=>0,"big"=>0,"big_free"=>0);
 		for($i=0;$i<count($result_pie);$i++){
 			if(($result_pie[$i]['money']!=0)&&($result_pie[$i]['type']==1))
@@ -62,19 +71,14 @@ class CommonController extends Controller{
 			elseif (($result_pie[$i]['money']==0)&&($result_pie[$i]['type']==2))
 				$pie['big_free']+=$result_pie[$i]['cnt'];
 		}
-		//var_dump($pie);
 		
-		$last_day=strtotime("-1 Day")+mktime(date("H")+1,0,0,date("m"),date("d"),date("Y"))-time();
-		//var_dump(date("Y-m-d h:i:sa",$last_day));
-		$sql_line="SELECT FROM_UNIXTIME(a.start_time,'%H') atime, COUNT(*) cnt FROM px_parkrecord AS a,px_user AS b,px_car AS c,px_park AS d 
-			WHERE b.id=".$user_id." AND b.id=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.start_time>".$last_day." GROUP  BY FROM_UNIXTIME(a.start_time,'%H')";
+		$last_day=strtotime("-1 Day")+mktime(date("H")+1,0,0,date("m"),date("d"),date("Y"))-time();//24小时前的零点
+		$sql_line="SELECT FROM_UNIXTIME(a.start_time,'%H') atime, COUNT(*) cnt FROM px_parkrecord AS a,px_car AS c ".$condition." AND a.car_id=c.id AND a.start_time>".$last_day." GROUP  BY FROM_UNIXTIME(a.start_time,'%H')";
 		$result_line = $Model->query ( $sql_line );
-		$sql_line="SELECT FROM_UNIXTIME(a.end_time,'%H') atime, COUNT(*) cnt FROM px_parkrecord AS a,px_user AS b,px_car AS c,px_park AS d
-			WHERE b.id=".$user_id." AND b.id=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.end_time>".$last_day." GROUP  BY FROM_UNIXTIME(a.end_time,'%H')";
+		$sql_line="SELECT FROM_UNIXTIME(a.end_time,'%H') atime, COUNT(*) cnt FROM px_parkrecord AS a,px_car AS c ".$condition." AND a.car_id=c.id AND a.end_time>".$last_day." GROUP  BY FROM_UNIXTIME(a.end_time,'%H')";
 		$result_line_end = $Model->query ( $sql_line );
-		//var_dump($result_line);
 		for($i=0;$i<24;$i++){
-			$time=date("H", strtotime("-".(23-$i)." Hours"));
+			$time=date("H", strtotime("-".(23-$i)." Hours"));//24小时前的天前的零分零秒
 			$line_chart[$i]['time']=$time;
 			for($j=0;$j<count($result_line);$j++){
 				if($result_line[$j]['atime']==$time){
@@ -87,27 +91,31 @@ class CommonController extends Controller{
 				}
 			}
 		}
-		//var_dump($line_chart);
 		$this->assign ( 'columInfo', json_encode ( $colum_chart ) );
 		$this->assign ( 'pieInfo', json_encode ( $pie ) );
 		$this->assign ( 'lineInfo', json_encode ( $line_chart ) );
 		$this->display ();
-		
 	}
 
+	/**
+	 * 停车场数据分析
+	 */
 	public function park_analyse(){
-		$user_id=1;
+	if(I('param.park_id',0)!=0){
+			$condition=' where a.park_id='.I('param.park_id') ;
+		}else{
+			if(I('param.user_id',0)==0)
+				$user_id=$_SESSION['user']['user_id'];
+			else
+				$user_id=I('param.user_id',0);
+			$condition=',px_park AS d WHERE a.park_id=d.id AND d.user_id='.$user_id ;
+		}
 		$Model = new Model ();
 		$last_month=strtotime("last Month")+mktime(0,0,0,date("m"),date("d")+1,date("Y"))-time();
-		//var_dump(date("Y-m-d h:i:sa",$last_day));
-		$sql_line="SELECT FROM_UNIXTIME(a.start_time,'%m-%d') atime, COUNT(*) cnt,SUM(a.money) money FROM px_parkrecord AS a,px_user AS b,px_car AS c,px_park AS d 
-			WHERE ".$user_id."=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.start_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.start_time,'%m-%d')";
+		$sql_line="SELECT FROM_UNIXTIME(a.start_time,'%m-%d') atime, COUNT(*) cnt,SUM(a.money) money FROM px_parkrecord AS a,px_car AS c".$condition." AND a.car_id=c.id AND a.start_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.start_time,'%m-%d')";
 		$result_line = $Model->query ( $sql_line );
-		$sql_line="SELECT FROM_UNIXTIME(a.end_time,'%m-%d') atime, COUNT(*) cnt FROM px_parkrecord AS a,px_user AS b,px_car AS c,px_park AS d
-			WHERE ".$user_id."=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.end_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.end_time,'%m-%d')";
+		$sql_line="SELECT FROM_UNIXTIME(a.end_time,'%m-%d') atime, COUNT(*) cnt FROM px_parkrecord AS a,px_car AS c ".$condition." AND a.car_id=c.id AND a.end_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.end_time,'%m-%d')";
 		$result_line_end = $Model->query ( $sql_line );
-		//var_dump($result_line);
-		//var_dump($result_line_end);
 		for($i=0;$i<30;$i++){
 			$date=date("m-d", strtotime("-".(29-$i)." Days"));
 			$line_chart[$i]['date']=$date;
@@ -123,7 +131,6 @@ class CommonController extends Controller{
 				}
 			}
 		}
-		//var_dump($line_chart);
 		$this->assign ( 'lineInfo', json_encode ( $line_chart ) );
 		$this->display ("park_analyse");
 	}
@@ -132,8 +139,12 @@ class CommonController extends Controller{
 	 * 获取用户信息
 	 */
 	public function user_info() {
+		if(I('param.user_id',0)==0)
+			$user_id=$_SESSION['user']['user_id'];
+		else
+			$user_id=I('param.user_id',0);
 		$user = A( 'User' );
-		$result=$user->detail(I('param.id',0));
+		$result=$user->detail($user_id);
 		if($result==-1)
 			$this->display('user_register');
 		else{
@@ -147,7 +158,6 @@ class CommonController extends Controller{
 	 */
 	public function web_register() {
 		$user=A('User');
-		$x=I('param.cardfile');
 		$result=$user->web_register(I('param.username'),I('param.password'),I('param.factname'),I('param.cardNo'),I('param.phone'),I('param.message'));
 	}
 	
@@ -156,8 +166,10 @@ class CommonController extends Controller{
 	 */
 	public function pay_info() {
 		$Pay=A('Pay');
-		//$user_id=$_SESSION['user']['user_id'];//$_SESSION('user')['id'];
-		$user_id=1;
+		if(I('param.user_id',0)==0)
+			$user_id=$_SESSION['user']['user_id'];
+		else
+			$user_id=I('param.user_id',0);
 		if($user_id){
 			$result=$Pay->pay_info($user_id);
 			$this->assign('data',$result);
@@ -171,8 +183,10 @@ class CommonController extends Controller{
 	public function add_pay() {  
 		$Pay = D ( 'Pay' );
 		if ($Pay->create ()) {
-			//$user_id=$_SESSION['user']['user_id'];
-			$user_id=1;
+			if(I('param.user_id',0)==0)
+				$user_id=$_SESSION['user']['user_id'];
+			else
+				$user_id=I('param.user_id',0);
 			$Pay->user_id=$user_id;
 			$pay=M('Pay');
 			if(!$pay->where('user_id='.$user_id)->find()){
@@ -201,8 +215,10 @@ class CommonController extends Controller{
 	public function add_message() {
 		$Message = D ( 'Message' );
 		if ($Message->create ()) {
-			$user_id=$_SESSION['user']['user_id'];
-			$user_id=1;
+			if(I('param.user_id',0)==0)
+				$user_id=$_SESSION['user']['user_id'];
+			else
+				$user_id=I('param.user_id',0);
 			$Message->user_id=$user_id;
 			$result=$Message->add();
 			if ($result) {
@@ -225,15 +241,19 @@ class CommonController extends Controller{
 		}*/
 	}
 	
+	/**
+	 * ajax获取停车场信息和收益状况
+	 */
 	public function get_park_info() {
 		$Model = new Model ();
-		
-		
-		
 		if(I('param.park_id',0)!=0){
 			$condition=' where px_parkrecord.park_id='.I('param.park_id') ;
 		}else{
-			$condition=',px_park where px_parkrecord.park_id=px_park.id and px_park.user_id='.I('param.user_id') ;
+			if(I('param.user_id',0)==0)
+				$user_id=$_SESSION['user']['user_id'];
+			else
+				$user_id=I('param.user_id',0);
+			$condition=',px_park where px_parkrecord.park_id=px_park.id and px_park.user_id='.$user_id ;
 		}
 		$condition_today=$condition." and px_parkrecord.end_time>".strtotime("today");
 		$condition_tomonth=$condition." and px_parkrecord.end_time>".mktime(0,0,0,date('m'),1,date('Y'));

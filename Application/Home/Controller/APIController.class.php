@@ -312,26 +312,6 @@ class APIController extends Controller
             $data['code'] = 0;
         $data['msg'] = '正常返回';
         $str=array();
-        /*foreach ($result['Rule'] as $r) {
-            $Rule = D('Rule');
-            $rs = $Rule->relation(true)->find($r['id']);
-            //var_dump($rs);
-            $rule_temp['name']=$r['name'];
-            $rule_temp['type']=$rs['Ruletype']['name'];
-            $rule_temp['rule_time']=array();
-            foreach ($rs['Ruletime'] as $rt) {
-                //var_dump($rt);
-                array_push($rule_temp['rule_time'],array(
-                    'start_time'=>$rt['start_time'],
-                    'end_time'=>$rt['end_time'],
-                    'fee'=>$rt['fee'],
-                    'type'=>$rt['type']==1?'白天':'夜晚',
-                    'car_type'=>$rt['car_type']==1?'大车':'小车'
-                )) ;
-
-            }
-            array_push($str,$rule_temp);
-        }*/
         $d = array(
             'id' => $result['id'],
             'name' => $result['name'],

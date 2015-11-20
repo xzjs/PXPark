@@ -581,17 +581,19 @@ class ParkrecordController extends Controller {
 	 * 获取近n天的停车和收费数据
 	 */
 	
-	public function count_car( ) {
-		if (I('param.park_id',0)!= 0) {
-			$condition=" and a.park_id=".I('param.park_id');
-		}
-		if (I('param.user_id',0)!= 0) {
-			$condition=" and b.user_id=".I('param.user_id');
+	public function count_car() {
+		if (I ( 'param.park_id', 0 ) != 0) {
+			$condition = ' where a.park_id=' . I ( 'param.park_id' );
+		} else {
+			if (I ( 'param.user_id', 0 ) == 0)
+				$user_id = $_SESSION ['user'] ['user_id'];
+			else
+				$user_id = I ( 'param.user_id', 0 );
+			$condition = ',px_park AS d WHERE a.park_id=d.id AND d.user_id='.$user_id ;
 		}
 		$Model = new Model ();
 		$time=strtotime("-".I('param.time',30)." day");
-		$sql = 'SELECT a.money,c.type FROM px_parkrecord AS a,px_park AS b,px_car AS c 
-				WHERE b.id=a.park_id AND c.id=a.car_id and a.end_time>'.$time.$condition.' ORDER BY a.id desc';
+		$sql = 'SELECT a.money,c.type FROM px_parkrecord AS a,px_car AS c ".$condition." AND c.id=a.car_id and a.end_time>'.$time.' ORDER BY a.id desc';
 		echo  $sql;
 		$result = $Model->query ( $sql );
 		$detail['small']=array("num"=>0,"money"=>0);
@@ -622,17 +624,20 @@ class ParkrecordController extends Controller {
 	 */
 	public function count_income() {
 		$condition="";
-		if (I('param.park_id',0)!= 0) {
-			$condition.=" and px_parkrecord.park_id=".I('param.park_id');
+		if (I ( 'param.park_id', 0 ) != 0) {
+			$condition = ' where px_parkrecord.park_id=' . I ( 'param.park_id' );
+		} else {
+			if (I ( 'param.user_id', 0 ) == 0)
+				$user_id = $_SESSION ['user'] ['user_id'];
+			else
+				$user_id = I ( 'param.user_id', 0 );
+			$condition = ',px_park WHERE px_parkrecord.park_id=px_park.id AND px_park.user_id='.$user_id ;
 		}
 		if(I('param.type',0)!=0){
-			$condition.="and px_car.type=".I('param.type');
+			$condition.=" and px_car.type=".I('param.type');
 		}
 		if(I('param.flag',0)!=0){
 			$condition.=" and px_parkrecord.end_time is null";
-		}
-		if(I('param.user_id',0)!=0){
-			$condition.=" and px_park.user_id=".I('param.user_id');
 		}
 		if((I('param.start_time',0)!=0)&&(I('param.end_time',0)!=0)){
 			$in_time=strtotime(I('param.start_time'));
@@ -640,15 +645,15 @@ class ParkrecordController extends Controller {
 			$condition.=' and (px_parkrecord.start_time between '.$in_time.' and '.$out_time.' OR px_parkrecord.end_time between '.$in_time.' and '.$out_time.')';
 		}
 		if((I('param.page',0)!=0)&&(I('param.num',0)!=0)){
-			$condition.=' limit '.$page*($num-1).','.$page;
+			$page_info=' limit '.$page*($num-1).','.$page;
 		}
 		$json_array=array();
 		if($condition!=""){
 			$Model = new Model ();
 			$time=strtotime("-".$time." day");
 			$sql= 'SELECT px_parkrecord.id,px_parkrecord.start_time,px_parkrecord.end_time,px_parkrecord.money,px_car.no,px_user.member_id, 
-					px_parkrecord.end_time-px_parkrecord.start_time as time FROM px_parkrecord,px_car,px_park,px_user,px_user_car WHERE px_park.id=px_parkrecord.park_id 
-					and px_parkrecord.car_id=px_car.id and px_car.id=px_user_car.car_id and px_user_car.user_id=px_user.id '.$condition;
+					px_parkrecord.end_time-px_parkrecord.start_time as time FROM px_parkrecord,px_car,px_user,px_user_car '.$condition.' 
+					and px_parkrecord.car_id=px_car.id and px_car.id=px_user_car.car_id and px_user_car.user_id=px_user.id '.$page_info;
 			$result = $Model->query ( $sql );
 			for($i=0;$i<count($result);$i++){
 				if(($result[$i]['start_time']>=$in_time)&&($result[$i]['start_time']>=$in_time))
@@ -689,15 +694,8 @@ class ParkrecordController extends Controller {
 	 * @return array 结果数组
 	 */
 	public function getRecord($user_id) {
-		/*$Model = new Model ();
-		$sql = 'select c.name as park_name,d.no as car_no,a.start_time,a.end_time,a.money from px_parkrecord as a,
-				px_user_car as b,px_park as c,px_car as d where a.car_id=b.car_id and b.user_id=' . $user_id . '
-						and b.status=1 and a.park_id=c.id and b.car_id=d.id order by a.id limit '.$page*($num-1).','.$page;
-		$result = $Model->query ( $sql );
-		return $result;*/
 		$User=D('User');
 		$user_data=$User->relation(true)->find($user_id);
-		//var_dump($user_data);
 		$data=array();
 		foreach ($user_data['Car'] as $car) {
 			$Parkrecord=D('Parkrecord');
@@ -746,7 +744,6 @@ private function time_tran($the_time) {
             }  
         }  
    }  
-}  
-	
+}
 }
 
