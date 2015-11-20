@@ -8,5 +8,8 @@
 namespace Home\Model;
 use Think\Model\RelationModel;
 class ParkrecordModel extends RelationModel {
-
+    protected $_link = array(
+        'Park'=>self::BELONGS_TO,
+        'Car'=>self::BELONGS_TO,
+    );
 }

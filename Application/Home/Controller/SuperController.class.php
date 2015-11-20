@@ -168,5 +168,21 @@ class SuperController extends Controller{
  	//echo $array;
  	echo json_encode( $result);
 	
-} 
+}
+
+	public function tradeManager($type = 0)
+	{
+		$Park = D('Park');
+		$condition = $type ? array('type' => $type) : array();
+		$car_id_array = $Park->where($condition)->getField('id', true);
+		$ParkrecordController = A('Parkrecord');
+		$parkrecord_array = $ParkrecordController->complete_list($car_id_array);
+		for ($i = 0; $i < count($parkrecord_array); $i++) {
+			$Car = D('Car');
+			$parkrecord_array[$i]['car_user'] = $Car->relation(true)->find($parkrecord_array[$i]['car_id']);
+			$parkrecord_array[$i]['park_user']=$Park->relation(true)->find($parkrecord_array[$i]['park_id']);
+		}
+
+		var_dump($parkrecord_array);
+	}
 }
