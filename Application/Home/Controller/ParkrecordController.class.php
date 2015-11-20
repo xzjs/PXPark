@@ -669,16 +669,16 @@ class ParkrecordController extends Controller {
 				$json_array['rows'][$i]['money']=$result[$i]['money'];
 				switch ($result[$i]['member_id']) {
 					case 1:
-						$json_array['cars'][$i]['member_id']='普通会员';
+						$json_array['rows'][$i]['member_id']='普通会员';
 					break;
 					case 2:
-						$json_array['cars'][$i]['member_id']='白银会员';
+						$json_array['rows'][$i]['member_id']='白银会员';
 						break;
 					case 3:
-						$json_array['cars'][$i]['member_id']='黄金会员';
+						$json_array['rows'][$i]['member_id']='黄金会员';
 						break;
 					default:
-						$json_array['cars'][$i]['member_id']='';
+						$json_array['rows'][$i]['member_id']='';
 					break;
 				}
 			}
