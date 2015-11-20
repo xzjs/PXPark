@@ -16,15 +16,37 @@ use Think\Controller;
 class UserController extends Controller
 {
 	/**
-	 * 获取所有普通用户信息
+	 * 获取单个用户停车历史记录给前端用
 	 */
-	function persons_info(){
-		$result=M()->query("SELECT nickname,phone,NAME,card_no,member_id,score FROM px_user WHERE TYPE=1");
+	function getparkrecord($uid){
+		$result=M()->query("SELECT  px_car.no, px_parkrecord.start_time,px_parkrecord.end_time,px_parkrecord.money FROM px_user_car ,px_car,px_parkrecord WHERE px_user_car.user_id=$uid AND px_user_car.car_id=px_car.id AND px_car.id=px_parkrecord.car_id AND px_user_car.status=1");
 		$arry=array();
 		
 		for($i=0;$i<count($result);$i++){
 			$arry[$i]=array(
-					'id'=>$i+1,
+					'car_no'=>$result[$i]['no'],
+					'stime'=>date('Y-m-d h:m:s ', $result[$i]['start_time']),
+					'etime'=>date('Y-m-d h:m:s ', $result[$i]['end_time']),
+					'money'=>$result[$i]['money'],
+					
+		
+			);
+		
+		}
+		
+		return  json_encode($arry);
+	}
+	
+	/**
+	 * 获取所有普通用户信息
+	 */
+	function persons_info(){
+		$result=M()->query("SELECT id,nickname,phone,NAME,card_no,member_id,score FROM px_user WHERE TYPE=1");
+		$arry=array();
+		
+		for($i=0;$i<count($result);$i++){
+			$arry[$i]=array(
+					'uid'=>$result[$i]['id'],
 					'nick'=>$result[$i]['nickname'],
 					'telphone'=>$result[$i]['phone'],
 					'name'=>$result[$i]['name'],
@@ -32,6 +54,7 @@ class UserController extends Controller
 					'memeberLevel' => '',
 				    'creditLevel'=>'',
 					'points'=>$result[$i]['score'],
+					//'parkingHistory'=>'ffd',
 		
 			);
 		

@@ -15,6 +15,17 @@ use Think\Controller;
  */
 class SuperController extends Controller{
 	/**
+	 * 获取单个用户停车历史记录给前端用
+	 */
+	function getparkrecord(){
+		$user=A('User');
+		
+		$result=$user->getparkrecord(I('post.u_id'));
+		//echo I('post.u_id');
+		echo $result;
+	}
+	
+	/**
 	 * 获取所有普通用户信息
 	 * 目前荣誉等级为空
 	 */
