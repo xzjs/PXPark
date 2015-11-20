@@ -14,6 +14,7 @@ use Think\Controller;
  * @package Home\Controller
  */
 class SuperController extends Controller{
+	
 	/**
 	 * 停车类型收益与入口流量统计
 	 * 
