@@ -1,8 +1,3 @@
-<?php 
-session_start();
-	$_SESSION['user']['user_id']=1;
-	$_SESSION['park_id']=1;
- ?>
 <layout name="common"/>
 <!-- 信息展示 -->
 <meta charset="utf-8">
@@ -52,6 +47,7 @@ session_start();
 		}
 		
 		$('.page_right').load('parkingStateInfo.html');
+		
 		var option_lineBar = {
 				 title : {
 	 			        text: ' 近30天停车类型收益关系图',
