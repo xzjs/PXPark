@@ -15,5 +15,9 @@ use Think\Controller;
  */
 class SystemConthController extends Controller
 {
-	function a(){}
+	function tradManager(){
+		$park =A('Park');
+		$result=$park->tradManager(I('post.type'));
+		echo $result;
+	}
 }

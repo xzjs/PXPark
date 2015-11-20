@@ -2,9 +2,17 @@
 return array(
 	//'配置项'=>'配置值'
 
+    //设置时区
+    'DEFAULT_TIMEZONE'      =>  'PRC',  // 默认时区
+    //常量配置
+    'IP' => '192.168.4.97:48082',
+    'UPLOAD' =>'/Uploads/',//上传文件根目录
+    'USERICON_PATH' =>'/Uploads/UserIcon/',//用户头像文件路径
+    'PARK_IMG_PATH' =>'/Uploads/ParkImg/',//停车场图片文件路径
+
     //数据库配置信息
     'DB_TYPE'   => 'mysql', // 数据库类型
-    'DB_HOST'   => '127.0.0.1', // 服务器地址
+    'DB_HOST'   => '192.168.4.97', // 服务器地址
     'DB_NAME'   => 'parkdb', // 数据库名
     'DB_USER'   => 'root', // 用户名
     'DB_PWD'    => '123', // 密码
