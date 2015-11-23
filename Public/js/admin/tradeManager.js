@@ -1,5 +1,23 @@
 $(function() {
+	a();
 	// 客户端分页，纯属演示效果
+	   
+})
+var result;
+function  a(){
+	
+	var type = $('select  option:selected').val();
+	alert(type);
+	 $.ajax({
+		 url:"../System/tradManager",
+	        type:"post",
+	        ContentType:"application/json",
+	        data:{type},
+	        async :false,
+	        success:function(data){
+	        // alert(data.length);
+	           var d=eval("(" + data+ ")");
+	       result= d;
 	function pagerFilter(data) {
 		if ($.isArray(data)) {
 			data = {
@@ -215,5 +233,6 @@ $(function() {
 	            alert('导出excel');    
 	        }    
 	    }]
-	});    
-})
+	}); 
+	        }
+}

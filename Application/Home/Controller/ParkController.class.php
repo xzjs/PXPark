@@ -10,6 +10,128 @@ class ParkController extends Controller {
 		
 	}
 	/**
+	 * 停车场历史在停车辆（super）
+	 */
+	function car_manager($sime,$etime,$type){
+		$result=M()->query("SELECT px_parkrecord.start_time,
+				px_parkrecord.end_time,px_parkrecord.berth_id,px_parkrecord.money,px_car.no FROM px_car,
+				px_parkrecordWHERE px_parkrecord.start_time>=$sime
+				AND  px_parkrecord.start_time<=$etime AND px_parkrecord.type=$type 
+				AND px_parkrecord.car_id=px_car.id");
+		$arry=array();
+		
+		for($i=0;$i<count($result);$i++){
+			//$remain=$result[$i]['total_num']-$result[$i]['remain_num'];
+			$typename;
+			if($result[$i]['end_time']==1)
+				$typename='普通收费停车厂';
+			if($result[$i]['type']==2)
+				$typename='路测公共停车厂';
+			if($result[$i]['type']==3)
+				$typename='个人车位';
+			$arry[$i]=array(
+					'id'=>$i+1,
+					'停车场名称'=>$result[$i]['parkname'],
+					'注册用户名'=>$result[$i]['nickname'],
+					'停车场类型'=>$typename,
+					'停车场管理者'=>$result[$i]['name'],
+					'注册手机号'=>$result[$i]['phone'],
+					'停车场详细地址'=>$result[$i]['address'],
+					'停车场车位数'=>$result[$i]['total_num'],
+		
+			);
+		
+		}
+		
+		return  json_encode($arry);
+		
+		
+		
+	}
+
+	/**
+	 * 停车类型收益与入口流量统计
+	 *
+	 */
+	function statisticInfo(){
+		$user_id=1;
+		//$Model = new Model ();
+		$last_month=strtotime("last Month")+mktime(0,0,0,date("m"),date("d")+1,date("Y"))-time();
+		//var_dump(date("Y-m-d h:i:sa",$last_month));
+		$sql_small = "SELECT FROM_UNIXTIME(a.start_time,'%m-%d') atime, COUNT(*) cnt,SUM(a.money) money FROM px_parkrecord AS a,px_user AS b,px_car AS c,px_park AS d
+			WHERE c.type=1 AND b.id=".$user_id." AND b.id=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.start_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.start_time,'%m-%d')";
+		$result_small = M()->query ( $sql_small );
+	
+		$sql_big = "SELECT FROM_UNIXTIME(a.start_time,'%m-%d') atime, COUNT(*) cnt,SUM(a.money) money FROM px_parkrecord AS a,px_user AS b,px_car AS c,px_park AS d
+			WHERE c.type=2 AND b.id=".$user_id." AND b.id=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.start_time>".$last_month." GROUP  BY FROM_UNIXTIME(a.start_time,'%m-%d') ORDER BY
+			FROM_UNIXTIME(a.start_time,'%m-%d') DESC LIMIT 0,30";
+		$result_big = M()->query ( $sql_big );
+	
+		for($i=0;$i<30;$i++){
+			$date=date("m-d", strtotime("-".(29-$i)." Days"));
+			$colum_chart[$i]['date']=$date;
+			for($j=0;$j<count($result_small);$j++){
+				if($result_small[$j]['atime']==$date){
+					$colum_chart[$i]['small']=$result_small[$j]['cnt'];
+					$colum_chart[$i]['money']=$result_small[$j]['money'];
+				}
+			}
+			for($j=0;$j<count($result_big);$j++){
+				if($result_big[$j]['atime']==$date){
+					$colum_chart[$i]['big']=$result_big[$j]['cnt'];
+					$colum_chart[$i]['money']+=$result_big[$j]['money'];
+				}
+			}
+		}
+		//var_dump($colum_chart);
+	
+		$sql_pie = "SELECT COUNT(*) cnt, c.type,SUM(a.money) money FROM px_parkrecord AS a,px_user AS b,px_car AS c,px_park AS d WHERE b.id=".$user_id." AND b.id=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.start_time>".$last_month." GROUP BY c.type,a.money";
+		$result_pie = M()->query ( $sql_pie );
+		//var_dump($result_pie);
+		$pie=array("small"=>0,"small_free"=>0,"big"=>0,"big_free"=>0);
+		for($i=0;$i<count($result_pie);$i++){
+			if(($result_pie[$i]['money']!=0)&&($result_pie[$i]['type']==1))
+				$pie['small']+=$result_pie[$i]['cnt'];
+			elseif (($result_pie[$i]['money']==0)&&($result_pie[$i]['type']==1))
+			$pie['small_free']+=$result_pie[$i]['cnt'];
+			elseif (($result_pie[$i]['money']!=0)&&($result_pie[$i]['type']==2))
+			$pie['big']+=$result_pie[$i]['cnt'];
+			elseif (($result_pie[$i]['money']==0)&&($result_pie[$i]['type']==2))
+			$pie['big_free']+=$result_pie[$i]['cnt'];
+		}
+		//var_dump($pie);
+	
+		$last_day=strtotime("-1 Day")+mktime(date("H")+1,0,0,date("m"),date("d"),date("Y"))-time();
+		//var_dump(date("Y-m-d h:i:sa",$last_day));
+		$sql_line="SELECT FROM_UNIXTIME(a.start_time,'%H') atime, COUNT(*) cnt FROM px_parkrecord AS a,px_user AS b,px_car AS c,px_park AS d
+			WHERE b.id=".$user_id." AND b.id=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.start_time>".$last_day." GROUP  BY FROM_UNIXTIME(a.start_time,'%H')";
+		$result_line = M()->query ( $sql_line );
+		$sql_line="SELECT FROM_UNIXTIME(a.end_time,'%H') atime, COUNT(*) cnt FROM px_parkrecord AS a,px_user AS b,px_car AS c,px_park AS d
+			WHERE b.id=".$user_id." AND b.id=d.user_id AND d.id=a.park_id AND a.car_id=c.id AND a.end_time>".$last_day." GROUP  BY FROM_UNIXTIME(a.end_time,'%H')";
+		$result_line_end = M()->query ( $sql_line );
+		//var_dump($result_line);
+		for($i=0;$i<24;$i++){
+			$time=date("H", strtotime("-".(23-$i)." Hours"));
+			$line_chart[$i]['time']=$time;
+			for($j=0;$j<count($result_line);$j++){
+				if($result_line[$j]['atime']==$time){
+					$line_chart[$i]['cnt']=$result_line[$j]['cnt'];
+				}
+			}
+			for($j=0;$j<count($result_line_end);$j++){
+				if($result_line_end[$j]['atime']==$time){
+					$line_chart[$i]['cnt_end']=$result_line_end[$j]['cnt'];
+				}
+			}
+		}
+		//var_dump($line_chart);
+		$this->assign ( 'columInfo', json_encode ( $colum_chart ) );
+		$this->assign ( 'pieInfo', json_encode ( $pie ) );
+		$this->assign ( 'lineInfo', json_encode ( $line_chart ) );
+		$this->display ();
+	}
+	
+	/**
 	 * 停车厂交易记录 (super)
 	 */
 	function tradManager($type){
@@ -51,6 +173,7 @@ class ParkController extends Controller {
 		
 		return  json_encode($arry);
 	}
+	
 	/**
 	 * 
 	 */
@@ -93,6 +216,7 @@ class ParkController extends Controller {
 	
 		return  json_encode($arry);
 	}
+	
 	/**
 	 *停车厂实时状态
 	 */
