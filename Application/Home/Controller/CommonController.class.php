@@ -390,6 +390,11 @@ class CommonController extends Controller{
 			}
 		}
 		$json['total']=count($json['rows']);
+		if ($json['total']==0){
+			$json['in_num']=0;
+			$json['finish_num']=0;
+			$json['money']=0;
+		}
 		
 		if(!$condition1){
 			
