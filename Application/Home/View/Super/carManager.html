@@ -7,6 +7,7 @@
 <script src="__PUBLIC__/thirdparty/easyui/jquery.easyui.min.js"></script>
 <link href="__PUBLIC__/thirdparty/easyui/themes/bootstrap/easyui.css" rel="stylesheet" />
 <link href="__PUBLIC__/thirdparty/easyui/themes/icon.css" rel="stylesheet" />
+<script src="__PUBLIC__/thirdparty/date/WdatePicker.js"></script>
 <script src="__PUBLIC__/thirdparty/easyui/easyui-lang-zh_CN.js"></script>
 <!-- E EASYUI -->
 <script src="__PUBLIC__/js/admin/carManager.js"></script>
@@ -20,16 +21,18 @@
 		style="float: right;cursor: pointer;">
 	</div>
 	<div style="margin: 9px;">
-			开始时间： <input placeholder="请输入日期" class="laydate-icon"
-				onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-			结束时间： <input placeholder="请输入日期" class="laydate-icon"
-				onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+			开始时间： <input name="begintime" id="begintime" placeholder="请输入日期"
+		readonly 
+		 onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate">
+		结束时间：<input name="endtime" id="endtime"  onchange="park_analyse()"
+		placeholder="请输入日期"
+		readonly onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate">
 			车辆类型： <select>
-				<option>全部</option>
-				<option>小型车</option>
-				<option>大型车</option>
+				<option value='0'>全部</option>
+				<option value='1'>小型车</option>
+				<option value='2'>大型车</option>
 			</select>
-			<button type="button" class="btn btn-success btn-xs" style="width: 80px;height: 22px;line-height: 22px;margin-top: -4px;">查询</button>
+			<button  onclick="check()" type="button" class="btn btn-success btn-xs" style="width: 80px;height: 22px;line-height: 22px;margin-top: -4px;">查询</button>
 		</div>
 	<div style="margin-top: 20px;">
 			停车场历史在停车辆：在此时间段内&nbsp;&nbsp;&nbsp;&nbsp; 入场车辆共：<span class="search_result">18</span>辆&nbsp;&nbsp;&nbsp;

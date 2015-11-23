@@ -1,4 +1,5 @@
 $(function() {
+	now_che();
 	$('#statisticInfo').on('click', function() {
 		 window.location.href='/PXPark/index.php/Home/Super/statisticInfo.html';
 		
@@ -246,3 +247,42 @@ $(function() {
 		}]
 	});
 });
+function now_che(){alert("dd");}
+function check(){
+	alert("ff");
+
+var start_time;
+var end_time;
+if(document.getElementById("begintime").value=="")
+	{var st=new Date();
+     st.setDate(st.getDate()-10);
+     var sm=st.getMonth()+1;
+     start_time=st.getFullYear()+"-"+sm+"-"+st.getDate();
+	}
+
+else
+	{
+	start_time=document.getElementById("begintime").value;
+	}
+//alert(start_time);
+if(document.getElementById("endtime").value=="")
+    {var  et=new Date();
+    var m=et.getMonth()+1;
+    end_time=et.getFullYear()+"-"+m+"-"+et.getDate();
+   }
+  else
+   {
+	  end_time=document.getElementById("endtime").value;
+   }
+var type = $('select  option:selected').val();
+$.ajax({
+    url:"../Super/car_manager",
+    type:"post",
+    data:{start_time,end_time,type},
+    success:function(data){
+ 
+    var d=eval("(" + data+ ")");
+          //  alert("fsd"+d['time'])  ;
+    }
+    });
+    }
