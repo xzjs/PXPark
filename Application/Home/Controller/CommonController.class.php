@@ -350,7 +350,13 @@ class CommonController extends Controller{
 			$result = $Model->query( $sql);
 		else 
 			$result = $Model->query( $sql1);
+		$json['rows']=array();
 		for($i=0;$i<count($result);$i++){
+			if (($result[$i]['start_time'] >= $in_time) && ($result[$i]['start_time'] <= $out_time))
+				$json['in_num']++;
+			if (($result[$i]['money']))
+				$json['finish_num']++;
+			$json['money'] += $result[$i]['money'];
 			$json['rows'][$i]['car_no']=$result[$i]['car_no'];
 			if($result[$i]['type']==1){
 				$json['rows'][$i]['type']="小型车";
@@ -384,6 +390,7 @@ class CommonController extends Controller{
 			}
 		}
 		$json['total']=count($json['rows']);
+		
 		if(!$condition1){
 			
 		$this->assign('info',json_encode($json));
