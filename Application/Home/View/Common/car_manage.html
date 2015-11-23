@@ -150,25 +150,6 @@ $(function() {
 		}
 	})
 
-	function getData() {
-		var rows = [];
-		for (var i = 1; i <= 30; i++) {
-			var amount = Math.floor(Math.random() * 1000);
-			var price = Math.floor(Math.random() * 1000);
-			rows.push({
-				'car_no' : '鲁B12345',
-				'type':'小汽车',
-				'start_time':'2015-11-1 12:00:01',
-				'end_time':'2015-11-1 15:00:01',
-				'park_no':'1',
-				'time':'3',
-				'memeber_id' : 'VIP',
-				'cost' : '100.00'
-			});
-		}
-		return rows;
-	}
-
 
 	$('#personGrid').datagrid(
 					{
@@ -232,7 +213,7 @@ $(function() {
 	$('#personGrid1')
 	.datagrid(
 			{
-				title:'停车场实时在停车辆:     共停车100辆',
+				title:'停车场实时在停车辆:     共停车{$total}辆',
 				url : '',
 				method : 'GET',
 				striped : true,
@@ -290,6 +271,7 @@ $(function() {
 	}).datagrid('clientPaging'); */
 	var data = eval({$info});
 	$('#personGrid1').datagrid('loadData',data).datagrid('clientPaging');
+	
 	/* $('#personGrid1').datagrid({
 		data : getData()
 	}).datagrid('clientPaging'); */

@@ -70,7 +70,7 @@ function getCountIncome(url,start,end,car_category) {
 
 			
 			$("span#in_num").text(data.in_num);
-			$("span#out_num").text(data.out_num);
+			$("span#out_num").text(data.finish_num);
 			$("span#money").text(data.money);
 		}
 	});
@@ -182,22 +182,7 @@ $(function() {
 		}
 	})
 
-	function getData() {
-		var rows = [];
-		for (var i = 1; i <= 30; i++) {
-			var amount = Math.floor(Math.random() * 1000);
-			var price = Math.floor(Math.random() * 1000);
-			rows.push({
-				'cheh' : '鲁B12345',
-				'starttime':'2015-11-1 12:00:01',
-				'endtime':'2015-11-1 15:00:01',
-				'staytime':'3',
-				'memeberLevel' : 'VIP',
-				'cost' : '100.00'
-			});
-		}
-		return rows;
-	}
+	
 
 
 	$('#personGrid')

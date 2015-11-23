@@ -643,7 +643,7 @@ class ParkrecordController extends Controller
         if ((I('param.page', 0) != 0) && (I('param.num', 0) != 0)) {
             $page_info = ' limit ' . $page * ($num - 1) . ',' . $page;
         }
-        $json_array = array();
+        $json_array =array("total"=>0,"rows"=>array(),"in_num"=>0,"finish_num"=>0,"money"=>0);//easyUI表格的固定格式
         if ($condition != "") {
             $Model = new Model ();
             $time = strtotime("-" . $time . " day");
@@ -651,6 +651,7 @@ class ParkrecordController extends Controller
 					px_parkrecord.end_time-px_parkrecord.start_time as time FROM px_parkrecord,px_car,px_user,px_user_car ' . $condition . '
 					and px_parkrecord.car_id=px_car.id and px_car.id=px_user_car.car_id and px_user_car.user_id=px_user.id ' . $page_info;
             $result = $Model->query($sql);
+			$json_array['rows']=array();
             for ($i = 0; $i < count($result); $i++) {
                 if (($result[$i]['start_time'] >= $in_time) && ($result[$i]['start_time'] >= $in_time))
                     $json_array['in_num']++;

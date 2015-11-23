@@ -350,7 +350,7 @@ class CommonController extends Controller{
 			$result = $Model->query( $sql);
 		else 
 			$result = $Model->query( $sql1);
-		$json['rows']=array();
+        $json_array =array("total"=>0,"rows"=>array(),"in_num"=>0,"finish_num"=>0,"money"=>0);//easyUI表格的固定格式
 		for($i=0;$i<count($result);$i++){
 			if (($result[$i]['start_time'] >= $in_time) && ($result[$i]['start_time'] <= $out_time))
 				$json['in_num']++;
@@ -390,14 +390,8 @@ class CommonController extends Controller{
 			}
 		}
 		$json['total']=count($json['rows']);
-		if ($json['total']==0){
-			$json['in_num']=0;
-			$json['finish_num']=0;
-			$json['money']=0;
-		}
-		
 		if(!$condition1){
-			
+		$this->assign('total',$json['total']);
 		$this->assign('info',json_encode($json));
 		$this->display();
 		}
