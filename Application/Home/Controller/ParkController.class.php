@@ -574,4 +574,30 @@ class ParkController extends Controller {
         $this->assign('list', $Park->select());
         $this->show();
     }
+
+    /**
+     * 城市所需要的修改停车场剩余车位数的信息
+     */
+    public function update_remain(){
+        $Park=D('Park');
+        $data=array(
+            'id'=>3,
+            'remain_num'=>(170-I('post.remain'))
+        );
+        if($Park->save($data)){
+            $this->success('修改成功');
+        }else{
+            $this->error($Park->getDbError());
+        }
+    }
+
+    /**
+     * 修改剩余车位数页面
+     */
+    public function update_remain_temp(){
+        $Park=D('Park');
+        $data=$Park->find(3);
+        $this->assign('remain',$data['total_num']-$data['remain_num']);
+        $this->show();
+    }
 }

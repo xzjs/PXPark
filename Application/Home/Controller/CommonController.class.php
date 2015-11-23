@@ -309,5 +309,74 @@ class CommonController extends Controller{
 		$income_info[3]['used']=$result_used[0]['cnt'];
 		echo json_encode($income_info);
 	}
+	
+	public function car_manage() {
+		if(I('param.park_id',0)!=0){
+			$condition=' where px_parkrecord.park_id='.I('param.park_id') ;
+		}else{
+			if(I('param.user_id',0)==0)
+				$user_id=$_SESSION['user']['user_id'];
+			else
+				$user_id=I('param.user_id',0);
+			$condition=',px_park WHERE px_parkrecord.park_id=px_park.id AND px_park.user_id='.$user_id ;
+		}
+		$Model = new Model ();
+		$sql="select px_car.no as car_no,px_car.type,px_parkrecord.start_time,px_berth.no as park_no,unix_timestamp(now())-px_parkrecord.start_time as time,px_user.member_id 
+				from px_parkrecord,px_berth,px_user,px_car,px_user_car ".$condition." and px_car.id=px_parkrecord.car_id and px_parkrecord.berth_id=px_berth.id 
+				and px_car.id=px_user_car.car_id and px_user.id=px_user_car.user_id and px_berth.is_null=1 AND px_parkrecord.end_time IS null ";
+		$result = $Model->query( $sql);
+		for($i=0;$i<count($result);$i++){
+			$json['rows'][$i]['car_no']=$result[$i]['car_no'];
+			$json['rows'][$i]['type']=$result[$i]['type'];
+			$json['rows'][$i]['start_time']=$result[$i]['start_time'];
+			$json['rows'][$i]['park_no']=$result[$i]['park_no'];
+			$time_num=time()-$result[$i]['start_time'];
+			$json['rows'][$i]['time']=$result[$i]['time']?($this->time_tran($result[$i]['time'])):($this->time_tran($time_num));
+			switch ($result[$i]['member_id']) {
+				case 1:
+					$json['rows'][$i]['member_id']='普通会员';
+					break;
+				case 2:
+					$json['rows'][$i]['member_id']='白银会员';
+					break;
+				case 3:
+					$json['rows'][$i]['member_id']='黄金会员';
+					break;
+				default:
+					$json['rows'][$i]['member_id']='';
+					break;
+			}
+		}
+		
+		$json['total']=count($json['rows']);
+		$this->assign('info',json_encode($json));
+		$this->display();
+	}
+	
+	private function time_tran($the_time) {
+		 
+		$dur=$the_time;
+		if($dur < 0){
+			return $the_time;
+		}else{
+			if($dur < 60){
+				return $dur.'秒';
+			}else{
+				if($dur < 3600){
+					return floor($dur/60).'分钟';
+				}else{
+					if($dur < 86400){
+						return floor($dur/3600).'小时';
+					}else{
+						if($dur < 259200000){ //3天内
+							return floor($dur/86400).'天';
+						}else{
+							return $the_time;
+						}
+					}
+				}
+			}
+		}
+	}
 		
 }
