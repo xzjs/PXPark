@@ -8,12 +8,102 @@
 namespace Home\Controller;
 
 use Think\Controller;
+use Think\Model;
 
 /**
  * 超级管理员控制器
  * @package Home\Controller
  */
 class SuperController extends Controller{
+	/**
+	 * 车辆管理
+	 */
+	public function carManager() {
+		if(I('param.park_id',0)!=0){
+			$condition=' where px_parkrecord.park_id='.I('param.park_id') ;
+		}else{
+			if(I('param.user_id',0)==0)
+				$user_id=$_SESSION['user']['user_id'];
+			else
+				$user_id=I('param.user_id',0);
+			$condition=',px_park WHERE px_parkrecord.park_id=px_park.id AND px_park.user_id='.$user_id ;
+		}
+		
+		if (I('param.type', 0) != 0) {
+			$condition1 .= " and px_car.type=" . I('param.type');
+		}
+		if (I('param.flag', 0) != 0) {
+			$condition1 .= " and px_parkrecord.end_time is null";
+		}
+		if ((I('param.start_time', 0) != 0) && (I('param.end_time', 0) != 0)) {
+			$in_time = strtotime(I('param.start_time'));
+			$out_time = strtotime(I('param.end_time'));
+			$condition1 .= ' and px_parkrecord.start_time between ' . $in_time . ' and ' . $out_time;
+		}
+		if ((I('param.page', 0) != 0) && (I('param.num', 0) != 0)) {
+			$condition1 .="order by px_parkrecord.start_time desc".' limit ' . $page * ($num - 1) . ',' . $page;
+		}
+		$Model = new Model ();
+		$sql="select px_car.no as car_no,px_car.type,px_parkrecord.end_time,px_parkrecord.money,px_parkrecord.start_time,px_berth.no as park_no,unix_timestamp(now())-px_parkrecord.start_time as time,px_user.member_id
+				from px_parkrecord,px_berth,px_user,px_car,px_user_car ".$condition." and px_car.id=px_parkrecord.car_id and px_parkrecord.berth_id=px_berth.id
+				and px_car.id=px_user_car.car_id and px_user.id=px_user_car.user_id and px_berth.is_null=1 AND px_parkrecord.end_time IS null order by px_parkrecord.start_time desc";
+		
+		$sql1="select px_car.no as car_no,px_car.type,px_parkrecord.end_time,px_parkrecord.money,px_parkrecord.start_time,px_berth.no as park_no,unix_timestamp(now())-px_parkrecord.start_time as time,px_user.member_id
+				from px_parkrecord,px_berth,px_user,px_car,px_user_car ".$condition." and px_car.id=px_parkrecord.car_id and px_parkrecord.berth_id=px_berth.id
+				and px_car.id=px_user_car.car_id and px_user.id=px_user_car.user_id ".$condition1;
+		if(!$condition1)
+			$result = $Model->query( $sql);
+		else
+			$result = $Model->query( $sql1);
+		$json_array =array("total"=>0,"rows"=>array(),"in_num"=>0,"finish_num"=>0,"money"=>0);//easyUI表格的固定格式
+		for($i=0;$i<count($result);$i++){
+			if (($result[$i]['start_time'] >= $in_time) && ($result[$i]['start_time'] <= $out_time))
+				$json['in_num']++;
+			if (($result[$i]['money']))
+				$json['finish_num']++;
+			$json['money'] += $result[$i]['money'];
+			$json['rows'][$i]['car_no']=$result[$i]['car_no'];
+			if($result[$i]['type']==1){
+				$json['rows'][$i]['type']="小型车";
+			}elseif($result[$i]['type']==2){
+				$json['rows'][$i]['type']="大型车";
+			}
+			$json['rows'][$i]['start_time']=date("Y-m-d h:i:sa", $result[$i]['start_time']);
+			if(!$result[$i]['end_time']){
+				$json['rows'][$i]['end_time']="";
+				$json['rows'][$i]['time']=$this->time_tran($result[$i]['time']);
+			}else{
+				$json['rows'][$i]['end_time']=date("Y-m-d h:i:sa", $result[$i]['end_time']);
+				$time_num=$result[$i]['end_time']-$result[$i]['start_time'];
+				$json['rows'][$i]['time']=$this->time_tran($time_num);
+			}
+			$json['rows'][$i]['park_no']=$result[$i]['park_no'];
+			$json['rows'][$i]['cost']=$result[$i]['money'];
+			switch ($result[$i]['member_id']) {
+				case 1:
+					$json['rows'][$i]['member_id']='普通会员';
+					break;
+				case 2:
+					$json['rows'][$i]['member_id']='白银会员';
+					break;
+				case 3:
+					$json['rows'][$i]['member_id']='黄金会员';
+					break;
+				default:
+					$json['rows'][$i]['member_id']='';
+					break;
+			}
+		}
+		$json['total']=count($json['rows']);
+		if(!$condition1){
+			$this->assign('total',$json['total']);
+			$this->assign('info',json_encode($json));
+			$this->display();
+		}
+		else
+			echo json_encode($json);
+		}
+	
 	/**
 	 * 停车类型收益与入口流量统计
 	 * 
@@ -184,5 +274,30 @@ class SuperController extends Controller{
 		}
 
 		var_dump($parkrecord_array);
+	}
+	private function time_tran($the_time) {
+			
+		$dur=$the_time;
+		if($dur < 0){
+			return $the_time;
+		}else{
+			if($dur < 60){
+				return $dur.'秒';
+			}else{
+				if($dur < 3600){
+					return floor($dur/60).'分钟';
+				}else{
+					if($dur < 86400){
+						return floor($dur/3600).'小时';
+					}else{
+						if($dur < 259200000){ //3天内
+							return floor($dur/86400).'天';
+						}else{
+							return $the_time;
+						}
+					}
+				}
+			}
+		}
 	}
 }
