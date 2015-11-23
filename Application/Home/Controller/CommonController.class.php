@@ -336,7 +336,7 @@ class CommonController extends Controller{
 			$condition1 .= ' and px_parkrecord.start_time between ' . $in_time . ' and ' . $out_time;
 		}
 		if ((I('param.page', 0) != 0) && (I('param.num', 0) != 0)) {
-			 $condition1 .= ' limit ' . $page * ($num - 1) . ',' . $page;
+			 $condition1 .="order by px_parkrecord.start_time desc".' limit ' . $page * ($num - 1) . ',' . $page;
 		}
 		$Model = new Model ();
 		$sql="select px_car.no as car_no,px_car.type,px_parkrecord.end_time,px_parkrecord.money,px_parkrecord.start_time,px_berth.no as park_no,unix_timestamp(now())-px_parkrecord.start_time as time,px_user.member_id 
@@ -345,7 +345,7 @@ class CommonController extends Controller{
 		
 		$sql1="select px_car.no as car_no,px_car.type,px_parkrecord.end_time,px_parkrecord.money,px_parkrecord.start_time,px_berth.no as park_no,unix_timestamp(now())-px_parkrecord.start_time as time,px_user.member_id
 				from px_parkrecord,px_berth,px_user,px_car,px_user_car ".$condition." and px_car.id=px_parkrecord.car_id and px_parkrecord.berth_id=px_berth.id
-				and px_car.id=px_user_car.car_id and px_user.id=px_user_car.user_id ".$condition1."order by px_parkrecord.start_time desc";
+				and px_car.id=px_user_car.car_id and px_user.id=px_user_car.user_id ".$condition1;
 		if(!$condition1)
 			$result = $Model->query( $sql);
 		else 
