@@ -26,20 +26,5 @@ class TargetController extends Controller
     		$this->error($Target->getError());
     	}
     }
-    
-    public function get_list($park_id,$num,$id) {
-    	$Target=D('Target');
-    	$target=array("park_id"=>$park_id,"num"=>$num,"id"=>$id);
-    	if(!$Target->create($target)){
-    		$result = $Target->save();
-    		if($result) {
-    			$this->success('数据添加成功！');
-    		}else{
-    			$this->error('数据添加错误！');
-    		}
-    	}else{
-    		$this->error($Target->getError());
-    	}
-    }
 	
 }
