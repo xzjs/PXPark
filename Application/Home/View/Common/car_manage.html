@@ -17,35 +17,312 @@
 <!-- E bootstrap-table -->
 
 <link href="__PUBLIC__/css/common/carManager.css" rel="stylesheet">
-<script src="__PUBLIC__/js/commonuser/carManager.js"></script>
 <style>
 .fixed-table-container {
 	clear: none;
 }
 .clearfix{
-
 height:30px;
 }
 </style>
 
+<script type="text/javascript">
+
+function getInfo(url,start,end,car_category) {
+	
+	$.post(url, {
+		start_time : start,
+		end_time : end,
+		type:car_category,
+		user_id : 1
+	}, function(datas, status) {
+		if (status == 4 || status == "success") {
+			var data = JSON.parse(datas);
+			$('#personGrid').datagrid('loadData',data).datagrid('clientPaging');
+
+			$("span#in_num").text(data.in_num);
+			$("span#out_num").text(data.finish_num);
+			$("span#money").text(data.money);
+		}
+	});
+	
+	
+}
+
+$(function() {
+	// 客户端分页，纯属演示效果
+	function pagerFilter(data) {
+		if ($.isArray(data)) {
+			data = {
+				total : data.length,
+				rows : data
+			}
+		}
+		var target = this;
+		var dg = $(target);
+		var state = dg.data('datagrid');
+		var opts = dg.datagrid('options');
+		if (!state.allRows) {
+			state.allRows = (data.rows);
+		}
+		if (!opts.remoteSort && opts.sortName) {
+			var names = opts.sortName.split(',');
+			var orders = opts.sortOrder.split(',');
+			state.allRows.sort(function(r1, r2) {
+				var r = 0;
+				for (var i = 0; i < names.length; i++) {
+					var sn = names[i];
+					var so = orders[i];
+					var col = $(target).datagrid('getColumnOption', sn);
+					var sortFunc = col.sorter || function(a, b) {
+						return a == b ? 0 : (a > b ? 1 : -1);
+					};
+					r = sortFunc(r1[sn], r2[sn]) * (so == 'asc' ? 1 : -1);
+					if (r != 0) {
+						return r;
+					}
+				}
+				return r;
+			});
+		}
+		var start = (opts.pageNumber - 1) * parseInt(opts.pageSize);
+		var end = start + parseInt(opts.pageSize);
+		data.rows = state.allRows.slice(start, end);
+		return data;
+	}
+
+	var loadDataMethod = $.fn.datagrid.methods.loadData;
+	var deleteRowMethod = $.fn.datagrid.methods.deleteRow;
+	$.extend($.fn.datagrid.methods, {
+		clientPaging : function(jq) {
+			return jq.each(function() {
+				var dg = $(this);
+				var state = dg.data('datagrid');
+				var opts = state.options;
+				opts.loadFilter = pagerFilter;
+				var onBeforeLoad = opts.onBeforeLoad;
+				opts.onBeforeLoad = function(param) {
+					state.allRows = null;
+					return onBeforeLoad.call(this, param);
+				}
+				var pager = dg.datagrid('getPager');
+				pager.pagination({
+					onSelectPage : function(pageNum, pageSize) {
+						opts.pageNumber = pageNum;
+						opts.pageSize = pageSize;
+						pager.pagination('refresh', {
+							pageNumber : pageNum,
+							pageSize : pageSize
+						});
+						dg.datagrid('loadData', state.allRows);
+					}
+				});
+				$(this).datagrid('loadData', state.data);
+				if (opts.url) {
+					$(this).datagrid('reload');
+				}
+			});
+		},
+		loadData : function(jq, data) {
+			jq.each(function() {
+				$(this).data('datagrid').allRows = null;
+			});
+			return loadDataMethod.call($.fn.datagrid.methods, jq, data);
+		},
+		deleteRow : function(jq, index) {
+			return jq.each(function() {
+				var row = $(this).datagrid('getRows')[index];
+				deleteRowMethod.call($.fn.datagrid.methods, $(this), index);
+				var state = $(this).data('datagrid');
+				if (state.options.loadFilter == pagerFilter) {
+					for (var i = 0; i < state.allRows.length; i++) {
+						if (state.allRows[i] == row) {
+							state.allRows.splice(i, 1);
+							break;
+						}
+					}
+					$(this).datagrid('loadData', state.allRows);
+				}
+			});
+		},
+		getAllRows : function(jq) {
+			return jq.data('datagrid').allRows;
+		}
+	})
+
+
+	$('#personGrid').datagrid(
+					{
+						url : '',
+						method : 'GET',
+						striped : true,
+						fit:true,
+						fitColumns : true,
+						rownumbers : true,
+						rownumbers : true,
+						singleSelect : true,
+						pagination : true,
+						nowrap : false,
+						pageSize : 10,
+						pageList : [ 10, 20, 50, 100, 150, 200 ],
+						columns : [ [
+								{
+									field : 'car_no',
+									title : '车牌号码',
+									width : 180,
+									align : 'center'
+								},
+								{
+									field : 'start_time',
+									title : '驶入时间',
+									width : 150,
+									align : 'center'
+								},
+								{
+									field : 'end_time',
+									title : '驶出时间',
+									width : 100,
+									align : 'center'
+								},
+								{
+									field : 'park_no',
+									title : '所停车位号',
+									width : 100,
+									align : 'center'
+								},
+								{
+									field : 'time',
+									title : '停车时长',
+									width : 100,
+									align : 'center'
+								},
+								{
+									field : 'member_id',
+									title : '会员等级（折扣）',
+									width : 100,
+									align : 'center'
+								},
+								{
+									field : 'cost',
+									title : '共消费',
+									width : 100,
+									align : 'center'
+								}
+								 ] ]
+					});
+	$('#personGrid1')
+	.datagrid(
+			{
+				title:'停车场实时在停车辆:     共停车{$total}辆',
+				url : '',
+				method : 'GET',
+				striped : true,
+				fit:true,
+				fitColumns : true,
+				rownumbers : true,
+				rownumbers : true,
+				singleSelect : true,
+				pagination : true,
+				nowrap : false,
+				pageSize : 10,
+				pageList : [ 10, 20, 50, 100, 150, 200 ],
+				columns : [ [
+						{
+							field : 'car_no',
+							title : '车牌号码',
+							width : 180,
+							align : 'center'
+						},
+						{
+							field : 'type',
+							title : '车辆类型',
+							width : 150,
+							align : 'center'
+						},
+						{
+							field : 'start_time',
+							title : '驶入时间',
+							width : 150,
+							align : 'center'
+						},
+						{
+							field : 'park_no',
+							title : '所停车位号',
+							width : 100,
+							align : 'center'
+						},
+						{
+							field : 'time',
+							title : '已停车时长',
+							width : 100,
+							align : 'center'
+						},
+						{
+							field : 'member_id',
+							title : '会员等级（折扣）',
+							width : 100,
+							align : 'center'
+						}
+						 ] ]
+			});
+	
+	/* $('#personGrid').datagrid({
+		data : getData()
+	}).datagrid('clientPaging'); */
+	var data = eval({$info});
+	$('#personGrid1').datagrid('loadData',data).datagrid('clientPaging');
+	
+	/* $('#personGrid1').datagrid({
+		data : getData()
+	}).datagrid('clientPaging'); */
+	//分页工具栏上添加导出excel
+	var pager = $('#personGrid').datagrid('getPager');    // 得到datagrid的pager对象  
+	pager.pagination({   
+	    buttons:[{    
+	        iconCls:'icon-excel',    
+	        handler:function(){    
+	            alert('导出excel');    
+	        }    
+	    }]
+	});    
+	//分页工具栏上添加导出excel
+	var pager = $('#personGrid1').datagrid('getPager');    // 得到datagrid的pager对象  
+	pager.pagination({   
+	    buttons:[{    
+	        iconCls:'icon-excel',    
+	        handler:function(){    
+	            alert('导出excel');    
+	        }    
+	    }]
+	});    
+})
+
+
+
+</script>
+
 <div class="page">
 	<div style="height:7%">
 		开始时间： <input placeholder="请输入日期" class="laydate-icon"
+		id="income_start_time"
 			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
 		结束时间： <input placeholder="请输入日期" class="laydate-icon"
+		id="income_end_time"
 			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-		车辆类型： <select>
-			<option>全部</option>
-			<option>小型车</option>
-			<option>大型车</option>
+		车辆类型： <select id="income_car_category">
+			<option >全部</option>
+			<option value="1">小型车</option>
+			<option value="2">大型车</option>
 		</select>
-		<button type="button" class="btn btn-success btn-xs" style="width: 110px;height: 22px;line-height: 22px;margin-top: -4px;">查询</button>
+		<button type="button" 
+		onclick="getInfo('{:U('Common/car_manage')}',$('input#income_start_time').val(),$('input#income_end_time').val(),$('select#income_car_category').val())"
+		class="btn btn-success btn-xs" style="width: 110px;height: 22px;line-height: 22px;margin-top: -4px;">查询</button>
 		<button type="button" class="btn btn-success btn-xs" style="width: 110px;height: 22px;line-height: 22px;margin-top: -4px;">导出Excel</button>
 	</div>
 	<div style="height:8%">
-		<span style="">停车场历史在停车辆:</span>在此时间段内&nbsp;&nbsp;&nbsp;&nbsp; 入场车辆共：<span class="search_result">18</span>辆&nbsp;&nbsp;&nbsp;
-		完成收费：<span class="search_result">8</span>辆 &nbsp;&nbsp;&nbsp; 总计收费：<span
-			class="search_result">44.4</span>元
+		<span style="">停车场历史在停车辆:</span>在此时间段内&nbsp;&nbsp;&nbsp;&nbsp; 入场车辆共：<span class="search_result" id="in_num">0</span>辆&nbsp;&nbsp;&nbsp;
+		完成收费：<span class="search_result" id="out_num">0</span>辆 &nbsp;&nbsp;&nbsp; 总计收费：<span
+			class="search_result" id="money">0</span>元
 	</div>
 	<div style="width: 100%;height:45%;margin-bottom:30px">
 		<div id="personGrid">

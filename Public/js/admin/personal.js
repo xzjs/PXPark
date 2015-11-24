@@ -240,7 +240,7 @@ function a(){
 
 function showDetail(c){
 	var u_id=uid[c];
-	alert(u_id);
+//	alert(u_id);
 	$.ajax({
 		 url:"../Super/getparkrecord",
 	        type:"post",
