@@ -100,7 +100,7 @@ $(function() {
 	})
 
 	function getData() {
-		var rows = [];
+		/*var rows = [];
 		for (var i = 1; i <= 30; i++) {
 			var amount = Math.floor(Math.random() * 1000);
 			var price = Math.floor(Math.random() * 1000);
@@ -108,7 +108,6 @@ $(function() {
 				'carNo' : '鲁B3409',
 				'name':'徐峥',
 				'telphone' : '18733452834',
-				'name' : '徐峥',
 				'parking' : '五龙街道地下停车场',
 				'position' : '5-03',
 				'regTelphone' : '18733452834',
@@ -117,7 +116,8 @@ $(function() {
 				'sumConsume' : '3000元'
 			});
 		}
-		return rows;
+		return rows;*/
+        return park_record;
 	}
 
 
