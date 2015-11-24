@@ -14,6 +14,18 @@ use Org\Util\String;
 
 class  DemandController extends  Controller
 {
+	/**
+	 * 统计当前有多少人在寻找停车场
+	 */
+	function count(){
+		$num=M()->query("SELECT COUNT(id)as a FROM px_demand WHERE is_success IS NULL");
+	    $n=$num[0]['a'];
+	   // echo "f".$n;
+		$percent=(float)$n/100;
+	   
+	    echo $percent;
+	
+	}
 /**
  * 添加停车需求
  */
