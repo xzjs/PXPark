@@ -289,6 +289,9 @@ class APIController extends Controller
     {
         $park = A('Park');
         $reslut = $park->getList(I('param.lon'), I('param.lat'));
+        for($i=0;$i<count($reslut);$i++){
+        	$reslut[$i]['img']=C('IP') . __ROOT__ . $reslut[$i]['img'];
+        }
         if(!$reslut){
         	$data['code']=4;
         }else{
