@@ -275,29 +275,4 @@ class SuperController extends Controller{
 
 		var_dump($parkrecord_array);
 	}
-	private function time_tran($the_time) {
-			
-		$dur=$the_time;
-		if($dur < 0){
-			return $the_time;
-		}else{
-			if($dur < 60){
-				return $dur.'秒';
-			}else{
-				if($dur < 3600){
-					return floor($dur/60).'分钟';
-				}else{
-					if($dur < 86400){
-						return floor($dur/3600).'小时';
-					}else{
-						if($dur < 259200000){ //3天内
-							return floor($dur/86400).'天';
-						}else{
-							return $the_time;
-						}
-					}
-				}
-			}
-		}
-	}
 }

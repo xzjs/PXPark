@@ -62,18 +62,22 @@
     if (document.createElement('canvas').getContext) {  // 判断当前浏览器是否支持绘制海量点
         var points = [];  // 添加海量点数据
         <?php
-            $redis = new Redis();
-            $redis->connect('127.0.0.1', 6379);
-            echo '/*Connection to server sucessfully*/';
-            $data=$redis->lRange('point',0,-1);
-            echo 'haha';
-            echo '/*'.count($data).'*/';
-            foreach ($data as $d) {
-                $a=explode('\t',$d);
-                echo 'points.push(new BMap.Point('.$a[0].', '.$a[1].'));';
+            $myfile = fopen("little.txt", "r") or die("Unable to open file!");
+            $data=array();
+            while(!feof($myfile)) {
+                $str=fgets($myfile);
+                $arr=explode(',',$str);
+                $arr[1]=substr($arr[1],0,-2);
+                if($arr[1]){
+                    array_push($data,$arr);
+                }
             }
-            
+            fclose($myfile);
+            echo 'data='.json_encode($data).';';
         ?>
+        for (var i = 0; i < data.length; i++) {
+            points.push(new BMap.Point(data[i][0], data[i][1]));
+        }
         var options = {
             size: BMAP_POINT_SIZE_SMALL,
             shape: BMAP_POINT_SHAPE_STAR,
