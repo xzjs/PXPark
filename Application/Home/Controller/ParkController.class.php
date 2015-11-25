@@ -467,7 +467,7 @@ class ParkController extends Controller {
      */
     public function getList($lon = 0, $lat = 0)
     {
-        $distance_lon = 180;
+        $distance_lon = 180;//经纬度误差，保证给用户的停车场是用户一定距离范围内的
         $distance_lat = 180;
         $condition ['lon'] = array(
             array(
@@ -492,7 +492,7 @@ class ParkController extends Controller {
         $park = M('Park');
         $result = $park->where($condition)->field('id,name,lon,lat,price,remain_num as remain,total_num as total,img')->select();
         for ($i = 0; $i < count($result); $i++) {
-            $result[$i]['img'] = C('IP') . __ROOT__ . C('PARK_IMG_PATH') . $result[$i]['img'];//图片链接url
+            $result[$i]['img'] = C('PARK_IMG_PATH') . $result[$i]['img'];//图片链接url
         }
         $distance = array();
         for ($i = 0; $i < count($result); $i++) {

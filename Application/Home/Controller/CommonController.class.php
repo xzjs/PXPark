@@ -310,12 +310,13 @@ class CommonController extends Controller{
 		echo json_encode($income_info);
 	}
 	
-	
+	/**
+	 * 获取天气情况
+	 */
 	public function get_weather() {
-	$city="嘉兴";
-	$content = file_get_contents("http://api.map.baidu.com/telematics/v3/weather?location=%E5%98%89%E5%85%B4&output=json&ak=5slgyqGDENN7Sy7pw29IUvrZ");
-	print_r(json_decode($content));
-    var_dump($atr);
+		$Weather=A('Weather');
+		$html_str=$Weather->search(I('param.city_code'));
+		echo $html_str;
 	}
 	
 	
@@ -408,6 +409,10 @@ class CommonController extends Controller{
 			echo json_encode($json);
 	}
 	
+	/**
+	 * 时间戳转换成时间长度
+	 * @param unknown $the_time 时间戳
+	 */
 	private function time_tran($the_time) {
 		 
 		$dur=$the_time;

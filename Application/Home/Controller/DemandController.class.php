@@ -89,4 +89,42 @@ class DemandController extends Controller {
     UPDATE px_demand SET is_success=$flag WHERE id=$id" );
 		echo $result;
 	}
+
+	/**
+	 * 获取返回用户的选择偏好数据
+	 * @param unknown $user_id 用户Id
+	 */
+	public function preference($user_id) {
+		$Demand=M('Demand');
+		$result=$Demand->where('user_id='.$user_id)->field('preference,count(preference) as cnt')->group('preference')->order('count(preference) desc')->select();
+		for($i=0;$i<5;$i++){
+			if($result[$i]['cnt']){
+			if($result[0]['cnt']!=0){
+				$preference[$i]=$result[$i]['cnt']/$result[0]['cnt']*100;
+			}
+			}else{
+				$preference[$i]=0;
+			}
+		} 
+		echo json_encode($preference);
+	}
+	
+	public function count_demand($lon,$lat) {
+		$lon_floor=(floor($lon*100000))/100000;
+		$lon_top=$lon_floor+0.00001;
+		$lat_floor=(floor($lat*100000))/100000;
+		$lat_top=$lat_floor+0.00001;
+		
+		
+		$Demand=M('Demand');
+		$codition['lon']=array('elt',$lon_top);
+		$codition['lon']=array('egt',$lon_floor);
+		$codition['lat']=array('elt',$lat_top);
+		$codition['lat']=array('egt',$lat_floor);
+		$result=$Demand->where($codition)->field('')->group('preference')->order('count(preference) desc')->select();
+		
+		
+		
+	}
+	
 }
