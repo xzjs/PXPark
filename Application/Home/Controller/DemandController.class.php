@@ -20,14 +20,25 @@ class DemandController extends Controller {
 	 * 因为没有大数据分析，所以未来24小时的数据就是过去24小时的数据
 	 */
 	public  function get_list(){
-	 	echo C('IP');
+	 	//echo C('IP');
 		$time=I('param.time',0);
 		if($time==0)
 			$condition="is_success IS NULL";
 		else 
-			$condition="time>UNIX_TIMESTAMP(NOW())-86400";
+			$condition="time>UNIX_TIMESTAMP(NOW())-$time*3600";
 	
-	 $res
+	 $result=M()->query("select lon ,lat from px_demand where $condition");
+	 $arr=array();
+	 for($i=0;$i<count($result);$i++){
+	 	$arr[$i]=array(
+	 			"x"=>$result[$i]['lon'],
+	 	"y"=>$result[$i]['lat'],
+	 	);
+	 }
+	 $array=array(
+	 		"data"=>$arr,
+	 		);
+	 echo json_encode($array);
 	 }
 	
 	/**
