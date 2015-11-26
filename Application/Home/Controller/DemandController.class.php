@@ -22,11 +22,25 @@ class DemandController extends Controller {
 	public  function get_list(){
 	 	//echo C('IP');
 		$time=I('param.time',0);
+		$type=I('param.type');
 		if($time==0)
-			$condition="is_success IS NULL";
+		{$condition="is_success IS NULL";}
 		else 
-			$condition="time>UNIX_TIMESTAMP(NOW())-$time*3600";
-	
+			if($type==null||$type=="")
+			{ //echo "ff";
+				$condition="time>UNIX_TIMESTAMP(NOW())-$time*3600";
+			}
+		    else{
+		    	if($type==0)
+		    	{//echo "dd";
+		    		$condition="time>UNIX_TIMESTAMP(NOW())-$time*3600 and is_success=0";
+		    	}
+		    	else
+		    	{
+		    		$condition="time>UNIX_TIMESTAMP(NOW())-$time*3600 and is_success=1";
+		    	}
+		    }
+	//echo "select lon ,lat from px_demand where $condition";
 	 $result=M()->query("select lon ,lat from px_demand where $condition");
 	 $arr=array();
 	 for($i=0;$i<count($result);$i++){
@@ -38,7 +52,7 @@ class DemandController extends Controller {
 	 $array=array(
 	 		"data"=>$arr,
 	 		);
-	 echo json_encode($array);
+	echo json_encode($array);
 	 }
 	
 	/**
