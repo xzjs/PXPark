@@ -76,7 +76,11 @@
             echo 'data='.json_encode($data).';';
         ?>
         for (var i = 0; i < data.length; i++) {
-            points.push(new BMap.Point(data[i][0], data[i][1]));
+            var convertor = new BMap.Convertor();
+            var ggPoint = new BMap.Point(data[i][0], data[i][1]);
+            var pointArr = [];
+            pointArr.push(ggPoint);
+            convertor.translate(pointArr, 1, 5, translateCallback);
         }
         var options = {
             size: BMAP_POINT_SIZE_SMALL,
@@ -88,6 +92,13 @@
             alert('单击点的坐标为：' + e.point.lng + ',' + e.point.lat);  // 监听点击事件
         });
         map.addOverlay(pointCollection);  // 添加Overlay
+
+        //坐标转换完之后的回调函数
+        translateCallback = function (data1){
+            if(data1.status === 0) {
+                points.push(new BMap.Point(data1.points[0]));
+            }
+        }
     } else {
         alert('请在chrome、safari、IE8+以上浏览器查看本示例');
     }
