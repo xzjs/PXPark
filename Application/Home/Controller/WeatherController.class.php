@@ -3,7 +3,6 @@
 namespace Home\Controller;
 
 use Think\Controller;
-use Think\Model;
 
 /**
  * 天气获取控制器
@@ -13,27 +12,19 @@ use Think\Model;
 class WeatherController extends Controller
 {
     
-    public function search($city_code=0) {
-    	$Model = new Model ();
-    	$sql = "select name from px_city where code=".$city_code;
-    	$result = $Model->query ( $sql );
-    	$city=$result[0]['name'];
-    	$get_weather_url="http://api.map.baidu.com/telematics/v3/weather?location=".$city."&output=json&ak=IxUGjzuEwf9e2zi4CudO91np";
+    public function search() {
+    	$city="北京";
+    	$get_code_url="http://apistore.baidu.com/microservice/cityinfo";
+    	$get_code_url.="?cityname=".$city;
+    	$str =file_get_contents($get_code_url);
+    	$arr =json_decode($str,TRUE);
+    	$weather_code=$arr['retData']['cityCode'];
+    	echo $weather_code;
+    	$get_weather_url="http://api.map.baidu.com/telematics/v3/weather?location=青岛&output=json&ak=IxUGjzuEwf9e2zi4CudO91np";
     	$str =file_get_contents($get_weather_url,TRUE);
     	$arr =json_decode($str);
     	$result=$arr->results;
-    	if(date("H")>6&&date("H")<18){
-    		$img_url=$result[0]->weather_data[0]->dayPictureUrl;
-    	}else{
-    		$img_url=$result[0]->weather_data[0]->nightPictureUrl;
-    	}
-    	$temperature=str_replace(' ', '', $result[0]->weather_data[0]->temperature);
-    	$weath=$result[0]->weather_data[0]->weather;
-    	$html_str="<img src=".$img_url." width='24' height='24'>
-						<div>".$weath."</div>
-						<div>".$temperature."</div>";
-    	echo $html_str;
-    	
-    	
+    	var_dump($result[0]->weather_data);//近四天天气
+    	var_dump($result[0]->weather_data[0]->dayPictureUrl);
     }
 }
