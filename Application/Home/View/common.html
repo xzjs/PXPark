@@ -321,10 +321,8 @@
 					</div>
 
 					<!-- 天气情况 -->
-					<div class="whether">
-						<img src="__PUBLIC__/image/whether.png" width="24" height="24">
-						<div>26~20℃</div>
-						<div>良</div>
+					<div class="whether" id="weather">
+						
 					</div>
 
 					<!-- 搜索结果 -->
@@ -413,6 +411,22 @@ $(function(){
 			$("span#toyear_big_income").text(incomeInfo[2].big);
 			$("span#toyear_small_income").text(incomeInfo[2].small);
 			$("span#toyear_total_income").text(incomeInfo[2].big+incomeInfo[0].small);
+			
+		}
+	});
+})
+
+/**
+ * ajax获取停车场信息和收益状况
+ */
+$(function(){
+	
+	$.post("get_weather", {
+		city_code: 370200,
+	}, function(datas, status) {
+		if (status == 4 || status == "success") {
+
+			$("div#weather").html(datas);
 			
 		}
 	});
