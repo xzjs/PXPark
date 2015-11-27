@@ -111,7 +111,7 @@ body{
     margin: 100px 0 0 100px ;
 }
 .rectangle{
-    background: url(../../../resources/image/logo2.png) no-repeat ;
+    background: url(../../../Public/image/logo2.png) no-repeat ;
     background-size:100%; 
     margin: 0 0 0 30px ;
     width: 530px;
@@ -134,7 +134,7 @@ body{
     height:40px;
     width:266px;
     margin:15px 0px 0px 1px; 
-    background:url(../../../resources/image/input_back.png) ;
+    background:url(../../../Public/image/input_back.png) ;
 }
 .rectangle>form>p>input{
     outline:none;
@@ -153,7 +153,7 @@ body{
     border:none;
     font:20px/39px '微软雅黑', sans-serif;
     color:#fff;
-    background:url(../../../resources/image/button.png) no-repeat;
+    background:url(../../../Public/image/button.png) no-repeat;
     margin: 70px 0 0 1px;
     text-align: center;
     /*添加css3过渡效果*/
@@ -162,7 +162,7 @@ body{
     transition: all .34s;
 }
 .submit:hover{
-    background: url(../../../resources/image/button_hover.png) no-repeat;
+    background: url(../../../Public/image/button_hover.png) no-repeat;
     color: #D6D6D6;
 }
 
@@ -351,30 +351,30 @@ body{
 }
 
 .boxOneHover{
-    background: url(../../../resources/image/search_hover.png) !important;
+    background: url(../../../Public/image/search_hover.png) !important;
 }
 .box_one>a{
     display: block;
     width: 54px;
     height: 61px;
-    background: url(../../../resources/image/search.png);
+    background: url(../../../Public/image/search.png);
 }
 .box_one>a:hover{
-    background: url(../../../resources/image/search_hover.png) ;
+    background: url(../../../Public/image/search_hover.png) ;
 }
 .boxTwoHover{
-    background: url(../../../resources/image/line_hover.png) !important;
+    background: url(../../../Public/image/line_hover.png) !important;
 }
 .box_two>a{
     display: block;
     width: 54px;
     height: 61px;
-    background: url(../../../resources/image/line.png) ;
+    background: url(../../../Public/image/line.png) ;
 }
 .box_two>a:hover{
     width: 54px;
     height: 61px;
-    background: url(../../../resources/image/line_hover.png);
+    background: url(../../../Public/image/line_hover.png);
 }
 .display{
     width: 331px;
@@ -547,12 +547,12 @@ body{
     display: block;
     width: 54px;
     height: 61px;
-    background: url(../../../resources/image/analysis.png);
+    background: url(../../../Public/image/analysis.png);
 }
 .box_anly>a:hover{
     width: 54px;
     height: 61px;
-    background: url(../../../resources/image/analysis_hover.png);
+    background: url(../../../Public/image/analysis_hover.png);
 }
 .adv_main{
     width: 90%;
@@ -582,37 +582,37 @@ body{
     display: block;
     width: 54px;
     height: 61px;
-    background: url(../../../resources/image/up_line.png);
+    background: url(../../../Public/image/up_line.png);
 }
 .box_three>a:hover{
     width: 54px;
     height: 61px;
-    background: url(../../../resources/image/up_line_hover.png) ;
+    background: url(../../../Public/image/up_line_hover.png) ;
 }
 .boxThreeHover{
-    background: url(../../../resources/image/up_line_hover.png) !important;
+    background: url(../../../Public/image/up_line_hover.png) !important;
 }
 .box_four>a{
     display: block;
     width: 54px;
     height: 61px;
-    background: url(../../../resources/image/up_up.png) ;
+    background: url(../../../Public/image/up_up.png) ;
 }
 .box_four>a:hover{
     width: 54px;
     height: 61px;
-    background: url(../../../resources/image/up_up_hover.png);
+    background: url(../../../Public/image/up_up_hover.png);
 }
 .box_five>a{
     display: block;
     width: 54px;
     height: 61px;
-    background: url(../../../resources/image/up_other.png) ;
+    background: url(../../../Public/image/up_other.png) ;
 }
 .box_five>a:hover{
     width: 54px;
     height: 61px;
-    background: url(../../../resources/image/up_other_hover.png);
+    background: url(../../../Public/image/up_other_hover.png);
 }
 .userLeftBar{
     width:408px;
@@ -725,7 +725,7 @@ body{
 
 .up_main .subtitle_1>a,.up_main .subtitle>a{
     display: block;
-    background: url(../../../resources/image/up_arrow_1.png);
+    background: url(../../../Public/image/up_arrow_1.png);
     width: 20px;
     height: 12px;
     float: right;
