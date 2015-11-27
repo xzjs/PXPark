@@ -19,9 +19,9 @@ class UserController extends Controller {
 	/**
 	 * 扣除账户余额
 	 */
-	function cost() {
-		$uid = I('param.user_id');
-		$money = I('param.money');
+	function cost($uid,$money) {
+		//$uid = I('param.user_id');
+		//$money = I('param.money');
 		$check = M()->query ( "select my_money from px_user where id=$uid" );
 		$real_monye = $check [0] ['my_money'];
 		if ($money > $real_monye)
