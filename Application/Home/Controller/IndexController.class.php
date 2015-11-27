@@ -12,6 +12,7 @@ class IndexController extends Controller {
    public function login(){
 
    	$user=A('User');
+   	
    	$type=I('param.type');
    	$name=I('param.name');
    	$pwd=I('param.pswd');
