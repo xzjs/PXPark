@@ -721,6 +721,38 @@ class ParkrecordController extends Controller
         );
         return $Parkrecord->where($condition)->order('start_time')->relation(true)->select();
     }
+    
+    /**
+     * 车辆驶离停车场
+     * @param unknown $car_no 车牌号
+     * @param unknown $berth_no 车位机器编码
+     * @param unknown $money 停车费
+     */
+	public function leave($car_no, $berth_no, $money) {
+		$Model = new Model ();
+		$now = time ();
+		
+		$sql_id = "select px_parkrecord.berth_id,px_parkrecord.id,px_parkrecord.park_id,px_user.id as user_id,max(px_parkrecord.start_time) from px_parkrecord,px_car,px_berth,px_user,px_user_car where px_car.no='" . $car_no . "' and px_car.id=px_parkrecord.car_id and px_parkrecord.berth_id=px_berth.id and px_parkrecord.start_time is not null 
+    			and px_parkrecord.end_time is null and px_car.id=px_user_car.car_id and px_user_car.user_id=px_user.id";
+		 $id = $Model->query ( $sql_id );
+		if ($id [0] ['id']) {
+			$sql_update = "update px_parkrecord set end_time=" . $now . " where id=" . $id [0] ['id'];
+			$result1 = $Model->execute ( $sql_update );
+			$park_id=$id[0]['park_id'];
+			$result2=M('Park')->where('id='.$park_id)->setInc('remain_num',1);
+			$berth_id=$id[0]['berth_id'];
+			$sql_berth="update px_berth set is_null=0 where id=".$berth_id;
+			$result3 = $Model->execute ( $sql_berth);
+			$result4=M('Park')->where('id='.$park_id)->field('total_num,remain_num')->find();
+			$num=($result4['total_num']-$result4['remain_num'])/$result4[total_num];
+			
+			$Target=A('Target');
+			$Target->add($park_id,$num);
+			$User=A('User');
+			$User->cost($id[0]['user_id'],$money);
+    	} 
+    }
+    
 
     private function prDates($start, $end)
     {
@@ -761,4 +793,5 @@ class ParkrecordController extends Controller
         }
     }
 }
+
 

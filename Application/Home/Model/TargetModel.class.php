@@ -1,16 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: xzjs
- * Date: 15/10/24
- * Time: 下午3:44
- */
+
 namespace Home\Model;
+
 use Think\Model\RelationModel;
 
 /**
- * 用户模型
- * @package Home\Model
+ * 停车场模型
+ * createtime:2015年10月29日 上午10:04:15
+ * @author xiuge
  */
 class TargetModel extends RelationModel {
     protected $_validate = array(
