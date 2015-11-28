@@ -71,7 +71,7 @@ class DemandController extends Controller {
 	 * 添加停车需求
 	 */
 	public function add() {
-		$model = C('URL_MODEL');
+		//$model = C('URL_MODEL');
 		//echo $model;
 		$lon = I ( 'param.lon' );
 		$lat = I ( 'param.lat' );
