@@ -1,0 +1,674 @@
+/*css reset*/
+body {
+    font-family: "Microsoft YaHei", "SimHei", sans-serif;
+    font-size: 62.5%;
+}
+/* for IE/Win */
+html{
+    height: 100%;
+}
+html>body {
+    font-size: 10px;
+    height: 100%;
+}
+
+/* for everything else */
+
+/*字体边框等初始化*/
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
+    padding: 0;
+    margin: 0;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+fieldset,img {
+    border: 0;
+}
+img {
+    display: block;
+}
+address,caption,cite,code,dfn,th,var {
+    font-weight: normal;
+    font-style: normal;
+}
+ol,ul {
+    list-style: none;
+}
+caption,th {
+    text-align: left;
+}
+h1,h2,h3,h4,h5,h6 {
+    font-weight: normal;
+    font-size: 100%;
+}
+q:before,q:after {
+    content: '';
+}
+abbr,acronym {
+    border: 0;
+}
+a {
+    color: #343434;
+    text-decoration: none;
+}
+a:hover {
+    color: #b60a0a;
+}
+input{
+    outline:medium;
+}
+/*清除浮动*/
+.clearfix:after {
+    content: " ";
+    display: block;
+    clear: both;
+    height: 0;
+}
+.clearfix {
+    zoom: 1;
+}
+/************************************/
+body{
+    font-family: "Microsoft YaHei",sans-serif;
+    background-color: #333;
+}
+.show {
+    display: block;
+}
+.hide {
+    display: none;
+}
+/*旋转地球动画*/
+#echarts-x-content{
+    width: 100%;
+    height: 100%;
+}
+.pt-page-2{
+    position: relative;
+    min-width:1360px;
+}
+
+/*左边部分*/
+.left-container {
+    padding-top: 10px;
+    margin-left: 10px;
+    height: 100%;
+    min-height:650px !important;
+}
+.left-container section{
+    background-color: rgba(6,72,72,0.5);
+    margin-bottom:5px;
+    border-radius: 5px;
+}
+.left-container .left-top{
+    height:46.5%;
+    position: relative;
+}
+.left-top-text {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    display: none;
+}
+.left-top-text p{
+    color: #89F8E2;
+    font-size: 14px;
+}
+#radar-chart {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 28px;
+}
+.left-container section.left-bottom{
+    margin-bottom:0;
+}
+/*左侧中间位置*/
+.left-mid{
+    overflow: hidden;
+    text-align: center;
+    padding: 10px 0;
+    height: 20%;
+}
+.left-mid p{
+    color: #89F8E2;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+.left-mid ul{
+    margin-bottom:0;
+    margin-top: 1px;
+}
+.left-mid ul li{
+    max-width:74%;
+    margin: 0 auto;
+}
+.left-bottom{
+    height: 31%;
+}
+.left-bottom-text p{
+    margin-bottom:0;
+    color: #89F8E2;
+    font-size:14px;
+}
+.left-bottom-text{
+    position: relative;
+    margin:5px 0 0 14px;
+}
+.left-bottom-text .weather{
+    position: absolute;
+    font-size: 24px;
+    color: #FF6600;
+    left: 72%;
+    top: 24%;
+}
+.left-bottom-scroll{
+    margin-top: 5px;
+    height: 62%;
+    overflow: hidden;
+}
+.left-bottom-scroll ul li {
+    font-size: 14px;
+    color: #89F8E2;
+    max-width: 85%;
+    margin: 0 auto;
+}
+
+
+
+/*中间车辆*/
+.car-container {
+    position: relative;
+    margin-right:-10px;
+    height: 100%;
+    min-height: 650px !important;
+}
+.car-user{
+    width: 330px;
+    padding: 10px 10px 0;
+    border-radius: 5px;
+    margin-top:10px;
+    background-color: rgba(6,72,72,0.5);
+    position: absolute;
+}
+.car-user img{
+    width: 34%;
+    float: left;
+}
+.car-user ul{
+    float: left;
+    margin: 0 0 5px 30px;
+}
+.car-user ul p{
+    font-size: 16px;
+    color: #89F8E2;
+    text-align: left;
+    margin: 0;
+}
+.car-user ul p span i{
+    color: #F9A700;
+}
+.car-charts {
+    position: absolute;
+    left: 62%;
+    top: 48%;
+}
+.car-charts div{
+    width: 150px;
+    height: 150px;
+    float: left;
+}
+#car-charts2{
+    margin-left: -23px;
+}
+.car-content{
+    margin-top: 208px;
+    position: relative;
+    left: -4%;
+    bottom: 23px;
+    height:46%;
+}
+#myCar {
+    width: 660px;
+    height: 90%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.car-bottom {
+    margin-top: -56px;
+    position: relative;
+    z-index: 1000;
+    height: 31%;
+}
+.car-bottom-text{
+    width: 65%;
+    height: 100%;
+    background-color: transparent;
+    float: left;
+    overflow: hidden;
+}
+#car-bottom-board {
+    width: 34%;
+    height: 100%;
+    background-color: #fff;
+    float: left;
+}
+.car-content-text{
+    height: 90%;
+    /*margin: 10px 0;*/
+}
+.car-content-text ul{
+    margin: 10px auto;
+}
+.car-content-text li{
+    color: #89F8E2;
+    font-size: 14px;
+    max-width: 90%;
+    margin: 0 auto;
+}
+.car-list{
+    position: absolute;
+    left: 76%;
+    top: -47%;
+}
+.car-list li{
+    margin-bottom: 3px;
+    padding: 3px;
+}
+.carListBack{
+    background-color: #00FF00;
+}
+.car-list li p{
+    font-size: 18px;
+    color: #3C9700;
+    margin: 0;
+}
+.resultList{
+    font-size: 22px;
+    color: #FF6600;
+}
+li.resultList p{
+    padding-top: 5px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #FF6600;
+}
+
+/*右边部分*/
+.right-container {
+    padding-top: 10px;
+    height: 100%;
+    min-height: 650px;
+}
+.right-container section{
+    background-color: rgba(6,72,72,0.5);
+    border-radius: 5px;
+}
+.right-container .right-bottom h3 {
+    float: left;
+    padding: 12% 0 0 0;
+    font-size: 20px;
+    color: #89F8E2;
+    text-align: center;
+    margin: 0;
+}
+.right-container .right-bottom h3 span {
+    font-size: 24px;
+    color: #FF6600;
+    padding-right: 10px;
+}
+.right-top{
+    height: 67%;
+    position: relative;
+}
+.right-top .progress{
+    position: absolute;
+    bottom: -20px;
+    left:0;
+    width: 100%;
+    z-index: 1000;
+    background-image: none !important;
+    background-color: #ADADAD !important;
+}
+.right-top .progress .progress-bar-info{
+    background-color: #007FA5 !important;
+}
+#right-top-map{
+    width: 100%;
+    height: 100%;
+}
+.right-bottom{
+    padding: 5px;
+    border-radius: 5px;
+    margin-top:5px;
+    background-color: rgba(6,72,72,0.5);
+    height: 31%;
+}
+.right-bottom ul{
+    float: left;
+    /*margin: 7px 0 0 3px;*/
+    margin: 4% 0 0 2%;
+}
+.right-bottom li{
+    margin-bottom: 15px;
+}
+.right-bottom ul p{
+    font-size: 16px;
+    color: #89F8E2;
+    text-align: left;
+}
+
+
+/*******************************/
+/*媒体查询开始*/
+/*******************************/
+@media screen and (min-width: 1440px) {
+    .left-top-text p{
+        font-size: 18px;
+    }
+    .car-list{
+        top: -38%;
+    }
+    .car-content{
+        margin-top: 247px;
+    }
+    .car-content{
+        left: -1%;
+    }
+    .right-bottom ul{
+        margin: 15% 0 0 2%;
+    }
+    .right-container .right-bottom h3{
+        padding-top: 20%;
+    }
+}
+@media screen and (min-width: 1600px){
+    .left-mid ul li{
+        max-width: 100%;
+    }
+    .left-mid p{
+        display: inline-block;
+        padding-right: 7px;
+    }
+    .left-bottom-scroll ul li{
+        font-size: 16px;
+    }
+    .left-bottom-text p{
+        margin-left: 20px;
+    }
+    .left-bottom-text .weather{
+        left: 66%;
+        margin: 0;
+    }
+    .left-bottom-scroll{
+        margin-top: 23px;
+    }
+    .left-bottom-text{
+        padding-top: 6px;
+    }
+    #myCar{
+        width: 700px;
+    }
+    .car-content{
+        left: 5%;
+        bottom: -19px;
+    }
+    .car-list{
+        left: 70%;
+        top: -37%;
+    }
+    .car-charts{
+        left: 66%;
+        top: 57%;
+    }
+    .car-bottom{
+        height: 24%;
+        margin-top: 9px;
+    }
+    .car-bottom-text{
+        margin-right: -14px;
+    }
+    .right-bottom{
+        min-height: 225px;
+    }
+}
+
+@media screen and (min-width: 1920px){
+    #myCar{
+        width: 800px;
+    }
+    .car-bottom{
+        margin-top: 6%;
+    }
+    .car-content{
+        left:10%;
+        top: 9%;
+        margin-top: 21.5%;
+    }
+    .car-list {
+        left: 69%;
+        top: -43%;
+    }
+    .car-charts{
+        top: 59%;
+        left: 68%;
+    }
+    .right-bottom{
+        min-height: 252px;
+    }
+    .right-bottom ul{
+        margin: 15% 0 0 16%;
+    }
+    .right-container .right-bottom h3{
+        padding-left: 3%;
+    }
+}
+/*******************************/
+/*媒体查询结束*/
+/*******************************/
+
+
+/*平行停车场*/
+#container-park{
+    height: 100%;
+}
+/*右上角按钮*/
+.right-top-park{
+    position: absolute;
+    right: 15px;
+    top: 46px;
+}
+.right-top-park p {
+    width: 65px;
+    height: 65px;
+    line-height: 65px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #FF9900;
+    background-color: rgba(26, 68, 129, 0.7);
+    border-radius: 10px;
+    float: left;
+    cursor: pointer;
+}
+.main-list-park{
+    float: left;
+    margin-right: 38px;
+    display: none;
+}
+.main-list-park li{
+    font-size: 16px;
+    color: #fff;
+    background-color: #1C96B5;
+    position: relative;
+    width: 104px;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 5px;
+    margin-bottom:5px;
+    cursor: pointer;
+    -webkit-transition: all .2s ease-in;
+    -moz-transition: all .2s ease-in;
+    -ms-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+.main-list-park li:first-child {
+    right: 12px;
+}
+.main-list-park li:nth-child(2) {
+    left: 20px;
+}
+.main-list-park li:nth-child(3){
+    left: 58px;
+}
+.main-list-park li:nth-child(4) {
+    left: 104px;
+}
+.main-list-park li:hover{
+    color: #FF9900;
+    background-color: rgba(26,68,129,0.7);
+}
+
+/*右下角按钮*/
+.right-bottom-park{
+    position: absolute;
+    bottom: 10px;
+    right:15px;
+}
+.right-bottom-park p{
+    color: #FF9900;
+    background-color: rgba(26,68,129,0.7);
+    width: 106px;
+    height: 38px;
+    font-size: 18px;
+    text-align: center;
+    line-height: 38px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    z-index: 1000;
+}
+.right-bottom-park ul{
+    display: none;
+    position: absolute;
+    z-index: 100;
+    bottom:46px;
+}
+.right-bottom-park li {
+    color: #fff;
+    background-color: rgba(33, 118, 139, 0.7);
+    width: 106px;
+    height: 38px;
+    text-align: center;
+    line-height: 38px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom:5px;
+    -webkit-transition: all .2s ease-in;
+    -moz-transition: all .2s ease-in;
+    -ms-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+.right-bottom-park li:hover{
+    color: #FF9900;
+    background-color: rgba(26,68,129,0.7);
+}
+
+/*左下角*/
+.left-bottom-park{
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    width: 40%;
+}
+.left-bottom-park ul{
+    display: none;
+}
+.left-bottom-park .progress{
+    background-color: transparent;
+    background-image: none;
+    height: 25px;
+    margin-bottom:5px;
+}
+.left-bottom-park .progress .progress-bar{
+    line-height:25px;
+}
+.location{
+    float: left;
+    padding-left: 10px;
+}
+.progress-num{
+    float: right;
+    padding-right:10px;
+}
+.progress-btn{
+    cursor: pointer;
+}
+.progress-btn span{
+    width: 88px;
+    height: 30px;
+    color: #1104BD;
+    background-color: rgba(136,136,136,0.7);
+    font-size: 16px;
+    line-height:30px;
+    text-align: center;
+    border-radius: 5px;
+    display: inline-block;
+}
+.progress-btn i{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    color: #888;
+    font-size: 16px;
+    border: 3px solid #888;
+    border-radius: 30px;
+    text-align: center;
+    padding: 5px;
+    margin-right: 4px;
+}
+
+/*时间线*/
+.time-line {
+    position: absolute;
+    right: 140px;
+    bottom: 10px;
+}
+.time-line .slider{
+    width: 500px !important;
+}
+/*滑动小按钮*/
+.slider-handle{
+    background-color: #fff !important;
+    background-image: none !important;
+}
+/*滑动条背景色*/
+.slider-track{
+    background-color: #0099CC !important;
+    background-image: none !important;
+}
+/*滑动过后的颜色*/
+.slider-selection{
+    background-color: #0099CC !important;
+    background-image: none !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

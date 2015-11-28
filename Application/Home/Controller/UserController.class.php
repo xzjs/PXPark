@@ -236,6 +236,30 @@ class UserController extends Controller {
 	
 	/**
 	 * 用户登录
+	 *
+	 * @param $name 用户名
+	 * @param $pwd 密码
+	 * @return int|mixed -1:用户名未注册;-2:密码错误;正数:用户id
+	 */
+	public function login_byName($name, $pwd,$type) {
+		$condition['nickname'] = $name;
+		//$condition['type'] = $type;
+		$User = D ( 'User' );
+		$data = $User->where ( $condition)->find ();
+		if ($data) {
+			$pwd = md5 ( $pwd );
+			if ($data ['pwd'] == $pwd) {
+				return $data ['id'];
+			} else {
+				return - 2;
+			}
+		} else {
+			return - 1;
+		}
+	}
+	
+	/**
+	 * 用户登录
 	 * 
 	 * @param $phone 手机号        	
 	 * @param $pwd 密码        	
