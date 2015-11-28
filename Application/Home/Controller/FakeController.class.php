@@ -29,10 +29,7 @@ class FakeController extends BaseController
             }
         }
 
-        $UserController = A('User');
-        $user_list = $UserController->get_list(1);
-        $rand = rand(0, count($user_list));
-        $user_id = $user_list[$rand]['id'];
+        $user_id=$this->get_user_id();
 
         $preference = rand(1, 5);
 
@@ -90,4 +87,24 @@ class FakeController extends BaseController
 
     }
 
+    /**
+     * 模拟用户充值
+     */
+    public function recharge(){
+        $user_id=$this->get_user_id();
+        $money=rand(1,100);
+        $type=rand(1,3);
+        $RechargerecordController=A('Rechargerecord');
+        $result=$RechargerecordController->add($user_id,$money,$type);
+        echo $result?'1,充值成功,':'0,充值失败,';
+        echo date('Y-m-d H:i:s');
+    }
+
+    private function get_user_id(){
+        $UserController = A('User');
+        $user_list = $UserController->get_list(1);
+        $rand = rand(0, count($user_list));
+        $user_id = $user_list[$rand]['id'];
+        return $user_id;
+    }
 }
