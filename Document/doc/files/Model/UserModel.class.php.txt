@@ -15,6 +15,8 @@ use Think\Model\RelationModel;
 class UserModel extends RelationModel {
     protected $_validate = array(
         array('phone','','手机号已经被注册！',0,'unique',1), // 在新增的时候验证name字段是否唯一
+    		array('nickname','','昵称已经被注册！',0,'unique',1),
+    		
     );
 
     protected $_auto = array (
