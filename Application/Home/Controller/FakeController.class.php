@@ -12,7 +12,9 @@ class FakeController extends Controller {
     
     }
     
-    
+    /**
+     * 模拟寻找车位
+     */
     public function find() {
     	
     }
@@ -21,11 +23,31 @@ class FakeController extends Controller {
      * 模拟车辆驶入某停车场
      */
     public function car_in( ) {
+    	$condition['is_success']=array('exp','is null');
+    	$car_list = M ('Demand')->where($condition)->select();
+    	$rand=rand(0,count($car_list)-1);
+    	$car=$car_list[$rand];//随机获取一个发布过停车请求的车
+    	var_dump($car);
+    	//var_dump($car);
     	$rand=rand(0,99);
+    	//2%概率未能停入规划停车场
     	if($rand>97){
-    		$is_success=1;
+    		
+
+    	//98%概率停入规划停车场
     	}else{
-    		$is_success=0;
+    		$condition_berth['park_id']=$car['park_id'];
+    		$condition_berth['is_null']=0;
+    		$berth_list=M('Berth')->where($condition_berth)->select();
+    		$rand=rand(0,count($berth_list)-1);
+    		$berth=$berth_list[$rand];//随机获取一个空车位
+    		$berth['is_null']=1;
+    		M('Berth')->save($berth);
+    		
+    		var_dump($berth);
+			$Demand=A('Demand');
+    		$result=$Demand->update($car['car_no'],$berth_no['no']);
+    		var_dump($result);
     	}
     	
     }

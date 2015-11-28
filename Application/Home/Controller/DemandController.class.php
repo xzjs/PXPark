@@ -106,10 +106,10 @@ class DemandController extends Controller {
 	 * 在用户进入车位后判断所在停车场和推荐的停车场一致，如果一致就传true，否则就传false
 	 */
 	public function update($car_no,$berth_no) {
-		$sql="select park_id from px_demand where car_no=".$car_no;
 		$condition['car_no']=$car_no;
-		$condition['is_success']=array('neq',1);
+		$condition['is_success']=array('exp','is null');
 		$result_plan = M ('Demand')->field('park_id,time')->where($condition)->order('time desc')->find();
+		var_dump($result_plan);
 		$condition1['no']=$berth_no;
 		$result_real=M('Berth')->field('park_id')->where($condition1)->find();
 		if($result_plan['park_id']==$result_real['park_id']){
