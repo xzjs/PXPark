@@ -1,8 +1,36 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
+use Think\Model;
 class IndexController extends Controller {
     public function index(){
         echo date('Y-m-d H:i:s',mktime(14,18,1,11,16,2015));
     }
+    
+    /**
+     * 为berth表添加数据
+     */
+    /* public function create_data() {
+    	$park=M('Park');
+    	$park_id=$park->field('id,total_num,remain_num')->select();
+    	$no=0;
+    	for($i=0;$i<count($park_id);$i++){
+    		for($j=0;$j<$park_id[$i]['total_num'];$j++){
+    			$no++;
+    			$Model = new Model ();
+    			if($j<$park_id[$i]['remain_num']){
+    				$is_null=0;
+    			}else{
+    				$is_null=1;
+    			}
+        		$Model = new Model ();
+        		$id=$park_id[$i]['id'];
+    			$sql ="INSERT INTO px_berth (is_null,no,rule_id,park_id) VALUES(".$is_null.",".$no.",1,".$id.")";
+    			//var_dump($sql);
+    			$result = $Model->execute($sql);
+    			
+    		}
+    	}
+    } */
+    
 }
