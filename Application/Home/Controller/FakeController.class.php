@@ -100,6 +100,10 @@ class FakeController extends BaseController
         echo date('Y-m-d H:i:s');
     }
 
+    /**
+     * 随机获取一个用户id
+     * @return mixed 用户id
+     */
     private function get_user_id(){
         $UserController = A('User');
         $user_list = $UserController->get_list(1);
