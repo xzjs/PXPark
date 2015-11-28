@@ -45,7 +45,7 @@ class FakeController extends BaseController
         if ($result) {
             echo $park_id . ',' . date('Y-m-d H:i:s');
         } else {
-            echo 'error';
+            echo '失败,' . date('Y-m-d H:i:s');
         }
     }
 
