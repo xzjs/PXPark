@@ -10,9 +10,8 @@ class IndexController extends Controller {
      * 用户登录
      */
    public function login(){
-
+ 
    	$user=A('User');
-   	
    	$type=I('param.type');
    	$name=I('param.name');
    	$pwd=I('param.pswd');
