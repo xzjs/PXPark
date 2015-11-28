@@ -45,7 +45,7 @@ class DemandController extends Controller {
 	 $arr=array();
 	 for($i=0;$i<count($result);$i++){
 	 	$arr[$i]=array(
-	 			"x"=>$result[$i]['lon'],
+	 			"x"=>$result[$i]['lon'], 
 	 	"y"=>$result[$i]['lat'],
 	 	);
 	 }
@@ -103,14 +103,24 @@ class DemandController extends Controller {
 	
 	/**
 	 * 是否停车成功
-	 * 在用户进入车位后判断所在停车场和推荐的停车场一致，如果一致就传1，否则就传0
+	 * 在用户进入车位后判断所在停车场和推荐的停车场一致，如果一致就传true，否则就传false
 	 */
-	public function update() {
-		$id = I ( 'param.id' );
-		$flag = I ( 'param.is_succes' );
-		$result = M ()->execute ( "
-    UPDATE px_demand SET is_success=$flag WHERE id=$id" );
-		echo $result;
+	public function update($car_no,$berth_no) {
+		$condition['car_no']=$car_no;
+		$condition['is_success']=array('exp','is null');
+		$result_plan = M ('Demand')->field('park_id,time')->where($condition)->order('time desc')->find();
+		var_dump($result_plan);
+		$condition1['no']=$berth_no;
+		$result_real=M('Berth')->field('park_id')->where($condition1)->find();
+		if($result_plan['park_id']==$result_real['park_id']){
+			$condition2['park_id']=$result_plan['park_id'];
+			$condition2['time']=$result_plan['time'];
+			$data['is_success']=1;
+			M ('Demand')->where($condition2)->save($data);
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	/**
@@ -145,8 +155,6 @@ class DemandController extends Controller {
 		$codition['lat']=array('elt',$lat_top);
 		$codition['lat']=array('egt',$lat_floor);
 		$result=$Demand->where($codition)->field('')->group('preference')->order('count(preference) desc')->select();
-		
-		
 		
 	}
 	
