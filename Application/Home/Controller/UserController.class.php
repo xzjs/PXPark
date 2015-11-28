@@ -15,7 +15,8 @@ use Think\Controller;
  * 
  * @package Home\Controller
  */
-class UserController extends Controller {
+class UserController extends Controller 
+{
 	/**
 	 * @param $nickname 用户名
 	 * @param $pwd 密码
@@ -24,7 +25,7 @@ class UserController extends Controller {
 	function web_login(){
 		$nickname = I('param.nickname');
 		$pwd = I('param.pwd');
-		
+
 		$condition['nickname'] = $nickname;
 		//$condition['type'] = $type;
 		$User = D ( 'User' );
@@ -33,23 +34,23 @@ class UserController extends Controller {
 			$pwd = md5 ( $pwd );
 			if ($data ['pwd'] == $pwd) {
 				$array=array(
-						"id"=>$data ['id'],
-						"nickname"=>$data ['nickname'],
-						"type"=>$data ['type'],
+					"id"=>$data ['id'],
+					"nickname"=>$data ['nickname'],
+					"type"=>$data ['type'],
 				);
 				$this->assign ( 'Info', json_encode ( $array) );
-			if($data ['type']==2||$data ['type']==3)
-			   {$this->redirect("../Home/Common/index.html");}
-			if($data ['type']==4)
-		      	{
-		      		$this->redirect("../Home/Super/");
-		      	}
-				
+				if($data ['type']==2||$data ['type']==3)
+				{$this->redirect("../Home/Common/index.html");}
+				if($data ['type']==4)
+				{
+					$this->redirect("../Home/Super/");
+				}
+
 			} else {
-				    $this->error('密码错误');
+				$this->error('密码错误');
 			}
 		} else {
-			 $this->error('用户名未注册');
+			$this->error('用户名未注册');
 		}
 	}
 	
@@ -279,7 +280,6 @@ class UserController extends Controller {
 	 * @return int|mixed -1:用户名未注册;-2:密码错误;正数:用户id
 	 */
 	public function login_byName($name, $pwd,$type) {
-		
 		$condition['nickname'] = $name;
 		//$condition['type'] = $type;
 		$User = D ( 'User' );
