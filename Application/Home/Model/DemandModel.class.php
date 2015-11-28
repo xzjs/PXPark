@@ -6,6 +6,7 @@
  * Time: 下午10:44
  */
 namespace Home\Model;
+
 use Think\Model\RelationModel;
 
 /**
@@ -13,8 +14,15 @@ use Think\Model\RelationModel;
  * @author sun
  *
  */
-class DemandModel extends RelationModel{
-     protected $_validate = array(
+class DemandModel extends RelationModel
+{
+
+    /**
+     * @var array 自动完成数组
+     */
+    protected $_auto = array(
+        array('time', 'time', 3, 'function'), // 对update_time字段在更新的时候写入当前时间戳
     );
 }
+
 ?>
