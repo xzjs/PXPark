@@ -105,19 +105,21 @@ class DemandController extends BaseController
      */
     public function update($car_no, $berth_no)
     {
-        $sql = "select park_id from px_demand where car_no=" . $car_no;
         $condition['car_no'] = $car_no;
-        $condition['is_success'] = array('neq', 1);
-        $result_plan = M('Demand')->field('park_id,time')->where($condition)->order('time desc')->find();
+        $condition['is_success'] = array('exp', 'is null');
+        $Demand=D('Demand');
+        $result_plan =$Demand->field('id,park_id,time')->where($condition)->order('time desc')->find();
         $condition1['no'] = $berth_no;
-        $result_real = M('Berth')->field('park_id')->where($condition1)->find();
+        $result_real = M('Berth')->field('id,park_id')->where($condition1)->find();
         if ($result_plan['park_id'] == $result_real['park_id']) {
             $condition2['park_id'] = $result_plan['park_id'];
             $condition2['time'] = $result_plan['time'];
             $data['is_success'] = 1;
-            M('Demand')->where($condition2)->save($data);
+            $result=M('Demand')->where($condition2)->save($data);
+            echo "停车成功！ demand-id为".$result_plan['id'];
             return true;
         } else {
+        	echo "停车失败！ 实际停车场是".$result_real['park_id'].","."规划停车场是".$result_plan['park_id'];
             return false;
         }
     }

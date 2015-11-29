@@ -6,7 +6,7 @@ use Think\Controller;
  * createtime:2015年11月27日 下午3:38:20
  * @author xiuge
  */
-class FakeController extends Controller {
+class FakeController extends BaseController {
 	
     public function index(){
     
@@ -49,31 +49,28 @@ class FakeController extends Controller {
      */
     public function car_in( ) {
     	$condition['is_success']=array('exp','is null');
-    	$car_list = M ('Demand')->where($condition)->select();
+    	$car_list = M ('Demand')->where($condition)->field('park_id,car_no,max(time)')->group('car_no')->select();
     	$rand=rand(0,count($car_list)-1);
     	$car=$car_list[$rand];//随机获取一个发布过停车请求的车
-    	var_dump($car);
-    	//var_dump($car);
     	$rand=rand(0,99);
     	//2%概率未能停入规划停车场
     	if($rand>97){
+    		$condition_berth['park_id']=array('neq',$car['park_id']);
+    		$condition_berth['is_null']=0;
     		
-
     	//98%概率停入规划停车场
     	}else{
     		$condition_berth['park_id']=$car['park_id'];
     		$condition_berth['is_null']=0;
+    	}
     		$berth_list=M('Berth')->where($condition_berth)->select();
     		$rand=rand(0,count($berth_list)-1);
     		$berth=$berth_list[$rand];//随机获取一个空车位
     		$berth['is_null']=1;
     		M('Berth')->save($berth);
-    		
-    		var_dump($berth);
 			$Demand=A('Demand');
-    		$result=$Demand->update($car['car_no'],$berth_no['no']);
-    		var_dump($result);
-    	}
+    		$result=$Demand->update($car['car_no'],$berth['no']);
+    		echo $result;
     	
     }
     
