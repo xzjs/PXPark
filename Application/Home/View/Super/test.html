@@ -10,18 +10,29 @@
 <script>
     var carApp = angular.module('carApp', []);
 
-    carApp.controller('DemandCtrl', ['$scope','$http',
-        function ($scope,$http) {
-            $scope.test1 = function () {
-                $http.get("{:U('Demand/get_list')}").then(
-                        function successCallback(response) {
-                            console.log(response);
-                        },
-                        function errCallback(response) {
-                            alert('error');
-                        }
-                )
-            }
+    carApp.controller('DemandCtrl', ['$scope', '$http',
+        function ($scope, $http) {
+            var config = {
+                params: {
+                    'time': 0,
+                    'time_type': 1,
+                    'type': 2
+                }
+            };
+            $http.get("{:U('Demand/get_list')}", config).then(
+                    function successCallback(response) {
+                        $scope.demand_datas = response.data;
+                        var l = Math.floor($scope.demand_datas.length * Math.random());
+                        $scope.demand_data = $scope.demand_datas[l];
+                        console.log($scope.demand_data);
+                    },
+                    function errCallback(response) {
+                        alert('error');
+                    }
+            );
+            $scope.$watch($scope.demand_datas, function () {
+                alert('改变了');
+            }, true);
         }
     ]);
 </script>

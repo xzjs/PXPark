@@ -57,7 +57,7 @@ function createEarth(ec) {
 
 };
 
-function createRadar(ec) {
+function createRadar(ec,data) {
     // 左上角雷达图
     var myRadar = ec.init(document.getElementById('radar-chart'));
     myRadar.showLoading({
@@ -95,7 +95,7 @@ function createRadar(ec) {
         ],
         series: [
             {
-                name: '完全实况球员数据',
+                name: '用户偏好',
                 type: 'radar',
                 itemStyle: {
                     normal: {
@@ -106,12 +106,8 @@ function createRadar(ec) {
                 },
                 data: [
                     {
-                        value: [97, 42, 88, 94, 90, 86],
+                        value: data,
                         name: '舍普琴科'
-                    },
-                    {
-                        value: [97, 32, 74, 95, 88, 92],
-                        name: '罗纳尔多'
                     }
                 ]
             }

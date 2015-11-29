@@ -17,14 +17,39 @@ class DemandController extends BaseController
 
     /**
      * 获取所有停车需求
-     * time为正数是未来，为负数是过去，为0为当前的,比如-24就是过去24小时的数据，当前时间的就是is_success为空的数据,
-     * 因为没有大数据分析，所以未来24小时的数据就是过去24小时的数据
+     * @param int $time 时间
+     * @param int $time_type 事件类型
+     * @param int $type 数据类别
      */
-    public function get_list()
+    public function get_list($time = 0, $time_type = 0, $type = -1)
     {
-        //echo C('IP');
-        $time = I('param.time', 0);
-        $type = I('param.type');
+        $condition = array();
+        if ($time > 0) {
+            $time *= -1;
+        }
+        $time -= 1;
+        $time_str=$time_type==0?' hour':' day';
+        $start_time = strtotime($time.$time_str);
+        $end_time = strtotime('+1'.$time_str,$start_time);
+        $condition['time'] = array('between', "$start_time,$end_time");
+        switch ($type) {
+            case 0:
+            case 1:
+                $condition['is_success'] = $type;
+                break;
+            case 2:
+                $condition['is_success']=array('exp','is null');
+                break;
+            default:
+                break;
+        }
+        $DemandModel=D('Demand');
+        $result=$DemandModel->where($condition)->relation(true)->select();
+        for($i=0;$i<count($result);$i++){
+            $result[$i]['current_business']=$this->get_business($result[$i]['current_lon'],$result[$i]['current_lat']);
+        }
+        echo json_encode($result);
+        /*$end_time=$start_time+24*$time_type
         if ($time == 0) {
             $condition = "is_success IS NULL";
         } else
@@ -40,7 +65,7 @@ class DemandController extends BaseController
         //echo "select lon ,lat from px_demand where $condition";
         $result = M()->query("select lon ,lat from px_demand where $condition");
         $arr = array();
-        for ($i = 0; $i < count($result); $i++) {
+        /*for ($i = 0; $i < count($result); $i++) {
             $arr[$i] = array(
                 "x" => $result[$i]['lon'],
                 "y" => $result[$i]['lat'],
@@ -49,7 +74,7 @@ class DemandController extends BaseController
         $array = array(
             "data" => $arr,
         );
-        echo json_encode($array);
+        echo json_encode($arr);*/
     }
 
     /**
@@ -76,25 +101,25 @@ class DemandController extends BaseController
      * @param $current_lat 当前纬度
      * @return mixed 插入后的id或false
      */
-    public function add($lon,$lat,$park_id,$user_id,$preference,$current_lon,$current_lat)
+    public function add($lon, $lat, $park_id, $user_id, $preference, $current_lon, $current_lat)
     {
-        $UserModel=D('User');
-        $user=$UserModel->relation(true)->find($user_id);
-        $DemandModel=D('Demand');
-        $data=array(
-            'lon'=>$lon,
-            'lat'=>$lat,
-            'park_id'=>$park_id,
-            'car_no'=>$user['Car'][0]['no'],
-            'user_id'=>$user_id,
-            'preference'=>$preference,
-            'current_lon'=>$current_lon,
-            'current_lat'=>$current_lat,
-            'business'=>$this->get_business($lon,$lat)
+        $UserModel = D('User');
+        $user = $UserModel->relation(true)->find($user_id);
+        $DemandModel = D('Demand');
+        $data = array(
+            'lon' => $lon,
+            'lat' => $lat,
+            'park_id' => $park_id,
+            'car_no' => $user['Car'][0]['no'],
+            'user_id' => $user_id,
+            'preference' => $preference,
+            'current_lon' => $current_lon,
+            'current_lat' => $current_lat,
+            'business' => $this->get_business($lon, $lat)
         );
-        if($DemandModel->create($data)){
+        if ($DemandModel->create($data)) {
             return $DemandModel->add();
-        }else{
+        } else {
             throw_exception($DemandModel->getError());
         }
     }
