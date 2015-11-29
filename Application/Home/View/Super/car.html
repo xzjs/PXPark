@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="carApp">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -343,6 +343,19 @@
     map.addControl(new BMap.MapTypeControl()); //添加地图类型控件
     map.setCurrentCity("北京"); // 设置地图显示的城市 此项是必须设置的
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+</script>
+<script>
+    var carApp = angular.module('carApp', []);
+
+    carApp.controller('DemadnCtrl', [
+        function ($scope) {
+            $http.get({:U('Demand/get_list')}).then(
+            function successCallback(response) {
+                alert(response);
+            },
+            function errCallback(response) {
+                alert('error');
+            })}]);
 </script>
 </body>
 </html>

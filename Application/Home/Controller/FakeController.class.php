@@ -15,8 +15,33 @@ class FakeController extends Controller {
     /**
      * 模拟寻找车位
      */
-    public function find() {
-    	
+    public function find()
+    {
+        $position = $this->get_position();
+        $lon = $position['lng'];
+        $lat = $position['lat'];
+
+        $ParkController = A('Park');
+        $park_list = $ParkController->getList($lon, $lat);
+        $park_id = 0;
+        foreach ($park_list as $park) {
+            if ($park['remain'] > 0) {
+                $park_id = $park['id'];
+                break;
+            }
+        }
+
+        $user_id = $this->get_user_id();
+
+        $preference = rand(1, 5);
+
+        $position = $this->get_position();
+        $current_lon = $position['lng'];
+        $current_lat = $position['lat'];
+
+        $DemandController = A('Demand');
+        $result = $DemandController->add($lon, $lat, $park_id, $user_id, $preference, $current_lon, $current_lat);
+        echo ($result?$park_id:'失败').','.date('Y-m-d H:i:s');
     }
     
     /**
@@ -58,4 +83,42 @@ class FakeController extends Controller {
     	
     }
     
+
+    /**
+     * 模拟用户充值
+     */
+    public function recharge()
+    {
+        $user_id = $this->get_user_id();
+        $money = rand(1, 100);
+        $type = rand(1, 3);
+        $RechargerecordController = A('Rechargerecord');
+        $result = $RechargerecordController->add($user_id, $money, $type);
+        echo $result ? '1,充值成功,' : '0,充值失败,';
+        echo date('Y-m-d H:i:s');
+    }
+
+    /**
+     * 随机获取一个用户id
+     * @return mixed 用户id
+     */
+    private function get_user_id()
+    {
+        $UserController = A('User');
+        $user_list = $UserController->get_list(1);
+        $rand = rand(0, count($user_list)-1);
+        $user=$user_list[$rand];
+        if($user['Car']==null){
+            $flag=true;
+            while($flag){
+                $car_no='鲁B'.rand(10000,99999);
+                $type=rand(1,2);
+                $CarController=A('Car');
+                $result=$CarController->add_car_in_usrcar($user['id'],$type,$car_no);
+                $flag=$result==0?false:true;
+            }
+        }
+        $user_id = $user_list[$rand]['id'];
+        return $user_id;
+    }
 }

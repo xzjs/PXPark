@@ -26,7 +26,7 @@ class BaseController extends Controller
     {
         $url='http://api.map.baidu.com/place/v2/search?ak='.$this->_ak.'&output=json&query=' . urlencode($query) . "&page_size=20&page_num=0&scope=1&region=" . urlencode($region);
         $result=json_decode(file_get_contents($url),true);
-        $rand=rand(0,20);
+        $rand=rand(0,19);
         $position= $result['results'][$rand]['location'];
         //var_dump($position);
         return $position;
@@ -44,5 +44,4 @@ class BaseController extends Controller
         $businesses=explode(',',$result['result']['business']);
         return $businesses[0]==''?'未知商圈':$businesses[0];
     }
-
 }

@@ -12,10 +12,6 @@ use Think\Controller;
  */
 class RechargerecordController extends Controller
 {
-    public function index()
-    {
-    }
-
     /**
      * 添加充值记录
      */
