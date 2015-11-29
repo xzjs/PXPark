@@ -144,21 +144,24 @@ class DemandController extends BaseController
         echo json_encode($preference);
     }
 
-    public function count_demand($lon, $lat)
+    public function count_demand($business)
     {
-        $lon_floor = (floor($lon * 100000)) / 100000;
-        $lon_top = $lon_floor + 0.00001;
-        $lat_floor = (floor($lat * 100000)) / 100000;
-        $lat_top = $lat_floor + 0.00001;
-
-
-        $Demand = M('Demand');
-        $codition['lon'] = array('elt', $lon_top);
-        $codition['lon'] = array('egt', $lon_floor);
-        $codition['lat'] = array('elt', $lat_top);
-        $codition['lat'] = array('egt', $lat_floor);
-        $result = $Demand->where($codition)->field('')->group('preference')->order('count(preference) desc')->select();
-
+    	
+    	$sql="SELECT u.name,d.car_no,d.lon,d.lat,d.current_lon,d.current_lat FROM px_user AS u,px_demand AS d 
+    			WHERE d.is_success IS NULL AND u.id=d.user_id AND d.business='".$business."'";
+    	$result=M()->query($sql);
+    	var_dump($result);
+        $json['num']=count($result);
+        for($i=0;$i<count($result);$i++){
+        	$json['data'][$i]['user_name']=$result[$i]['name'];
+        	$json['data'][$i]['type']='本田';
+        	$json['data'][$i]['car_no']=$result[$i]['car_no'];
+        	$json['data'][$i]['current']['lon']=$result[$i]['current_lon'];
+        	$json['data'][$i]['current']['lat']=$result[$i]['current_lat'];
+        	$json['data'][$i]['destination']['lon']=$result[$i]['lon'];
+        	$json['data'][$i]['destination']['lat']=$result[$i]['lat'];
+        }
+        echo json_encode($json);
     }
 
 }
