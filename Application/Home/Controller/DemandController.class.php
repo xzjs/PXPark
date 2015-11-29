@@ -130,19 +130,21 @@ class DemandController extends BaseController
      */
     public function update($car_no, $berth_no)
     {
-        $sql = "select park_id from px_demand where car_no=" . $car_no;
         $condition['car_no'] = $car_no;
-        $condition['is_success'] = array('neq', 1);
-        $result_plan = M('Demand')->field('park_id,time')->where($condition)->order('time desc')->find();
+        $condition['is_success'] = array('exp', 'is null');
+        $Demand=D('Demand');
+        $result_plan =$Demand->field('id,park_id,time')->where($condition)->order('time desc')->find();
         $condition1['no'] = $berth_no;
-        $result_real = M('Berth')->field('park_id')->where($condition1)->find();
+        $result_real = M('Berth')->field('id,park_id')->where($condition1)->find();
         if ($result_plan['park_id'] == $result_real['park_id']) {
             $condition2['park_id'] = $result_plan['park_id'];
             $condition2['time'] = $result_plan['time'];
             $data['is_success'] = 1;
-            M('Demand')->where($condition2)->save($data);
+            $result=M('Demand')->where($condition2)->save($data);
+            echo "停车成功！ demand-id为".$result_plan['id'];
             return true;
         } else {
+        	echo "停车失败！ 实际停车场是".$result_real['park_id'].","."规划停车场是".$result_plan['park_id'];
             return false;
         }
     }
@@ -167,21 +169,24 @@ class DemandController extends BaseController
         echo json_encode($preference);
     }
 
-    public function count_demand($lon, $lat)
+    public function count_demand($business)
     {
-        $lon_floor = (floor($lon * 100000)) / 100000;
-        $lon_top = $lon_floor + 0.00001;
-        $lat_floor = (floor($lat * 100000)) / 100000;
-        $lat_top = $lat_floor + 0.00001;
-
-
-        $Demand = M('Demand');
-        $codition['lon'] = array('elt', $lon_top);
-        $codition['lon'] = array('egt', $lon_floor);
-        $codition['lat'] = array('elt', $lat_top);
-        $codition['lat'] = array('egt', $lat_floor);
-        $result = $Demand->where($codition)->field('')->group('preference')->order('count(preference) desc')->select();
-
+    	
+    	$sql="SELECT u.name,d.car_no,d.lon,d.lat,d.current_lon,d.current_lat FROM px_user AS u,px_demand AS d 
+    			WHERE d.is_success IS NULL AND u.id=d.user_id AND d.business='".$business."'";
+    	$result=M()->query($sql);
+    	var_dump($result);
+        $json['num']=count($result);
+        for($i=0;$i<count($result);$i++){
+        	$json['data'][$i]['user_name']=$result[$i]['name'];
+        	$json['data'][$i]['type']='本田';
+        	$json['data'][$i]['car_no']=$result[$i]['car_no'];
+        	$json['data'][$i]['current']['lon']=$result[$i]['current_lon'];
+        	$json['data'][$i]['current']['lat']=$result[$i]['current_lat'];
+        	$json['data'][$i]['destination']['lon']=$result[$i]['lon'];
+        	$json['data'][$i]['destination']['lat']=$result[$i]['lat'];
+        }
+        echo json_encode($json);
     }
 
 }
