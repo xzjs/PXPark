@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="carApp">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@
     <script src="__PUBLIC__/js/animation/modernizr.custom.js"></script>
     <script src="//cdn.bootcss.com/angular.js/1.5.0-beta.1/angular.min.js"></script>
 </head>
-<body>
+<body ng-controller="DemandCtrl">
 
 
 <div id="pt-main" class="pt-perspective">
@@ -33,9 +33,9 @@
         <div class="left-container col-lg-3">
             <section class="left-top">
                 <div class="left-top-text">
-                    <p>当前位置:<span>万达广场</span></p>
+                    <p>当前位置:<span>{{posi.start}}</span></p>
 
-                    <p>目标位置:<span>创业大厦</span></p>
+                    <p>目标位置:<span>{{posi.end}}</span></p>
                 </div>
                 <div id="radar-chart"></div>
             </section>
@@ -141,10 +141,10 @@
         </div>
         <div class="car-container col-lg-6">
             <section class="car-user clearfix">
-                <img src="__PUBLIC__/images/user1.png" alt="车主">
+                <img src="{{u.img}}" alt="车主">
                 <ul>
                     <li>
-                        <p>用户名：<span>JAY</span></p>
+                        <p>用户名：<span>{{u.name}}</span></p>
                     </li>
                     <li>
                         <p>性别：<span>男</span></p>
@@ -321,7 +321,8 @@
                 });
             }
             if (isReady || t > 50) {
-                createRadar(ec);
+                data=[0,0,0,0,0];
+                createRadar(ec,data);
                 createGauge(ec);
                 createPie(ec);
                 clearInterval(timer);
@@ -343,6 +344,72 @@
     map.addControl(new BMap.MapTypeControl()); //添加地图类型控件
     map.setCurrentCity("北京"); // 设置地图显示的城市 此项是必须设置的
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+</script>
+<script>
+    var carApp = angular.module('carApp', []);
+
+    carApp.factory('Data', function () {
+        return {
+            demand: {}
+        }
+    });
+
+    carApp.controller('DemandCtrl', function ($scope, $http) {
+        var config = {
+            params: {
+                'time': 0,
+                'time_type': 1,
+                'type': 2
+            }
+        };
+        $http.get("{:U('Demand/get_list')}", config).then(
+                function successCallback(response) {
+                    var demand_datas = response.data;
+                    var l = Math.floor(demand_datas.length * Math.random());
+                    var demand = demand_datas[l];
+                    console.log(demand);
+                    position(demand);
+                    user(demand);
+                    preference(demand);
+                },
+                function errCallback(response) {
+                    alert('error');
+                }
+        );
+        function position(d) {
+            var p = {};
+            p.start = d.current_business;
+            p.end = d.business;
+            $scope.posi = p;
+        };
+        function user(d) {
+            var u = {};
+            u.name = d.User.nickname;
+            if (d.User.img) {
+                u.img = "__ROOT__/Uploads/UserIcon/" + d.User.img;
+            } else {
+                u.img = "__ROOT__/Uploads/UserIcon/default.jpg";
+            }
+            $scope.u = u;
+        }
+        function preference(d){
+            var config = {
+                params: {
+                    'user_id': d.User.id
+                }
+            };
+            $http.get("{:U('Demand/preference')}", config).then(
+                    function successCallback(response) {
+                        var preference_data = response.data;
+                        createRadar()
+                        console.log(preference_data);
+                    },
+                    function errCallback(response) {
+                        alert('error');
+                    }
+            );
+        }
+    });
 </script>
 </body>
 </html>

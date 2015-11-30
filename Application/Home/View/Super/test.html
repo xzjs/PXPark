@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="carApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="//cdn.bootcss.com/angular.js/1.5.0-beta.1/angular.min.js"></script>
+</head>
+<body ng-controller="DemandCtrl">
+<button ng-click="test1()">click me</button>
+<script>
+    var carApp = angular.module('carApp', []);
+
+    carApp.controller('DemandCtrl', ['$scope', '$http',
+        function ($scope, $http) {
+            var config = {
+                params: {
+                    'time': 0,
+                    'time_type': 1,
+                    'type': 2
+                }
+            };
+            $http.get("{:U('Demand/get_list')}", config).then(
+                    function successCallback(response) {
+                        $scope.demand_datas = response.data;
+                        var l = Math.floor($scope.demand_datas.length * Math.random());
+                        $scope.demand_data = $scope.demand_datas[l];
+                        console.log($scope.demand_data);
+                    },
+                    function errCallback(response) {
+                        alert('error');
+                    }
+            );
+            $scope.$watch($scope.demand_datas, function () {
+                alert('改变了');
+            }, true);
+        }
+    ]);
+</script>
+</body>
+</html>

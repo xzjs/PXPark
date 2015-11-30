@@ -393,6 +393,6 @@ class UserController extends Controller
                 break;
         }
         $UserModel = D('User');
-        return $UserModel->where($condition)->select();
+        return $UserModel->where($condition)->relation(true)->select();
     }
 }
