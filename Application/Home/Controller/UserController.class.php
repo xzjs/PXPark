@@ -24,6 +24,7 @@ class UserController extends Controller
      */
     function web_login()
     {
+    	
         $nickname = I('param.nickname');
         $pwd = I('param.pwd');
 		//echo $nickname;
