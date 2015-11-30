@@ -122,14 +122,13 @@ function createRadar(data) {
     window.onresize = myRadar.resize;
 };
 
-function createGauge() {
+function createGauge(data) {
     var myGauge = echarts.init(document.getElementById("car-bottom-board"));
     myGauge.showLoading({
         text: 'Loading',
         effect: 'whirling',
         textStyle: {
             fontSize: 20,
-
         }
     });
     var gaugeOption = {
@@ -141,8 +140,8 @@ function createGauge() {
                 name: '业务指标',
                 type: 'gauge',
                 radius: [0,'90%'],
-                detail: {formatter: '{value}%'},
-                data: [{value: 10, name: '完成率',}],
+                detail: {formatter: data+'%'},
+                data: [{value: 10, name: '并发量',}],
                 title: {
                     show: true,
                     offsetCenter: [0, '-30%'],       // x, y，单位px
