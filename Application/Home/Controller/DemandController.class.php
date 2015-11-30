@@ -186,10 +186,8 @@ class DemandController extends BaseController
         	$json['data'][$i]['user_name']=$result[$i]['name'];
         	$json['data'][$i]['type']='本田';
         	$json['data'][$i]['car_no']=$result[$i]['car_no'];
-        	$json['data'][$i]['current']['lon']=$result[$i]['current_lon'];
-        	$json['data'][$i]['current']['lat']=$result[$i]['current_lat'];
-        	$json['data'][$i]['destination']['lon']=$result[$i]['lon'];
-        	$json['data'][$i]['destination']['lat']=$result[$i]['lat'];
+        	$json['data'][$i]['current']=$this->get_business($result[$i]['current_lon'],$result[$i]['current_lat']);
+        	$json['data'][$i]['destination']=$this->get_business($result[$i]['lon'],$result[$i]['lat']);
         }
         echo json_encode($json);
     }
