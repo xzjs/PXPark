@@ -1,3 +1,4 @@
+
 function userLogin(){
 	var t = $('input:radio[name="loginType"]:checked').val(); 
 	var name=document.getElementById("name").value;
@@ -7,11 +8,12 @@ function userLogin(){
 	else type=2;
 	//alert(type);
 	$.ajax({
-	    url:"../Index/login",
+	    url:"../User/web_login",
 	    type:"post",
 	    data:{type,name,pswd},
 	    success:function(data){
-	    if(data>0)
+	    	alert("f");
+	    /*if(data>0)
 	      {
 	    	if(t=='luce'){//路侧用户登录
 	    		window.location.href="/PXPark/index.php/Home/Common/index.html";
@@ -21,7 +23,7 @@ function userLogin(){
 	       }
 	    if(data==-1)alert("用户名未注册");
 	    if(data==-2)alert("密码错误");
-	           
+	           */
 	    }
 	    });
 	/*if(type=='luce'){//路侧用户登录

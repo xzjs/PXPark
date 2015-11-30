@@ -26,8 +26,8 @@ class UserController extends Controller
     {
         $nickname = I('param.nickname');
         $pwd = I('param.pwd');
-
-        $condition['nickname'] = $nickname;
+		//echo $nickname;
+       $condition['nickname'] = $nickname;
         //$condition['type'] = $type;
         $User = D('User');
         $data = $User->where($condition)->find();
@@ -52,7 +52,7 @@ class UserController extends Controller
             }
         } else {
             $this->error('用户名未注册');
-        }
+        } 
     }
 
     /**
