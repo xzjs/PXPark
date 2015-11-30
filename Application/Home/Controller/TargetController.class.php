@@ -20,7 +20,7 @@ class TargetController extends Controller
     	if($Target->create($target)){
     		$result = $Target->save();
     		if($result) {
-    			$this->success('数据添加成功！');
+    			return true;
     		}else{
     			$this->error('数据添加错误！');
     		}
@@ -32,7 +32,7 @@ class TargetController extends Controller
     	if($Target->create($target)){
     		$result = $Target->add();
     		if($result) {
-    			$this->success('数据添加成功！');
+    			return true;
     		}else{
     			$this->error('数据添加错误！');
     		}

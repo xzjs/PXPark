@@ -731,29 +731,75 @@ class ParkrecordController extends Controller
 	public function leave($car_no, $berth_no, $money) {
 		$Model = new Model ();
 		$now = time ();
+		var_dump($car_no);
 		
-		$sql_id = "select px_parkrecord.berth_id,px_parkrecord.id,px_parkrecord.park_id,px_user.id as user_id,max(px_parkrecord.start_time) from px_parkrecord,px_car,px_berth,px_user,px_user_car where px_car.no='" . $car_no . "' and px_car.id=px_parkrecord.car_id and px_parkrecord.berth_id=px_berth.id and px_parkrecord.start_time is not null 
+		$sql_id="select r.berth_id,r.id,r.park_id,u.id,";
+		
+		$sql_id = "select px_parkrecord.berth_id,px_parkrecord.id,px_parkrecord.park_id,px_user.id as user_id,max(px_parkrecord.start_time) 
+				from px_parkrecord,px_car,px_berth,px_user,px_user_car where px_car.no='" . $car_no . "' and px_car.id=px_parkrecord.car_id 
+				and px_parkrecord.berth_id=px_berth.id and px_parkrecord.start_time is not null 
     			and px_parkrecord.end_time is null and px_car.id=px_user_car.car_id and px_user_car.user_id=px_user.id";
-		 $id = $Model->query ( $sql_id );
-		if ($id [0] ['id']) {
+		$id = $Model->query ( $sql_id );
+		var_dump($id);
+		/* if ($id [0] ['id']) {
 			$sql_update = "update px_parkrecord set end_time=" . $now . " where id=" . $id [0] ['id'];
-			$result1 = $Model->execute ( $sql_update );
+			$result1 = $Model->execute ( $sql_update );//设置驶出时间
+			
 			$park_id=$id[0]['park_id'];
-			$result2=M('Park')->where('id='.$park_id)->setInc('remain_num',1);
+			$result2=M('Park')->where('id='.$park_id)->setInc('remain_num',1);//剩余车位增加一个
+			
 			$berth_id=$id[0]['berth_id'];
 			$sql_berth="update px_berth set is_null=0 where id=".$berth_id;
-			$result3 = $Model->execute ( $sql_berth);
-			$result4=M('Park')->where('id='.$park_id)->field('total_num,remain_num')->find();
-			$num=($result4['total_num']-$result4['remain_num'])/$result4[total_num];
+			$result3 = $Model->execute ( $sql_berth);//车位无车
 			
+			$result4=M('Park')->where('id='.$park_id)->field('total_num,remain_num')->find();
+			$num=($result4['total_num']-$result4['remain_num'])/$result4['total_num'];//计算车位使用率
 			$Target=A('Target');
 			$Target->add($park_id,$num);
+			
 			$User=A('User');
-			$User->cost($id[0]['user_id'],$money);
-    	} 
+			$User->cost($id[0]['user_id'],$money);//扣除相应余额
+    	}  */
+    }
+    
+    /**
+     * 车辆驶入停车场
+     * @param unknown $park_id 停车场id
+     * @param unknown $car_id 车辆id
+     * @param unknown $type 车辆类型
+     * @param unknown $berth_id 车位Id
+     */
+    public function add($park_id, $car_id,$type,$berth_id){
+    	
+    	$Parkrecord=D('Parkrecord');
+    	$parkrecord=array("park_id"=>$park_id,"car_id"=>$car_id,"type"=>$type,"berth_id"=>$berth_id);
+		if (!$Parkrecord->create($parkrecord)){
+			exit($Parkrecord->getError());
+		}else{
+			$result=$Parkrecord->add();
+		}
+    	
+    	$data['id']=$berth_id;
+    	$data ['is_null'] = 1;
+    	M ( 'Berth' )->data($data)->save ();//车位有车
+    	
+    	$condition_target ['id'] = $park_id;
+    	$result2 = M ( 'Park' )->where ( $condition_target )->setDec ( 'remain_num', 1 );//剩余车位减少一个
+    	
+    	$result4 = M ( 'Park' )->where ( $condition_target )->field ( 'total_num,remain_num' )->find ();
+    	$num = ($result4 ['total_num'] - $result4 ['remain_num']) / $result4 ['total_num'];//计算车位使用率
+    	$Target = A ( 'Target' );
+    	$Target->add ( $park_id, $num );
+    	
     }
     
 
+    /**
+     * 根据起始时间得到一个连续的日期列表
+     * @param unknown $start
+     * @param unknown $end
+     * @return multitype:
+     */
     private function prDates($start, $end)
     {
         $date = array();
@@ -766,6 +812,11 @@ class ParkrecordController extends Controller
         return $date;
     }
 
+    /**
+     * 根据时间戳得到时间长度
+     * @param unknown $the_time
+     * @return unknown|string
+     */
     private function time_tran($the_time)
     {
 

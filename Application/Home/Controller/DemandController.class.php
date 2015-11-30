@@ -22,7 +22,6 @@ class DemandController extends BaseController
      */
     public function get_list()
     {
-        //echo C('IP');
         $time = I('param.time', 0);
         $type = I('param.type');
         if ($time == 0) {
@@ -37,7 +36,6 @@ class DemandController extends BaseController
                     $condition = "time>UNIX_TIMESTAMP(NOW())-$time*3600 and is_success=1";
                 }
             }
-        //echo "select lon ,lat from px_demand where $condition";
         $result = M()->query("select lon ,lat from px_demand where $condition");
         $arr = array();
         for ($i = 0; $i < count($result); $i++) {
@@ -112,13 +110,15 @@ class DemandController extends BaseController
         $condition1['no'] = $berth_no;
         $result_real = M('Berth')->field('id,park_id')->where($condition1)->find();
         if ($result_plan['park_id'] == $result_real['park_id']) {
-            $condition2['park_id'] = $result_plan['park_id'];
-            $condition2['time'] = $result_plan['time'];
+            $condition2['id'] = $result_plan['id'];
             $data['is_success'] = 1;
             $result=M('Demand')->where($condition2)->save($data);
             echo "停车成功！ demand-id为".$result_plan['id'];
             return true;
         } else {
+        	$condition2['id'] = $result_plan['id'];
+        	$data['is_success'] = 0;
+        	$result=M('Demand')->where($condition2)->save($data);
         	echo "停车失败！ 实际停车场是".$result_real['park_id'].","."规划停车场是".$result_plan['park_id'];
             return false;
         }
@@ -150,16 +150,13 @@ class DemandController extends BaseController
     	$sql="SELECT u.name,d.car_no,d.lon,d.lat,d.current_lon,d.current_lat FROM px_user AS u,px_demand AS d 
     			WHERE d.is_success IS NULL AND u.id=d.user_id AND d.business='".$business."'";
     	$result=M()->query($sql);
-    	var_dump($result);
         $json['num']=count($result);
         for($i=0;$i<count($result);$i++){
         	$json['data'][$i]['user_name']=$result[$i]['name'];
         	$json['data'][$i]['type']='本田';
         	$json['data'][$i]['car_no']=$result[$i]['car_no'];
-        	$json['data'][$i]['current']['lon']=$result[$i]['current_lon'];
-        	$json['data'][$i]['current']['lat']=$result[$i]['current_lat'];
-        	$json['data'][$i]['destination']['lon']=$result[$i]['lon'];
-        	$json['data'][$i]['destination']['lat']=$result[$i]['lat'];
+        	$json['data'][$i]['current']=$this->get_business($result[$i]['current_lon'],$result[$i]['current_lat']);
+        	$json['data'][$i]['destination']=$this->get_business($result[$i]['lon'],$result[$i]['lat']);
         }
         echo json_encode($json);
     }
