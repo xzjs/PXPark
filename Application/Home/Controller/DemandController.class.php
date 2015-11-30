@@ -23,6 +23,7 @@ class DemandController extends BaseController
      */
     public function get_list($time = 0, $time_type = 0, $type = -1)
     {
+       
         $condition = array();
         if ($time > 0) {
             $time *= -1;
@@ -101,25 +102,25 @@ class DemandController extends BaseController
      * @param $current_lat 当前纬度
      * @return mixed 插入后的id或false
      */
-    public function add($lon, $lat, $park_id, $user_id, $preference, $current_lon, $current_lat)
+    public function add($lon,$lat,$park_id,$user_id,$preference,$current_lon,$current_lat)
     {
-        $UserModel = D('User');
-        $user = $UserModel->relation(true)->find($user_id);
-        $DemandModel = D('Demand');
-        $data = array(
-            'lon' => $lon,
-            'lat' => $lat,
-            'park_id' => $park_id,
-            'car_no' => $user['Car'][0]['no'],
-            'user_id' => $user_id,
-            'preference' => $preference,
-            'current_lon' => $current_lon,
-            'current_lat' => $current_lat,
-            'business' => $this->get_business($lon, $lat)
+        $UserModel=D('User');
+        $user=$UserModel->relation(true)->find($user_id);
+        $DemandModel=D('Demand');
+        $data=array(
+            'lon'=>$lon,
+            'lat'=>$lat,
+            'park_id'=>$park_id,
+            'car_no'=>$user['Car'][0]['no'],
+            'user_id'=>$user_id,
+            'preference'=>$preference,
+            'current_lon'=>$current_lon,
+            'current_lat'=>$current_lat,
+            'business'=>$this->get_business($lon,$lat)
         );
-        if ($DemandModel->create($data)) {
+        if($DemandModel->create($data)){
             return $DemandModel->add();
-        } else {
+        }else{
             throw_exception($DemandModel->getError());
         }
     }

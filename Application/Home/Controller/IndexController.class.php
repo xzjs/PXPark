@@ -10,7 +10,7 @@ class IndexController extends Controller {
     /**
      * 为berth表添加数据
      */
-    /* public function create_data() {
+    public function create_data() {
     	$park=M('Park');
     	$park_id=$park->field('id,total_num,remain_num')->select();
     	$no=0;
@@ -31,7 +31,7 @@ class IndexController extends Controller {
     			
     		}
     	}
-    } */
+    } 
     
 	/**
      * 用户登录
