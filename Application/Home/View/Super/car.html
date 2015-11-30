@@ -283,6 +283,7 @@
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.11.2.min.js"></script>
 <script src="__PUBLIC__/js/index.js"></script>
 <script src="__PUBLIC__/js/myCharts.js"></script>
+<script src="__PUBLIC__/js/echarts/build/dist/echarts-all.js"></script>
 <script src="__PUBLIC__/js/echarts/build/dist/echarts.js"></script>
 <script src="__PUBLIC__/js/echarts-x/build/dist/echarts-x.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/3dCarRoate.min.js"></script>
@@ -291,44 +292,7 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PwRzDnXRpLX9il1fGjQNpDiX"></script>
 
 <script type="text/javascript">
-    require.config({
-        paths: {
-            'echarts': "__PUBLIC__/js/echarts/build/dist",
-            'echarts-x': "__PUBLIC__/js/echarts-x/build/dist"
-        }
-    });
-    require([
-        'echarts',
-        'echarts-x',
-        // ECharts-X 中 map3d 的地图绘制基于 ECharts 中的 map。
-        'echarts/chart/map',
-        'echarts-x/chart/map3d',
-        'echarts/chart/radar',
-        'echarts/chart/gauge',
-        'echarts/chart/pie',
-        'echarts/chart/funnel'
-    ], function (ec) {
-        var t = 0;
-        /*首先加载地球旋转*/
-        createEarth(ec);
-        /*当地球旋转加载完成，开始加载第二页的图表*/
-        var timer = setInterval(function () {
-            t += 1;
-            if (isReady) {
-                $('body').css({
-                    'background': 'url(__PUBLIC__/images/backWhole.png)',
-                    'background-size': '100% !important'
-                });
-            }
-            if (isReady || t > 50) {
-                data=[0,0,0,0,0];
-                createRadar(ec,data);
-                createGauge(ec);
-                createPie(ec);
-                clearInterval(timer);
-            }
-        }, 100)
-    })
+
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -348,40 +312,116 @@
 <script>
     var carApp = angular.module('carApp', []);
 
-    carApp.factory('Data', function () {
+    carApp.factory('Demand_Data', function ($http, $q) {
         return {
-            demand: {}
+            query: function () {
+                var config = {
+                    params: {
+                        'time': 0,
+                        'time_type': 1,
+                        'type': 2
+                    }
+                };
+                var defered = $q.defer();
+                $http.get("{:U('Demand/get_list')}", config).then(
+                        function successCallback(response) {
+                            var demand_datas = response.data;
+                            var l = Math.floor(demand_datas.length * Math.random());
+                            defered.resolve(demand_datas[l]);
+                        },
+                        function errCallback(response) {
+                            defered.reject(response);
+                        }
+                );
+                return defered.promise;
+            }
         }
     });
 
-    carApp.controller('DemandCtrl', function ($scope, $http) {
-        var config = {
-            params: {
-                'time': 0,
-                'time_type': 1,
-                'type': 2
+    carApp.factory('Preference_Data', function ($http, $q) {
+        return {
+            query: function (user_id) {
+                var config = {
+                    params: {
+                        'user_id':user_id
+                    }
+                };
+                var defered = $q.defer();
+                $http.get("{:U('Demand/preference')}", config).then(
+                        function successCallback(response) {
+                            defered.resolve(response.data);
+                        },
+                        function errCallback(response) {
+                            defered.reject(response);
+                        }
+                );
+                return defered.promise;
             }
-        };
-        $http.get("{:U('Demand/get_list')}", config).then(
-                function successCallback(response) {
-                    var demand_datas = response.data;
-                    var l = Math.floor(demand_datas.length * Math.random());
-                    var demand = demand_datas[l];
-                    console.log(demand);
-                    position(demand);
-                    user(demand);
-                    preference(demand);
-                },
-                function errCallback(response) {
-                    alert('error');
+        }
+    })
+
+    carApp.controller('DemandCtrl', function ($scope, Demand_Data,Preference_Data) {
+
+        var promise = Demand_Data.query();
+        promise.then(function(data) {  // 调用承诺API获取数据 .resolve
+            console.log(data);
+            user(data);
+            position(data);
+
+            var promise1=Preference_Data.query(data.user_id);
+            promise1.then(function (data1) {
+                createRadar(data1);
+            }, function (data1) {
+                createRadar([20,20,20,20,20]);
+            })
+        }, function(data) {  // 处理错误 .reject
+            alert('haha');
+        });
+
+        require.config({
+            paths: {
+                'echarts': "__PUBLIC__/js/echarts/build/dist",
+                'echarts-x': "__PUBLIC__/js/echarts-x/build/dist"
+            }
+        });
+        require([
+            'echarts',
+            'echarts-x',
+            // ECharts-X 中 map3d 的地图绘制基于 ECharts 中的 map。
+            'echarts/chart/map',
+            'echarts-x/chart/map3d',
+        ], function (ec) {
+            var t = 0;
+            /*首先加载地球旋转*/
+            createEarth(ec);
+            /*当地球旋转加载完成，开始加载第二页的图表*/
+            var timer = setInterval(function () {
+                t += 1;
+                if (isReady) {
+                    $('body').css({
+                        'background': 'url(__PUBLIC__/images/backWhole.png)',
+                        'background-size': '100% !important'
+                    });
                 }
-        );
+                if (isReady || t > 50) {
+                    var data = [20, 20, 20, 20, 20];
+                    createRadar(data);
+                    createGauge(ec);
+                    createPie(ec);
+                    clearInterval(timer);
+                }
+            }, 100);
+        });
+
+
+
         function position(d) {
             var p = {};
             p.start = d.current_business;
             p.end = d.business;
             $scope.posi = p;
         };
+
         function user(d) {
             var u = {};
             u.name = d.User.nickname;
@@ -392,7 +432,8 @@
             }
             $scope.u = u;
         }
-        function preference(d){
+
+        function preference(d) {
             var config = {
                 params: {
                     'user_id': d.User.id
@@ -409,6 +450,13 @@
                     }
             );
         }
+
+        function _change(newValue, oldValue, scope) {
+            alert('haha');
+            console.log(newValue);
+        };
+
+        //$scope.$watch($scope.demand, _change, true);
     });
 </script>
 </body>
