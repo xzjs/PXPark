@@ -16,7 +16,7 @@ class ParkrecordController extends Controller {
 	 * @param $user_id 用户id
 	 * @return array 结果数组
 	 */
-	public function get_record($user_id=2) {
+	public function get_record($user_id) {
 		$result = M ()->query ( "SELECT prd.start_time as start,prd.end_time as end ,prd.money,pk.name as park_name FROM px_user_car AS uc,px_park AS pk,px_parkrecord AS prd WHERE ( prd.car_id=uc.car_id AND pk.id=prd.park_id AND uc.user_id=$user_id)  ORDER BY prd.start_time desc " );
 		$arry = array ();
 		for($i = 0; $i < count ( $result ); $i ++) {
