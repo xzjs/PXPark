@@ -24,10 +24,11 @@ class UserController extends Controller
      */
     function web_login()
     {
+    	
         $nickname = I('param.nickname');
         $pwd = I('param.pwd');
-
-        $condition['nickname'] = $nickname;
+		//echo $nickname;
+       $condition['nickname'] = $nickname;
         //$condition['type'] = $type;
         $User = D('User');
         $data = $User->where($condition)->find();
@@ -41,10 +42,10 @@ class UserController extends Controller
                 );
                 $this->assign('Info', json_encode($array));
                 if ($data ['type'] == 2 || $data ['type'] == 3) {
-                    $this->redirect("../Home/Common/index.html");
+                    $this->redirect("../index.php/Home/Common/index.html");
                 }
                 if ($data ['type'] == 4) {
-                    $this->redirect("../Home/Super/");
+                    $this->redirect("../index.php/Home/Super/");
                 }
 
             } else {
@@ -52,7 +53,7 @@ class UserController extends Controller
             }
         } else {
             $this->error('用户名未注册');
-        }
+        } 
     }
 
     /**

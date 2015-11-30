@@ -22,32 +22,34 @@ class DemandController extends BaseController
      */
     public function get_list()
     {
-        $time = I('param.time', 0);
-        $type = I('param.type');
-        if ($time == 0) {
-            $condition = "is_success IS NULL";
-        } else
-            if ($type == null || $type == "") { //echo "ff";
-                $condition = "time>UNIX_TIMESTAMP(NOW())-$time*3600";
-            } else {
-                if ($type == 0) {//echo "dd";
-                    $condition = "time>UNIX_TIMESTAMP(NOW())-$time*3600 and is_success=0";
-                } else {
-                    $condition = "time>UNIX_TIMESTAMP(NOW())-$time*3600 and is_success=1";
-                }
-            }
-        $result = M()->query("select lon ,lat from px_demand where $condition");
-        $arr = array();
-        for ($i = 0; $i < count($result); $i++) {
-            $arr[$i] = array(
-                "x" => $result[$i]['lon'],
-                "y" => $result[$i]['lat'],
-            );
+       
+        $condition = array();
+        if ($time > 0) {
+            $time *= -1;
         }
-        $array = array(
-            "data" => $arr,
-        );
-        echo json_encode($array);
+        $time -= 1;
+        $time_str=$time_type==0?' hour':' day';
+        $start_time = strtotime($time.$time_str);
+        $end_time = strtotime('+1'.$time_str,$start_time);
+        $condition['time'] = array('between', "$start_time,$end_time");
+        switch ($type) {
+            case 0:
+            case 1:
+                $condition['is_success'] = $type;
+                break;
+            case 2:
+                $condition['is_success']=array('exp','is null');
+                break;
+            default:
+                break;
+        }
+        $DemandModel=D('Demand');
+        $result=$DemandModel->where($condition)->relation(true)->select();
+        for($i=0;$i<count($result);$i++){
+            $result[$i]['current_business']=$this->get_business($result[$i]['current_lon'],$result[$i]['current_lat']);
+        }
+        echo json_encode($result);
+        
     }
 
     /**
@@ -144,6 +146,10 @@ class DemandController extends BaseController
         echo json_encode($preference);
     }
 
+    /**
+     * 根据商圈获取前往同一商圈的用户
+     * @param $business 商圈名称
+     */
     public function count_demand($business)
     {
     	

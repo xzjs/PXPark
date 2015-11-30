@@ -55,11 +55,11 @@ function createEarth(ec) {
     };
     myChart.setOption(earthOption);
 
-};
+}
 
-function createRadar(ec) {
+function createRadar(data) {
     // 左上角雷达图
-    var myRadar = ec.init(document.getElementById('radar-chart'));
+    var myRadar = echarts.init(document.getElementById('radar-chart'));
     myRadar.showLoading({
         text: 'Loading',
         effect: 'whirling',
@@ -106,12 +106,8 @@ function createRadar(ec) {
                 },
                 data: [
                     {
-                        value: [97, 42, 88, 94, 90, 86],
+                        value: data,
                         name: '舍普琴科'
-                    },
-                    {
-                        value: [97, 32, 74, 95, 88, 92],
-                        name: '罗纳尔多'
                     }
                 ]
             }
@@ -126,14 +122,13 @@ function createRadar(ec) {
     window.onresize = myRadar.resize;
 };
 
-function createGauge(ec) {
-    var myGauge = ec.init(document.getElementById("car-bottom-board"));
+function createGauge(data) {
+    var myGauge = echarts.init(document.getElementById("car-bottom-board"));
     myGauge.showLoading({
         text: 'Loading',
         effect: 'whirling',
         textStyle: {
             fontSize: 20,
-
         }
     });
     var gaugeOption = {
@@ -145,8 +140,8 @@ function createGauge(ec) {
                 name: '业务指标',
                 type: 'gauge',
                 radius: [0,'90%'],
-                detail: {formatter: '{value}%'},
-                data: [{value: 10, name: '完成率',}],
+                detail: {formatter: data+'%'},
+                data: [{value: 10, name: '并发量',}],
                 title: {
                     show: true,
                     offsetCenter: [0, '-30%'],       // x, y，单位px
@@ -167,9 +162,9 @@ function createGauge(ec) {
     window.onresize = myGauge.resize;
 };
 
-function createPie(ec) {
-    var myPie1 = ec.init(document.getElementById("car-charts1"));
-    var myPie2 = ec.init(document.getElementById("car-charts2"));
+function createPie() {
+    var myPie1 = echarts.init(document.getElementById("car-charts1"));
+    var myPie2 = echarts.init(document.getElementById("car-charts2"));
 
     var myColor = ['#10C460', '#DE4949', '#CEC51A', '#16A2EF'];
 

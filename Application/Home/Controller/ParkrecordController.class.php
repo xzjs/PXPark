@@ -11,7 +11,18 @@ class ParkrecordController extends Controller
     {
         $this->show('hello world', 'utf-8');
     }
-
+    /**
+     * 获取停车记录
+     * @param $user_id 用户id
+     * @return array 结果数组
+     */
+    public function get_record($user_id)
+    {
+    	 $list = M()->query("SELECT prd.start_time as start,prd.end_time as end ,prd.money,pk.name as park_name FROM px_user_car AS uc,px_park AS pk,px_parkrecord AS prd WHERE ( prd.car_id=uc.car_id AND pk.id=prd.park_id AND uc.user_id=$user_id)  ORDER BY prd.start_time desc ");
+    	 $arry=array();
+       	return  json_encode($list);
+    
+    }
     /**
      * 统计一定时间内车流量(当停车场id为0时，查询该用户的所有停车场的数据，不为0时查询指定的停车场的数据。)
      * para i
@@ -684,7 +695,7 @@ class ParkrecordController extends Controller
         echo json_encode($json_array);
 
     }
-
+   
     /**
      * 获取停车记录
      * @param $user_id 用户id
