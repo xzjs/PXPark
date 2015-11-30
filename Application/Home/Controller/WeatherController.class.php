@@ -28,9 +28,13 @@ class WeatherController extends Controller
     		$img_url=$result[0]->weather_data[0]->nightPictureUrl;
     	}
     	$temperature=str_replace(' ', '', $result[0]->weather_data[0]->temperature);
+    	$wind=$result[0]->weather_data[0]->wind;
+    	
     	$weath=$result[0]->weather_data[0]->weather;
+    	
     	$html_str="<img src=".$img_url." width='24' height='24'>
 						<div>".$weath."</div>
+						<div>".$wind."</div>
 						<div>".$temperature."</div>";
     	echo $html_str;
     	
