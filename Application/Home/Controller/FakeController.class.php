@@ -133,9 +133,10 @@ class FakeController extends BaseController {
 	 */
 	private function get_user_id() {
 		$UserController = A ( 'User' );
-		$user_list = $UserController->get_list ( 1 );
+		/* $user_list = $UserController->get_list ( 1 );
 		$rand = rand ( 0, count ( $user_list ) - 1 );
-		$user = $user_list [$rand];
+		$user = $user_list [$rand]; */
+		$user = $UserController->get_list ( 1 );
 		if ($user ['Car'] == null) {
 			$flag = true;
 			while ( $flag ) {

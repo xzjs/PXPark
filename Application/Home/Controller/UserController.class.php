@@ -9,6 +9,7 @@
 namespace Home\Controller;
 
 use Think\Controller;
+use Org\MyClass\RandName;
 
 /**
  * 用户控制器
@@ -376,13 +377,27 @@ class UserController extends Controller
     }
 
     /**
-     * 获取用户列表
+     * 随机生成一个用户
      * @param int $type 用户类别
      * @return mixed 返回的用户的数组
      */
     public function get_list($type = 0)
     {
-        $condition = array();
+    	$name=new RandName(); 
+    	$name->RandName();
+    	$user_name=$name->getName(2);
+    	$nick_name=$name->getNickname();
+    	$phone="1".rand(0,9999999999);
+    	$user=array("phone"=>$phone,"nickname"=>$nick_name,"name"=>$user_name,"member_id"=>rand(1,3),"my_money"=>rand(0,200),
+    			"pwd"=>$pwd = rand(100000,999999),"car_no"=>rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).
+    			rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9),"type"=>1);
+    	$User=D('User');
+    	if($User->create($user)){
+    		$id=$User->add();
+    	}
+    	$user['id']=$id;
+		return $user;
+        /* $condition = array();
         switch ($type) {
             case 1:
             case 2:
@@ -394,6 +409,9 @@ class UserController extends Controller
                 break;
         }
         $UserModel = D('User');
-        return $UserModel->where($condition)->relation(true)->select();
+        return $UserModel->where($condition)->relation(true)->select(); */
     }
+    
+    
+    
 }
