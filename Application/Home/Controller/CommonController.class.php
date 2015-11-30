@@ -315,7 +315,7 @@ class CommonController extends Controller{
 	 */
 	public function get_weather() {
 		$Weather=A('Weather');
-		$html_str=$Weather->search(I('param.city_code'));
+		$html_str=$Weather->get_weather(I('param.city_code'));
 		echo $html_str;
 	}
 	
