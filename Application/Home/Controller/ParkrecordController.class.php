@@ -16,17 +16,17 @@ class ParkrecordController extends Controller {
 	 * @param $user_id 用户id
 	 * @return array 结果数组
 	 */
-	public function get_record($user_id) {
+	public function get_record($user_id=2) {
 		$result = M ()->query ( "SELECT prd.start_time as start,prd.end_time as end ,prd.money,pk.name as park_name FROM px_user_car AS uc,px_park AS pk,px_parkrecord AS prd WHERE ( prd.car_id=uc.car_id AND pk.id=prd.park_id AND uc.user_id=$user_id)  ORDER BY prd.start_time desc " );
 		$arry = array ();
 		for($i = 0; $i < count ( $result ); $i ++) {
 			// $remain=$result[$i]['total_num']-$result[$i]['remain_num'];
 				
 			$arry [$i] = array (
-					'start' => date ( 'Y.m.d H:i:s', $result [$i] ['start'] ),
-					'end' => date ( 'Y.m.d H:i:s', $result [$i] ['end'] ),
-					'money' => $result [$i] ['money'],
-					'park_name' => $result [$i] ['park_name']
+					 'start' =>$result [$i] ['start']==''? '':date ( 'Y.m.d H:i:s', $result [$i] ['start'] ),
+					'end' => $result [$i] ['end']==''?'':date ( 'Y.m.d H:i:s', $result [$i] ['end']),
+					 'money' => $result [$i]['money'],
+					'park_name' => $result [$i]['park_name'],  
 			);
 		}
 	
