@@ -40,56 +40,11 @@
                 <div id="radar-chart"></div>
             </section>
             <section class="left-mid">
-                <ul>
+                <ul ng-repeat="park_record in park_records">
                     <li>
-                        <p>2015.11.20 20:50~21:50</p>
+                        <p>{{park_record.start}}~{{park_record.end}}</p>
 
-                        <p>万达广场停车场 消费1元</p>
-                    </li>
-                    <li>
-                        <p>2015.11.20 20:50~21:50</p>
-
-                        <p>万达广场停车场 消费1元</p>
-                    </li>
-                    <li>
-                        <p>2015.11.20 20:50~21:50</p>
-
-                        <p>万达广场停车场 消费1元</p>
-                    </li>
-                    <li>
-                        <p>2015.11.20 20:50~21:50</p>
-
-                        <p>万达广场停车场 消费1元</p>
-                    </li>
-                    <li>
-                        <p>2015.11.20 20:50~21:50</p>
-
-                        <p>万达广场停车场 消费1元</p>
-                    </li>
-                    <li>
-                        <p>2015.11.20 20:50~21:50</p>
-
-                        <p>万达广场停车场 消费1元</p>
-                    </li>
-                    <li>
-                        <p>2015.11.20 20:50~21:50</p>
-
-                        <p>万达广场停车场 消费1元</p>
-                    </li>
-                    <li>
-                        <p>2015.11.20 20:50~21:50</p>
-
-                        <p>万达广场停车场 消费1元</p>
-                    </li>
-                    <li>
-                        <p>2015.11.20 20:50~21:50</p>
-
-                        <p>万达广场停车场 消费1元</p>
-                    </li>
-                    <li>
-                        <p>2015.11.20 20:50~21:50</p>
-
-                        <p>万达广场停车场 消费1元</p>
+                        <p>{{park_record.park_name}} 消费{{park_record.money}}元</p>
                     </li>
                 </ul>
             </section>
@@ -109,12 +64,12 @@
                             正午，大雾天气有所缓解，目前青银高速、青新高速、沈海高速青岛段已经解除管制，正常开通。胶州湾高速、龙青高速仍然封闭
                         </li>
                         <li>
-                           鲁UT4485利群出租公司的姜师傅三年每周三次早晨7:20准时接送一位老人去医院做透析，默默无闻的付出，
-                           并且不收取车费， 真是凡人善举，风雨无阻，春夏秋冬！这个冬天里，这是我们听到的最温暖的心声！感动，
-                           祝福姜师傅，好人一生平安！
+                            鲁UT4485利群出租公司的姜师傅三年每周三次早晨7:20准时接送一位老人去医院做透析，默默无闻的付出，
+                            并且不收取车费， 真是凡人善举，风雨无阻，春夏秋冬！这个冬天里，这是我们听到的最温暖的心声！感动，
+                            祝福姜师傅，好人一生平安！
                         </li>
                         <li>
-           30日，首批10辆纯电动公交车开始在交运集团“温馨巴士”31路公交线上投入运行。根据计划，
+                            30日，首批10辆纯电动公交车开始在交运集团“温馨巴士”31路公交线上投入运行。根据计划，
                             该线路公交车将在今年一季度陆续更新，也成为交运集团在市区的首条纯电动公交线。
                         </li>
                         <li>
@@ -122,10 +77,10 @@
                             要小心使用才能保护好自己的爱车。蜀黍整理了一些冬季汽车保养常识，希望对大家有所帮助
                         </li>
                         <li>
-                                最新消息：胶州湾高速、龙青高速全线开通
+                            最新消息：胶州湾高速、龙青高速全线开通
                         </li>
                         <li>
-                                  正午，大雾天气有所缓解，目前青银高速、青新高速、沈海高速青岛段已经解除管制，正常开通。胶州湾高速、龙青高速仍然封闭
+                            正午，大雾天气有所缓解，目前青银高速、青新高速、沈海高速青岛段已经解除管制，正常开通。胶州湾高速、龙青高速仍然封闭
                         </li>
                     </ul>
                 </div>
@@ -211,7 +166,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -225,9 +180,9 @@
                                 $time[$j] = $ti[$j] . ":00";
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -244,7 +199,7 @@
                                 $total[$num] = $total[$num] + 1;
                                 }
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -262,7 +217,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -279,7 +234,7 @@
                                 $total[$num] = $total[$num] + 1;
 
                                 }
-                                //	echo "".$cut_time;
+                                // echo "".$cut_time;
                                 //print_r($business);
 
                                 $array = array(
@@ -306,7 +261,7 @@
 
                                 $time[$i] = date("d", $s);
                                 $s = $s + 86400;
-                                //	echo "i".$time[$i]."<br>";
+                                // echo "i".$time[$i]."<br>";
                                 $i++;
                                 $num++;
                                 //echo "nuddd".$num."<br>";
@@ -331,7 +286,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -346,7 +301,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -361,7 +316,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私人车厂(3)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -376,7 +331,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -406,7 +361,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -420,9 +375,9 @@
                                 $time[$j] = $ti[$j];
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -445,7 +400,7 @@
 
 
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -467,7 +422,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -540,7 +495,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -556,7 +511,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -573,7 +528,7 @@
                                 }
 
                                 $resut_ptime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -588,7 +543,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -638,7 +593,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -652,9 +607,9 @@
                                 $time[$j] = $ti[$j] . ":00";
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -671,7 +626,7 @@
                                 $total[$num] = $total[$num] + 1;
                                 }
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -689,7 +644,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -706,7 +661,7 @@
                                 $total[$num] = $total[$num] + 1;
 
                                 }
-                                //	echo "".$cut_time;
+                                // echo "".$cut_time;
                                 //print_r($business);
 
                                 $array = array(
@@ -733,7 +688,7 @@
 
                                 $time[$i] = date("d", $s);
                                 $s = $s + 86400;
-                                //	echo "i".$time[$i]."<br>";
+                                // echo "i".$time[$i]."<br>";
                                 $i++;
                                 $num++;
                                 //echo "nuddd".$num."<br>";
@@ -758,7 +713,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -773,7 +728,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -788,7 +743,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私人车厂(3)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -803,7 +758,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -833,7 +788,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -847,9 +802,9 @@
                                 $time[$j] = $ti[$j];
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -872,7 +827,7 @@
 
 
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -894,7 +849,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -967,7 +922,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -983,7 +938,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -1000,7 +955,7 @@
                                 }
 
                                 $resut_ptime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -1015,7 +970,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -1065,7 +1020,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -1079,9 +1034,9 @@
                                 $time[$j] = $ti[$j] . ":00";
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -1098,7 +1053,7 @@
                                 $total[$num] = $total[$num] + 1;
                                 }
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -1116,7 +1071,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -1133,7 +1088,7 @@
                                 $total[$num] = $total[$num] + 1;
 
                                 }
-                                //	echo "".$cut_time;
+                                // echo "".$cut_time;
                                 //print_r($business);
 
                                 $array = array(
@@ -1160,7 +1115,7 @@
 
                                 $time[$i] = date("d", $s);
                                 $s = $s + 86400;
-                                //	echo "i".$time[$i]."<br>";
+                                // echo "i".$time[$i]."<br>";
                                 $i++;
                                 $num++;
                                 //echo "nuddd".$num."<br>";
@@ -1185,7 +1140,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -1200,7 +1155,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -1215,7 +1170,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私人车厂(3)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -1230,7 +1185,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -1260,7 +1215,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -1274,9 +1229,9 @@
                                 $time[$j] = $ti[$j];
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -1299,7 +1254,7 @@
 
 
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -1321,7 +1276,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -1394,7 +1349,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -1410,7 +1365,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -1427,7 +1382,7 @@
                                 }
 
                                 $resut_ptime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -1442,7 +1397,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -1492,7 +1447,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -1506,9 +1461,9 @@
                                 $time[$j] = $ti[$j] . ":00";
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -1525,7 +1480,7 @@
                                 $total[$num] = $total[$num] + 1;
                                 }
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -1543,7 +1498,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -1560,7 +1515,7 @@
                                 $total[$num] = $total[$num] + 1;
 
                                 }
-                                //	echo "".$cut_time;
+                                // echo "".$cut_time;
                                 //print_r($business);
 
                                 $array = array(
@@ -1587,7 +1542,7 @@
 
                                 $time[$i] = date("d", $s);
                                 $s = $s + 86400;
-                                //	echo "i".$time[$i]."<br>";
+                                // echo "i".$time[$i]."<br>";
                                 $i++;
                                 $num++;
                                 //echo "nuddd".$num."<br>";
@@ -1612,7 +1567,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -1627,7 +1582,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -1642,7 +1597,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私人车厂(3)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -1657,7 +1612,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -1687,7 +1642,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -1701,9 +1656,9 @@
                                 $time[$j] = $ti[$j];
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -1726,7 +1681,7 @@
 
 
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -1748,7 +1703,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -1821,7 +1776,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -1837,7 +1792,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -1854,7 +1809,7 @@
                                 }
 
                                 $resut_ptime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -1869,7 +1824,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -1919,7 +1874,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -1933,9 +1888,9 @@
                                 $time[$j] = $ti[$j] . ":00";
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -1952,7 +1907,7 @@
                                 $total[$num] = $total[$num] + 1;
                                 }
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -1970,7 +1925,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -1987,7 +1942,7 @@
                                 $total[$num] = $total[$num] + 1;
 
                                 }
-                                //	echo "".$cut_time;
+                                // echo "".$cut_time;
                                 //print_r($business);
 
                                 $array = array(
@@ -2014,7 +1969,7 @@
 
                                 $time[$i] = date("d", $s);
                                 $s = $s + 86400;
-                                //	echo "i".$time[$i]."<br>";
+                                // echo "i".$time[$i]."<br>";
                                 $i++;
                                 $num++;
                                 //echo "nuddd".$num."<br>";
@@ -2039,7 +1994,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2054,7 +2009,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2069,7 +2024,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私人车厂(3)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2084,7 +2039,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -2114,7 +2069,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -2128,9 +2083,9 @@
                                 $time[$j] = $ti[$j];
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -2153,7 +2108,7 @@
 
 
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -2175,7 +2130,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -2248,7 +2203,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2264,7 +2219,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2281,7 +2236,7 @@
                                 }
 
                                 $resut_ptime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2296,7 +2251,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -2346,7 +2301,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -2360,9 +2315,9 @@
                                 $time[$j] = $ti[$j] . ":00";
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -2379,7 +2334,7 @@
                                 $total[$num] = $total[$num] + 1;
                                 }
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -2397,7 +2352,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -2414,7 +2369,7 @@
                                 $total[$num] = $total[$num] + 1;
 
                                 }
-                                //	echo "".$cut_time;
+                                // echo "".$cut_time;
                                 //print_r($business);
 
                                 $array = array(
@@ -2441,7 +2396,7 @@
 
                                 $time[$i] = date("d", $s);
                                 $s = $s + 86400;
-                                //	echo "i".$time[$i]."<br>";
+                                // echo "i".$time[$i]."<br>";
                                 $i++;
                                 $num++;
                                 //echo "nuddd".$num."<br>";
@@ -2466,7 +2421,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2481,7 +2436,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2496,7 +2451,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私人车厂(3)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2511,7 +2466,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -2541,7 +2496,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -2555,9 +2510,9 @@
                                 $time[$j] = $ti[$j];
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -2580,7 +2535,7 @@
 
 
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -2602,7 +2557,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -2675,7 +2630,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2691,7 +2646,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2708,7 +2663,7 @@
                                 }
 
                                 $resut_ptime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2723,7 +2678,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -2773,7 +2728,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -2787,9 +2742,9 @@
                                 $time[$j] = $ti[$j] . ":00";
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -2806,7 +2761,7 @@
                                 $total[$num] = $total[$num] + 1;
                                 }
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -2824,7 +2779,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -2841,7 +2796,7 @@
                                 $total[$num] = $total[$num] + 1;
 
                                 }
-                                //	echo "".$cut_time;
+                                // echo "".$cut_time;
                                 //print_r($business);
 
                                 $array = array(
@@ -2868,7 +2823,7 @@
 
                                 $time[$i] = date("d", $s);
                                 $s = $s + 86400;
-                                //	echo "i".$time[$i]."<br>";
+                                // echo "i".$time[$i]."<br>";
                                 $i++;
                                 $num++;
                                 //echo "nuddd".$num."<br>";
@@ -2893,7 +2848,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2908,7 +2863,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2923,7 +2878,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私人车厂(3)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -2938,7 +2893,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -2968,7 +2923,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -2982,9 +2937,9 @@
                                 $time[$j] = $ti[$j];
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -3007,7 +2962,7 @@
 
 
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -3029,7 +2984,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -3102,7 +3057,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -3118,7 +3073,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -3135,7 +3090,7 @@
                                 }
 
                                 $resut_ptime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -3150,7 +3105,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -3200,7 +3155,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -3214,9 +3169,9 @@
                                 $time[$j] = $ti[$j] . ":00";
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -3233,7 +3188,7 @@
                                 $total[$num] = $total[$num] + 1;
                                 }
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -3251,7 +3206,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -3268,7 +3223,7 @@
                                 $total[$num] = $total[$num] + 1;
 
                                 }
-                                //	echo "".$cut_time;
+                                // echo "".$cut_time;
                                 //print_r($business);
 
                                 $array = array(
@@ -3295,7 +3250,7 @@
 
                                 $time[$i] = date("d", $s);
                                 $s = $s + 86400;
-                                //	echo "i".$time[$i]."<br>";
+                                // echo "i".$time[$i]."<br>";
                                 $i++;
                                 $num++;
                                 //echo "nuddd".$num."<br>";
@@ -3320,7 +3275,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -3335,7 +3290,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -3350,7 +3305,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私人车厂(3)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -3365,7 +3320,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -3395,7 +3350,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -3409,9 +3364,9 @@
                                 $time[$j] = $ti[$j];
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -3434,7 +3389,7 @@
 
 
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -3456,7 +3411,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -3529,7 +3484,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -3545,7 +3500,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -3562,7 +3517,7 @@
                                 }
 
                                 $resut_ptime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -3577,7 +3532,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -3627,7 +3582,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -3641,9 +3596,9 @@
                                 $time[$j] = $ti[$j] . ":00";
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -3660,7 +3615,7 @@
                                 $total[$num] = $total[$num] + 1;
                                 }
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -3678,7 +3633,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -3695,7 +3650,7 @@
                                 $total[$num] = $total[$num] + 1;
 
                                 }
-                                //	echo "".$cut_time;
+                                // echo "".$cut_time;
                                 //print_r($business);
 
                                 $array = array(
@@ -3722,7 +3677,7 @@
 
                                 $time[$i] = date("d", $s);
                                 $s = $s + 86400;
-                                //	echo "i".$time[$i]."<br>";
+                                // echo "i".$time[$i]."<br>";
                                 $i++;
                                 $num++;
                                 //echo "nuddd".$num."<br>";
@@ -3747,7 +3702,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -3762,7 +3717,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -3777,7 +3732,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私人车厂(3)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -3792,7 +3747,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -3822,7 +3777,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -3836,9 +3791,9 @@
                                 $time[$j] = $ti[$j];
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -3861,7 +3816,7 @@
 
 
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -3883,7 +3838,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -3956,7 +3911,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -3972,7 +3927,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -3989,7 +3944,7 @@
                                 }
 
                                 $resut_ptime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -4004,7 +3959,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -4054,7 +4009,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -4068,9 +4023,9 @@
                                 $time[$j] = $ti[$j] . ":00";
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -4087,7 +4042,7 @@
                                 $total[$num] = $total[$num] + 1;
                                 }
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -4105,7 +4060,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 ORDER BY start_time asc ");
@@ -4122,7 +4077,7 @@
                                 $total[$num] = $total[$num] + 1;
 
                                 }
-                                //	echo "".$cut_time;
+                                // echo "".$cut_time;
                                 //print_r($business);
 
                                 $array = array(
@@ -4149,7 +4104,7 @@
 
                                 $time[$i] = date("d", $s);
                                 $s = $s + 86400;
-                                //	echo "i".$time[$i]."<br>";
+                                // echo "i".$time[$i]."<br>";
                                 $i++;
                                 $num++;
                                 //echo "nuddd".$num."<br>";
@@ -4174,7 +4129,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -4189,7 +4144,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -4204,7 +4159,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私人车厂(3)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -4219,7 +4174,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -4249,7 +4204,7 @@
                                 }
                                 $p = 0;
                                 $n = $now_h - 1;
-                                //	$cut_time = $now - $time * 60 * 60;
+                                // $cut_time = $now - $time * 60 * 60;
                                 for ($h = 23; $h >= 0; $h--) {
 
                                 if ($n - $p >= 0)
@@ -4263,9 +4218,9 @@
                                 $time[$j] = $ti[$j];
 
                                 }
-                                //	sort($time);
+                                // sort($time);
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -4288,7 +4243,7 @@
 
 
                                 $resut_stime = M()->query //路测（2）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -4310,7 +4265,7 @@
                                 }
 
                                 $resut_ptime = M()->query //私家车（3）车厂查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>$cut_time
                                 AND px_parkrecord.park_id=$park_id
@@ -4383,7 +4338,7 @@
                                 $as = strtotime($start_time);
                                 $ae = strtotime($end_time) + 86400;
                                 $resut_btime = M()->query //商业车厂(1)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=1
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=1
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -4399,7 +4354,7 @@
                                 }
 
                                 $resut_stime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=2
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=2
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -4416,7 +4371,7 @@
                                 }
 
                                 $resut_ptime = M()->query //路测车厂(2)查询结果
-                                ("SELECT px_parkrecord.start_time  FROM px_parkrecord,px_park WHERE px_park.type=3
+                                ("SELECT px_parkrecord.start_time FROM px_parkrecord,px_park WHERE px_park.type=3
                                 AND px_parkrecord.park_id=px_park.id
                                 AND px_parkrecord.start_time>=$as
                                 AND px_parkrecord.start_time<=$ae
@@ -4431,7 +4386,7 @@
                                 $ns = (int)((strtotime($d) - $dd) / 86400);
                                 $private[$ns] = $private[$ns] + 1;
                                 $total[$ns] = $total[$ns] + 1;
-                                //	echo "dd".$private[$ns];
+                                // echo "dd".$private[$ns];
                                 }
 
                                 $array = array(
@@ -4555,7 +4510,7 @@
             query: function (user_id) {
                 var config = {
                     params: {
-                        'user_id':user_id
+                        'user_id': user_id
                     }
                 };
                 var defered = $q.defer();
@@ -4577,7 +4532,7 @@
             query: function (business) {
                 var config = {
                     params: {
-                        'business':business
+                        'business': business
                     }
                 };
                 var defered = $q.defer();
@@ -4611,38 +4566,68 @@
         }
     });
 
-    carApp.controller('DemandCtrl', function ($scope, Demand_Data,Preference_Data,SameBusiness_Data,Count_Data) {
+    carApp.factory('Parkrecord_Data', function ($http, $q) {
+        return {
+            query: function (user_id) {
+                var config = {
+                    params: {
+                        'user_id': user_id
+                    }
+                };
+                var defered = $q.defer();
+                $http.get("{:U('Parkrecord/get_record')}", config).then(
+                        function successCallback(response) {
+                            defered.resolve(response.data);
+                        },
+                        function errCallback(response) {
+                            defered.reject(response);
+                        }
+                );
+                return defered.promise;
+            }
+        }
+    });
+
+    carApp.controller('DemandCtrl', function ($scope, Demand_Data, Preference_Data, SameBusiness_Data, Count_Data,Parkrecord_Data) {
 
         var promise = Demand_Data.query();
-        promise.then(function(data) {  // 调用承诺API获取数据 .resolve
+        promise.then(function (data) {  // 调用承诺API获取数据 .resolve
             console.log(data);
             user(data);
             position(data);
 
             //获取雷达图数据
-            var promise1=Preference_Data.query(data.user_id);
+            var promise1 = Preference_Data.query(data.user_id);
             promise1.then(function (data1) {
                 createRadar(data1);
             }, function (data1) {
-                createRadar([20,20,20,20,20]);
+                createRadar([20, 20, 20, 20, 20]);
             });
 
             //获取前往同一商圈的数据
-            var promise2=SameBusiness_Data.query(data.business);
+            var promise2 = SameBusiness_Data.query(data.business);
             promise2.then(function (data2) {
-               same(data2);
+                same(data2);
             }, function (data2) {
                 alert(data2);
             });
 
             //获取当前有多少人计算
-            var promise3=Count_Data.query(data.business);
+            var promise3 = Count_Data.query(data.business);
             promise3.then(function (data3) {
                 createGauge(data3);
             }, function (data3) {
                 alert(data3);
             });
-        }, function(data) {  // 处理错误 .reject
+
+            //获取个人停车记录
+            var promise4 = Count_Data.query(data.user_id);
+            promise4.then(function (data4) {
+                park_record(data4);
+            }, function (data4) {
+                alert(data4);
+            });
+        }, function (data) {  // 处理错误 .reject
             alert('haha');
         });
 
@@ -4682,7 +4667,6 @@
         });
 
 
-
         function position(d) {
             var p = {};
             p.start = d.current_business;
@@ -4719,8 +4703,12 @@
             );
         }
 
-        function same(d){
-            $scope.same=d;
+        function same(d) {
+            $scope.same = d;
+        }
+
+        function park_record(d){
+            $scope.park_records=d;
         }
 
         function _change(newValue, oldValue, scope) {
