@@ -11,6 +11,7 @@ class ParkrecordController extends Controller
     {
         $this->show('hello world', 'utf-8');
     }
+
     /**
      * 获取停车记录
      * @param $user_id 用户id
@@ -18,11 +19,11 @@ class ParkrecordController extends Controller
      */
     public function get_record($user_id)
     {
-    	 $list = M()->query("SELECT prd.start_time as start,prd.end_time as end ,prd.money,pk.name as park_name FROM px_user_car AS uc,px_park AS pk,px_parkrecord AS prd WHERE ( prd.car_id=uc.car_id AND pk.id=prd.park_id AND uc.user_id=$user_id)  ORDER BY prd.start_time desc ");
-    	 $arry=array();
-       	return  json_encode($list);
-    
+        $list = M()->query("SELECT prd.start_time as start,prd.end_time as end ,prd.money,pk.name as park_name FROM px_user_car AS uc,px_park AS pk,px_parkrecord AS prd WHERE ( prd.car_id=uc.car_id AND pk.id=prd.park_id AND uc.user_id=$user_id)  ORDER BY prd.start_time desc ");
+        $arry = array();
+        echo json_encode($list);
     }
+
     /**
      * 统计一定时间内车流量(当停车场id为0时，查询该用户的所有停车场的数据，不为0时查询指定的停车场的数据。)
      * para i
@@ -654,7 +655,7 @@ class ParkrecordController extends Controller
         if ((I('param.page', 0) != 0) && (I('param.num', 0) != 0)) {
             $page_info = ' limit ' . $page * ($num - 1) . ',' . $page;
         }
-        $json_array =array("total"=>0,"rows"=>array(),"in_num"=>0,"finish_num"=>0,"money"=>0);//easyUI表格的固定格式
+        $json_array = array("total" => 0, "rows" => array(), "in_num" => 0, "finish_num" => 0, "money" => 0);//easyUI表格的固定格式
         if ($condition != "") {
             $Model = new Model ();
             $time = strtotime("-" . $time . " day");
@@ -662,7 +663,7 @@ class ParkrecordController extends Controller
 					px_parkrecord.end_time-px_parkrecord.start_time as time FROM px_parkrecord,px_car,px_user,px_user_car ' . $condition . '
 					and px_parkrecord.car_id=px_car.id and px_car.id=px_user_car.car_id and px_user_car.user_id=px_user.id ' . $page_info;
             $result = $Model->query($sql);
-			$json_array['rows']=array();
+            $json_array['rows'] = array();
             for ($i = 0; $i < count($result); $i++) {
                 if (($result[$i]['start_time'] >= $in_time) && ($result[$i]['start_time'] >= $in_time))
                     $json_array['in_num']++;
@@ -695,7 +696,7 @@ class ParkrecordController extends Controller
         echo json_encode($json_array);
 
     }
-   
+
     /**
      * 获取停车记录
      * @param $user_id 用户id
@@ -724,15 +725,16 @@ class ParkrecordController extends Controller
      * @param $id_array 车辆id数组
      * @return mixed 停车记录数组
      */
-    public function complete_list($id_array){
-        $Parkrecord=D('Parkrecord');
-        $condition=array(
-            'money'=>array('neq',''),
-            'car_id'=>array('in',$id_array)
+    public function complete_list($id_array)
+    {
+        $Parkrecord = D('Parkrecord');
+        $condition = array(
+            'money' => array('neq', ''),
+            'car_id' => array('in', $id_array)
         );
         return $Parkrecord->where($condition)->order('start_time')->relation(true)->select();
     }
-    
+
     /**
      * 车辆驶离停车场
      * @param unknown $car_no 车牌号

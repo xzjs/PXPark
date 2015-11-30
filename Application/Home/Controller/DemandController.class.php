@@ -17,10 +17,11 @@ class DemandController extends BaseController
 
     /**
      * 获取所有停车需求
-     * time为正数是未来，为负数是过去，为0为当前的,比如-24就是过去24小时的数据，当前时间的就是is_success为空的数据,
-     * 因为没有大数据分析，所以未来24小时的数据就是过去24小时的数据
+     * @param int $time 时间
+     * @param int $time_type 事件类型
+     * @param int $type 数据类别
      */
-    public function get_list()
+    public function get_list($time = 0, $time_type = 0, $type = -1)
     {
        
         $condition = array();
@@ -49,7 +50,32 @@ class DemandController extends BaseController
             $result[$i]['current_business']=$this->get_business($result[$i]['current_lon'],$result[$i]['current_lat']);
         }
         echo json_encode($result);
-        
+        /*$end_time=$start_time+24*$time_type
+        if ($time == 0) {
+            $condition = "is_success IS NULL";
+        } else
+            if ($type == null || $type == "") { //echo "ff";
+                $condition = "time>UNIX_TIMESTAMP(NOW())-$time*3600";
+            } else {
+                if ($type == 0) {//echo "dd";
+                    $condition = "time>UNIX_TIMESTAMP(NOW())-$time*3600 and is_success=0";
+                } else {
+                    $condition = "time>UNIX_TIMESTAMP(NOW())-$time*3600 and is_success=1";
+                }
+            }
+        //echo "select lon ,lat from px_demand where $condition";
+        $result = M()->query("select lon ,lat from px_demand where $condition");
+        $arr = array();
+        /*for ($i = 0; $i < count($result); $i++) {
+            $arr[$i] = array(
+                "x" => $result[$i]['lon'],
+                "y" => $result[$i]['lat'],
+            );
+        }
+        $array = array(
+            "data" => $arr,
+        );
+        echo json_encode($arr);*/
     }
 
     /**
@@ -112,15 +138,13 @@ class DemandController extends BaseController
         $condition1['no'] = $berth_no;
         $result_real = M('Berth')->field('id,park_id')->where($condition1)->find();
         if ($result_plan['park_id'] == $result_real['park_id']) {
-            $condition2['id'] = $result_plan['id'];
+            $condition2['park_id'] = $result_plan['park_id'];
+            $condition2['time'] = $result_plan['time'];
             $data['is_success'] = 1;
             $result=M('Demand')->where($condition2)->save($data);
             echo "停车成功！ demand-id为".$result_plan['id'];
             return true;
         } else {
-        	$condition2['id'] = $result_plan['id'];
-        	$data['is_success'] = 0;
-        	$result=M('Demand')->where($condition2)->save($data);
         	echo "停车失败！ 实际停车场是".$result_real['park_id'].","."规划停车场是".$result_plan['park_id'];
             return false;
         }
@@ -156,13 +180,16 @@ class DemandController extends BaseController
     	$sql="SELECT u.name,d.car_no,d.lon,d.lat,d.current_lon,d.current_lat FROM px_user AS u,px_demand AS d 
     			WHERE d.is_success IS NULL AND u.id=d.user_id AND d.business='".$business."'";
     	$result=M()->query($sql);
+    	//var_dump($result);
         $json['num']=count($result);
         for($i=0;$i<count($result);$i++){
         	$json['data'][$i]['user_name']=$result[$i]['name'];
         	$json['data'][$i]['type']='本田';
         	$json['data'][$i]['car_no']=$result[$i]['car_no'];
-        	$json['data'][$i]['current']=$this->get_business($result[$i]['current_lon'],$result[$i]['current_lat']);
-        	$json['data'][$i]['destination']=$this->get_business($result[$i]['lon'],$result[$i]['lat']);
+        	$json['data'][$i]['current']['lon']=$result[$i]['current_lon'];
+        	$json['data'][$i]['current']['lat']=$result[$i]['current_lat'];
+        	$json['data'][$i]['destination']['lon']=$result[$i]['lon'];
+        	$json['data'][$i]['destination']['lat']=$result[$i]['lat'];
         }
         echo json_encode($json);
     }
