@@ -169,13 +169,17 @@ class DemandController extends BaseController
         echo json_encode($preference);
     }
 
+    /**
+     * 根据商圈获取前往同一商圈的用户
+     * @param $business 商圈名称
+     */
     public function count_demand($business)
     {
     	
     	$sql="SELECT u.name,d.car_no,d.lon,d.lat,d.current_lon,d.current_lat FROM px_user AS u,px_demand AS d 
     			WHERE d.is_success IS NULL AND u.id=d.user_id AND d.business='".$business."'";
     	$result=M()->query($sql);
-    	var_dump($result);
+    	//var_dump($result);
         $json['num']=count($result);
         for($i=0;$i<count($result);$i++){
         	$json['data'][$i]['user_name']=$result[$i]['name'];

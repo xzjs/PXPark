@@ -19,7 +19,7 @@ class WeatherController extends Controller
     	$str =file_get_contents($get_code_url);
     	$arr =json_decode($str,TRUE);
     	$weather_code=$arr['retData']['cityCode'];
-    	echo $weather_code;
+    	//echo $weather_code;
     	$get_weather_url="http://api.map.baidu.com/telematics/v3/weather?location=青岛&output=json&ak=IxUGjzuEwf9e2zi4CudO91np";
     	$str =file_get_contents($get_weather_url,TRUE);
     	$arr =json_decode($str);
