@@ -42,10 +42,10 @@ class UserController extends Controller
                 );
                 $this->assign('Info', json_encode($array));
                 if ($data ['type'] == 2 || $data ['type'] == 3) {
-                    $this->redirect("../Home/Common/index.html");
+                    $this->redirect("../index.php/Home/Common/index.html");
                 }
                 if ($data ['type'] == 4) {
-                    $this->redirect("../Home/Super/");
+                    $this->redirect("../index.php/Home/Super/");
                 }
 
             } else {
