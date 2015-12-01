@@ -44,18 +44,7 @@
     <!-- custom js -->
     <script type="text/javascript" src="__PUBLIC__/js/commonuser/main.js"></script>
 
-    <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- <script type="text/javascript">
-                $(function(){
-                    $('#header').load('headerCommon.html');
-                    $('#sidebar').load('sidebar.html');
-                    $('#rightSidebar').load('parkingStateInfo.html');
-                    $('#content').load('content.html');
-                })
-            </script> -->
+    
 </head>
 <body>
 
@@ -391,13 +380,9 @@
                 $(function () {
 
                     $.post("get_park_info", {
-                        park_id: < ? php echo
-                    $_SESSION['park_id'] ?
-                    >,
-                    user_id : <
-                    ? php echo
-                    $_SESSION['user']['user_id'] ?
-                    >
+                        park_id: <?php echo
+                    $_SESSION['park_id'] ?>,
+                    user_id : <?php echo $_SESSION['user']['user_id'] ?>
                 }, function (datas, status) {
                     if (status == 4 || status == "success") {
                         var incomeInfo = eval(datas);
