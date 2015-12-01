@@ -25,7 +25,7 @@ class ParkrecordController extends Controller {
 			$arry [$i] = array (
 					 'start' =>$result [$i] ['start']==''? '':date ( 'Y.m.d H:i:s', $result [$i] ['start'] ),
 					'end' => $result [$i] ['end']==''?'':date ( 'Y.m.d H:i:s', $result [$i] ['end']),
-					 'money' => $result [$i]['money'],
+					'money' => $result [$i]['money'],
 					'park_name' => $result [$i]['park_name'],  
 			);
 		}
