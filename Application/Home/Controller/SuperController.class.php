@@ -299,6 +299,9 @@ class SuperController extends Controller
     }
     
     
+    /**
+     * 获取地区列表
+     */
     public function get_area_list(){
     	$Area=A('Area');
     	$result=$Area->get_area_list();
