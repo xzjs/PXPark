@@ -30,7 +30,6 @@ $(document).ready(function(){
                 clearInterval(carListTimer);
                 $($carList).addClass("hide");
                 $($carList[i-2]).removeClass("hide").addClass("resultList");
-                $(".resultList").prepend("推荐方案为<br>")
             }
             for (var j = 0; j < $carList.length; j++)
                 $($carList[j]).removeClass("carListBack");

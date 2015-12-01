@@ -288,16 +288,16 @@ class APIController extends Controller
     public function park_list()
     {
         $park = A('Park');
-        $reslut = $park->getList(I('param.lon'), I('param.lat'));
-        for($i=0;$i<count($reslut);$i++){
-        	$reslut[$i]['img']=C('IP') . __ROOT__ . $reslut[$i]['img'];
+        $reslut = $park->getList(I('param.lon'), I('param.lat'), I('param.num'));
+        for ($i = 0; $i < count($reslut); $i++) {
+            $reslut[$i]['img'] = C('IP') . __ROOT__ . $reslut[$i]['img'];
         }
-        if(!$reslut){
-        	$data['code']=4;
-        }else{
-        	$data['code'] = 0;
-        	$data['msg'] = "正常返回";
-        	$data['park_list'] = $reslut;
+        if (!$reslut) {
+            $data['code'] = 4;
+        } else {
+            $data['code'] = 0;
+            $data['msg'] = "正常返回";
+            $data['park_list'] = $reslut;
         }
         echo json_encode($data);
     }
@@ -314,7 +314,7 @@ class APIController extends Controller
         else
             $data['code'] = 0;
         $data['msg'] = '正常返回';
-        $str=array();
+        $str = array();
         $d = array(
             'id' => $result['id'],
             'name' => $result['name'],
@@ -325,9 +325,9 @@ class APIController extends Controller
             'total' => $result['total_num'],
             'img' => $this->get_url(C('PARK_IMG_PATH') . $result['img']),
             'rule' => array(
-                'type'=>'梯度收费',
-                'price'=>5,
-                'note'=>'价格受节假日的影响而变化'
+                'type' => '梯度收费',
+                'price' => 5,
+                'note' => '价格受节假日的影响而变化'
             ),
             'type' => $result['type'],
             'address' => $result['address']
@@ -361,8 +361,8 @@ class APIController extends Controller
                 $record_list = array(
                     'park_name' => $Park->where('id=' . $result[$i]['park_id'])->getField('name'),
                     'car_no' => $Car->where('id=' . $result[$i]['car_id'])->getField('no'),
-                    'start_time' => date('Y-m-d H:i:s',$result[$i]['start_time']),
-                    'end_time' => date('Y-m-d H:i:s',$result[$i]['end_time']),
+                    'start_time' => date('Y-m-d H:i:s', $result[$i]['start_time']),
+                    'end_time' => date('Y-m-d H:i:s', $result[$i]['end_time']),
                     'money' => $result[$i]['money']
                 );
                 array_push($data['record'], $record_list);
@@ -377,7 +377,7 @@ class APIController extends Controller
     public function recharge()
     {
         $recharge = A('Rechargerecord');
-        $reslut = $recharge->getList(I('param.id'),I('param.page',0),I('param.num'),0);
+        $reslut = $recharge->getList(I('param.id'), I('param.page', 0), I('param.num'), 0);
         if (count($reslut) == 0)
             $data['code'] = 7;
         else
@@ -392,15 +392,15 @@ class APIController extends Controller
     public function recharge_add()
     {
         $recharge = A('Rechargerecord');
-        $reslut = $recharge->add(I('param.id'),I('param.money'),I('param.type'));
-        if($reslut){
-        	$json['code'] =0;
-        	$json['msg']="正常返回";
-        	$json['data']=array();
-        }else{
-        	$json['code'] =4;
-        	$json['msg']="内部错误";
-        	$json['data']=array();
+        $reslut = $recharge->add(I('param.id'), I('param.money'), I('param.type'));
+        if ($reslut) {
+            $json['code'] = 0;
+            $json['msg'] = "正常返回";
+            $json['data'] = array();
+        } else {
+            $json['code'] = 4;
+            $json['msg'] = "内部错误";
+            $json['data'] = array();
         }
         echo json_encode($json);
     }
@@ -454,12 +454,13 @@ class APIController extends Controller
     /**
      * 用户反馈接口
      */
-    public function response(){
-        $Response=A('Response');
-        $data=array(
-            'code'=>$Response->add()>0?0:4,
-            'msg'=>'正常返回',
-            'data'=>array()
+    public function response()
+    {
+        $Response = A('Response');
+        $data = array(
+            'code' => $Response->add() > 0 ? 0 : 4,
+            'msg' => '正常返回',
+            'data' => array()
         );
         echo json_encode($data);
     }
@@ -467,20 +468,21 @@ class APIController extends Controller
     /**
      * 获取app版本号
      */
-    public function app(){
-        $Version=A('Version');
-        $result=$Version->get_version(I('post.type'));
-        $data=array(
-            'code'=>4,
-            'msg'=>'正常返回',
-            'data'=>array()
+    public function app()
+    {
+        $Version = A('Version');
+        $result = $Version->get_version(I('post.type'));
+        $data = array(
+            'code' => 4,
+            'msg' => '正常返回',
+            'data' => array()
         );
-        if($result){
-            $data['code']=0;
-            $data['data']=array(
-                'latest_version'=>$result['latest_version'],
-                'lowest_version'=>$result['lowest_version'],
-                'url'=>$result['url']
+        if ($result) {
+            $data['code'] = 0;
+            $data['data'] = array(
+                'latest_version' => $result['latest_version'],
+                'lowest_version' => $result['lowest_version'],
+                'url' => $result['url']
             );
         }
         echo json_encode($data);

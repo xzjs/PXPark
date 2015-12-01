@@ -6,7 +6,7 @@ function createEarth(ec) {
     var myChart = ec.init(document.getElementById('echarts-x-content'));
     var earthOption = {
         title: {
-            text: 'Earth with sun light ',
+            text: '',
             x: 'center',
             textStyle: {
                 color: 'white'
@@ -140,8 +140,8 @@ function createGauge(data) {
                 name: '业务指标',
                 type: 'gauge',
                 radius: [0,'90%'],
-                detail: {formatter: data+'%'},
-                data: [{value: 10, name: '并发量',}],
+                detail: {formatter: '{value}%'},
+                data: [{value: data, name: '并发量',}],
                 title: {
                     show: true,
                     offsetCenter: [0, '-30%'],       // x, y，单位px

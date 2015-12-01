@@ -245,7 +245,7 @@ class ParkController extends Controller
             $arry[$i] = array(
                 'id' => $i,
                 'title' => $result[$i]['name'],
-                'img' => '/PXPark/Public/image/ParkImg/' . $result[$i]['img'],
+                'img' => '/PXPark/Public/image/' . $result[$i]['img'],
                 'usingNum' => $remain,
                 'sumNum' => $result[$i]['total_num'],
 
