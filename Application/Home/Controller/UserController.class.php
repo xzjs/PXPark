@@ -48,6 +48,9 @@ class UserController extends Controller
                 if ($data ['type'] == 4) {
                     $this->redirect("../index.php/Home/Super/");
                 }
+                if ($data ['type'] == 1) {
+                	$this->error('该用户不允许登陆');
+                }
 
             } else {
                 $this->error('密码错误');
