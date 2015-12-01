@@ -16,7 +16,7 @@ class ParkrecordModel extends RelationModel {
 	);
 	
 	protected $_auto = array(
-        array('end_time','time',3,'function'),
+        array('start_time','time',3,'function'),
 	);
 	
 	

@@ -62,7 +62,7 @@ class FakeController extends BaseController {
 		if ($demand) {
 			$rand = rand ( 0, 99 );
 			// 2%概率未能停入规划停车场
-			if ($rand > 49) {
+			if ($rand > 97) {
 				$condition_berth ['park_id'] = array (
 						'neq',
 						$demand['park_id'] 
@@ -79,8 +79,9 @@ class FakeController extends BaseController {
 			$rand = rand ( 0, count ( $berth_list ) - 1 );
 			$berth = $berth_list [$rand]; // 随机获取一个空车位
 			
-			$condition_car['car_no']=$demand['car_no'];
+			$condition_car['no']=$demand['car_no'];
 			$car_info=M('Car')->field('id,type')->where($condition_car)->find();
+			
 			
 			$Parkrecord=A('Parkrecord');
 			$Parkrecord->add($berth ['park_id'],$car_info['id'],$car_info['type'],$berth['id']);//增加停车记录 
@@ -147,7 +148,7 @@ class FakeController extends BaseController {
 				$flag = $result == 0 ? false : true;
 			}
 		}
-		$user_id = $user_list [$rand] ['id'];
+		$user_id = $user['id'];
 		return $user_id;
 	}
 }

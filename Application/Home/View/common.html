@@ -403,13 +403,16 @@
                         $("div#toyear_info").text("停车场当年累计收益  " + incomeInfo[2].date);
                         $("span#today_big_income").text(incomeInfo[0].big);
                         $("span#today_small_income").text(incomeInfo[0].small);
-                        $("span#today_total_income").text(incomeInfo[0].big + incomeInfo[0].small);
+                        var totalIncomeToday=parseInt(incomeInfo[0].big) + parseInt( incomeInfo[0].small);
+                        $("span#today_total_income").text(totalIncomeToday);
                         $("span#tomonth_big_income").text(incomeInfo[1].big);
                         $("span#tomonth_small_income").text(incomeInfo[1].small);
-                        $("span#tomonth_total_income").text(incomeInfo[1].big + incomeInfo[0].small);
+                        var totalIncomeTomonth=parseInt(incomeInfo[1].big) + parseInt( incomeInfo[1].small);
+                        $("span#tomonth_total_income").text(totalIncomeTomonth);
                         $("span#toyear_big_income").text(incomeInfo[2].big);
                         $("span#toyear_small_income").text(incomeInfo[2].small);
-                        $("span#toyear_total_income").text(incomeInfo[2].big + incomeInfo[0].small);
+                        var totalIncomeToyear=parseInt(incomeInfo[2].big) + parseInt( incomeInfo[2].small);
+                        $("span#toyear_total_income").text(totalIncomeToyear);
 
                     }
                 });
