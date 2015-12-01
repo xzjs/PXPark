@@ -126,7 +126,7 @@
             </section>
             <section class="car-content">
                 <section id="myCar"></section>
-                <ul class="car-list" >
+                <ul class="car-list">
                     <li ng-repeat="_park in park_list"><p>{{_park.name}}</p></li>
                 </ul>
             </section>
@@ -4474,7 +4474,7 @@
     //map.addControl(new BMap.MapTypeControl()); //添加地图类型控件
     map.setCurrentCity("青岛"); // 设置地图显示的城市 此项是必须设置的
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
-    map.setMapStyle({style:'dark'});
+    map.setMapStyle({style: 'dark'});
 </script>
 <script>
     var carApp = angular.module('carApp', []);
@@ -4590,16 +4590,16 @@
 
     carApp.factory('Park_Data', function ($http, $q) {
         return {
-            query: function (lon,lat,num) {
+            query: function (lon, lat, num) {
                 var config = {
                     params: {
-                        'lon':lon,
-                        'lat':lat,
-                        'num':num
+                        'lon': lon,
+                        'lat': lat,
+                        'num': num
                     }
                 };
                 var defered = $q.defer();
-                $http.post("{:U('API/park_list')}", config).then(
+                $http.get("{:U('API/park_list')}", config).then(
                         function successCallback(response) {
                             console.log(response);
                             defered.resolve(response.data.park_list);
@@ -4613,7 +4613,7 @@
         }
     });
 
-    carApp.controller('DemandCtrl', function ($scope, Demand_Data, Preference_Data, SameBusiness_Data, Count_Data,Parkrecord_Data,Park_Data) {
+    carApp.controller('DemandCtrl', function ($scope, Demand_Data, Preference_Data, SameBusiness_Data, Count_Data, Parkrecord_Data, Park_Data) {
 
         var promise = Demand_Data.query();
         promise.then(function (data) {  // 调用承诺API获取数据 .resolve
@@ -4655,10 +4655,10 @@
             });
 
             //获取停车场数据
-            var promise5 = Park_Data.query(data.lon,data.lat,5);
+            var promise5 = Park_Data.query(data.lon, data.lat, 5);
             promise5.then(function (data5) {
                 console.log(data5);
-                park(data5,data);
+                park(data5, data);
             }, function (data5) {
                 alert(data5);
             });
@@ -4743,18 +4743,24 @@
             $scope.same = d;
         }
 
-        function park_record(d){
-            $scope.park_records=d;
+        function park_record(d) {
+            $scope.park_records = d;
         }
 
-        function park(d,d1){
-            $scope.park_list=d;
-            /*for(var i=0;i<5;i++){
-                var p1=new BMap.Point(d1.current_lon,d1.current_lat);
-                var p2=new BMap.Point(d[i].lon,d[i].lat);
-                var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
-                driving.search(p1, p2);
-            }*/
+        function park(d, d1) {
+            $scope.park_list = d;
+            setTimeout(function () {
+                for (var i = 0; i < d.length; i++) {
+                    var $carList = $(".car-list li");
+                    for (var j = 0; j < $carList.length; j++)
+                        $($carList[j]).removeClass("carListBack");
+                    $($carList[i]).addClass("carListBack");
+                    var p1 = new BMap.Point(d1.current_lon, d1.current_lat);
+                    var p2 = new BMap.Point(d[i].lon, d[i].lat);
+                    var driving = new BMap.DrivingRoute(map, {renderOptions: {map: map, autoViewport: true}});
+                    driving.search(p1, p2);
+                }
+            },5000);
         }
 
         function _change(newValue, oldValue, scope) {

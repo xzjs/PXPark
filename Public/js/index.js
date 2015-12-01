@@ -22,7 +22,7 @@ $(document).ready(function(){
     });
 
     /*中间车辆右侧停车场列表*/
-    var $carList = $(".car-list li");
+    /*var $carList = $(".car-list li");
     var i = 0;
     var carListTimer = setInterval(function(){
         if( isReady) {
@@ -36,7 +36,7 @@ $(document).ready(function(){
             $($carList[i]).addClass("carListBack");
             i++;
         }
-    },200)
+    },200)*/
 });
 /*文字滚动*/
 (function ($) {

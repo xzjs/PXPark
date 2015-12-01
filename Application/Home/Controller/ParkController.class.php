@@ -463,11 +463,13 @@ class ParkController extends Controller
         }
     }
 
+
     /**
      * 根据经纬度获取周围一定距离的停车场列表
-     * @param number $lon 经度
-     * @param number $lat 纬度
-     * @return Ambigous <mixed, boolean, string, NULL, multitype:, unknown, object>目地停车场列表
+     * @param int $lon 经度
+     * @param int $lat 纬度
+     * @param int $num 所需停车场数目
+     * @return array 目地停车场列表
      */
     public function getList($lon = 0, $lat = 0, $num = 1000)
     {
