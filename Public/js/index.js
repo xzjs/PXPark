@@ -22,7 +22,7 @@ $(document).ready(function(){
     });
 
     /*中间车辆右侧停车场列表*/
-    var $carList = $(".car-list li");
+    /*var $carList = $(".car-list li");
     var i = 0;
     var carListTimer = setInterval(function(){
         if( isReady) {
@@ -30,14 +30,13 @@ $(document).ready(function(){
                 clearInterval(carListTimer);
                 $($carList).addClass("hide");
                 $($carList[i-2]).removeClass("hide").addClass("resultList");
-                $(".resultList").prepend("推荐方案为<br>")
             }
             for (var j = 0; j < $carList.length; j++)
                 $($carList[j]).removeClass("carListBack");
             $($carList[i]).addClass("carListBack");
             i++;
         }
-    },200)
+    },200)*/
 });
 /*文字滚动*/
 (function ($) {
