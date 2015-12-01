@@ -26,11 +26,13 @@ class CommonController extends Controller{
 		$_SESSION['park_id']=20;
 		if(I('param.park_id',0)!=0){
 			$condition=' where a.park_id='.I('param.park_id') ;
-		}else{
-			if(I('param.user_id',0)==0)
-				$user_id=$_SESSION['user']['user_id'];
-			else
-				$user_id=I('param.user_id',0);
+		}elseif(I('param.user_id',0)!=0){
+			$user_id=I('param.user_id',0);
+			$condition=',px_park AS d WHERE a.park_id=d.id AND d.user_id='.$user_id ;
+		}elseif (isset($_SESSION['park_id'])){
+			$condition=' where a.park_id='.$_SESSION['park_id'] ;
+		}elseif(isset($_SESSION['user']['user_id'])){
+			$user_id=$_SESSION['user']['user_id'];
 			$condition=',px_park AS d WHERE a.park_id=d.id AND d.user_id='.$user_id ;
 		}
 		$Model = new Model ();

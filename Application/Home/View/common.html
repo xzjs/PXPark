@@ -44,7 +44,18 @@
     <!-- custom js -->
     <script type="text/javascript" src="__PUBLIC__/js/commonuser/main.js"></script>
 
-    
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- <script type="text/javascript">
+                $(function(){
+                    $('#header').load('headerCommon.html');
+                    $('#sidebar').load('sidebar.html');
+                    $('#rightSidebar').load('parkingStateInfo.html');
+                    $('#content').load('content.html');
+                })
+            </script> -->
 </head>
 <body>
 
@@ -199,7 +210,7 @@
                     }
                 };
 
-                var zNodes = [{
+                /* var zNodes = [{
                     name: "山东省",
                     open: true,
                     iconOpen: "__PUBLIC__/image/open.png",
@@ -220,7 +231,7 @@
                             icon: "__PUBLIC__/image/leaf.png"
                         }]
                     }]
-                }];
+                }]; */
 
                 $(function () {
                     $(".toobar").on("mouseenter", function () {
@@ -239,7 +250,19 @@
                             $('#cityPanel').hide();
                         }
                     })
-                    $.fn.zTree.init($("#cityTree"), setting, zNodes);
+                    
+                    
+                    $.post("get_area", {
+                    	
+                    }, function (datas, status) {
+                        if (status == 4 || status == "success") {
+							var zNodes = JSON.parse(datas);
+                        	$.fn.zTree.init($("#cityTree"), setting, zNodes);
+
+                        }
+                    });
+                    
+                    
                 })
 
                 function showSearch(flag) {

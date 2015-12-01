@@ -177,7 +177,7 @@ class DemandController extends BaseController
     public function count_demand($business)
     {
     	
-    	$sql="SELECT u.name,d.car_no,d.lon,d.lat,d.current_lon,d.current_lat FROM px_user AS u,px_demand AS d 
+    	$sql="SELECT u.name,d.car_no,d.lon,d.lat,d.current_business FROM px_user AS u,px_demand AS d 
     			WHERE d.is_success IS NULL AND u.id=d.user_id AND d.business='".$business."'";
     	$result=M()->query($sql);
     	//var_dump($result);
@@ -186,8 +186,8 @@ class DemandController extends BaseController
         	$json['data'][$i]['user_name']=$result[$i]['name'];
         	$json['data'][$i]['type']='本田';
         	$json['data'][$i]['car_no']=$result[$i]['car_no'];
-        	$json['data'][$i]['current']=$this->get_business($result[$i]['current_lon'],$result[$i]['current_lat']);
-        	$json['data'][$i]['destination']=$this->get_business($result[$i]['lon'],$result[$i]['lat']);
+        	$json['data'][$i]['current']=$result[$i]['current_business'];
+        	$json['data'][$i]['destination']=$business;
         }
         echo json_encode($json);
     }
