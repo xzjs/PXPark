@@ -1,13 +1,14 @@
 $(function() {
-	now_che();
+//	now_che();
+	$('.sel').on('click', function() {
+		 window.location.href='/PXPark/index.php/Home/Super/carManager.html';
+		
+	});
 	$('#statisticInfo').on('click', function() {
 		 window.location.href='/PXPark/index.php/Home/Super/statisticInfo.html';
 		
 	});
-	$('#carManager').on('click', function() {
-		 window.location.href='/PXPark/index.php/Home/Super/carManager.html';
-		
-	});
+	
 	$('#userInfo').on('click', function() {
 		window.location.href='/PXPark/index.php/Home/Super/userInfo.html';
 		
@@ -249,7 +250,7 @@ $(function() {
 });
 function now_che(){alert("dd");}
 function check(){
-	alert("ff");
+	//alert("ff");
 
 var start_time;
 var end_time;

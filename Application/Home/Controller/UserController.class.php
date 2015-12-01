@@ -36,17 +36,23 @@ class UserController extends Controller
         if ($data) {
             $pwd = md5($pwd);
             if ($data ['pwd'] == $pwd) {
-                $array = array(
+               /*  $array = array(
                     "id" => $data ['id'],
                     "nickname" => $data ['nickname'],
                     "type" => $data ['type'],
-                );
+                ); */
+                $_SESSION['id']= $data ['id'];
+                $_SESSION['nickname']= $data ['nickname']; 
+                $_SESSION['type']= $data ['type'];
                 $this->assign('Info', json_encode($array));
                 if ($data ['type'] == 2 || $data ['type'] == 3) {
                     $this->redirect("../index.php/Home/Common/index.html");
                 }
                 if ($data ['type'] == 4) {
                     $this->redirect("../index.php/Home/Super/");
+                }
+                if ($data ['type'] == 1) {
+                	$this->error('该用户不允许登陆');
                 }
 
             } else {
@@ -373,7 +379,15 @@ class UserController extends Controller
     }
 
     public function logout()
-    {
+    { $a=$_SESSION['id'];
+      $b=$_SESSION['nickname']; 
+      $c=$_SESSION['type'];
+      unset($a);
+      unset($b);
+      unset($c);
+      
+        $this->success('注销成功','../Index/index.html');
+    	
     }
 
     /**

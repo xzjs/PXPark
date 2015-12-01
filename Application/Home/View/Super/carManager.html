@@ -11,12 +11,13 @@
 <link href="__PUBLIC__/thirdparty/easyui/themes/bootstrap/easyui.css" rel="stylesheet" />
 <link href="__PUBLIC__/thirdparty/easyui/themes/icon.css" rel="stylesheet" />
 <script src="__PUBLIC__/thirdparty/easyui/easyui-lang-zh_CN.js"></script>
+<script src="__PUBLIC__/js/admin/carManager.js"></script>
 <!-- E EASYUI -->
 <script
 	src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap-table-zh-CN.min.js"></script>
 <!-- E bootstrap-table -->
 
-<link href="__PUBLIC__/css/common/carManager.css" rel="stylesheet">
+<link href="__PUBLIC__/css/admin/carManager.css" rel="stylesheet">
 <style>
 .fixed-table-container {
 	clear: none;
@@ -302,6 +303,13 @@ $(function() {
 </script>
 
 <div class="page">
+<div class="manag_nav" id="">
+			<a href="#" id="statisticInfo">统计信息</a>
+			<a href="#" id="carManager" class="sel">车辆管理</a>
+			<a href="#" id="userInfo">用户信息</a>
+		<img alt="" src="__PUBLIC__/image/back.png" height="25" onclick="pageJump('realTimeStatus.html')"
+				 style="float: right;cursor: pointer;margin-right: 25px;">
+		</div>
 	<div style="height:7%">
 		开始时间： <input placeholder="请输入日期" class="laydate-icon"
 		id="income_start_time"

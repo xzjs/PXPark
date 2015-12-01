@@ -17,7 +17,7 @@ function getFlowInfo(url,start,end,car_category) {
 		start_time : start,
 		end_time : end,
 		type:car_category,
-		user_id : 1
+		user_id : <?php echo $_SESSION['user']['user_id'] ?>
 	}, function(datas, status) {
 		if (status == 4 || status == "success") {
 			var lineInfo = eval(datas);
