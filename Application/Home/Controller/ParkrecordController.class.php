@@ -23,10 +23,10 @@ class ParkrecordController extends Controller {
 			// $remain=$result[$i]['total_num']-$result[$i]['remain_num'];
 				
 			$arry [$i] = array (
-					'start' => date ( 'Y.m.d H:i:s', $result [$i] ['start'] ),
-					'end' => date ( 'Y.m.d H:i:s', $result [$i] ['end'] ),
-					'money' => $result [$i] ['money'],
-					'park_name' => $result [$i] ['park_name']
+					 'start' =>$result [$i] ['start']==''? '':date ( 'Y.m.d H:i:s', $result [$i] ['start'] ),
+					'end' => $result [$i] ['end']==''?'':date ( 'Y.m.d H:i:s', $result [$i] ['end']),
+					 'money' => $result [$i]['money'],
+					'park_name' => $result [$i]['park_name'],  
 			);
 		}
 	
