@@ -46,36 +46,7 @@ class DemandController extends BaseController
         }
         $DemandModel=D('Demand');
         $result=$DemandModel->where($condition)->relation(true)->select();
-        for($i=0;$i<count($result);$i++){
-            $result[$i]['current_business']=$this->get_business($result[$i]['current_lon'],$result[$i]['current_lat']);
-        }
         echo json_encode($result);
-        /*$end_time=$start_time+24*$time_type
-        if ($time == 0) {
-            $condition = "is_success IS NULL";
-        } else
-            if ($type == null || $type == "") { //echo "ff";
-                $condition = "time>UNIX_TIMESTAMP(NOW())-$time*3600";
-            } else {
-                if ($type == 0) {//echo "dd";
-                    $condition = "time>UNIX_TIMESTAMP(NOW())-$time*3600 and is_success=0";
-                } else {
-                    $condition = "time>UNIX_TIMESTAMP(NOW())-$time*3600 and is_success=1";
-                }
-            }
-        //echo "select lon ,lat from px_demand where $condition";
-        $result = M()->query("select lon ,lat from px_demand where $condition");
-        $arr = array();
-        /*for ($i = 0; $i < count($result); $i++) {
-            $arr[$i] = array(
-                "x" => $result[$i]['lon'],
-                "y" => $result[$i]['lat'],
-            );
-        }
-        $array = array(
-            "data" => $arr,
-        );
-        echo json_encode($arr);*/
     }
 
     /**
@@ -116,7 +87,8 @@ class DemandController extends BaseController
             'preference'=>$preference,
             'current_lon'=>$current_lon,
             'current_lat'=>$current_lat,
-            'business'=>$this->get_business($lon,$lat)
+            'business'=>$this->get_business($lon,$lat),
+            'current_business'=>$this->get_business($current_lon,$current_lat)
         );
         if($DemandModel->create($data)){
             return $DemandModel->add();
