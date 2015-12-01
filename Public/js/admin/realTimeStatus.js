@@ -46,7 +46,7 @@ function park(){
         // alert(data.length);
            var d=eval("(" + data+ ")");
         parkingList = d;
-       // alert("d"+parkingList);
+        //alert("d"+parkingList[0]['img']);
          
 }
         });
@@ -115,6 +115,7 @@ function renderParking() {
 		$(demoItem).find('#usingNum').html(parking.usingNum).addClass(carNumType[usingType][1]);
 		$(demoItem).find('#sumNum').html(parking.sumNum);
 		$(demoItem).find('#parkingImg').attr('src', parking.img);
+		//alert(parking.img);
 		$(demoItem).show();
 		$('#parkingList').append($(demoItem));
 	}
