@@ -4588,7 +4588,30 @@
         }
     });
 
-    carApp.controller('DemandCtrl', function ($scope, Demand_Data, Preference_Data, SameBusiness_Data, Count_Data,Parkrecord_Data) {
+    carApp.factory('Park_Data', function ($http, $q) {
+        return {
+            query: function (lon,lat) {
+                var config = {
+                    params: {
+                        'lon':lon,
+                        'lat':lat
+                    }
+                };
+                var defered = $q.defer();
+                $http.get("{:U('Park/getList')}", config).then(
+                        function successCallback(response) {
+                            defered.resolve(response.data);
+                        },
+                        function errCallback(response) {
+                            defered.reject(response);
+                        }
+                );
+                return defered.promise;
+            }
+        }
+    });
+
+    carApp.controller('DemandCtrl', function ($scope, Demand_Data, Preference_Data, SameBusiness_Data, Count_Data,Parkrecord_Data,Park_Data) {
 
         var promise = Demand_Data.query();
         promise.then(function (data) {  // 调用承诺API获取数据 .resolve
@@ -4621,11 +4644,21 @@
             });
 
             //获取个人停车记录
-            var promise4 = Count_Data.query(data.user_id);
+            var promise4 = Parkrecord_Data.query(data.user_id);
             promise4.then(function (data4) {
+                console.log(data4);
                 park_record(data4);
             }, function (data4) {
                 alert(data4);
+            });
+
+            //获取停车场数据
+            var promise5 = Parkrecord_Data.query(data.lon,data.lat);
+            promise5.then(function (data5) {
+                console.log(data5);
+                park_record(data5);
+            }, function (data5) {
+                alert(data5);
             });
         }, function (data) {  // 处理错误 .reject
             alert('haha');

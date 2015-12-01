@@ -22,8 +22,8 @@ class CommonController extends Controller{
 	 */
 	public function index() {
 		session_start();
-		$_SESSION['user']['user_id']=1;
-		$_SESSION['park_id']=1;
+		$_SESSION['user']['user_id']=9;
+		$_SESSION['park_id']=20;
 		if(I('param.park_id',0)!=0){
 			$condition=' where a.park_id='.I('param.park_id') ;
 		}else{

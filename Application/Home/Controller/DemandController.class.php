@@ -142,10 +142,10 @@ class DemandController extends BaseController
             $condition2['time'] = $result_plan['time'];
             $data['is_success'] = 1;
             $result=M('Demand')->where($condition2)->save($data);
-            echo "停车成功！ demand-id为".$result_plan['id'];
+            echo "停车成功！车牌号为".$car_no."的车驶入id为".$result_real['park_id']."的停车场 ";
             return true;
         } else {
-        	echo "停车失败！ 实际停车场是".$result_real['park_id'].","."规划停车场是".$result_plan['park_id'];
+        	echo "停车失败！ 车牌号为".$car_no."的车驶入id为".$result_real['park_id']."的停车场 "."规划停车场是".$result_plan['park_id'];
             return false;
         }
     }
