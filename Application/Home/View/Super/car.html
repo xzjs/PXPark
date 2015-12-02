@@ -4421,7 +4421,7 @@
                 <section id="right-top-map"></section>
             </section>
             <section class="right-bottom clearfix">
-                <h3>还有<br><br><span>{{same.num}}</span>位<br><br>欲前往创业大厦</h3>
+                <h3>还有<br><br><span>{{same.num}}</span>位<br><br>欲前往{{same.data[0].destination}}</h3>
                 <ul>
                     <li>
                         <p>用户名：<span>{{same.data[0].user_name}}</span></p>
@@ -4640,6 +4640,7 @@
             //获取当前有多少人计算
             var promise3 = Count_Data.query(data.business);
             promise3.then(function (data3) {
+                console.log(data3);
                 createGauge(data3);
             }, function (data3) {
                 alert(data3);
@@ -4693,9 +4694,9 @@
                     });
                 }
                 if (isReady || t > 50) {
-                    var data = [20, 20, 20, 20, 20];
+                    var data = [20, 30, 40, 50, 60];
                     createRadar(data);
-                    createGauge();
+                    createGauge(8.2);
                     createPie();
                     clearInterval(timer);
                 }
@@ -4712,7 +4713,7 @@
 
         function user(d) {
             var u = {};
-            u.name = d.User.nickname;
+            u.name = d.User.name;
             if (d.User.img) {
                 u.img = "__ROOT__/Uploads/UserIcon/" + d.User.img;
             } else {
@@ -4758,8 +4759,11 @@
                     var p1 = new BMap.Point(d1.current_lon, d1.current_lat);
                     var p2 = new BMap.Point(d[i].lon, d[i].lat);
                     var driving = new BMap.DrivingRoute(map, {renderOptions: {map: map, autoViewport: true}});
+                    map.clearOverlays();
                     driving.search(p1, p2);
                 }
+                $($carList).addClass("hide");
+                $($carList[i-2]).removeClass("hide").addClass("resultList");
             },5000);
         }
 

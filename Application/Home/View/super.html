@@ -198,7 +198,7 @@
                     }
                 };
 
-                var zNodes = [{
+                /* var zNodes = [{
                     name: "山东省",
                     open: true,
                     iconOpen: "__PUBLIC__/image/open.png",
@@ -219,7 +219,7 @@
                             icon: "__PUBLIC__/image/leaf.png"
                         }]
                     }]
-                }];
+                }]; */
 
                 $(function () {
                     $(".toobar").on("mouseenter", function () {
@@ -238,7 +238,19 @@
                             $('#cityPanel').hide();
                         }
                     })
+                    
+                    $.post("get_area_list", {
+                    	
+                    }, function (datas, status) {
+                        if (status == 4 || status == "success") {
+							var zNodes = JSON.parse(datas);
+                        	$.fn.zTree.init($("#cityTree"), setting, zNodes);
+
+                        }
+                    });
+                    
                     $.fn.zTree.init($("#cityTree"), setting, zNodes);
+                    
                 })
 
                 function showSearch(flag) {
@@ -320,12 +332,43 @@
                 </div>
 
                 <!-- 天气情况 -->
-                <div class="whether">
-                    <img src="__PUBLIC__/image/whether.png" width="24" height="24">
-
-                    <div>26~20℃</div>
-                    <div>良</div>
+                <div class="whether" id="weather">
+                    
                 </div>
+                
+                <Script type="text/javascript">
+                /**
+                 * ajax获取停车场信息和收益状况
+                 */
+                $(function () {
+                    $.post("get_weather", {
+                        city_code: 370200,
+                    }, function (datas, status) {
+                        if (status == 4 || status == "success") {
+
+                            $("div#weather").html(datas);
+
+                        }
+                    });
+                })
+                
+                 /**
+                 * ajax获取区域信息
+                 */
+                $(function () {
+                    /* $.post("get_area_list", {
+                    	
+                    }, function (datas, status) {
+                        if (status == 4 || status == "success") {
+							var zNodes = JSON.parse(datas);
+                        	$.fn.zTree.init($("#cityTree"), setting, zNodes);
+
+                        }
+                    }); */
+                })
+                
+                
+                </script>
 
                 <!-- 搜索结果 -->
                 <div class="modal fade" id="searchResultWin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"

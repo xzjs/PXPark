@@ -397,7 +397,7 @@ class UserController extends Controller
      */
     public function get_list($type = 0)
     {
-    	$name=new RandName(); 
+    	/* $name=new RandName(); 
     	$name->RandName();
     	$user_name=$name->getName(2);
     	$nick_name=$name->getNickname();
@@ -410,8 +410,8 @@ class UserController extends Controller
     		$id=$User->add();
     	}
     	$user['id']=$id;
-		return $user;
-        /* $condition = array();
+		return $user; */
+        $condition = array();
         switch ($type) {
             case 1:
             case 2:
@@ -423,7 +423,7 @@ class UserController extends Controller
                 break;
         }
         $UserModel = D('User');
-        return $UserModel->where($condition)->relation(true)->select(); */
+        return $UserModel->where($condition)->relation(true)->select();
     }
     
     

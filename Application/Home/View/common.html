@@ -44,7 +44,18 @@
     <!-- custom js -->
     <script type="text/javascript" src="__PUBLIC__/js/commonuser/main.js"></script>
 
-    
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- <script type="text/javascript">
+                $(function(){
+                    $('#header').load('headerCommon.html');
+                    $('#sidebar').load('sidebar.html');
+                    $('#rightSidebar').load('parkingStateInfo.html');
+                    $('#content').load('content.html');
+                })
+            </script> -->
 </head>
 <body>
 
@@ -161,7 +172,7 @@
                                             class="fa fa-android fa-fw"></i> 意见反馈</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown nav_item" onclick=pageJump1("{:U('User/logout')}")><span
+                            <li class="dropdown nav_item" onclick=""><span
                                     style="color: #fff; width: 127px; display: block; padding: 14.5px 0px 14.5px 35px; cursor: pointer;">
 										<img width="25" height="25" src="__PUBLIC__/image/signOut.png">
 										注销
@@ -205,22 +216,16 @@
                     iconOpen: "__PUBLIC__/image/open.png",
                     iconClose: "__PUBLIC__/image/close.png",
                     children: [{
-                        name: "济南市",
-                        icon: "__PUBLIC__/image/leaf.png",
-                        children: []
-                    }, {
                         name: "青岛市",
+                        open: true,
                         iconOpen: "__PUBLIC__/image/open.png",
                         iconClose: "__PUBLIC__/image/close.png",
                         children: [{
-                            name: "市南区",
+                            name: "城阳区",
                             icon: "__PUBLIC__/image/leaf.png"
-                        }, {
-                            name: "市北区",
-                            icon: "__PUBLIC__/image/leaf.png"
-                        }]
+                        }, ]
                     }]
-                }];
+                }]; 
 
                 $(function () {
                     $(".toobar").on("mouseenter", function () {
@@ -239,6 +244,19 @@
                             $('#cityPanel').hide();
                         }
                     })
+                    
+                    
+                    /* $.post("get_area", {
+                    	
+                    }, function (datas, status) {
+                        if (status == 4 || status == "success") {
+							var zNodes = JSON.parse(datas);
+                        	$.fn.zTree.init($("#cityTree"), setting, zNodes);
+
+                        }
+                    }); */
+                    
+                    
                     $.fn.zTree.init($("#cityTree"), setting, zNodes);
                 })
 

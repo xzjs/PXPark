@@ -46,36 +46,7 @@ class DemandController extends BaseController
         }
         $DemandModel=D('Demand');
         $result=$DemandModel->where($condition)->relation(true)->select();
-        for($i=0;$i<count($result);$i++){
-            $result[$i]['current_business']=$this->get_business($result[$i]['current_lon'],$result[$i]['current_lat']);
-        }
         echo json_encode($result);
-        /*$end_time=$start_time+24*$time_type
-        if ($time == 0) {
-            $condition = "is_success IS NULL";
-        } else
-            if ($type == null || $type == "") { //echo "ff";
-                $condition = "time>UNIX_TIMESTAMP(NOW())-$time*3600";
-            } else {
-                if ($type == 0) {//echo "dd";
-                    $condition = "time>UNIX_TIMESTAMP(NOW())-$time*3600 and is_success=0";
-                } else {
-                    $condition = "time>UNIX_TIMESTAMP(NOW())-$time*3600 and is_success=1";
-                }
-            }
-        //echo "select lon ,lat from px_demand where $condition";
-        $result = M()->query("select lon ,lat from px_demand where $condition");
-        $arr = array();
-        /*for ($i = 0; $i < count($result); $i++) {
-            $arr[$i] = array(
-                "x" => $result[$i]['lon'],
-                "y" => $result[$i]['lat'],
-            );
-        }
-        $array = array(
-            "data" => $arr,
-        );
-        echo json_encode($arr);*/
     }
 
     /**
@@ -116,7 +87,8 @@ class DemandController extends BaseController
             'preference'=>$preference,
             'current_lon'=>$current_lon,
             'current_lat'=>$current_lat,
-            'business'=>$this->get_business($lon,$lat)
+            'business'=>$this->get_business($lon,$lat),
+            'current_business'=>$this->get_business($current_lon,$current_lat)
         );
         if($DemandModel->create($data)){
             return $DemandModel->add();
@@ -177,7 +149,7 @@ class DemandController extends BaseController
     public function count_demand($business)
     {
     	
-    	$sql="SELECT u.name,d.car_no,d.lon,d.lat,d.current_lon,d.current_lat FROM px_user AS u,px_demand AS d 
+    	$sql="SELECT u.name,d.car_no,d.lon,d.lat,d.current_business FROM px_user AS u,px_demand AS d 
     			WHERE d.is_success IS NULL AND u.id=d.user_id AND d.business='".$business."'";
     	$result=M()->query($sql);
     	//var_dump($result);
@@ -186,8 +158,8 @@ class DemandController extends BaseController
         	$json['data'][$i]['user_name']=$result[$i]['name'];
         	$json['data'][$i]['type']='本田';
         	$json['data'][$i]['car_no']=$result[$i]['car_no'];
-        	$json['data'][$i]['current']=$this->get_business($result[$i]['current_lon'],$result[$i]['current_lat']);
-        	$json['data'][$i]['destination']=$this->get_business($result[$i]['lon'],$result[$i]['lat']);
+        	$json['data'][$i]['current']=$result[$i]['current_business'];
+        	$json['data'][$i]['destination']=$business;
         }
         echo json_encode($json);
     }

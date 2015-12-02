@@ -271,6 +271,7 @@ class SuperController extends Controller
 
     }
 
+
     public function tradManager()
     {$type = 0;
     $Park = D('Park');
@@ -297,12 +298,12 @@ class SuperController extends Controller
     
     
     	);
-    	
+    	// echo $parkrecord_array;
     }
     //echo "ff";
     echo json_encode($arry);
     }
-   
+    
     /**
      * 获取天气情况
      */
