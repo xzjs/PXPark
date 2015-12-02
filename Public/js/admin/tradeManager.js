@@ -7,17 +7,18 @@ var result;
 function  a(){
 	
 	var type = $('select  option:selected').val();
-	alert(type);
+	//alert(type);
 	 $.ajax({
-		 url:"../System/tradManager",
+		 url:"../Super/tradManager",
 	        type:"post",
 	        ContentType:"application/json",
 	        data:{type},
 	        async :false,
 	        success:function(data){
-	        // alert(data.length);
+	      //   alert(data);
 	           var d=eval("(" + data+ ")");
 	       result= d;
+	       //alert (result);
 	function pagerFilter(data) {
 		if ($.isArray(data)) {
 			data = {
@@ -151,14 +152,14 @@ function  a(){
 						singleSelect : true,
 						pagination : true,
 						nowrap : false,
-						pageSize : 10,
+						pageSize : 20,
 						pageList : [ 10, 20, 50, 100, 150, 200 ],
 						toolbar:'#tb',
 						columns : [ [
 								{
 									field : 'carNo',
 									title : '车牌号',
-									width : 180,
+									width : 100,
 									align : 'center'
 								},
 								{
@@ -176,7 +177,7 @@ function  a(){
 								{
 									field : 'parking',
 									title : '所停停车场',
-									width : 100,
+									width : 180,
 									align : 'center'
 								},
 								{
@@ -221,10 +222,9 @@ function  a(){
 					});
 	
 	$('#tradeGrid').datagrid({
-		data : getData()
+		data : result
 	}).datagrid('clientPaging');
 	
-	//分页工具栏上添加导出excel
 	var pager = $('#tradeGrid').datagrid('getPager');    // 得到datagrid的pager对象  
 	pager.pagination({   
 	    buttons:[{    
@@ -235,4 +235,4 @@ function  a(){
 	    }]
 	}); 
 	        }
-}
+});}

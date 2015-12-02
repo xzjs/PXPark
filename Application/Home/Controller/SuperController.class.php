@@ -260,21 +260,37 @@ class SuperController extends Controller{
 	
 }
 
-	public function tradeManager($type = 0)
-	{
+	public function tradManager()
+	{$type = I('post.type');
 		$Park = D('Park');
 		$condition = $type ? array('type' => $type) : array();
 		$car_id_array = $Park->where($condition)->getField('id', true);
 		$ParkrecordController = A('Parkrecord');
 		$parkrecord_array = $ParkrecordController->complete_list($car_id_array);
+		$arry=array();
+		//echo count($parkrecord_array);
 		for ($i = 0; $i < count($parkrecord_array); $i++) {
 			$Car = D('Car');
 			$parkrecord_array[$i]['car_user'] = $Car->relation(true)->find($parkrecord_array[$i]['car_id']);
 			$parkrecord_array[$i]['park_user']=$Park->relation(true)->find($parkrecord_array[$i]['park_id']);
-		}
-
-		var_dump($parkrecord_array);
-	}
+		 $arry[$i]=array(
+				"carNo"=>$parkrecord_array[$i]['car_user']['no'],
+				"name"=>$parkrecord_array[$i]['car_user']['User']['nickename'],
+		       "telphone"=>$parkrecord_array[$i]['car_user']['User']['phone'],
+			"parking"=>$parkrecord_array[$i]['park_user']['name'],
+				"position"=>$parkrecord_array[$i]['berth_id'],
+				"regTelphone"=>$parkrecord_array[$i]['park_user']['User']['phone'],
+				"inTime"=>$parkrecord_array[$i]['start_time']==''? '':date ( 'Y.m.d H:i:s', $parkrecord_array[$i]['start_time']),
+				"outTime"=>$parkrecord_array[$i]['end_time']==''? '':date ( 'Y.m.d H:i:s', $parkrecord_array[$i]['end_time']),
+				"sumConsume"=>$parkrecord_array[$i]['money'], 
+				
+				
+		);
+		
+		} 
+//echo "ff";
+		echo json_encode($arry);
+	} 
 	private function time_tran($the_time) {
 			
 		$dur=$the_time;
