@@ -89,7 +89,7 @@ function  zhishu_line(){
 
 	else
 		{
-			stime=document.getElementById("begintime").value;
+		stime=document.getElementById("begintime").value;
 		}
 	//alert(stime);
 	if(document.getElementById("endtime").value=="")

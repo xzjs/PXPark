@@ -275,6 +275,27 @@ class SuperController extends Controller{
 
 		var_dump($parkrecord_array);
 	}
+	
+	/**
+	 * 获取天气情况
+	 */
+	public function get_weather() {
+		$Weather=A('Weather');
+		$html_str=$Weather->get_weather(I('param.city_code'));
+		echo $html_str;
+	}
+	
+	
+	/**
+	 * 获取地区列表
+	 */
+	public function get_area_list(){
+		$Area=A('Area');
+		$result=$Area->get_area_list();
+		echo $result;
+	}
+	
+	
 	private function time_tran($the_time) {
 			
 		$dur=$the_time;
