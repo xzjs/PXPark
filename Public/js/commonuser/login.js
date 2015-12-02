@@ -39,9 +39,10 @@ function userRegister(){
 }
 
 function goToRegisterPage(type){
-	if(type == '0'){
-		window.location.href="/PXPark/index.php/Home/Commonuser/RegisterPt.html";
+	//alert("ff");
+	if(type == '1'){
+		window.location.href="/PXPark/index.php/Home/Index/mainLc.html";
 	}else{
-		window.location.href="/PXPark/index.php/Home/Commonuser/RegisterLc.html";
+		window.location.href="/PXPark/index.php/Home/Index/mainPt.html";
 	}
 }

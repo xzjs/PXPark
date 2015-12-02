@@ -221,7 +221,7 @@
 		function registerComplete(){
 		//后台操作，结束后跳转到管理，显示刚才注册的所有信息
 		alert("注册结束！");
-		window.location.href="login.html";
+		window.location.href="index.html";
 		}
 		$(function() {
 			var Accordion = function(el, multiple) {
