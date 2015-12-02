@@ -4640,6 +4640,7 @@
             //获取当前有多少人计算
             var promise3 = Count_Data.query(data.business);
             promise3.then(function (data3) {
+                console.log(data3);
                 createGauge(data3);
             }, function (data3) {
                 alert(data3);
@@ -4695,7 +4696,7 @@
                 if (isReady || t > 50) {
                     var data = [20, 20, 20, 20, 20];
                     createRadar(data);
-                    createGauge();
+                    createGauge(8.2);
                     createPie();
                     clearInterval(timer);
                 }
