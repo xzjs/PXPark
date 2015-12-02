@@ -39,7 +39,7 @@ function userRegister(){
 }
 
 function goToRegisterPage(type){
-	//alert("ff");
+
 	if(type == '1'){
 		window.location.href="/PXPark/index.php/Home/Index/mainLc.html";
 	}else{
