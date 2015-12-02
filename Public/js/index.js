@@ -12,12 +12,12 @@ $(document).ready(function(){
     });
     /*左侧下方文字滚动*/
     $(".left-bottom-scroll").myScroll({
-        speed:40,
+        speed:60,
         rowHeight:$(".left-bottom-scroll li").height()
     });
     /*中间部分文字滚动*/
     $(".car-bottom-text").myScroll({
-       speed: 40,
+       speed: 20,
         rowHeight: $(".car-bottom-text li").height()
     });
 
