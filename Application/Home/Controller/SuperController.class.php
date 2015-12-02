@@ -260,6 +260,25 @@ class SuperController extends Controller{
 	
 }
 
+/**
+ * 获取天气情况
+ */
+public function get_weather() {
+	$Weather=A('Weather');
+	$html_str=$Weather->get_weather(I('param.city_code'));
+	echo $html_str;
+}
+
+
+/**
+ * 获取地区列表
+ */
+public function get_area_list(){
+	$Area=A('Area');
+	$result=$Area->get_area_list();
+	echo $result;
+}
+
 public function tradManager()
 {$type = 0;
 $Park = D('Park');
