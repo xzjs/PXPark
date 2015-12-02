@@ -172,7 +172,7 @@
                                             class="fa fa-android fa-fw"></i> 意见反馈</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown nav_item" onclick=pageJump1("{:U('User/logout')}")><span
+                            <li class="dropdown nav_item" onclick=""><span
                                     style="color: #fff; width: 127px; display: block; padding: 14.5px 0px 14.5px 35px; cursor: pointer;">
 										<img width="25" height="25" src="__PUBLIC__/image/signOut.png">
 										注销
@@ -210,28 +210,22 @@
                     }
                 };
 
-                /* var zNodes = [{
+                var zNodes = [{
                     name: "山东省",
                     open: true,
                     iconOpen: "__PUBLIC__/image/open.png",
                     iconClose: "__PUBLIC__/image/close.png",
                     children: [{
-                        name: "济南市",
-                        icon: "__PUBLIC__/image/leaf.png",
-                        children: []
-                    }, {
                         name: "青岛市",
+                        open: true,
                         iconOpen: "__PUBLIC__/image/open.png",
                         iconClose: "__PUBLIC__/image/close.png",
                         children: [{
-                            name: "市南区",
+                            name: "城阳区",
                             icon: "__PUBLIC__/image/leaf.png"
-                        }, {
-                            name: "市北区",
-                            icon: "__PUBLIC__/image/leaf.png"
-                        }]
+                        }, ]
                     }]
-                }]; */
+                }]; 
 
                 $(function () {
                     $(".toobar").on("mouseenter", function () {
@@ -252,7 +246,7 @@
                     })
                     
                     
-                    $.post("get_area", {
+                    /* $.post("get_area", {
                     	
                     }, function (datas, status) {
                         if (status == 4 || status == "success") {
@@ -260,9 +254,10 @@
                         	$.fn.zTree.init($("#cityTree"), setting, zNodes);
 
                         }
-                    });
+                    }); */
                     
                     
+                    $.fn.zTree.init($("#cityTree"), setting, zNodes);
                 })
 
                 function showSearch(flag) {
