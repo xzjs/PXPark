@@ -297,7 +297,7 @@ class SuperController extends Controller
     
     
     	);
-    	// echo $parkrecord_array;
+    	
     }
     //echo "ff";
     echo json_encode($arry);
