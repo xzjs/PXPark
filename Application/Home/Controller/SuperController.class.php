@@ -260,19 +260,16 @@ class SuperController extends Controller{
 	
 }
 
-	public function tradeManager($type = 0)
-	{
-		$Park = D('Park');
-		$condition = $type ? array('type' => $type) : array();
-		$car_id_array = $Park->where($condition)->getField('id', true);
-		$ParkrecordController = A('Parkrecord');
-		$parkrecord_array = $ParkrecordController->complete_list($car_id_array);
-		for ($i = 0; $i < count($parkrecord_array); $i++) {
-			$Car = D('Car');
-			$parkrecord_array[$i]['car_user'] = $Car->relation(true)->find($parkrecord_array[$i]['car_id']);
-			$parkrecord_array[$i]['park_user']=$Park->relation(true)->find($parkrecord_array[$i]['park_id']);
-		}
+/**
+ * 获取天气情况
+ */
+public function get_weather() {
+	$Weather=A('Weather');
+	$html_str=$Weather->get_weather(I('param.city_code'));
+	echo $html_str;
+}
 
+<<<<<<< HEAD
 		var_dump($parkrecord_array);
 	}
 	
@@ -296,6 +293,50 @@ class SuperController extends Controller{
 	}
 	
 	
+=======
+
+/**
+ * 获取地区列表
+ */
+public function get_area_list(){
+	$Area=A('Area');
+	$result=$Area->get_area_list();
+	echo $result;
+}
+
+public function tradManager()
+{$type = 0;
+$Park = D('Park');
+$condition = $type ? array('type' => $type) : array();
+$car_id_array = $Park->where($condition)->getField('id', true);
+$ParkrecordController = A('Parkrecord');
+$parkrecord_array = $ParkrecordController->complete_list($car_id_array);
+$arry=array();
+
+for ($i = 0; $i < count($parkrecord_array); $i++) {
+	$Car = D('Car');
+	$parkrecord_array[$i]['car_user'] = $Car->relation(true)->find($parkrecord_array[$i]['car_id']);
+	$parkrecord_array[$i]['park_user']=$Park->relation(true)->find($parkrecord_array[$i]['park_id']);
+	$arry[$i]=array(
+			"carNo"=>$parkrecord_array[$i]['car_user']['no'],
+			"name"=>$parkrecord_array[$i]['car_user']['User']['nickename'],
+			"telphone"=>$parkrecord_array[$i]['car_user']['User']['phone'],
+			"parking"=>$parkrecord_array[$i]['park_user']['name'],
+			"position"=>$parkrecord_array[$i]['berth_id'],
+			"regTelphone"=>$parkrecord_array[$i]['park_user']['User']['phone'],
+			"inTime"=>$parkrecord_array[$i]['start_time']==''? '':date ( 'Y.m.d H:i:s', $parkrecord_array[$i]['start_time']),
+			"outTime"=>$parkrecord_array[$i]['end_time']==''? '':date ( 'Y.m.d H:i:s', $parkrecord_array[$i]['end_time']),
+			"sumConsume"=>$parkrecord_array[$i]['money'],
+
+
+	);
+	// echo $parkrecord_array;
+}
+//echo "ff";
+echo json_encode($arry);
+}
+
+>>>>>>> branch 'master' of https://github.com/xzjs/PXPark.git
 	private function time_tran($the_time) {
 			
 		$dur=$the_time;

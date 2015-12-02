@@ -19,8 +19,8 @@ define('APP_DEBUG',True);
 
 // 定义应用目录
 define('APP_PATH','./Application/');
-//define('APP_STATUS','office');
-define('APP_STATUS','home');
+define('APP_STATUS','office');
+//define('APP_STATUS','home');
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';
 
