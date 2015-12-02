@@ -17,7 +17,7 @@ $(document).ready(function(){
     });
     /*中间部分文字滚动*/
     $(".car-bottom-text").myScroll({
-       speed: 40,
+       speed: 80,
         rowHeight: $(".car-bottom-text li").height()
     });
 
