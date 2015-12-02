@@ -4590,12 +4590,11 @@
 
     carApp.factory('Park_Data', function ($http, $q) {
         return {
-            query: function (lon, lat, num) {
+            query: function (lon, lat) {
                 var config = {
                     params: {
                         'lon': lon,
-                        'lat': lat,
-                        'num': num
+                        'lat': lat
                     }
                 };
                 var defered = $q.defer();
@@ -4749,9 +4748,9 @@
         }
 
         function park(d, d1) {
-            $scope.park_list = d;
+            $scope.park_list = d.slice(0,5);
             setTimeout(function () {
-                for (var i = 0; i < d.length; i++) {
+                for (var i = 0; i < $scope.park_list.length; i++) {
                     var $carList = $(".car-list li");
                     for (var j = 0; j < $carList.length; j++)
                         $($carList[j]).removeClass("carListBack");
