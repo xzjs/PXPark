@@ -125,7 +125,7 @@
 
     var point = new BMap.Point(car_lon, car_lat);
     map.centerAndZoom(point, 15);
-   // alert("f");
+
     //创建小车
     var pt = new BMap.Point(car_lon, car_lat);
     var myIcon = new BMap.Icon("__PUBLIC__/image/car.png", new BMap.Size(28, 60));
@@ -137,7 +137,6 @@
     var data = {lon: car_lon, lat: car_lat};
     var end_lon = 0;
     var end_lat = 0;
-    
     $.getJSON(url,
             data,
             function (result, textStatus, jqXHR) {
@@ -146,7 +145,6 @@
                         end_lon = item.lon;
                         end_lat = item.lat;
                     }
-                    alert("f");
                     var pt = new BMap.Point(item.lon, item.lat);
                     var sContent =
                             "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>item.name</h4>" +
