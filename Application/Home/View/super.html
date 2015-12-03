@@ -188,41 +188,54 @@
             </style>
 
             <script type="text/javascript">
-                function getFont(treeId, node) {
-                    return {'color': '#fff'};
-                }
-                var setting = {
+            function getFont(treeId, node) {
+                return {'color': '#fff'};
+            }
+            
+            var setting = {
                     view: {
-                        fontCss: getFont,
-                        nameIsHTML: true
-                    }
-                };
+                         fontCss: getFont,
+                         nameIsHTML: true,
+                    },
+            
 
-                /* var zNodes = [{
-                    name: "山东省",
-                    open: true,
-                    iconOpen: "__PUBLIC__/image/open.png",
-                    iconClose: "__PUBLIC__/image/close.png",
-                    children: [{
-                        name: "济南市",
-                        icon: "__PUBLIC__/image/leaf.png",
-                        children: []
-                    }, {
-                        name: "青岛市",
-                        iconOpen: "__PUBLIC__/image/open.png",
-                        iconClose: "__PUBLIC__/image/close.png",
-                        children: [{
-                            name: "市南区",
-                            icon: "__PUBLIC__/image/leaf.png"
-                        }, {
-                            name: "市北区",
-                            icon: "__PUBLIC__/image/leaf.png"
-                        }]
-                    }]
-                }]; */
+        			async: {
+        				enable: true,
+        				url:"get_area_list",
+        				autoParam:["id", "level"],
+        				otherParam:{"otherParam":"zTreeAsyncTest"},
+        				dataFilter: filter
+        			},
+            
+                    data:{  
+                        simpleData:{  
+                            enable:true,  
+                            idKey:"id",  
+                            pIdKey:"pId",  
+                            rootPId:0  
+                        }  
+            },  
+        		};
 
-                $(function () {
-                    $(".toobar").on("mouseenter", function () {
+        		function filter(treeId, parentNode, childNodes) {
+        			if (!childNodes) return null;
+        			for (var i=0, l=childNodes.length; i<l; i++) {
+        				childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+        				childNodes[i].iconOpen ="__PUBLIC__/image/open.png";
+        				childNodes[i].iconClose ="__PUBLIC__/image/close.png";
+        				if(childNodes[i].isParent==false)
+        					childNodes[i].icon ="__PUBLIC__/image/leaf.png";
+        			}
+        			return childNodes;
+        		}
+        		
+        		function zTreeOnAsyncError(event,treeId,treeNode,XMLHttpRequest,textStatus,errorThrown){  
+                    alert("加载错误：" + XMLHttpRequest) ;  
+                }
+
+        		$(document).ready(function(){
+        			
+        			$(".toobar").on("mouseenter", function () {
                         $(this).toggleClass("toobar_sel");
                         if ($(this).hasClass('toobar1')) {
                             $('#searchPanel').show();
@@ -230,6 +243,7 @@
                             $('#cityPanel').show();
                         }
                     })
+                    
                     $(".toobar").on("mouseleave", function () {
                         $(this).toggleClass("toobar_sel");
                         if ($(this).hasClass('toobar1')) {
@@ -239,20 +253,10 @@
                         }
                     })
                     
-                    $.post("get_area_list", {
-                    	
-                    }, function (datas, status) {
-                        if (status == 4 || status == "success") {
-							var zNodes = JSON.parse(datas);
-                        	$.fn.zTree.init($("#cityTree"), setting, zNodes);
-
-                        }
-                    });
                     
-
-                    //$.fn.zTree.init($("#cityTree"), setting, zNodes);
                     
-                })
+        			$.fn.zTree.init($("#cityTree"), setting);
+        		});
 
                 function showSearch(flag) {
                     $('#searchResultWin').modal();

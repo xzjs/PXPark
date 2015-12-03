@@ -200,65 +200,74 @@
             <script src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap-table.js"></script>
             <!-- E bootstrap-table -->
             <script type="text/javascript">
-                function getFont(treeId, node) {
-                    return {'color': '#fff'};
-                }
-                var setting = {
-                    view: {
-                        fontCss: getFont,
-                        nameIsHTML: true
-                    }
-                };
-
-                var zNodes = [{
-                    name: "山东省",
-                    open: true,
-                    iconOpen: "__PUBLIC__/image/open.png",
-                    iconClose: "__PUBLIC__/image/close.png",
-                    children: [{
-                        name: "青岛市",
-                        open: true,
-                        iconOpen: "__PUBLIC__/image/open.png",
-                        iconClose: "__PUBLIC__/image/close.png",
-                        children: [{
-                            name: "城阳区",
-                            icon: "__PUBLIC__/image/leaf.png"
-                        }, ]
-                    }]
-                }]; 
-
-                $(function () {
-                    $(".toobar").on("mouseenter", function () {
-                        $(this).toggleClass("toobar_sel");
-                        if ($(this).hasClass('toobar1')) {
-                            $('#searchPanel').show();
-                        } else if ($(this).hasClass('toobar2')) {
-                            $('#cityPanel').show();
+                
+                        function getFont(treeId, node) {
+                            return {'color': '#fff'};
                         }
-                    })
-                    $(".toobar").on("mouseleave", function () {
-                        $(this).toggleClass("toobar_sel");
-                        if ($(this).hasClass('toobar1')) {
-                            $('#searchPanel').hide();
-                        } else if ($(this).hasClass('toobar2')) {
-                            $('#cityPanel').hide();
-                        }
-                    })
-                    
-                    
-                    /* $.post("get_area", {
-                    	
-                    }, function (datas, status) {
-                        if (status == 4 || status == "success") {
-							var zNodes = JSON.parse(datas);
-                        	$.fn.zTree.init($("#cityTree"), setting, zNodes);
+                        
+                        var setting = {
+                                view: {
+                                     fontCss: getFont,
+                                     nameIsHTML: true,
+                                },
+                        
 
-                        }
-                    }); */
-                    
-                    
-                    $.fn.zTree.init($("#cityTree"), setting, zNodes);
-                })
+                    			async: {
+                    				enable: true,
+                    				url:"get_area",
+                    				autoParam:["id", "level"],
+                    				otherParam:{"otherParam":"zTreeAsyncTest"},
+                    				dataFilter: filter
+                    			},
+                        
+		                        data:{  
+		                            simpleData:{  
+		                                enable:true,  
+		                                idKey:"id",  
+		                                pIdKey:"pId",  
+		                                rootPId:0  
+		                            }  
+                        },  
+                    		};
+
+                    		function filter(treeId, parentNode, childNodes) {
+                    			if (!childNodes) return null;
+                    			for (var i=0, l=childNodes.length; i<l; i++) {
+                    				childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+                    				childNodes[i].iconOpen ="__PUBLIC__/image/open.png";
+                    				childNodes[i].iconClose ="__PUBLIC__/image/close.png";
+                    				if(childNodes[i].isParent==false)
+                    					childNodes[i].icon ="__PUBLIC__/image/leaf.png";
+                    			}
+                    			return childNodes;
+                    		}
+                    		
+                    		function zTreeOnAsyncError(event,treeId,treeNode,XMLHttpRequest,textStatus,errorThrown){  
+                                alert("加载错误：" + XMLHttpRequest) ;  
+                            }
+
+                    		$(document).ready(function(){
+                    			
+                    			$(".toobar").on("mouseenter", function () {
+                                    $(this).toggleClass("toobar_sel");
+                                    if ($(this).hasClass('toobar1')) {
+                                        $('#searchPanel').show();
+                                    } else if ($(this).hasClass('toobar2')) {
+                                        $('#cityPanel').show();
+                                    }
+                                })
+                                
+                                $(".toobar").on("mouseleave", function () {
+                                    $(this).toggleClass("toobar_sel");
+                                    if ($(this).hasClass('toobar1')) {
+                                        $('#searchPanel').hide();
+                                    } else if ($(this).hasClass('toobar2')) {
+                                        $('#cityPanel').hide();
+                                    }
+                                })
+                                
+                    			$.fn.zTree.init($("#cityTree"), setting);
+                    		});
 
                 function showSearch(flag) {
                     $('#searchResultWin').modal();
@@ -324,7 +333,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="toobar toobar2">
+                <div class="toobar toobar2" style="visibility:hidden">
                     <img src="__PUBLIC__/image/map.png" width="24" height="24">
 
                     <div>区域选择</div>
@@ -444,6 +453,21 @@
                  */
                 $(function () {
 
+                    $.post("get_weather", {
+                        city_code: 370200,
+                    }, function (datas, status) {
+                        if (status == 4 || status == "success") {
+
+                            $("div#weather").html(datas);
+
+                        }
+                    });
+                })
+                
+                /**
+                 * ajax获取停车场信息和收益状况
+                 */
+                $(function () {
                     $.post("get_weather", {
                         city_code: 370200,
                     }, function (datas, status) {
