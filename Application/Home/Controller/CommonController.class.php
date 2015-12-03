@@ -328,8 +328,7 @@ class CommonController extends Controller{
 	 */
 	public function get_area(){
 		$Area=A('Area');
-		
-		$result=$Area->get_area(I('param.id'));
+		$result=$Area->get_area(I('param.user_id'));
 		echo $result;
 	}
 	
@@ -421,6 +420,9 @@ class CommonController extends Controller{
 		else
 			echo json_encode($json);
 	}
+
+	
+	
 	
 	/**
 	 * 时间戳转换成时间长度
