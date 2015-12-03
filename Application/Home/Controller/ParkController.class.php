@@ -471,8 +471,9 @@ class ParkController extends Controller
      * @param int $num 所需停车场数目
      * @return array 目地停车场列表
      */
-    public function getList($lon = 0, $lat = 0, $num = 1000)
+    public function getList($lon = 0, $lat = 0)
     {
+        $num=1000;
         $distance_lon = 180;//经纬度误差，保证给用户的停车场是用户一定距离范围内的
         $distance_lat = 180;
         $condition ['lon'] = array(

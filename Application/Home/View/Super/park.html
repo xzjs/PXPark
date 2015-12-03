@@ -1,10 +1,840 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="parkApp">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>Park</title>
+    <link rel="stylesheet" href="__PUBLIC__/css/style.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/bootstrap-slider.min.css">
+    <script src="//cdn.bootcss.com/angular.js/1.5.0-beta.1/angular.min.js"></script>
 </head>
-<body>
+<body ng-controller="DemandCtrl">
+<div id="container-park"></div>
 
+<!--图例与排行-->
+<!--对应停车需求分布-->
+<div class="left-bottom-park">
+    <p class="progress-btn">
+        <i class="icon-minus"></i>
+        <span class="hide">显示图例</span>
+        <span>隐藏图例</span>
+    </p>
+    <ul>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="90" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 90%;">
+                    <span class="location">台东万达</span>
+                    <span class="progress-num">90</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="80" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 80%;">
+                    <span class="location">市政府</span>
+                    <span class="progress-num">60</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 70%;">
+                    <span class="location">八大关</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 60%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="50" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 50%;">
+                    <span class="location">四方汽车站</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="40" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 40%;">
+                    <span class="location">五四广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="30" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 30%;">
+                    <span class="location">乐客城</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 28%;">
+                    <span class="location">万象城</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 23%;">
+                    <span class="location">宝龙广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 20%;">
+                    <span class="location">创业大厦</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<!--对应需求消化比-->
+<div class="left-bottom-park hide">
+    <p class="progress-btn">
+        <i class="icon-minus"></i>
+        <span class="hide">显示排行</span>
+        <span>隐藏排行</span>
+    </p>
+    <ul>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="90" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 90%;">
+                    <span class="location">台东万达</span>
+                    <span class="progress-num">90</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="80" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 80%;">
+                    <span class="location">市政府</span>
+                    <span class="progress-num">60</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 70%;">
+                    <span class="location">八大关</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 60%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="50" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 50%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="40" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 40%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="30" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 30%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 20%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 20%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+                     aria-valuemax="100" style="width: 25%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<!--对应模拟建设-->
+<div class="left-bottom-park recommand-ranking hide">
+    <p class="progress-btn">
+        <i class="icon-minus"></i>
+        <span class="hide">显示排行</span>
+        <span>隐藏排行</span>
+    </p>
+    <ul>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                     aria-valuemax="100" data-value="100" style="width: 100%;">
+                    <span class="location">创业大厦</span>
+                    <span class="progress-num"></span>
+                </div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 0">
+                    <span class="progress-num"></span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="95" aria-valuemin="0"
+                     aria-valuemax="100" data-value="95" style="width: 95%;">
+                    <span class="location">市政府</span>
+                    <span class="progress-num">50</span>
+                </div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 0">
+                    <span class="progress-num"></span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="90" aria-valuemin="0"
+                     aria-valuemax="100" data-value="90" style="width: 90%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 0">
+                    <span class="progress-num"></span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="85" aria-valuemin="0"
+                     aria-valuemax="100" data-value="85" style="width: 85%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 0">
+                    <span class="progress-num"></span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                     aria-valuemax="100" data-value="75" style="width: 75%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 0">
+                    <span class="progress-num"></span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="65" aria-valuemin="0"
+                     aria-valuemax="100" data-value="65" style="width: 65%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 0">
+                    <span class="progress-num"></span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                     aria-valuemax="100" data-value="60" style="width: 60%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 0">
+                    <span class="progress-num"></span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="50" aria-valuemin="0"
+                     aria-valuemax="100" data-value="50" style="width: 50%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 0">
+                    <span class="progress-num"></span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="45" aria-valuemin="0"
+                     aria-valuemax="100" data-value="45" style="width: 45%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 0">
+                    <span class="progress-num"></span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="progress">
+                <div class="progress-bar clearfix" role="progressbar" aria-valuenow="40" aria-valuemin="0"
+                     aria-valuemax="100" data-value="40" style="width: 40%;">
+                    <span class="location">远洋广场</span>
+                    <span class="progress-num">30</span>
+                </div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 0">
+                    <span class="progress-num"></span>
+                </div>
+            </div>
+        </li>
+
+
+    </ul>
+</div>
+
+<!--右上角主菜单-->
+<div class="right-top-park clearfix">
+    <ul class="main-list-park">
+        <li class="on" ng-click="show_demand()">停车需求分布</li>
+        <li ng-click="show_park()">停车场分布</li>
+        <li>需求消化比</li>
+        <li>模拟建设</li>
+    </ul>
+    <p>R</p>
+</div>
+
+<!--右下角按钮-->
+<!--对应停车需求分析-->
+<div class="right-bottom-park right-bottom-time-control">
+    <ul class="second-list-park">
+        <li class="on">实时状态</li>
+        <li>过去30天</li>
+        <li>过去24小时</li>
+        <li>未来24小时</li>
+    </ul>
+    <p class="second-main-btn">实时状态</p>
+</div>
+<!--对应停车场分布-->
+<div class="right-bottom-park right-bottom-parking-lot clearfix hide">
+    <ul class="second-list-park">
+        <li>隐藏图标</li>
+        <li class="on">显示图标</li>
+    </ul>
+    <p class="second-main-btn">实时状态<i class="icon-circle"></i></p>
+</div>
+<!--对应需求消化比-->
+<div class="right-bottom-park right-bottom-time-control">
+    <ul class="second-list-park">
+        <li class="on">实时状态</li>
+        <li>过去30天</li>
+        <li>过去24小时</li>
+        <li>未来24小时</li>
+    </ul>
+    <p class="second-main-btn">实时状态</p>
+</div>
+<!--对应模拟建设-->
+<div class="right-bottom-park right-bottom-set hide">
+    <ul class="second-list-park">
+        <li class="on">模拟建设</li>
+        <li>推荐方案</li>
+    </ul>
+    <p class="second-main-btn">模拟建设</p>
+</div>
+
+<!--右下方时间线-->
+<div class="time-line">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<!--右下方对应停车场分布中的图标-->
+<div class="parking-lot-state hide">
+    <ul>
+        <li><span>P</span>充足</li>
+        <li><span>P</span>充足</li>
+        <li><span>P</span>紧张</li>
+    </ul>
+</div>
+
+<!--推荐方案弹出窗-->
+<div class="recommand-way hide">
+    <i class="icon-remove"></i>
+    <ul>
+        <li>
+            <p>缓解交通</p>
+
+            <div class="decrease-num"></div>
+        </li>
+        <li>
+            <p>解决停车难</p>
+
+            <div class="decrease-num"></div>
+        </li>
+        <li>
+            <p>建设成本</p>
+
+            <div class="decrease-num"></div>
+        </li>
+        <li>
+            <p>运营效益</p>
+
+            <div class="decrease-num"></div>
+        </li>
+        <li>
+            <p>运营效益</p>
+
+            <div class="decrease-num"></div>
+        </li>
+    </ul>
+    <input type="button" value="确定" class="submit-recommand">
+
+    <div class="progress hide">
+        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="0"
+             aria-valuemin="0" aria-valuemax="100" style="width: 0"></div>
+    </div>
+</div>
+
+<div class="simulate-build">
+    <p class="park-pin hide">P</p>
+
+    <div class="build-window hide">
+        <i class="icon-pencil"></i>
+        <ul>
+            <li>
+                <p>停车场形态：</p>
+                <select name="parking" disabled>
+                    <option value="0">普通地上停车场</option>
+                    <option value="1">普通地下停车场</option>
+                    <option value="2">特殊地上停车场</option>
+                </select>
+            </li>
+            <li>
+                <p>设计车位容量：</p>
+
+                <p><input type="text" placeholder="105" disabled>个</p>
+            </li>
+        </ul>
+        <input type="button" value="建设" class="build-confirm-btn hide">
+
+        <div class="progress hide">
+            <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100" style="width: 0"></div>
+        </div>
+    </div>
+    <div class="build-window-confirm hide">
+        <p>
+            投入使用后会改善金水路的交通拥堵情况，解决XXX地方停车难问题，有效缓解XXX地方停车压力
+        </p>
+        <input type="button" value="确定">
+    </div>
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.11.2.min.js"></script>
+<script src="__PUBLIC__/js/park.js"></script>
+<!--百度地图API-->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PwRzDnXRpLX9il1fGjQNpDiX"></script>
+<!--bootstrap-->
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<!--bootstrap slider-->
+<script src="__PUBLIC__/js/bootstrap-slider.min.js"></script>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("container-park",{}); // 创建Map实例
+    map.centerAndZoom(new BMap.Point(116.405505,39.91544), 8); // 初始化地图,设置中心点坐标和地图级别
+    map.setCurrentCity("青岛"); // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+    map.setMapStyle({style: 'dark'});
+</script>
+<script>
+    var parkApp = angular.module('parkApp', []);
+
+    parkApp.factory('Demand_Data', function ($http, $q) {
+        return {
+            query: function () {
+                var config = {
+                    params: {
+                        'time': 0,
+                        'time_type': 1,
+                        'type': 2
+                    }
+                };
+                var defered = $q.defer();
+                $http.get("{:U('Demand/get_list')}", config).then(
+                        function successCallback(response) {
+                            defered.resolve(response.data);
+                        },
+                        function errCallback(response) {
+                            defered.reject(response);
+                        }
+                );
+                return defered.promise;
+            }
+        }
+    });
+
+    parkApp.factory('Park_Data', function ($http, $q) {
+        return {
+            query: function (lon, lat, num) {
+                var config = {
+                    params: {
+                        'lon': 116.405505,
+                        'lat': 39.91544,
+                        'num': 50
+                    }
+                };
+                var defered = $q.defer();
+                $http.get("{:U('API/park_list')}", config).then(
+                        function successCallback(response) {
+                            defered.resolve(response.data.park_list);
+                        },
+                        function errCallback(response) {
+                            defered.reject(response);
+                        }
+                );
+                return defered.promise;
+            }
+        }
+    });
+
+    parkApp.controller('DemandCtrl', function ($scope, Demand_Data,Park_Data) {
+        $scope.show_demand = function () {
+            /*var promise = Demand_Data.query();
+            promise.then(function (data) {  // 调用承诺API获取数据 .resolve
+                console.log(data);
+                show_p(data);
+            }, function (data) {
+                alert(data);
+            });*/
+            data=[];
+            show_d(data);
+        };
+        $scope.show_park= function () {
+            var promise = Park_Data.query();
+            promise.then(function (data) {  // 调用承诺API获取数据 .resolve
+                console.log(data);
+                show_p(data);
+            }, function (data) {
+                alert(data);
+            });
+        }
+    });
+
+    function show_d(p_data) {
+        if (document.createElement('canvas').getContext) {
+            var mapStyle = {
+                features: ["road", "building", "water", "land"],//隐藏地图上的poi
+                style: "dark"  //设置地图风格为高端黑
+            }
+            map.setMapStyle(mapStyle);
+
+            var BW = 0,    //canvas width
+                    BH = 0,    //canvas height
+                    ctx = null,
+                    stars = [],   //存储所有星星对象的数组
+                    timer = null, //定时器
+                    timeLine = null, //时间轴对象
+                    rs = [],   //最新的结果
+                    isNowTimeData = false, //是否显示当前时间的定位情况
+                    py = null, //偏移
+                    gridWidth = 10000,//网格的大小
+                    isOverlay = false,//是否叠加
+            //gridWidth   = 1,//网格的大小
+                    canvas = null; //偏移
+
+            /*星星对象*/
+            function Star(options) {
+                this.init(options);
+            }
+
+            Star.prototype.init = function (options) {
+                this.x = ~~(options.x);
+                this.y = ~~(options.y);
+                this.initSize(options.size);
+                if (~~(0.5 + Math.random() * 7) == 1) {
+                    this.size = 0;
+                } else {
+                    this.size = this.maxSize;
+                }
+            }
+
+            Star.prototype.initSize = function (size) {
+                var size = ~~(size);
+                this.maxSize = size > 6 ? 6 : size;
+            }
+
+            Star.prototype.render = function (i) {
+                var p = this;
+
+                if (p.x < 0 || p.y < 0 || p.x > BW || p.y > BH) {
+                    return;
+                }
+
+                ctx.beginPath();
+                var gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
+                gradient.addColorStop(0, "rgba(7,120,249,1)");
+                gradient.addColorStop(1, "rgba(7,120,249,0.3)");
+                ctx.fillStyle = gradient;
+                ctx.arc(p.x, p.y, p.size, Math.PI * 2, false);
+                ctx.fill();
+                if (~~(0.5 + Math.random() * 7) == 1) {
+                    p.size = 0;
+                } else {
+                    p.size = p.maxSize;
+                }
+            }
+
+            function render() {
+                renderAction();
+                setTimeout(render, 180);
+            }
+
+            function renderAction() {
+                ctx.clearRect(0, 0, BW, BH);
+                ctx.globalCompositeOperation = "lighter";
+                for (var i = 0, len = stars.length; i < len; ++i) {
+                    if (stars[i]) {
+                        stars[i].render(i);
+                    }
+                }
+            }
+
+
+            // 复杂的自定义覆盖物
+            function ComplexCustomOverlay(point) {
+                this._point = point;
+            }
+
+            ComplexCustomOverlay.prototype = new BMap.Overlay();
+            ComplexCustomOverlay.prototype.initialize = function (map) {
+                this._map = map;
+                canvas = this.canvas = document.createElement("canvas");
+                canvas.style.cssText = "position:absolute;left:0;top:0;";
+                ctx = canvas.getContext("2d");
+                var size = map.getSize();
+                canvas.width = BW = size.width;
+                canvas.height = BH = size.height;
+                map.getPanes().labelPane.appendChild(canvas);
+                //map.getContainer().appendChild(canvas);
+                return this.canvas;
+            }
+            ComplexCustomOverlay.prototype.draw = function () {
+                var map = this._map;
+                var bounds = map.getBounds();
+                var sw = bounds.getSouthWest();
+                var ne = bounds.getNorthEast();
+                var pixel = map.pointToOverlayPixel(new BMap.Point(sw.lng, ne.lat));
+                py = pixel;
+                if (rs.length > 0) {
+                    showStars(rs);
+                }
+            }
+            var myCompOverlay = new ComplexCustomOverlay(new BMap.Point(116.407845, 39.914101));
+            map.addOverlay(myCompOverlay);
+
+            var project = map.getMapType().getProjection();
+            var bounds = map.getBounds();
+            var sw = bounds.getSouthWest();
+            var ne = bounds.getNorthEast();
+            sw = project.lngLatToPoint(new BMap.Point(sw.lng, sw.lat));
+            ne = project.lngLatToPoint(new BMap.Point(ne.lng, ne.lat));
+
+            //左上角墨卡托坐标点
+            var original = {
+                x: sw.x,
+                y: ne.y
+            }
+
+            /**
+             * 请求定位数据,并在地图上绘制出
+             * @param 请求的时间
+             * @param 成功后执行的回调函数
+             *
+             */
+            var requestMgr = {
+                /*request: function (time, successCbk) {
+                    rs = p_data;
+                    showStars(rs);
+                    if (successCbk) {
+                        successCbk();
+                    }
+                }*/
+                request: function (time, successCbk) {
+                    if (document.location.host === 'developer.baidu.com') {
+                        var url = "http://developer.baidu.com/map/jsdemo/data/data";
+                    } else {
+                        var url = "__PUBLIC__/data";
+                    }
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function() {
+                        if( xhr.readyState == 4  && xhr.status == 200 ) {
+                            if (!isOverlay) {
+                                rs = JSON.parse(xhr.responseText);
+                            } else {
+                                rs = rs.concat(JSON.parse(xhr.responseText));
+                                if (rs.length > 10000) {
+                                    rs.splice(0, rs.length - 10000);
+                                }
+                            }
+                            showStars(rs);
+                            if (successCbk) {
+                                successCbk();
+                            }
+                        }
+                    }
+                    xhr.open( "GET", url, true );
+                    xhr.send( null );
+                }
+            }
+
+            //显示星星
+            function showStars(rs) {
+                stars.length = 0;
+                var temp = {};
+                for (var i = 0, len = rs.length; i < len; i++) {
+                    var item = rs[i];
+                    var addNum = gridWidth / 2;
+                    var x = item[0] * gridWidth + addNum;
+                    var y = item[1] * gridWidth + addNum;
+                    var point = project.pointToLngLat(new BMap.Pixel(x, y));
+                    var px = map.pointToOverlayPixel(point);
+                    //create all stars
+                    var s = new Star({
+                        x: px.x - py.x,
+                        y: px.y - py.y,
+                        size: item[2]
+                    });
+                    stars.push(s);
+                    //}
+                }
+                canvas.style.left = py.x + "px";
+                canvas.style.top = py.y + "px";
+                renderAction();
+            }
+
+            render();
+
+            function nowTimeCbk(time) {
+                requestMgr.request(time, function () {
+                    if (isNowTimeData) {
+                        setTimeout(function () {
+                            if (isNowTimeData) {
+                                startCbk(nowTimeCbk);
+                            }
+                        }, 1000);
+                    }
+                });
+            }
+
+            function startCbk(cbk) {
+                var now = new Date();
+                var time = {
+                    hour: now.getHours(),
+                    minute: now.getMinutes(),
+                    second: now.getSeconds()
+                };
+                if (cbk) {
+                    cbk(time);
+                }
+            };
+            startCbk(nowTimeCbk);
+        } else {
+            alert('请在chrome、safari、IE8+以上浏览器查看本示例');
+        }
+    }
+
+    function show_p(data){
+        for(var i=0;i<data.length;i++){
+            var pt = new BMap.Point(data[i]['lon'], data[i]['lat']);
+            rand=Math.floor(Math.random()*3);
+            img='';
+            switch (rand){
+                case 0:
+                    img='chongzu.png';
+                    break;
+                case 1:
+                    img='buzu.png';
+                    break;
+                case 2:
+                    img='jinzhang.png';
+                    break;
+                default :
+                    break;
+            }
+            var myIcon = new BMap.Icon("__PUBLIC__/image/"+img, new BMap.Size(35, 40));
+            var marker2 = new BMap.Marker(pt, {icon: myIcon});  // 创建标注
+            map.addOverlay(marker2);
+        }
+    }
+</script>
 </body>
 </html>

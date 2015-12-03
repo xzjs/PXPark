@@ -1,0 +1,75 @@
+@media screen and (min-width: 1600px){
+    .left-container .left-bottom{
+        height: 292px;
+    }
+    .left-container .left-mid{
+        height: 215px;
+    }
+    .left-container .left-top{
+        height: 280px;
+    }
+    #myCar{
+        width: 700px;
+        height: 380px;
+    }
+    .car-bottom-text,#car-bottom-board{
+        height: 275px;
+    }
+    #right-top{
+        height: 569px;
+    }
+    .car-list{
+        left: 79%;
+        top: -37%;
+    }
+    .car-charts{
+        left: 65%;
+    }
+    .right-bottom{
+        min-height: 225px;
+    }
+}
+
+@media screen and (min-width: 1920px){
+    .left-container .left-top{
+        /*height:350px;*/
+    }
+    .left-container .left-bottom{
+        /*height: 350px;*/
+    }
+    .left-container .left-mid{
+        /*height:220px;*/
+    }
+
+    #myCar{
+        width: 800px;
+        height: 461px;
+    }
+    .car-bottom-text,#car-bottom-board{
+        height: 350px;
+    }
+    #right-top{
+        height: 672px;
+    }
+    .car-bottom{
+        margin-top: -79px;
+    }
+    .car-content{
+        left:10%;
+        top:36px;
+    }
+
+    .car-list {
+        left: 69%;
+        top: -43%;
+    }
+    .car-charts{
+        left: 68%;
+    }
+    .right-bottom{
+        min-height: 252px;
+    }
+    .right-bottom ul{
+        margin: 20px 0 0 20px;
+    }
+}

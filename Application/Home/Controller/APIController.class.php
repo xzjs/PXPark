@@ -288,7 +288,7 @@ class APIController extends Controller
     public function park_list()
     {
         $park = A('Park');
-        $reslut = $park->getList(I('param.lon'), I('param.lat'), I('param.num'));
+        $reslut = $park->getList(I('param.lon'), I('param.lat'));
         for ($i = 0; $i < count($reslut); $i++) {
             $reslut[$i]['img'] = C('IP') . __ROOT__ . $reslut[$i]['img'];
         }
