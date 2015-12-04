@@ -36,15 +36,18 @@ class UserController extends Controller
         if ($data) {
             $pwd = md5($pwd);
             if ($data ['pwd'] == $pwd) {
-               /*  $array = array(
+                $array = array(
                     "id" => $data ['id'],
                     "nickname" => $data ['nickname'],
                     "type" => $data ['type'],
-                ); */
-                $_SESSION['id']= $data ['id'];
+                ); 
+            	// sesstion_start();                // 首先开启session
+                     // 直接输出 username 
+               // session['id']= $data ['id'];
                 $_SESSION['nickname']= $data ['nickname']; 
-                $_SESSION['type']= $data ['type'];
+                $_SESSION['type']= $data ['type']; 
                 $this->assign('Info', json_encode($array));
+                echo $array;
                 if ($data ['type'] == 2 || $data ['type'] == 3) {
                     $this->redirect("../index.php/Home/Common/index.html");
                 }
@@ -54,6 +57,7 @@ class UserController extends Controller
                 if ($data ['type'] == 1) {
                 	$this->error('该用户不允许登陆');
                 }
+                echo $array;
 
             } else {
                 $this->error('密码错误');

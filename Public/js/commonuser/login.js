@@ -12,7 +12,8 @@ function userLogin(){
 	    type:"post",
 	    data:{type,name,pswd},
 	    success:function(data){
-	    	alert("f");
+	    	alert("f"+data);
+	    	
 	    /*if(data>0)
 	      {
 	    	if(t=='luce'){//路侧用户登录
