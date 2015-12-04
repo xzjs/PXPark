@@ -52,7 +52,7 @@ class UserController extends Controller
                     $this->redirect("../index.php/Home/Common/index.html");
                 }
                 if ($data ['type'] == 4) {
-                    $this->redirect("../index.php/Home/Super/");
+                    $this->redirect("../index.php/Home/Super/index.html");
                 }
                 if ($data ['type'] == 1) {
                 	$this->error('该用户不允许登陆');
