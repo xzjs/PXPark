@@ -3,6 +3,21 @@
  * 
  * @param page
  */
+$(function() {
+	//checsessoin();
+})
+function checsessoin()
+   {//alert('请先登录');
+      var strSession = "<%=SESSION['id'] %>"; 
+       if( strSession == ""||strSession==null)
+       {
+          alert('请先登录');
+          window.location.href="/PXPark/index.php/Home/Index/index.html";
+        }
+       else{
+    	   alert("ff"+strSession);
+       }
+    }
 function pageJump(page, me, flag) {
 	$('#content').load(page);
 	

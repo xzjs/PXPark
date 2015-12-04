@@ -22,6 +22,11 @@
 	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 	<script src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap.js"></script>
 	<script src="__PUBLIC__/js/commonuser/login.js"></script>
+<script type="text/javascript">
+var info=$Info;
+alert(info);
+</script>
+
 </head>
 <body>
 
@@ -36,11 +41,12 @@
 				<div class="rectangle">
 					<h2>管理员登录</h2>
 					<form action="{:U('User/web_login')}" method="post">
-						<div style="margin-left: 15px;">
+						<!-- <div style="margin-left: 15px;">
 							<input type="radio" id="luce" name="loginType" checked="checked" value="luce">路侧公共停车场
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="radio" id="putong" name="loginType" value="putong">普通停车场
-						</div>
+						</div> -->
+						</br>
 	  					<p>
 	  						<img src="__PUBLIC__/image/manager.png" alt="">
 	  						<input type="text" placeholder="用户名" id ="name" name="nickname"  size="10" autoComplete="false" />
