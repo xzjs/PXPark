@@ -440,7 +440,11 @@
                             			zNodes[i].children[j].iconClose ="__PUBLIC__/image/close.png";
                             			zNodes[i].children[j].open =true;
                             			for(var k=0;k<zNodes[i].children[j].children.length;k++){
-                            				zNodes[i].children[j].children[k].icon="__PUBLIC__/image/leaf.png";
+                            				zNodes[i].children[j].children[k].iconOpen ="__PUBLIC__/image/open.png";
+                                			zNodes[i].children[j].children[k].iconClose ="__PUBLIC__/image/close.png";
+                                			zNodes[i].children[j].children[k].open =true;
+                                			for(var l=0;l<zNodes[i].children[j].children[k].children.length;l++)
+                            					zNodes[i].children[j].children[k].children[l].icon="__PUBLIC__/image/leaf.png";
                             			}
                         			}
                         		}
