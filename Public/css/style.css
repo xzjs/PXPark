@@ -271,7 +271,7 @@ body{
 }
 .car-list{
     position: absolute;
-    left: 76%;
+    left: 75%;
     top: -47%;
 }
 .car-list li{
@@ -474,6 +474,8 @@ li.resultList p{
 /*平行停车场*/
 #container-park{
     height: 100%;
+    min-width: 1200px;
+    min-height: 600px;
 }
 /*右上角按钮*/
 .right-top-park{
@@ -515,6 +517,10 @@ li.resultList p{
     -ms-transition: all .2s ease-in;
     -o-transition: all .2s ease-in;
     transition: all .2s ease-in;
+}
+.on{
+    color: #FF9900 !important;
+    background-color: rgba(26,68,129,0.7) !important;
 }
 .main-list-park li:first-child {
     right: 12px;
@@ -588,38 +594,77 @@ li.resultList p{
     width: 40%;
 }
 .left-bottom-park ul{
-    display: none;
+    /*display: none;*/
 }
 .left-bottom-park .progress{
     background-color: transparent;
     background-image: none;
     height: 25px;
     margin-bottom:5px;
+    box-shadow: none;
 }
 .left-bottom-park .progress .progress-bar{
     line-height:25px;
+    background-image: none;
+    background-color: rgba(12,73,164,0.6);
+}
+.left-bottom-park ul li:nth-child(2) .progress-bar{
+    background-color: rgba(13,105,165,0.6);
+}
+.left-bottom-park ul li:nth-child(3) .progress-bar{
+    background-color: rgba(13,135,165,0.6);
+}
+.left-bottom-park ul li:nth-child(4) .progress-bar{
+    background-color: rgba(13,165,165,0.6);
+}
+.left-bottom-park ul li:nth-child(5) .progress-bar{
+    background-color: rgba(12,134,134,0.6);
+}
+.left-bottom-park ul li:nth-child(6) .progress-bar{
+    background-color: rgba(44,165,135,0.6);
+}
+.left-bottom-park ul li:nth-child(7) .progress-bar{
+    background-color: rgba(74,165,165,0.6);
+}
+.left-bottom-park ul li:nth-child(8) .progress-bar{
+    background-color: rgba(73,164,164,0.6);
+}
+.left-bottom-park ul li:nth-child(9) .progress-bar{
+    background-color: rgba(107,197,198,0.6);
+}
+.left-bottom-park ul li:nth-child(10) .progress-bar{
+    background-color: rgba(107,187,198,0.6);
 }
 .location{
     float: left;
     padding-left: 10px;
+    color: #FF9900;
+    font-size: 14px;
 }
 .progress-num{
     float: right;
     padding-right:10px;
+    color: #FF0000;
+    font-size: 14px;
+    font-weight: bold;
 }
 .progress-btn{
+    /*width: 24%;*/
     cursor: pointer;
+    position: absolute;
+    top: -44px;
 }
 .progress-btn span{
     width: 88px;
     height: 30px;
-    color: #1104BD;
+    color: #1511B4;
     background-color: rgba(136,136,136,0.7);
     font-size: 16px;
     line-height:30px;
     text-align: center;
     border-radius: 5px;
     display: inline-block;
+    display: none;
 }
 .progress-btn i{
     display: inline-block;
@@ -633,7 +678,61 @@ li.resultList p{
     padding: 5px;
     margin-right: 4px;
 }
-
+.left-bottom-park + .left-bottom-park .progress-bar{
+    background-image: none !important;
+    background-color: rgba(165,13,13,0.6);
+    position: relative;
+    z-index: 1000;
+}
+.left-bottom-park + .left-bottom-park .progress-bar+.progress-bar{
+    background-color: #299B0C !important;
+}
+.left-bottom-park + .left-bottom-park ul li:nth-child(2) .progress-bar{
+    background-color: rgba(165,13,44,0.6);
+}
+.left-bottom-park + .left-bottom-park ul li:nth-child(3) .progress-bar{
+    background-color: rgba(165,44,13,0.6);
+}
+.left-bottom-park + .left-bottom-park ul li:nth-child(4) .progress-bar{
+    background-color: rgba(165,44,44,0.6);
+}
+.left-bottom-park + .left-bottom-park ul li:nth-child(5) .progress-bar{
+    background-color: rgba(162,71,70,0.6);
+}
+.left-bottom-park + .left-bottom-park ul li:nth-child(6) .progress-bar{
+    background-color: rgba(165,74,44,0.6);
+}
+.left-bottom-park + .left-bottom-park ul li:nth-child(7) .progress-bar{
+    background-color: rgba(165,105,44,0.6);
+}
+.left-bottom-park + .left-bottom-park ul li:nth-child(8) .progress-bar{
+    background-color: rgba(181,121,29,0.6);
+}
+.left-bottom-park + .left-bottom-park ul li:nth-child(9) .progress-bar{
+    background-color: rgba(165,135,12,0.6);
+}
+.left-bottom-park + .left-bottom-park ul li:nth-child(10) .progress-bar{
+    background-color: rgba(165,135,20,0.6);
+}
+.left-bottom-park + .left-bottom-park .location{
+    color: #6EE2E2;
+}
+.left-bottom-park + .left-bottom-park .progress-num{
+    color: #77F800;
+}
+.left-bottom-park + .left-bottom-park .progress-bar+.progress-bar .progress-num{
+    color: #000;
+}
+.left-bottom-park + .left-bottom-park .progress-bar+.progress-bar{
+    position: relative;
+    z-index: 999;
+}
+.left-bottom-park li .progress .progress-bar:first-child{
+    min-width: 14%;
+}
+.left-bottom-park li .progress .progress-bar+.progress-bar{
+    max-width: 86%;
+}
 /*时间线*/
 .time-line {
     position: absolute;
@@ -659,12 +758,180 @@ li.resultList p{
     background-image: none !important;
 }
 
+/*右下方对应停车场分布*/
+.right-bottom-parking-lot ul {
+    width: 222px;
+    height: 38px;
+    float: left;
+    position: relative;
+    right: 0;
+    bottom: -9px;
+}
+.right-bottom-parking-lot li{
+    position: absolute;
+}
+.right-bottom-parking-lot li:first-child{
+    right: 5px;
+}
+.right-bottom-parking-lot p{
+    float: left;
+}
+.right-bottom-parking-lot p i{
+    font-size: 12px;
+    padding-left: 3px;
+}
+.parking-lot-state{
+    position: absolute;
+    right: 15px;
+    bottom: 50px;
+}
+.parking-lot-state li {
+    font-size: 20px;
+    margin-top: -5px;
+}
+.parking-lot-state li span{
+    font-size: 30px;
+    font-weight:bold;
+}
+.parking-lot-state li:first-child{
+    color: #09F219;
+}
+.parking-lot-state li:nth-child(2){
+    color: #FCF505;
+}
+.parking-lot-state li:last-child{
+    color: #FC1405;
+}
 
+/*推荐方案弹出窗*/
+.recommand-way{
+    background-color: rgba(9,155,191,0.7);
+    position: absolute;
+    right: 18%;
+    top: 47%;
+    border-radius: 10px;
+}
+.recommand-way ul{
+    padding: 35px 15px 10px 15px;
+}
+.recommand-way i.icon-remove {
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    right: 16px;
+    top: 6px;
+}
+.recommand-way ul li{
+    color: #FF9900;
+    font-size: 20px;
+    font-weight: bold;
+}
+.recommand-way ul p{
+    display: inline-block;
+    min-width: 156px;
+}
+.recommand-way ul+input{
+    background-color: #00FF00;
+    color: #000;
+    font-size: 18px;
+    border-radius: 15px;
+    padding:5px 15px;
+    display: block;
+    margin: 0 auto 15px auto;
+    border: none;
+    width: 115px;
+}
+.recommand-way .slider-track,.recommand-way .slider-selection{
+    background-color: #FFCC00 !important;
+}
 
-
-
-
-
+/*右下角模拟建设点击后*/
+.simulate-build{
+    z-index: 1000;
+}
+.park-pin{
+    position: absolute;
+    right: 52px;
+    bottom: 136px;
+    font-size: 46px;
+    font-weight: bold;
+    color: #07F9D4;
+}
+.build-window{
+    position: absolute;
+    right: 18%;
+    top: 13%;
+    border-radius: 10px;
+    background-color: rgba(9,155,191,0.7);
+}
+.build-window i {
+    font-size: 30px;
+    color: #fff;
+    display: block;
+    float: right;
+    margin: 5px 10px 0 0;
+    cursor: pointer;
+}
+.build-window ul{
+    padding: 45px 15px 10px 15px;
+}
+.build-window li{
+    color: #63FF00;
+    font-size: 20px;
+    font-weight: bold;
+}
+.build-window ul p{
+    display: inline-block;
+    min-width: 140px;
+}
+.build-window select{
+    background-color: #00CCFF;
+    color: #FF9900;
+    width: 170px;
+}
+.build-window p span{
+    color: #FF9900;
+    padding-right: 20px;
+    font-size: 24px;
+}
+.build-window ul input{
+    width: 170px;
+    text-align: center;
+    color: #FF9900;
+}
+.build-window input.build-confirm-btn,.build-window-confirm input{
+    background-color: #00FF00;
+    color: #000;
+    font-size: 20px;
+    border-radius: 15px;
+    padding:5px 15px;
+    display: block;
+    margin: 0 auto 15px auto;
+    border: none;
+    width: 115px;
+}
+.build-window-confirm{
+    position: absolute;
+    right: 19%;
+    top: 50%;
+    border-radius: 10px;
+    padding: 20px 45px 10px 45px;
+    background-color: rgba(9,155,191,0.7);
+}
+.build-window-confirm p{
+    font-size: 20px;
+    color: #63FF00;
+    width: 220px;
+}
+.build-window div.progress,.recommand-way .progress{
+    margin: 0;
+    height: 26px;
+}
+.build-window .progress-bar,.recommand-way .progress-bar{
+    line-height: 26px;
+}
 
 
 

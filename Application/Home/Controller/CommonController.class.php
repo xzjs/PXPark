@@ -35,6 +35,7 @@ class CommonController extends Controller{
 			$user_id=$_SESSION['user']['user_id'];
 			$condition=',px_park AS d WHERE a.park_id=d.id AND d.user_id='.$user_id ;
 		}
+		
 		$Model = new Model ();
 		$last_month=strtotime("last Month")+mktime(0,0,0,date("m"),date("d")+1,date("Y"))-time();//30天前的零点
 		$sql_small = "SELECT FROM_UNIXTIME(a.start_time,'%m-%d') atime, COUNT(*) cnt,SUM(a.money) money FROM px_parkrecord AS a,px_car AS c "
@@ -95,6 +96,7 @@ class CommonController extends Controller{
 				}
 			}
 		}
+		
 		$this->assign ( 'columInfo', json_encode ( $colum_chart ) );
 		$this->assign ( 'pieInfo', json_encode ( $pie ) );
 		$this->assign ( 'lineInfo', json_encode ( $line_chart ) );
@@ -326,7 +328,7 @@ class CommonController extends Controller{
 	 */
 	public function get_area(){
 		$Area=A('Area');
-		$result=$Area->get_area();
+		$result=$Area->get_area(I('param.user_id'));
 		echo $result;
 	}
 	
@@ -418,6 +420,9 @@ class CommonController extends Controller{
 		else
 			echo json_encode($json);
 	}
+
+	
+	
 	
 	/**
 	 * 时间戳转换成时间长度

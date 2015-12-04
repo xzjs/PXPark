@@ -66,24 +66,48 @@
         <meta charset="utf-8">
         <link href="__PUBLIC__/css/common/header.css" rel="stylesheet">
         <script type="text/javascript">
-            $(function () {
-                $(".topMenu").on("mouseenter", function () {
-                    if ($(this).is(".open")) {
-                        return
-                    }
-                    $(this).children(":first").find('span').attr('class', 'fa fa-sort-up')
-                    $(this).children(":first").dropdown("toggle")
-                })
-                $(".topMenu").on("mouseleave", function () {
-                    if ($(this).is(".open")) {
-                        $(this).children(":first").dropdown("toggle");
-                    }
-                    $(this).children(":first").find('span').attr('class', 'fa fa-sort-down');
-                    $(this).children(":first").blur();
-                })
-            })
-        </script>
+        function getFont(treeId, node) {
+            return {'color': '#fff'};
+        }
+        var setting = {
+            view: {
+                fontCss: getFont,
+                nameIsHTML: true
+            }
+        };
 
+        
+
+        $(function () {
+            $(".toobar").on("mouseenter", function () {
+                $(this).toggleClass("toobar_sel");
+                if ($(this).hasClass('toobar1')) {
+                    $('#searchPanel').show();
+                } else if ($(this).hasClass('toobar2')) {
+                    $('#cityPanel').show();
+                }
+            })
+            $(".toobar").on("mouseleave", function () {
+                $(this).toggleClass("toobar_sel");
+                if ($(this).hasClass('toobar1')) {
+                    $('#searchPanel').hide();
+                } else if ($(this).hasClass('toobar2')) {
+                    $('#cityPanel').hide();
+                }
+            })
+            
+            
+        
+            
+            
+            //$.fn.zTree.init($("#cityTree"), setting, zNodes);
+        })
+
+        function showSearch(flag) {
+            $('#searchResultWin').modal();
+        }
+        </script>
+		
 
         <div>
             <nav class="navbar navbar-default navbar-fixed-top">
@@ -200,69 +224,8 @@
             <script src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap-table.js"></script>
             <!-- E bootstrap-table -->
             <script type="text/javascript">
-                function getFont(treeId, node) {
-                    return {'color': '#fff'};
-                }
-                var setting = {
-                    view: {
-                        fontCss: getFont,
-                        nameIsHTML: true
-                    }
-                };
-
-                var zNodes = [{
-                    name: "山东省",
-                    open: true,
-                    iconOpen: "__PUBLIC__/image/open.png",
-                    iconClose: "__PUBLIC__/image/close.png",
-                    children: [{
-                        name: "青岛市",
-                        open: true,
-                        iconOpen: "__PUBLIC__/image/open.png",
-                        iconClose: "__PUBLIC__/image/close.png",
-                        children: [{
-                            name: "城阳区",
-                            icon: "__PUBLIC__/image/leaf.png"
-                        }, ]
-                    }]
-                }]; 
-
-                $(function () {
-                    $(".toobar").on("mouseenter", function () {
-                        $(this).toggleClass("toobar_sel");
-                        if ($(this).hasClass('toobar1')) {
-                            $('#searchPanel').show();
-                        } else if ($(this).hasClass('toobar2')) {
-                            $('#cityPanel').show();
-                        }
-                    })
-                    $(".toobar").on("mouseleave", function () {
-                        $(this).toggleClass("toobar_sel");
-                        if ($(this).hasClass('toobar1')) {
-                            $('#searchPanel').hide();
-                        } else if ($(this).hasClass('toobar2')) {
-                            $('#cityPanel').hide();
-                        }
-                    })
-                    
-                    
-                    /* $.post("get_area", {
-                    	
-                    }, function (datas, status) {
-                        if (status == 4 || status == "success") {
-							var zNodes = JSON.parse(datas);
-                        	$.fn.zTree.init($("#cityTree"), setting, zNodes);
-
-                        }
-                    }); */
-                    
-                    
-                    $.fn.zTree.init($("#cityTree"), setting, zNodes);
-                })
-
-                function showSearch(flag) {
-                    $('#searchResultWin').modal();
-                }
+                
+                        
             </script>
 
             <div style="color: #fff;">
@@ -324,7 +287,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="toobar toobar2">
+                <div class="toobar toobar2" id="region_bar" style="visibility:hidden">
                     <img src="__PUBLIC__/image/map.png" width="24" height="24">
 
                     <div>区域选择</div>
@@ -451,6 +414,38 @@
 
                             $("div#weather").html(datas);
 
+                        }
+                    });
+                })
+                
+                /**
+                 *  设置地区列表数据
+                 */
+                $(function () {
+                    $.post("get_area", {
+                        user_id: <?php echo $_SESSION['user']['user_id'] ?>,
+                    }, function (datas, status) {
+                        if (status == 4 || status == "success") {
+                        	if(datas==2){
+                        		
+                        	}else{
+                        		$("div#region_bar").removeAttr('style');
+                        		var zNodes = JSON.parse(datas);
+                        		for(var i=0;i<zNodes.length;i++){
+                        			zNodes[i].iconOpen ="__PUBLIC__/image/open.png";
+                        			zNodes[i].iconClose ="__PUBLIC__/image/close.png";
+                        			zNodes[i].open =true;
+                        			for(var j=0;j<zNodes[i].children.length;j++){
+                        				zNodes[i].children[j].iconOpen ="__PUBLIC__/image/open.png";
+                            			zNodes[i].children[j].iconClose ="__PUBLIC__/image/close.png";
+                            			zNodes[i].children[j].open =true;
+                            			for(var k=0;k<zNodes[i].children[j].children.length;k++){
+                            				zNodes[i].children[j].children[k].icon="__PUBLIC__/image/leaf.png";
+                            			}
+                        			}
+                        		}
+                                $.fn.zTree.init($("#cityTree"), setting, zNodes);
+                        	}
                         }
                     });
                 })
