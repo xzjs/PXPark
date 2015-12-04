@@ -465,7 +465,7 @@ class ParkController extends Controller
 
 
     /**
-     * 根据经纬度获取周围一定距离的停车场列表
+     * 根据经纬度获取周围一定距离的有空停车位的停车场列表
      * @param int $lon 经度
      * @param int $lat 纬度
      * @param int $num 所需停车场数目
@@ -496,6 +496,7 @@ class ParkController extends Controller
                 $lat + $distance_lat
             )
         );
+        $condition['remain_num']=array('gt',0);
         $park = M('Park');
         $result = $park->where($condition)->field('id,name,lon,lat,price,remain_num as remain,total_num as total,img')->select();
         for ($i = 0; $i < count($result); $i++) {
@@ -507,7 +508,7 @@ class ParkController extends Controller
         }
         array_multisort($distance, SORT_ASC, $result); // 按距离排序
 
-        return array_slice($result,0,$num);
+        return  array_slice($result,0,$num);
     }
 
     /**

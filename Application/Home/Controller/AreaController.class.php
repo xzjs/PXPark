@@ -24,6 +24,10 @@ class AreaController extends Controller {
 			$i_qu = - 1;
 			$i_shi = - 1;
 			$i_sheng = - 1;
+			
+			
+			
+			
 			for($i = 0; $i < count ( $area_id_list ); $i ++) {
 				$result_qu = $area_id_list [$i];
 				$result = M ()->query ( "select a.parent_id as id,(select b.name from px_area as b where b.id=a.parent_id)  as name from px_area as a where a.id=" . $result_qu ['id'] ); // $Area->field('parent_id as id,name')->find($result_qu['id']);
@@ -35,22 +39,16 @@ class AreaController extends Controller {
 					$i_shi = 0;
 					$i_qu = 0;
 					$json [$i_sheng] ['name'] = $result_sheng ['name'];
-					//$json [$i_sheng] ['open'] = true;
 					$json [$i_sheng] ['children'] [$i_shi] ['name'] = $result_shi ['name'];
-					//$json [$i_sheng] ['children'] [$i_shi] ['open'] = true;
 					$json [$i_sheng] ['children'] [$i_shi] ['children'] [$i_qu] ['name'] = $result_qu ['name'];
-					//$json [$i_sheng] ['children'] [$i_shi] ['children'] [$i_qu] ['open'] = true;
 				} elseif ($result_shi ['name'] != $tmp_shi) {
 					$i_shi ++;
 					$i_qu = 0;
 					$json [$i_sheng] ['children'] [$i_shi] ['name'] = $result_shi ['name'];
-					//$json [$i_sheng] ['children'] [$i_shi] ['open'] = true;
 					$json [$i_sheng] ['children'] [$i_shi] ['children'] [$i_qu] ['name'] = $result_qu ['name'];
-					//$json [$i_sheng] ['children'] [$i_shi] ['children'] [$i_qu] ['open'] = true;
 				} elseif ($result_qu ['name'] != $tmp_qu) {
 					$i_qu ++;
 					$json [$i_sheng] ['children'] [$i_shi] ['children'] [$i_qu] ['name'] = $result_qu ['name'];
-					//$json [$i_sheng] ['children'] [$i_shi] ['children'] [$i_qu] ['open'] = true;
 				}
 				$tmp_sheng = $result_sheng ['name'];
 				$tmp_shi = $result_shi ['name'];
@@ -70,7 +68,7 @@ class AreaController extends Controller {
 		if ($id) {
 			$Area = M ( 'Area' );
 			$condition_sheng ['parent_id'] = $id;
-			$sheng = $Area->where ( $condition_sheng )->field ( 'id,name' )->order ( 'id' )->select ();
+			$sheng = $Area->where ( $condition_sheng )->field ( 'id,name' )->order ( 'id' )->select ();var_dump($Area->fetchSql());
 			$condition ['parent_id'] = $sheng [0] ['id'];
 			if ($Area->where ( $condition )->find ())
 				$isParent = true;

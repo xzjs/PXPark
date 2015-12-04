@@ -43,7 +43,7 @@ class FakeController extends BaseController {
 		$DemandController = A ( 'Demand' );
 		$result = $DemandController->add ( $lon, $lat, $park_id, $user_id, $preference, $current_lon, $current_lat );
 		echo ($result?$park_id:'失败').','.date('Y-m-d H:i:s');
-		//$this->success ( '数据添加成功！' );
+		$this->success ( '数据添加成功！' );
 	}
 	
 	/**
@@ -75,6 +75,7 @@ class FakeController extends BaseController {
 				$condition_berth ['is_null'] = 0;
 			}
 			$berth_list = M ( 'Berth' )->where ( $condition_berth )->select ();
+			if($berth_list){
 			
 			$rand = rand ( 0, count ( $berth_list ) - 1 );
 			$berth = $berth_list [$rand]; // 随机获取一个空车位
@@ -84,12 +85,16 @@ class FakeController extends BaseController {
 			
 			
 			$Parkrecord=A('Parkrecord');
-			$Parkrecord->add($berth ['park_id'],$car_info['id'],$car_info['type'],$berth['id']);//增加停车记录 
+			$Parkrecord->add($demand['park_id'],$car_info['id'],$car_info['type'],$berth['id']);//增加停车记录 
 			
 			$Demand = A ( 'Demand' );
 			$result = $Demand->update ( $demand['car_no'], $berth['no'] );
 			
 			$this->success ( '数据添加成功！' );
+			}else{
+				echo "该停车场无车位，停车失败！";
+				$this->success("继续跳转");
+			}
 		}else{
 			echo "Demand列表为空";
 		}

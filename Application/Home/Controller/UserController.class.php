@@ -29,7 +29,7 @@ class UserController extends Controller
         $nickname = I('param.nickname');
         $pwd = I('param.pwd');
 		//echo $nickname;
-       $condition['nickname'] = $nickname;
+       	$condition['nickname'] = $nickname;
         //$condition['type'] = $type;
         $User = D('User');
         $data = $User->where($condition)->find();
@@ -41,7 +41,7 @@ class UserController extends Controller
                     "nickname" => $data ['nickname'],
                     "type" => $data ['type'],
                 ); */
-                $_SESSION['id']= $data ['id'];
+                $_SESSION['user']['user_id']= $data ['id'];
                 $_SESSION['nickname']= $data ['nickname']; 
                 $_SESSION['type']= $data ['type'];
                 $this->assign('Info', json_encode($array));
