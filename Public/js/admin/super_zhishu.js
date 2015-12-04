@@ -98,6 +98,7 @@ function  zhishu_line(){
 	    var m=et.getMonth()+1;
           etime=et.getFullYear()+"-"+m+"-"+et.getDate();
 	   }
+	
 	  else
 	   {
 		  etime=document.getElementById("endtime").value;
