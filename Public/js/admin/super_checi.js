@@ -107,6 +107,9 @@ function  park_analyse(){
 	   {
 		  end_time=document.getElementById("endtime").value;
 	   }
+	if(start_time>end_time) 
+		alert("时间段有误，请重新输入");
+	else{
 	//alert(new Date());
 	  $.ajax({
           url:"../Parkrecord/park_analyse",
@@ -182,4 +185,5 @@ function  park_analyse(){
           		
           }
 });
+	}
 }

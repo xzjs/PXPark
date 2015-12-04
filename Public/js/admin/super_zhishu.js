@@ -80,6 +80,7 @@ function  coming_zhishu_line(){
 function  zhishu_line(){
 	var stime;
 	var etime;
+	
 	if(document.getElementById("begintime").value=="")
 		{var st=new Date();
 	     st.setDate(st.getDate()-10);
@@ -101,7 +102,9 @@ function  zhishu_line(){
 	   {
 		  etime=document.getElementById("endtime").value;
 	   }
-	//alert(new Date());
+	if(stime>etime) 
+		alert("时间段有误，请重新输入");
+	else{
 	  $.ajax({
           url:"../Super/zhishu_line",
           type:"post",
@@ -146,6 +149,7 @@ function  zhishu_line(){
         		chart.setOption(option_indexLine);
           }
 });
+	}
 }
 
 function showpie(){
