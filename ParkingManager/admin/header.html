@@ -1,128 +1,138 @@
 <meta charset="utf-8">
 <link href="../resources/css/admin/header.css" rel="stylesheet">
 <style>
-.nav_tn:focus{
-	background: red;
-}
+    .nav_tn:focus {
+        background: red;
+    }
 </style>
 <script type="text/javascript">
-    	$(function(){
-    		$(".topMenu").on("mouseenter", function() {
-    		    if ($(this).is(".open")) {
-    		        return
-    		    }
-    		    $(this).children(":first").find('span').attr('class','fa fa-sort-up')
-    		    $(this).children(":first").dropdown("toggle");
-    		    
-    		})
-    		$(".topMenu").on("mouseleave", function() {
-    			if ($(this).is(".open")) {
-    				$(this).children(":first").dropdown("toggle");
-    		    }
-    		    $(this).children(":first").find('span').attr('class','fa fa-sort-down');
-    		    $(this).children(":first").blur();
-    		})
-    	})
-    </script>
+    $(function () {
+        $(".topMenu").on("mouseenter", function () {
+            if ($(this).is(".open")) {
+                return
+            }
+            $(this).children(":first").find('span').attr('class', 'fa fa-sort-up')
+            $(this).children(":first").dropdown("toggle");
+
+        })
+        $(".topMenu").on("mouseleave", function () {
+            if ($(this).is(".open")) {
+                $(this).children(":first").dropdown("toggle");
+            }
+            $(this).children(":first").find('span').attr('class', 'fa fa-sort-down');
+            $(this).children(":first").blur();
+        })
+    })
+</script>
 <div>
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div style="padding: 0px 20px 0 0px;">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<div class="logo">
-					<span>平行停车管控平台</span>
-				</div>
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-					
-					<li class="dropdown topMenu nav_item" onclick=""><a href="#" onclick="pageJump('map.html',this,3)"
-						class="dropdown-toggle nav_item" data-toggle="dropdown"
-						role="button" aria-expanded="false"> <img width="25" height="25" src="../resources/image/zonglan.png"> 总揽 </a>
-					</li>
-					
-					<li class="dropdown topMenu nav_item"><a href="#"
-						onclick="pageJump('indexAnalysis.html',this,3)"
-						class="dropdown-toggle nav_item" data-toggle="dropdown"
-						role="button" aria-expanded="false"> <img width="25"
-							height="25" src="../resources/image/tjfx.png"> 统计分析 <span
-							class="fa fa-sort-down"></span> </a>
-						<ul class="dropdown-menu" role="menu">
-							<li class="nav_item"
-								onclick="pageJump('indexAnalysis.html',this,1)"><a href="#"><i
-									class="fa fa-info fa-fw"></i> 停车指数分析</a>
-							</li>
-							<li class="nav_item"
-								onclick="pageJump('numStatistics.html',this,1)"><a href="#"><i
-									class="fa fa-money fa-fw"></i> 停车车次统计</a>
-							</li>
-						</ul>
-					</li>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div style="padding: 0px 20px 0 0px;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                        aria-controls="navbar">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span>
+                </button>
+                <div class="logo">
+                    <span>平行停车管控平台</span>
+                </div>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
 
-					<li class="dropdown topMenu nav_item"><a href="#"
-						onclick="pageJump('realTimeStatus.html',this,'3')"
-						class="dropdown-toggle nav_item" data-toggle="dropdown"
-						role="button" aria-expanded="false"> <img width="25"
-							height="25" src="../resources/image/parking.png"> 停车场管理 <span
-							class="fa fa-sort-down"></span> </a>
-						<ul class="dropdown-menu" role="menu">
-							<li class="nav_item"
-								onclick="pageJump('realTimeStatus.html',this,'1')"><a
-								href="#"><i class="fa fa-desktop fa-fw"></i> 停车场实时状态</a>
-							</li>
-							<li class="nav_item"
-								onclick="pageJump('compreManager.html',this,'1')"><a
-								href="#"><i class="fa fa-sitemap fa-fw"></i> 停车场综合管控</a>
-							</li>
-						</ul>
-					</li>
+                    <li class="dropdown topMenu nav_item" onclick=""><a href="#" onclick="pageJump('map.html',this,3)"
+                                                                        class="dropdown-toggle nav_item"
+                                                                        data-toggle="dropdown"
+                                                                        role="button" aria-expanded="false"> <img
+                            width="25" height="25" src="../resources/image/zonglan.png"> 总揽 </a>
+                    </li>
 
-					<li class="dropdown topMenu nav_item"><a href="#"
-						onclick="pageJump('personal.html',this,'3')"
-						class="dropdown-toggle nav_item" data-toggle="dropdown"
-						role="button" aria-expanded="false"> <img width="25"
-							height="25" src="../resources/image/users.png"> 用户管理 <span
-							class="fa fa-sort-down"></span> </a>
-						<ul class="dropdown-menu" role="menu">
-							<li class="nav_item" onclick="pageJump('personal.html',this,'1')"><a
-								href="#"><i class="fa fa-user fa-fw"></i> 个人用户</a>
-							</li>
-							<li class="nav_item"
-								onclick="pageJump('personalRentParking.html',this,'1')"><a
-								href="#"><i class="fa fa-taxi fa-fw"></i> 个人招租停车场</a>
-							</li>
-						</ul>
-					</li>
+                    <li class="dropdown topMenu nav_item"><a href="#"
+                                                             onclick="pageJump('indexAnalysis.html',this,3)"
+                                                             class="dropdown-toggle nav_item" data-toggle="dropdown"
+                                                             role="button" aria-expanded="false"> <img width="25"
+                                                                                                       height="25"
+                                                                                                       src="../resources/image/tjfx.png">
+                        统计分析 <span
+                                class="fa fa-sort-down"></span> </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="nav_item"
+                                onclick="pageJump('indexAnalysis.html',this,1)"><a href="#"><i
+                                    class="fa fa-info fa-fw"></i> 停车指数分析</a>
+                            </li>
+                            <li class="nav_item"
+                                onclick="pageJump('numStatistics.html',this,1)"><a href="#"><i
+                                    class="fa fa-money fa-fw"></i> 停车车次统计</a>
+                            </li>
+                        </ul>
+                    </li>
 
-					<li class="dropdown topMenu nav_item"><a href="#"
-						onclick="pageJump('activityManager.html',this,'3')"
-						class="dropdown-toggle nav_item" data-toggle="dropdown"
-						role="button" aria-expanded="false"> <img width="22"
-							height="22" src="../resources/image/xtgk.png"> 系统管控 <span
-							class="fa fa-sort-down"></span> </a>
-						<ul class="dropdown-menu" role="menu">
-							<li class="nav_item"
-								onclick="pageJump('activityManager.html',this,'1')"><a
-								href="#"><i class="fa fa-cogs fa-fw"></i> 活动管理</a>
-							</li>
-							<li class="nav_item"
-								onclick="pageJump('tradeManager.html',this,'1')"><a
-								href="#"><i class="fa fa-cny fa-fw"></i> 交易管理</a>
-							</li>
-						</ul>
-					</li>
+                    <li class="dropdown topMenu nav_item"><a href="#"
+                                                             onclick="pageJump('realTimeStatus.html',this,'3')"
+                                                             class="dropdown-toggle nav_item" data-toggle="dropdown"
+                                                             role="button" aria-expanded="false"> <img width="25"
+                                                                                                       height="25"
+                                                                                                       src="../resources/image/parking.png">
+                        停车场管理 <span
+                                class="fa fa-sort-down"></span> </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="nav_item"
+                                onclick="pageJump('realTimeStatus.html',this,'1')"><a
+                                    href="#"><i class="fa fa-desktop fa-fw"></i> 停车场实时状态</a>
+                            </li>
+                            <li class="nav_item"
+                                onclick="pageJump('compreManager.html',this,'1')"><a
+                                    href="#"><i class="fa fa-sitemap fa-fw"></i> 停车场综合管控</a>
+                            </li>
+                        </ul>
+                    </li>
 
-					<li class="dropdown nav_item" onclick=""><span
-						style="color: #fff;width: 127px;display: block;padding: 14.5px 0px 14.5px 35px;cursor: pointer;">
+                    <li class="dropdown topMenu nav_item">
+                        <a href="#" onclick="pageJump('personal.html',this,'3')"
+                           class="dropdown-toggle nav_item" data-toggle="dropdown"
+                           role="button" aria-expanded="false">
+                            <img width="25" height="25"
+                                 src="../resources/image/users.png">
+                            用户管理 <span
+                                class="fa fa-sort-down"></span> </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="nav_item" onclick="pageJump('personal.html',this,'1')"><a
+                                    href="#"><i class="fa fa-user fa-fw"></i> 个人用户</a>
+                            </li>
+                            <li class="nav_item"
+                                onclick="pageJump('personalRentParking.html',this,'1')"><a
+                                    href="#"><i class="fa fa-taxi fa-fw"></i> 个人招租停车场</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown topMenu nav_item"><a href="#"
+                                                             onclick="pageJump('activityManager.html',this,'3')"
+                                                             class="dropdown-toggle nav_item" data-toggle="dropdown"
+                                                             role="button" aria-expanded="false"> <img width="22"
+                                                                                                       height="22"
+                                                                                                       src="../resources/image/xtgk.png">
+                        系统管控 <span
+                                class="fa fa-sort-down"></span> </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="nav_item"
+                                onclick="pageJump('activityManager.html',this,'1')"><a
+                                    href="#"><i class="fa fa-cogs fa-fw"></i> 活动管理</a>
+                            </li>
+                            <li class="nav_item"
+                                onclick="pageJump('tradeManager.html',this,'1')"><a
+                                    href="#"><i class="fa fa-cny fa-fw"></i> 交易管理</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown nav_item" onclick=""><span
+                            style="color: #fff;width: 127px;display: block;padding: 14.5px 0px 14.5px 35px;cursor: pointer;">
 							<img width="25" height="25" src="../resources/image/signOut.png">
 							注销 </span></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </div>
