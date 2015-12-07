@@ -94,7 +94,8 @@ function  zhishu_line(){
 		}
 	//alert(stime);
 	if(document.getElementById("endtime").value=="")
-	    {var  et=new Date();
+	    {
+		var  et=new Date();
 	    var m=et.getMonth()+1;
           etime=et.getFullYear()+"-"+m+"-"+et.getDate();
 	   }
@@ -104,8 +105,19 @@ function  zhishu_line(){
 		  etime=document.getElementById("endtime").value;
 	   }
 	if(stime>etime) 
-		alert("时间段有误，请重新输入");
+	{
+		 alert("开始时间不能大于结束时间");
+		 
+	}
 	else{
+		var  et=new Date();
+	    var m=et.getMonth()+1;
+	    var d=et.getDate()<10?'0'+et.getDate():et.getDate();
+	      var now=et.getFullYear()+"-"+m+"-"+d;
+		if(etime>now){
+		      etime=now;
+		      document.getElementById("endtime").value=etime;
+		      }
 	  $.ajax({
           url:"../Super/zhishu_line",
           type:"post",

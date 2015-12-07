@@ -284,8 +284,7 @@ class SuperController extends Controller{
 					"inTime" => $parkrecord_array [$i] ['start_time'] == '' ? '' : date ( 'Y.m.d H:i:s', $parkrecord_array [$i] ['start_time'] ),
 					"outTime" => $parkrecord_array [$i] ['end_time'] == '' ? '' : date ( 'Y.m.d H:i:s', $parkrecord_array [$i] ['end_time'] ),
 					"sumConsume" => $parkrecord_array [$i] ['money'] 
-			)
-			;
+			);
 			// echo $parkrecord_array;
 		}
 	}

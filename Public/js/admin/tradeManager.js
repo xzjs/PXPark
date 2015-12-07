@@ -2,10 +2,10 @@ $(function() {
 	a();
 	// 客户端分页，纯属演示效果
 	   
-})
+});
 var result;
 function  a(){
-	
+	//alert("f");
 	var type = $('select  option:selected').val();
 	//alert(type);
 	 $.ajax({
@@ -15,7 +15,7 @@ function  a(){
 	        data:{type},
 	        async :false,
 	        success:function(data){
-	      //   alert(data);
+	        alert(data);
 	           var d=eval("(" + data+ ")");
 	       result= d;
 	       //alert (result);
