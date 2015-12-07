@@ -39,7 +39,7 @@ class FakeController extends BaseController {
 		$DemandController = A ( 'Demand' );
 		$result = $DemandController->add ( $lon, $lat, $park_id, $user_id, $preference, $current_lon, $current_lat );
 		echo ($result?$park_id:'失败').','.date('Y-m-d H:i:s');
-		$this->success ( '数据添加成功！' );
+		
 	}
 	
 	/**

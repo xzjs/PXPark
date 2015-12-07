@@ -9,6 +9,7 @@ use Org\Util\CodeSwitch;
 
 class CarController extends Controller
 {
+
     public function car_manage()
     {
         $this->display();

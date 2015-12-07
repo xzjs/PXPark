@@ -42,7 +42,7 @@
     <!-- E datetimepicker -->
 
     <!-- custom js -->
-    <script type="text/javascript" src="__PUBLIC__/js/commonuser/main.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/admin/main.js"></script>
 
     <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -66,48 +66,61 @@
         <meta charset="utf-8">
         <link href="__PUBLIC__/css/common/header.css" rel="stylesheet">
         <script type="text/javascript">
-        function getFont(treeId, node) {
-            return {'color': '#fff'};
-        }
-        var setting = {
-            view: {
-                fontCss: getFont,
-                nameIsHTML: true
+            function getFont(treeId, node) {
+                return {'color': '#fff'};
             }
-        };
-
-        
-
-        $(function () {
-            $(".toobar").on("mouseenter", function () {
-                $(this).toggleClass("toobar_sel");
-                if ($(this).hasClass('toobar1')) {
-                    $('#searchPanel').show();
-                } else if ($(this).hasClass('toobar2')) {
-                    $('#cityPanel').show();
+            var setting = {
+                view: {
+                    fontCss: getFont,
+                    nameIsHTML: true
                 }
-            })
-            $(".toobar").on("mouseleave", function () {
-                $(this).toggleClass("toobar_sel");
-                if ($(this).hasClass('toobar1')) {
-                    $('#searchPanel').hide();
-                } else if ($(this).hasClass('toobar2')) {
-                    $('#cityPanel').hide();
-                }
-            })
-            
-            
-        
-            
-            
-            //$.fn.zTree.init($("#cityTree"), setting, zNodes);
-        })
+            };
 
-        function showSearch(flag) {
-            $('#searchResultWin').modal();
-        }
+
+            $(function () {
+                $(".toobar").on("mouseenter", function () {
+                    $(this).toggleClass("toobar_sel");
+                    if ($(this).hasClass('toobar1')) {
+                        $('#searchPanel').show();
+                    } else if ($(this).hasClass('toobar2')) {
+                        $('#cityPanel').show();
+                    }
+                })
+                $(".toobar").on("mouseleave", function () {
+                    $(this).toggleClass("toobar_sel");
+                    if ($(this).hasClass('toobar1')) {
+                        $('#searchPanel').hide();
+                    } else if ($(this).hasClass('toobar2')) {
+                        $('#cityPanel').hide();
+                    }
+                })
+
+
+                //$.fn.zTree.init($("#cityTree"), setting, zNodes);
+            })
+
+            function showSearch(flag) {
+                $('#searchResultWin').modal();
+            }
+
+            $(function () {
+                $(".topMenu").on("mouseenter", function () {
+                    if ($(this).is(".open")) {
+                        return
+                    }
+                    $(this).children(":first").find('span').attr('class', 'fa fa-sort-up')
+                    $(this).children(":first").dropdown("toggle")
+                })
+                $(".topMenu").on("mouseleave", function () {
+                    if ($(this).is(".open")) {
+                        $(this).children(":first").dropdown("toggle");
+                    }
+                    $(this).children(":first").find('span').attr('class', 'fa fa-sort-down');
+                    $(this).children(":first").blur();
+                })
+            })
         </script>
-		
+
 
         <div>
             <nav class="navbar navbar-default navbar-fixed-top">
@@ -125,82 +138,100 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
-
-                            <li class="dropdown topMenu nav_item"><a href="#"
-                                                                     onclick="javascript:pageJump('showInfo.html',this,3)"
-                                                                     class="dropdown-toggle nav_item"
-                                                                     data-toggle="dropdown"
-                                                                     role="button" aria-expanded="false"> <img
-                                    width="25"
-                                    height="25" src="__PUBLIC__/image/tjfx.png"> 统计分析 <span
-                                    class="fa fa-sort-down"></span>
-                            </a>
+                            <li class="dropdown topMenu nav_item index count_income park_analyse">
+                                <a href="#" onclick=pageJump1("{:U('Common/index')}")
+                                   class="dropdown-toggle nav_item"
+                                   data-toggle="dropdown"
+                                   role="button" aria-expanded="false">
+                                    <img width="25" height="25" src="__PUBLIC__/image/tjfx.png">
+                                    统计分析 <span class="fa fa-sort-down"></span>
+                                </a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li class="nav_item"><a href="{:U('Common/index')}"><i
-                                            class="fa fa-info fa-fw"></i> 信息展示</a></li>
-                                    <li class="nav_item"><a
-                                            href="{:U('Common/count_income')}"><i
-                                            class="fa fa-money fa-fw"></i> 收益查询</a></li>
-                                    <li class="nav_item"><a
-                                            href="{:U('Common/park_analyse')}"><i
-                                            class="fa fa-bar-chart-o fa-fw"></i> 流量分析</a></li>
+                                    <li class="nav_item index" onclick=pageJump1("{:U('Common/index')}")>
+                                        <a href="#">
+                                            <i class="fa fa-info fa-fw"></i> 信息展示
+                                        </a>
+                                    </li>
+                                    <li class="nav_item count_income" onclick=pageJump1("{:U('Common/count_income')}")>
+                                        <a href="#">
+                                            <i class="fa fa-money fa-fw"></i> 收益查询
+                                        </a>
+                                    </li>
+                                    <li class="nav_item park_analyse" onclick=pageJump1("{:U('Common/park_analyse')}")>
+                                        <a href="#">
+                                            <i class="fa fa-bar-chart-o fa-fw"></i> 流量分析
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 
-                            <li class="dropdown topMenu nav_item">
+                            <li class="dropdown topMenu nav_item car_manage">
                                 <a href="#" onclick=pageJump1("{:U('Common/car_manage')}")
                                    class="dropdown-toggle nav_item"
                                    data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <img width="25" height="25"
-                                         src="__PUBLIC__/image/carManage.png"> 车辆管理
-                                </a></li>
+                                    <img width="25" height="25" src="__PUBLIC__/image/carManage.png"> 车辆管理
+                                </a>
+                            </li>
 
-                            <!-- <li class="dropdown nav_item" >
-                <span style="color: #fff;width: 127px;display: block;padding: 14.5px 0px 14.5px 35px;cursor: pointer;"><a href="{:U('Car/car_manage')}">
-                    <img width="25" height="25" src="__PUBLIC__/image/carManage.png">车辆管理</a>
-                </span>
-            </li> -->
-
-                            <li class="dropdown topMenu nav_item"><a href="#"
-                                                                     onclick="javascript:pageJump('userInfoDefend.html',this,3)"
-                                                                     class="dropdown-toggle nav_item"
-                                                                     data-toggle="dropdown"
-                                                                     role="button" aria-expanded="false"> <img
-                                    width="25"
-                                    height="25" src="__PUBLIC__/image/infoDefend.png"> 信息维护<span
-                                    class="fa fa-sort-down"></span>
-                            </a>
+                            <li class="dropdown topMenu nav_item user_info park_info pay_info">
+                                <a href="#" onclick=pageJump1("{:U('Common/user_info')}")
+                                   class="dropdown-toggle nav_item"
+                                   data-toggle="dropdown"
+                                   role="button" aria-expanded="false">
+                                    <img width="25" height="25" src="__PUBLIC__/image/infoDefend.png"> 信息维护
+                                    <span class="fa fa-sort-down"></span>
+                                </a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li class="nav_item"><a href="{:U('Common/user_info')}"><i
-                                            class="fa fa-android fa-fw"></i>用户基本信息</a></li>
-                                    <li class="nav_item"><a href="{:U('Common/park_info')}"><i
-                                            class="fa fa-android fa-fw"></i>停车场信息</a></li>
-                                    <li class="nav_item"><a href="{:U('Common/pay_info')}"><i
-                                            class="fa fa-user-md fa-fw"></i>支付信息</a></li>
+                                    <li onclick=pageJump1("{:U('Common/user_info')}") class="nav_item user_info">
+                                        <a href="#">
+                                            <i class="fa fa-android fa-fw"></i>用户基本信息
+                                        </a>
+                                    </li>
+                                    <li onclick=pageJump1("{:U('Common/park_info')}") class="nav_item park_info">
+                                        <a href="#">
+                                            <i class="fa fa-android fa-fw"></i>停车场信息
+                                        </a>
+                                    </li>
+                                    <li onclick=pageJump1("{:U('Common/pay_info')}") class="nav_item pay_info">
+                                        <a href="#">
+                                            <i class="fa fa-user-md fa-fw"></i>支付信息
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 
-                            <li class="dropdown topMenu nav_item"><a href="#"
-                                                                     onclick="javascript:pageJump('ruleInfoDefend.html',this,3)"
-                                                                     class="dropdown-toggle nav_item"
-                                                                     data-toggle="dropdown"
-                                                                     role="button" aria-expanded="false"> <img
-                                    width="22"
-                                    height="22" src="__PUBLIC__/image/systemSet.png"> 系统设置 <span
-                                    class="fa fa-sort-down"></span>
-                            </a>
+                            <li class="dropdown topMenu nav_item rule_info feedback">
+                                <a href="#"
+                                   onclick=pageJump1("{:U('Common/rule_info')}")
+                                   class="dropdown-toggle nav_item"
+                                   data-toggle="dropdown"
+                                   role="button" aria-expanded="false">
+                                    <img
+                                            width="22"
+                                            height="22"
+                                            src="__PUBLIC__/image/systemSet.png"> 系统设置
+                                    <span class="fa fa-sort-down"></span>
+                                </a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li class="nav_item"><a href="{:U('Common/rule_info')}"><i
-                                            class="fa fa-android fa-fw"></i> 收费规则维护</a></li>
-                                    <li class="nav_item"><a href="{:U('Common/feedback')}"><i
-                                            class="fa fa-android fa-fw"></i> 意见反馈</a></li>
+                                    <li class="nav_item rule_info" onclick=pageJump1("{:U('Common/rule_info')}")>
+                                        <a href="#">
+                                            <i class="fa fa-android fa-fw"></i> 收费规则维护
+                                        </a>
+                                    </li>
+                                    <li class="nav_item feedback" onclick=pageJump1("{:U('Common/feedback')}")>
+                                        <a href="">
+                                            <i class="fa fa-android fa-fw"></i> 意见反馈
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
+
                             <li class="dropdown nav_item" onclick=pageJump1("{:U('User/logout')}")><span
                                     style="color: #fff; width: 127px; display: block; padding: 14.5px 0px 14.5px 35px; cursor: pointer;">
 										<img width="25" height="25" src="__PUBLIC__/image/signOut.png">
 										注销
-								</span></li>
+								</span>
+                            </li>
                         </ul>
 
                     </div>
@@ -224,8 +255,8 @@
             <script src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap-table.js"></script>
             <!-- E bootstrap-table -->
             <script type="text/javascript">
-                
-                        
+
+
             </script>
 
             <div style="color: #fff;">
@@ -386,15 +417,15 @@
                         $("div#toyear_info").text("停车场当年累计收益  " + incomeInfo[2].date);
                         $("span#today_big_income").text(incomeInfo[0].big);
                         $("span#today_small_income").text(incomeInfo[0].small);
-                        var totalIncomeToday=parseInt(incomeInfo[0].big) + parseInt( incomeInfo[0].small);
+                        var totalIncomeToday = parseInt(incomeInfo[0].big) + parseInt(incomeInfo[0].small);
                         $("span#today_total_income").text(totalIncomeToday);
                         $("span#tomonth_big_income").text(incomeInfo[1].big);
                         $("span#tomonth_small_income").text(incomeInfo[1].small);
-                        var totalIncomeTomonth=parseInt(incomeInfo[1].big) + parseInt( incomeInfo[1].small);
+                        var totalIncomeTomonth = parseInt(incomeInfo[1].big) + parseInt(incomeInfo[1].small);
                         $("span#tomonth_total_income").text(totalIncomeTomonth);
                         $("span#toyear_big_income").text(incomeInfo[2].big);
                         $("span#toyear_small_income").text(incomeInfo[2].small);
-                        var totalIncomeToyear=parseInt(incomeInfo[2].big) + parseInt( incomeInfo[2].small);
+                        var totalIncomeToyear = parseInt(incomeInfo[2].big) + parseInt(incomeInfo[2].small);
                         $("span#toyear_total_income").text(totalIncomeToyear);
 
                     }
@@ -416,41 +447,41 @@
                         }
                     });
                 })
-                
+
                 /**
                  *  设置地区列表数据
                  */
                 $(function () {
                     $.post("get_area", {
                         user_id: <?php echo $_SESSION['user']['user_id'] ?>,
-                    }, function (datas, status) {
-                        if (status == 4 || status == "success") {
-                        	if(datas==2){
-                        		
-                        	}else{
-                        		$("div#region_bar").removeAttr('style');
-                        		var zNodes = JSON.parse(datas);
-                        		for(var i=0;i<zNodes.length;i++){
-                        			zNodes[i].iconOpen ="__PUBLIC__/image/open.png";
-                        			zNodes[i].iconClose ="__PUBLIC__/image/close.png";
-                        			zNodes[i].open =true;
-                        			for(var j=0;j<zNodes[i].children.length;j++){
-                        				zNodes[i].children[j].iconOpen ="__PUBLIC__/image/open.png";
-                            			zNodes[i].children[j].iconClose ="__PUBLIC__/image/close.png";
-                            			zNodes[i].children[j].open =true;
-                            			for(var k=0;k<zNodes[i].children[j].children.length;k++){
-                            				zNodes[i].children[j].children[k].iconOpen ="__PUBLIC__/image/open.png";
-                                			zNodes[i].children[j].children[k].iconClose ="__PUBLIC__/image/close.png";
-                                			zNodes[i].children[j].children[k].open =true;
-                                			for(var l=0;l<zNodes[i].children[j].children[k].children.length;l++)
-                            					zNodes[i].children[j].children[k].children[l].icon="__PUBLIC__/image/leaf.png";
-                            			}
-                        			}
-                        		}
-                                $.fn.zTree.init($("#cityTree"), setting, zNodes);
-                        	}
+                }, function (datas, status) {
+                    if (status == 4 || status == "success") {
+                        if (datas == 2) {
+
+                        } else {
+                            $("div#region_bar").removeAttr('style');
+                            var zNodes = JSON.parse(datas);
+                            for (var i = 0; i < zNodes.length; i++) {
+                                zNodes[i].iconOpen = "__PUBLIC__/image/open.png";
+                                zNodes[i].iconClose = "__PUBLIC__/image/close.png";
+                                zNodes[i].open = true;
+                                for (var j = 0; j < zNodes[i].children.length; j++) {
+                                    zNodes[i].children[j].iconOpen = "__PUBLIC__/image/open.png";
+                                    zNodes[i].children[j].iconClose = "__PUBLIC__/image/close.png";
+                                    zNodes[i].children[j].open = true;
+                                    for (var k = 0; k < zNodes[i].children[j].children.length; k++) {
+                                        zNodes[i].children[j].children[k].iconOpen = "__PUBLIC__/image/open.png";
+                                        zNodes[i].children[j].children[k].iconClose = "__PUBLIC__/image/close.png";
+                                        zNodes[i].children[j].children[k].open = true;
+                                        for (var l = 0; l < zNodes[i].children[j].children[k].children.length; l++)
+                                            zNodes[i].children[j].children[k].children[l].icon = "__PUBLIC__/image/leaf.png";
+                                    }
+                                }
+                            }
+                            $.fn.zTree.init($("#cityTree"), setting, zNodes);
                         }
-                    });
+                    }
+                });
                 })
 
             </script>
@@ -553,6 +584,11 @@
         <div id="content" style="overflow: auto">{__CONTENT__}</div>
     </div>
 </div>
+<script>
+    var str = "__ACTION__";
+    var arr = str.split("/");
+    pageJump(arr);
+</script>
 </body>
 </html>
 

@@ -108,9 +108,16 @@ function  park_analyse(){
 		  end_time=document.getElementById("endtime").value;
 	   }
 	if(start_time>end_time) 
-		alert("时间段有误，请重新输入");
+		 alert("开始时间不能大于结束时间");
 	else{
-	//alert(new Date());
+		var  et=new Date();
+	    var m=et.getMonth()+1;
+	    var d=et.getDate()<10?'0'+et.getDate():et.getDate();
+	      var now=et.getFullYear()+"-"+m+"-"+d;
+		if(end_time>now){
+			end_time=now;
+		      document.getElementById("endtime").value=end_time;
+		      }
 	  $.ajax({
           url:"../Parkrecord/park_analyse",
           type:"post",
