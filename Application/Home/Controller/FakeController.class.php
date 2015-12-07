@@ -24,13 +24,9 @@ class FakeController extends BaseController {
 		
 		$ParkController = A ( 'Park' );
 		$park_list = $ParkController->getList ( $lon, $lat );
-		$park_id = 0;
-		foreach ( $park_list as $park ) {
-			if ($park ['remain'] > 0) {
-				$park_id = $park ['id'];
-				break;
-			}
-		}
+		//$target_park =$park_list[rand(0,count($park_list)-1)];
+		$park_id=$park_list[0]['id'];//$target_park['id'];
+		
 		
 		$user_id = $this->get_user_id ();
 		
@@ -68,7 +64,6 @@ class FakeController extends BaseController {
 						$demand['park_id'] 
 				);
 				$condition_berth ['is_null'] = 0;
-				
 				// 98%概率停入规划停车场
 			} else {
 				$condition_berth ['park_id'] = $demand['park_id'];
@@ -85,19 +80,20 @@ class FakeController extends BaseController {
 			
 			
 			$Parkrecord=A('Parkrecord');
-			$Parkrecord->add($demand['park_id'],$car_info['id'],$car_info['type'],$berth['id']);//增加停车记录 
+			$Parkrecord->add($berth['park_id'],$car_info['id'],$car_info['type'],$berth['id']);//增加停车记录 
 			
 			$Demand = A ( 'Demand' );
 			$result = $Demand->update ( $demand['car_no'], $berth['no'] );
 			
-			$this->success ( '数据添加成功！' );
+			
 			}else{
-				echo "该停车场无车位，停车失败！";
-				$this->success("继续跳转");
+				
+				echo "id为".$demand['park_id']."的停车场已无车位，停车失败！";
 			}
 		}else{
 			echo "Demand列表为空";
 		}
+		$this->success ( '数据添加成功！' );
 	}
 					
 					

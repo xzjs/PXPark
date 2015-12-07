@@ -824,10 +824,11 @@ class ParkrecordController extends Controller
             $User = A('User');
             $User->cost($id [0] ['user_id'], $money);
             echo "车牌号为" . $car_no . "的车驶离id为" . $park_id . "的停车场，驶离车位的id是" . $berth_id;
-            $this->success('数据添加成功！');
         } else {
             echo "车辆全部驶离停车场";
         }
+
+        $this->success('数据添加成功！');
     }
 
 

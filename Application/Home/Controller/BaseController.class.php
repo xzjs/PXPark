@@ -44,4 +44,8 @@ class BaseController extends Controller
         $businesses=explode(',',$result['result']['business']);
         return $businesses[0]==''?'未知商圈':$businesses[0];
     }
+    
+    public function excel($id,$name) {
+    	
+    }
 }
