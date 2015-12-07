@@ -40,6 +40,7 @@
     <!-- E datetimepicker -->
 
     <!-- custom js -->
+    <script src="__PUBLIC__/thirdparty/jquery/jquery.cookie.js"></script>
     <script type="text/javascript" src="__PUBLIC__/js/admin/main.js"></script>
 
     <!--[if lt IE 9]>
@@ -99,29 +100,34 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown topMenu nav_item" onclick="">
-                                <a href="#"
-                                   onclick=pageJump1("{:U('Super/index')}")
+                                <a id="a1" href="#"
+                                   onclick=pageJump1("{:U('Super/index')}",this.id,3)
                                    class="dropdown-toggle nav_item"
                                    data-toggle="dropdown"
                                    role="button" aria-expanded="false">
                                     <img width="25" height="25" src="__PUBLIC__/image/zonglan.png"> 总览 </a>
                             </li>
 
-                            <li class="dropdown topMenu"><a href="#"
-                                                            class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                                            aria-expanded="false"> <img width="25" height="25"
-                                                                                        src="__PUBLIC__/image/tjfx.png">
-                                统计分析 <span class="fa fa-sort-down"></span>
-                            </a>
+                            <li class="dropdown topMenu nav_item">
+                                <a id="a2" href="#" onclick=pageJump1("{:U('Super/indexAnalysis')}",this.id,3)
+                                   class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false"> <img width="25" height="25"
+                                                               src="__PUBLIC__/image/tjfx.png">
+                                    统计分析 <span class="fa fa-sort-down"></span>
+                                </a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{:U('Super/indexAnalysis')}"><i
-                                            class="fa fa-info fa-fw"></i> 停车指数分析</a></li>
-                                    <li><a href="{:U('Super/num_Statistics')}"><i
-                                            class="fa fa-money fa-fw"></i> 停车车次统计</a></li>
+                                    <li id="a2l1" class="nav_item"
+                                        onclick=pageJump1("{:U('Super/indexAnalysis')}",this.id,1)><a href="#"><i
+                                            class="fa fa-info fa-fw"></i> 停车指数分析</a>
+                                    </li>
+                                    <li id="a2l2" class="nav_item"
+                                        onclick=pageJump1("{:U('Super/num_Statistics')}",this.id,1)><a href="#"><i
+                                            class="fa fa-money fa-fw"></i> 停车车次统计</a>
+                                    </li>
                                 </ul>
                             </li>
 
-                            <li class="dropdown topMenu"><a href="#"
+                            <li class="dropdown topMenu"><a id="a3" href="#"
                                                             class="dropdown-toggle" data-toggle="dropdown" role="button"
                                                             aria-expanded="false"> <img width="25" height="25"
                                                                                         src="__PUBLIC__/image/parking.png">
@@ -191,54 +197,54 @@
             </style>
 
             <script type="text/javascript">
-            function getFont(treeId, node) {
-                return {'color': '#fff'};
-            }
-            
-            var setting = {
-                    view: {
-                         fontCss: getFont,
-                         nameIsHTML: true,
-                    },
-            
-
-        			async: {
-        				enable: true,
-        				url:"get_area_list",
-        				autoParam:["id", "level"],
-        				otherParam:{"otherParam":"zTreeAsyncTest"},
-        				dataFilter: filter
-        			},
-            
-                    data:{  
-                        simpleData:{  
-                            enable:true,  
-                            idKey:"id",  
-                            pIdKey:"pId",  
-                            rootPId:0  
-                        }  
-            },  
-        		};
-
-        		function filter(treeId, parentNode, childNodes) {
-        			if (!childNodes) return null;
-        			for (var i=0, l=childNodes.length; i<l; i++) {
-        				childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
-        				childNodes[i].iconOpen ="__PUBLIC__/image/open.png";
-        				childNodes[i].iconClose ="__PUBLIC__/image/close.png";
-        				if(childNodes[i].isParent==false)
-        					childNodes[i].icon ="__PUBLIC__/image/leaf.png";
-        			}
-        			return childNodes;
-        		}
-        		
-        		function zTreeOnAsyncError(event,treeId,treeNode,XMLHttpRequest,textStatus,errorThrown){  
-                    alert("加载错误：" + XMLHttpRequest) ;  
+                function getFont(treeId, node) {
+                    return {'color': '#fff'};
                 }
 
-        		$(document).ready(function(){
-        			
-        			$(".toobar").on("mouseenter", function () {
+                var setting = {
+                    view: {
+                        fontCss: getFont,
+                        nameIsHTML: true,
+                    },
+
+
+                    async: {
+                        enable: true,
+                        url: "get_area_list",
+                        autoParam: ["id", "level"],
+                        otherParam: {"otherParam": "zTreeAsyncTest"},
+                        dataFilter: filter
+                    },
+
+                    data: {
+                        simpleData: {
+                            enable: true,
+                            idKey: "id",
+                            pIdKey: "pId",
+                            rootPId: 0
+                        }
+                    },
+                };
+
+                function filter(treeId, parentNode, childNodes) {
+                    if (!childNodes) return null;
+                    for (var i = 0, l = childNodes.length; i < l; i++) {
+                        childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+                        childNodes[i].iconOpen = "__PUBLIC__/image/open.png";
+                        childNodes[i].iconClose = "__PUBLIC__/image/close.png";
+                        if (childNodes[i].isParent == false)
+                            childNodes[i].icon = "__PUBLIC__/image/leaf.png";
+                    }
+                    return childNodes;
+                }
+
+                function zTreeOnAsyncError(event, treeId, treeNode, XMLHttpRequest, textStatus, errorThrown) {
+                    alert("加载错误：" + XMLHttpRequest);
+                }
+
+                $(document).ready(function () {
+
+                    $(".toobar").on("mouseenter", function () {
                         $(this).toggleClass("toobar_sel");
                         if ($(this).hasClass('toobar1')) {
                             $('#searchPanel').show();
@@ -246,7 +252,7 @@
                             $('#cityPanel').show();
                         }
                     })
-                    
+
                     $(".toobar").on("mouseleave", function () {
                         $(this).toggleClass("toobar_sel");
                         if ($(this).hasClass('toobar1')) {
@@ -255,11 +261,10 @@
                             $('#cityPanel').hide();
                         }
                     })
-                    
-                    
-                    
-        			$.fn.zTree.init($("#cityTree"), setting);
-        		});
+
+
+                    $.fn.zTree.init($("#cityTree"), setting);
+                });
 
                 function showSearch(flag) {
                     $('#searchResultWin').modal();
@@ -341,41 +346,41 @@
 
                 <!-- 天气情况 -->
                 <div class="whether" id="weather">
-                    
+
                 </div>
-                
+
                 <Script type="text/javascript">
-                /**
-                 * ajax获取停车场信息和收益状况
-                 */
-                $(function () {
-                    $.post("get_weather", {
-                        city_code: 370200,
-                    }, function (datas, status) {
-                        if (status == 4 || status == "success") {
+                    /**
+                     * ajax获取停车场信息和收益状况
+                     */
+                    $(function () {
+                        $.post("get_weather", {
+                            city_code: 370200,
+                        }, function (datas, status) {
+                            if (status == 4 || status == "success") {
 
-                            $("div#weather").html(datas);
+                                $("div#weather").html(datas);
 
-                        }
-                    });
-                })
-                
-                 /**
-                 * ajax获取区域信息
-                 */
-                $(function () {
-                    /* $.post("get_area_list", {
-                    	
-                    }, function (datas, status) {
-                        if (status == 4 || status == "success") {
-							var zNodes = JSON.parse(datas);
-                        	$.fn.zTree.init($("#cityTree"), setting, zNodes);
+                            }
+                        });
+                    })
 
-                        }
-                    }); */
-                })
-                
-                
+                    /**
+                     * ajax获取区域信息
+                     */
+                    $(function () {
+                        /* $.post("get_area_list", {
+
+                         }, function (datas, status) {
+                         if (status == 4 || status == "success") {
+                         var zNodes = JSON.parse(datas);
+                         $.fn.zTree.init($("#cityTree"), setting, zNodes);
+
+                         }
+                         }); */
+                    })
+
+
                 </script>
 
                 <!-- 搜索结果 -->
@@ -421,4 +426,7 @@
     </div>
 </div>
 </body>
+<script>
+    $(document).ready(pageJump);
+</script>
 </html>
