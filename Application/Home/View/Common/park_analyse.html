@@ -5,11 +5,7 @@
 <script src="__PUBLIC__/thirdparty/echarts/echarts-all.js"></script>
 <script type="text/javascript">
 
-$(function(){
-	$('.page_right').load('parkingStateInfo.html');
-	var lineInfo = eval({$lineInfo});
-	drawChart(lineInfo);
-})
+
 
 function getFlowInfo(url,start,end,car_category) {
 	
@@ -100,17 +96,60 @@ function getFlowInfo(url,start,end,car_category) {
 	 		var chart = echarts.init($('#chart')[0]); 
 	 		chart.setOption(option);
 	}
+	
+	$(function(){
+		$('.page_right').load('parkingStateInfo.html');
+		var lineInfo = eval({$lineInfo});
+		drawChart(lineInfo);
+		
+		$('#flow_end_time').attr("placeholder",getNowFormatDate());
+		$('#flow_start_time').attr("placeholder",getTomonthDate());
+		
+	})
 
+	function getTomonthDate(){
+		var date=new Date()
+		date.setDate(date.getDate()-29);
+		var seperator1 = "-";
+	    var seperator2 = ":";
+	    var month = date.getMonth() + 1;
+	    var strDate = date.getDate();
+	    if (month >= 1 && month <= 9) {
+	        month = "0" + month;
+	    }
+	    if (strDate >= 0 && strDate <= 9) {
+	        strDate = "0" + strDate;
+	    }
+	    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+	            + " " + "00" + seperator2 + "00"
+	            + seperator2 + "00";
+	    return currentdate;
+	}
 	
-	
-	
+	function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+    return currentdate;
+}
 </script>
 <div class="page">
 	<div style="height: 10%">
-		开始时间： <input placeholder="请输入日期" class="laydate-icon"
+		开始时间： <input  class="laydate-icon"
 			id="flow_start_time"
 			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-		结束时间： <input placeholder="请输入日期" class="laydate-icon"
+		结束时间： <input  class="laydate-icon"
 			id="flow_end_time"
 			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
 		车辆类型： <select id="flow_car_category">
