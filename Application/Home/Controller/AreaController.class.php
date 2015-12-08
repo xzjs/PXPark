@@ -77,7 +77,7 @@ class AreaController extends Controller {
 		if ($id) {
 			$Area = M ( 'Area' );
 			$condition_sheng ['parent_id'] = $id;
-			$sheng = $Area->where ( $condition_sheng )->field ( 'id,name' )->order ( 'id' )->select ();var_dump($Area->fetchSql());
+			$sheng = $Area->where ( $condition_sheng )->field ( 'id,name' )->order ( 'id' )->select ();
 			$condition ['parent_id'] = $sheng [0] ['id'];
 			if ($Area->where ( $condition )->find ())
 				$isParent = true;
