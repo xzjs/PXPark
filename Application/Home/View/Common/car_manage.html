@@ -35,7 +35,6 @@ function getInfo(url,start,end,car_category) {
 		start_time : start,
 		end_time : end,
 		type:car_category,
-		user_id : <?php echo $_SESSION['user']['user_id'] ?>
 	}, function(datas, status) {
 		if (status == 4 || status == "success") {
 			var data = JSON.parse(datas);
@@ -295,19 +294,42 @@ $(function() {
 	            alert('导出excel');    
 	        }    
 	    }]
-	});    
+	});  
+	
+	$('#income_end_time').attr("placeholder",getNowFormatDate());
+	getInfo("{:U('Common/car_manage')}",'2015-12-1',getNowFormatDate(),'');
+	
 })
 
-
+/**
+ * 获取当前时间 格式为：yyyy-MM-dd HH:MM:SS
+ */
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+    return currentdate;
+}
 
 </script>
 
 <div class="page">
 	<div style="height:7%">
-		开始时间： <input placeholder="请输入日期" class="laydate-icon"
+		开始时间： <input placeholder="2015-12-01 00:00:00" class="laydate-icon"
 		id="income_start_time"
 			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-		结束时间： <input placeholder="请输入日期" class="laydate-icon"
+		结束时间： <input  class="laydate-icon"
 		id="income_end_time"
 			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
 		车辆类型： <select id="income_car_category">

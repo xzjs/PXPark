@@ -393,7 +393,7 @@
 
                     $.post("get_park_info", {
                         park_id: <?php echo $_SESSION['park_id'] ?>,
-                    user_id : <?php echo $_SESSION['user']['user_id'] ?>
+                    	user_id : <?php echo $_SESSION['user']['user_id'] ?>
                 }, function (datas, status) {
                     if (status == 4 || status == "success") {
                         var incomeInfo = eval(datas);

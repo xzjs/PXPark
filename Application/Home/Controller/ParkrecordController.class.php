@@ -575,13 +575,23 @@ class ParkrecordController extends Controller
         if (I('param.user_id', 0) != 0) {
             $condition .= " and px_park.user_id=" . I('param.user_id');
         }
-        if ((I('param.start_time', 0) != 0) && (I('param.end_time', 0) != 0)) {
+        
+        if ((I('param.start_time', 0) != 0) || (I('param.end_time', 0) != 0)) {
+        	$last_month=strtotime("last Month")+mktime(0,0,0,date("m"),date("d")+1,date("Y"))-time();
+        	$in_time = (I('param.start_time', 0) != 0)?strtotime(I('param.start_time')):$last_month;
+        	$out_time = (I('param.end_time', 0) != 0)?strtotime(I('param.end_time')):time();
+        	$date = $this->prDates($in_time, $out_time);
+        	$in_condition = $condition . ' and px_parkrecord.start_time between ' . $in_time . ' and ' . $out_time;
+            $out_condition = $condition . ' and px_parkrecord.end_time between ' . $in_time . ' and ' . $out_time;
+        }
+        
+        /* if ((I('param.start_time', 0) != 0) && (I('param.end_time', 0) != 0)) {
             $date = $this->prDates(I('param.start_time', 0), I('param.end_time', 0));
             $in_time = strtotime(I('param.start_time'));
             $out_time = strtotime(I('param.end_time'));
             $in_condition = $condition . ' and px_parkrecord.start_time between ' . $in_time . ' and ' . $out_time;
             $out_condition = $condition . ' and px_parkrecord.end_time between ' . $in_time . ' and ' . $out_time;
-        }
+        } */
         if ($condition != "") {
             $Model = new Model ();
             $sql_in_money = 'SELECT FROM_UNIXTIME(px_parkrecord.start_time,"%m-%d") atime, COUNT(*) cnt,SUM(px_parkrecord.money) money  FROM px_parkrecord,px_car,px_park WHERE px_park.id=px_parkrecord.park_id and px_parkrecord.car_id=px_car.id ' . $in_condition . ' GROUP  BY FROM_UNIXTIME(px_parkrecord.start_time,"%m-%d")';
@@ -675,17 +685,44 @@ class ParkrecordController extends Controller
                 $user_id = I('param.user_id', 0);
             $condition = ',px_park WHERE px_parkrecord.park_id=px_park.id AND px_park.user_id=' . $user_id;
         }
+        
+        if(I('param.park_id',0)!=0){
+        	$condition = ' where px_parkrecord.park_id=' . I('param.park_id');
+        }elseif(I('param.user_id',0)!=0){
+        	$user_id = I('param.user_id', 0);
+            $condition = ',px_park WHERE px_parkrecord.park_id=px_park.id AND px_park.user_id=' . $user_id;
+        }elseif (isset($_SESSION['park_id'])){
+        	$condition = ' where px_parkrecord.park_id='.$_SESSION['park_id'] ;
+        }elseif(isset($_SESSION['user']['user_id'])){
+        	$user_id=$_SESSION['user']['user_id'];
+        	$condition = ',px_park WHERE px_parkrecord.park_id=px_park.id AND px_park.user_id=' . $user_id;
+        }
+        
         if (I('param.type', 0) != 0) {
             $condition .= " and px_car.type=" . I('param.type');
         }
         if (I('param.flag', 0) != 0) {
             $condition .= " and px_parkrecord.end_time is null";
         }
-        if ((I('param.start_time', 0) != 0) && (I('param.end_time', 0) != 0)) {
-            $in_time = strtotime(I('param.start_time'));
-            $out_time = strtotime(I('param.end_time'));
-            $condition .= ' and (px_parkrecord.start_time between ' . $in_time . ' and ' . $out_time . ' OR px_parkrecord.end_time between ' . $in_time . ' and ' . $out_time . ')';
+        if (I('param.start_time', 0) != 0){
+        	$in_time = strtotime(I('param.start_time'));
+        }else{
+        	$in_time = strtotime('2015-12-1');
         }
+        if(I('param.end_time', 0) != 0){
+            $out_time = strtotime(I('param.end_time'));
+        }else{
+        	$out_time = time();
+        }
+        $condition .= ' and (px_parkrecord.start_time between ' . $in_time . ' and ' . $out_time . ' OR px_parkrecord.end_time between ' . $in_time . ' and ' . $out_time . ')';
+        
+        	/* 	&& ) {
+            $in_time = strtotime(I('param.start_time'));
+            }else if((I('param.start_time', 0) != 0) && (I('param.end_time', 0) == 0)){
+        	$in_time = strtotime('2015-12-1');
+        	$out_time = time();
+        	$condition .= ' and (px_parkrecord.start_time between ' . $in_time . ' and ' . $out_time . ' OR px_parkrecord.end_time between ' . $in_time . ' and ' . $out_time . ')';
+        } */
         if ((I('param.page', 0) != 0) && (I('param.num', 0) != 0)) {
             $page_info = ' limit ' . $page * ($num - 1) . ',' . $page;
         }
@@ -869,8 +906,8 @@ class ParkrecordController extends Controller
     private function prDates($start, $end)
     {
         $date = array();
-        $dt_start = strtotime($start);
-        $dt_end = strtotime($end);
+        $dt_start = $start;
+        $dt_end = $end;
         while ($dt_start <= $dt_end) {
             array_push($date, date('m-d', $dt_start));
             $dt_start = strtotime('+1 day', $dt_start);

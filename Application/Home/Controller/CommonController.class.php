@@ -107,13 +107,16 @@ class CommonController extends Controller{
 	 * 停车场数据分析
 	 */
 	public function park_analyse(){
-	if(I('param.park_id',0)!=0){
+		
+		if(I('param.park_id',0)!=0){
 			$condition=' where a.park_id='.I('param.park_id') ;
-		}else{
-			if(I('param.user_id',0)==0)
-				$user_id=$_SESSION['user']['user_id'];
-			else
-				$user_id=I('param.user_id',0);
+		}elseif(I('param.user_id',0)!=0){
+			$user_id=I('param.user_id',0);
+			$condition=',px_park AS d WHERE a.park_id=d.id AND d.user_id='.$user_id ;
+		}elseif (isset($_SESSION['park_id'])){
+			$condition=' where a.park_id='.$_SESSION['park_id'] ;
+		}elseif(isset($_SESSION['user']['user_id'])){
+			$user_id=$_SESSION['user']['user_id'];
 			$condition=',px_park AS d WHERE a.park_id=d.id AND d.user_id='.$user_id ;
 		}
 		$Model = new Model ();
@@ -241,10 +244,7 @@ class CommonController extends Controller{
 	public function rule_add(){
 		$Rule=A('Rule');
         $day_small_start_times=I('post.day_small_start_time[]');
-		/*$rule_result=$Rule->add();
-		if($rule_result){
-			$day_small_start_times=I('post.day_small_start_time[]');
-		}*/
+		
 	}
 	
 	/**
@@ -253,15 +253,20 @@ class CommonController extends Controller{
 	public function get_park_info() {
 		
 		$Model = new Model ();
+		
+		
 		if(I('param.park_id',0)!=0){
 			$condition=' where px_parkrecord.park_id='.I('param.park_id');
-		}else{
-			if(I('param.user_id',0)==0)
-				$user_id=$_SESSION['user']['user_id'];
-			else
-				$user_id=I('param.user_id',0);
+		}elseif(I('param.user_id',0)!=0){
+			$user_id=I('param.user_id',0);
+			$condition=',px_park where px_parkrecord.park_id=px_park.id and px_park.user_id='.$user_id ;
+		}elseif (isset($_SESSION['park_id'])){
+			$condition=' where px_parkrecord.park_id='.$_SESSION['park_id'] ;
+		}elseif(isset($_SESSION['user']['user_id'])){
+			$user_id=$_SESSION['user']['user_id'];
 			$condition=',px_park where px_parkrecord.park_id=px_park.id and px_park.user_id='.$user_id ;
 		}
+		
 		$condition_today=$condition." and px_parkrecord.end_time>".strtotime("today");
 		$condition_tomonth=$condition." and px_parkrecord.end_time>".mktime(0,0,0,date('m'),1,date('Y'));
 		$condition_toyear=$condition." and px_parkrecord.end_time>".mktime(0,0,0,1,1,date('Y'));
@@ -336,13 +341,16 @@ class CommonController extends Controller{
 	 * 车辆管理
 	 */
 	public function car_manage() {
+		
 		if(I('param.park_id',0)!=0){
 			$condition=' where px_parkrecord.park_id='.I('param.park_id') ;
-		}else{
-			if(I('param.user_id',0)==0)
-				$user_id=$_SESSION['user']['user_id'];
-			else
-				$user_id=I('param.user_id',0);
+		}elseif(I('param.user_id',0)!=0){
+			$user_id=I('param.user_id',0);
+			$condition=',px_park WHERE px_parkrecord.park_id=px_park.id AND px_park.user_id='.$user_id ;
+		}elseif (isset($_SESSION['park_id'])){
+			$condition=' where px_parkrecord.park_id='.$_SESSION['park_id'] ;
+		}elseif(isset($_SESSION['user']['user_id'])){
+			$user_id=$_SESSION['user']['user_id'];
 			$condition=',px_park WHERE px_parkrecord.park_id=px_park.id AND px_park.user_id='.$user_id ;
 		}
 		
@@ -352,9 +360,9 @@ class CommonController extends Controller{
  		if (I('param.flag', 0) != 0) {
 			$condition1 .= " and px_parkrecord.end_time is null";
 		}
-		if ((I('param.start_time', 0) != 0) && (I('param.end_time', 0) != 0)) {
-			$in_time = strtotime(I('param.start_time'));
-			$out_time = strtotime(I('param.end_time'));
+		if ((I('param.start_time', 0) != 0) || (I('param.end_time', 0) != 0)) {
+			$in_time = strtotime((I('param.start_time', 0) != 0)?I('param.start_time'):'2015-12-1');
+			$out_time = (I('param.end_time', 0) != 0)?strtotime(I('param.end_time')):time();
 			$condition1 .= ' and px_parkrecord.start_time between ' . $in_time . ' and ' . $out_time;
 		}
 		if ((I('param.page', 0) != 0) && (I('param.num', 0) != 0)) {
@@ -372,7 +380,7 @@ class CommonController extends Controller{
 			$result = $Model->query( $sql);
 		else 
 			$result = $Model->query( $sql1);
-        $json_array =array("total"=>0,"rows"=>array(),"in_num"=>0,"finish_num"=>0,"money"=>0);//easyUI表格的固定格式
+        $json =array("total"=>0,"rows"=>array(),"in_num"=>0,"finish_num"=>0,"money"=>0);//easyUI表格的固定格式
 		for($i=0;$i<count($result);$i++){
 			if (($result[$i]['start_time'] >= $in_time) && ($result[$i]['start_time'] <= $out_time))
 				$json['in_num']++;
