@@ -17,13 +17,13 @@ use Think\Model;
 class SuperController extends BaseController
 {
 
-    public function __construct()
+    /*public function __construct()
     {
         parent::__construct();
         if ($_SESSION['type'] != 4) {
             $this->error('权限不够,请登录', U('Index/index'));
         }
-    }
+    }*/
 
     /**
      * 车辆管理
