@@ -25,7 +25,6 @@ class UserController extends Controller
      */
     function web_login()
     {
-    	
         $nickname = I('param.nickname');
         $pwd = I('param.pwd');
 		//echo $nickname;
@@ -50,10 +49,10 @@ class UserController extends Controller
                 $this->assign('Info', json_encode($array));
                 echo $array;
                 if ($data ['type'] == 2 || $data ['type'] == 3) {
-                    $this->redirect("../index.php/Home/Common/index.html");
+                    $this->redirect('./Common');
                 }
                 if ($data ['type'] == 4) {
-                    $this->redirect("../index.php/Home/Super/index.html");
+                    $this->redirect('./Super');
                 }
                 if ($data ['type'] == 1) {
                 	$this->error('该用户不允许登陆');
