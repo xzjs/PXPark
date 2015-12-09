@@ -13,7 +13,7 @@ $(function() {
 		window.location.href='/PXPark/index.php/Home/Super/userInfo.html';
 		
 	});
-	// 客户端分页，纯属演示效果
+	/*// 客户端分页，纯属演示效果
 	function pagerFilter(data) {
 		if($.isArray(data)) {
 			data = {
@@ -246,11 +246,11 @@ $(function() {
 				alert('导出excel');
 			}
 		}]
-	});
+	});*/
 });
 function now_che(){alert("dd");}
 function check(){
-	alert("ff");
+	//alert("ff");
 
 var start_time;
 var end_time;
@@ -264,7 +264,6 @@ if(document.getElementById("begintime").value=="")
 else
 	{
 	start_time=document.getElementById("begintime").value;
-	alert("开始时间不能大于结束时间");
 	}
 //alert(start_time);
 if(document.getElementById("endtime").value=="")
@@ -277,17 +276,6 @@ if(document.getElementById("endtime").value=="")
 	  end_time=document.getElementById("endtime").value;
    }
 var type = $('select  option:selected').val();
-if(start_time>end_time) 
-	 alert("开始时间不能大于结束时间");
-else{
-	var  et=new Date();
-    var m=et.getMonth()+1;
-    var d=et.getDate()<10?'0'+et.getDate():et.getDate();
-      var now=et.getFullYear()+"-"+m+"-"+d;
-	if(end_time>now){
-		end_time=now;
-	      document.getElementById("endtime").value=end_time;
-	      }
 $.ajax({
     url:"../Super/car_manager",
     type:"post",
@@ -299,4 +287,3 @@ $.ajax({
     }
     });
     }
-}
