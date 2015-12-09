@@ -5,7 +5,7 @@ namespace Home\Controller;
 use Think\Controller;
 use Think\Model;
 
-class ParkrecordController extends Controller
+class ParkrecordController extends BaseController
 {
     public function index()
     {
@@ -744,7 +744,7 @@ class ParkrecordController extends Controller
                 $json_array ['rows'] [$i] ['end_time'] = ($result [$i] ['end_time']) ? date("Y-m-d h:i:sa", $result [$i] ['end_time']) : '';
                 $time_num = time() - $result [$i] ['start_time'];
                 $json_array ['rows'] [$i] ['time'] = $result [$i] ['time'] ? ($this->time_tran($result [$i] ['time'])) : ($this->time_tran($time_num));
-                $json_array ['rows'] [$i] ['money'] = $result [$i] ['money'];
+                $json_array ['rows'] [$i] ['money'] = $result [$i] ['money']+'元';
                 switch ($result [$i] ['member_id']) {
                     case 1 :
                         $json_array ['rows'] [$i] ['member_id'] = '普通会员';
@@ -760,6 +760,10 @@ class ParkrecordController extends Controller
                         break;
                 }
             }
+        }
+        if(I('param.qore')=='export'){
+        	$this->data_export($json_array['rows'],'income');
+        	return;
         }
         $json_array ['total'] = count($json_array ['rows']);
         echo json_encode($json_array);

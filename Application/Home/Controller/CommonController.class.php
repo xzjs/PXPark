@@ -15,7 +15,7 @@ use Think\Model;
  * createtime:2015年11月19日 下午4:24:17
  * @author xiuge
  */
-class CommonController extends Controller{
+class CommonController extends BaseController{
 
 	/**
 	 * 获取首页图标信息
@@ -380,6 +380,7 @@ class CommonController extends Controller{
 			$result = $Model->query( $sql);
 		else 
 			$result = $Model->query( $sql1);
+			
         $json =array("total"=>0,"rows"=>array(),"in_num"=>0,"finish_num"=>0,"money"=>0);//easyUI表格的固定格式
 		for($i=0;$i<count($result);$i++){
 			if (($result[$i]['start_time'] >= $in_time) && ($result[$i]['start_time'] <= $out_time))
@@ -403,7 +404,7 @@ class CommonController extends Controller{
 				$json['rows'][$i]['time']=$this->time_tran($time_num);
 			}
 			$json['rows'][$i]['park_no']=$result[$i]['park_no'];
-			$json['rows'][$i]['cost']=$result[$i]['money'];
+			$json['rows'][$i]['cost']=$result[$i]['money']+'元';
 			switch ($result[$i]['member_id']) {
 				case 1:
 					$json['rows'][$i]['member_id']='普通会员';
@@ -419,14 +420,27 @@ class CommonController extends Controller{
 					break;
 			}
 		}
+		
 		$json['total']=count($json['rows']);
 		if(!$condition1){
-		$this->assign('total',$json['total']);
-		$this->assign('info',json_encode($json));
-		$this->display();
+			if(I('param.qore')=='export'){//导出数据到excel
+				$this->data_export($json['rows'],'history');
+				return;
+			}else{
+				$this->assign('total',$json['total']);
+				$this->assign('info',json_encode($json));
+				$this->display();
+			}
+		
 		}
-		else
-			echo json_encode($json);
+		else{
+			if(I('param.qore')=='export'){//导出数据到excel
+				$this->data_export($json['rows'],'history');
+				return;
+			}else{
+				echo json_encode($json);
+			}
+		}
 	}
 
 	

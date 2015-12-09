@@ -1,3 +1,6 @@
+
+
+
 /**
  * ajax图表统计获取数据
  * 
@@ -16,9 +19,12 @@ function getInfo(pageName, url, start, end, car_category) {
 	if ((!start) && (!end)) {
 		start = "2015-12-1";
 		end = getNowFormatDate();
+	}else if((!start) || (!end)){
+		return;
 	}
 
 	$.post(url, {
+		qore:'query',
 		start_time : start,
 		end_time : end,
 		type : car_category,
@@ -44,8 +50,20 @@ function getInfo(pageName, url, start, end, car_category) {
 			}
 		}
 	});
-
 }
+
+
+function exportTable(no_time, url, start, end, car_category) {
+	if ((!start) && (!end)&&(no_time==false)) {
+		start = "2015-12-1";
+		end = getNowFormatDate();
+	}else if((!start) || (!end)){
+		return;
+	}
+	window.location.href=url+"/qore/export/start_time/"+start+"/end_time/"+end+"/type/"+car_category;
+}
+
+
 
 /**
  * 根据一个时间插件的值，生成对另一个时间插件的选择限制
