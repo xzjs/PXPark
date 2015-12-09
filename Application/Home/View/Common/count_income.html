@@ -8,6 +8,7 @@
 <script src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap-table.js"></script>
 <script
 	src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap-table-zh-CN.min.js"></script>
+<script src="__PUBLIC__/js/time-util.js"></script>
 <!-- S EASYUI -->
 <script src="__PUBLIC__/thirdparty/easyui/jquery.easyui.min.js"></script>
 <link href="__PUBLIC__/thirdparty/easyui/themes/bootstrap/easyui.css"
@@ -28,18 +29,19 @@
 <div class="page">
 	<div style="height: 10%">
 		开始时间： <input placeholder="请输入日期" class="laydate-icon"
-			id="income_start_time"
-			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-		结束时间： <input placeholder="请输入日期" class="laydate-icon"
-			id="income_end_time"
-			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+		id="income_start_time" onblur="timeLimit('start')"
+			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss',max:getNowFormatDate()})">
+		结束时间： <input  placeholder="请输入日期" class="laydate-icon"
+		id="income_end_time" onblur="timeLimit('end')"
+			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss',max:getNowFormatDate()})">
 		车辆类型： <select id="income_car_category">
 			<option >全部</option>
 			<option value="1">小型车</option>
 			<option value="2">大型车</option>
 		</select>
+		</select>
 		<button type="button"
-			onclick="getCountIncome('{:U('Parkrecord/count_income')}',$('input#income_start_time').val(),$('input#income_end_time').val(),$('select#income_car_category').val())"
+			onclick="getInfo('count_income','{:U('Parkrecord/count_income')}',$('input#income_start_time').val(),$('input#income_end_time').val(),$('select#income_car_category').val())"
 			class="btn btn-success btn-xs"
 			style="width: 110px; height: 22px; line-height: 22px; margin-top: -4px;">查询</button>
 		<button type="button" class="btn btn-success btn-xs"
@@ -56,13 +58,12 @@
 </div>
 <script type="text/javascript">
 
-function getCountIncome(url,start,end,car_category) {
+/* function getCountIncome(url,start,end,car_category) {
 	
 	$.post(url, {
 		start_time : start,
 		end_time : end,
 		type:car_category,
-		user_id : <?php echo $_SESSION['user']['user_id'] ?>
 	}, function(datas, status) {
 		if (status == 4 || status == "success") {
 			var data = JSON.parse(datas);
@@ -76,7 +77,7 @@ function getCountIncome(url,start,end,car_category) {
 	});
 	
 	
-}
+} */
 
 
 
@@ -204,7 +205,7 @@ $(function() {
 								{
 									field : 'car_no',
 									title : '车牌号码',
-									width : 180,
+									width : 100,
 									align : 'center'
 								},
 								{
@@ -216,7 +217,7 @@ $(function() {
 								{
 									field : 'end_time',
 									title : '驶出时间',
-									width : 100,
+									width : 150,
 									align : 'center'
 								},
 								{
@@ -256,6 +257,31 @@ $(function() {
 	            alert('导出excel');    
 	        }    
 	    }]
-	});    
+	}); 
+	
+	
+	getInfo('count_income','{:U('Parkrecord/count_income')}','','','');
+	
 })
+
+/**
+ * 获取当前时间 格式为：yyyy-MM-dd HH:MM:SS
+ */
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+    return currentdate;
+}
 </script>

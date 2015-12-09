@@ -44,4 +44,14 @@ class BaseController extends Controller
         $businesses=explode(',',$result['result']['business']);
         return $businesses[0]==''?'未知商圈':$businesses[0];
     }
+    
+    /**
+     * 将json数据导出到excel文件中
+     * @param unknown $title 表名
+     * @param unknown $colum 列名
+     * @param unknown $data 数据
+     */
+    public function excel($title,$colum,$data) {
+    	
+    }
 }

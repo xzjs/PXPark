@@ -574,6 +574,8 @@ class ParkrecordController extends Controller
         }
         if (I('param.user_id', 0) != 0) {
             $condition .= " and px_park.user_id=" . I('param.user_id');
+        }else{
+        	$condition .= " and px_park.user_id=" . $_SESSION['user']['user_id'];
         }
         if ((I('param.start_time', 0) != 0) && (I('param.end_time', 0) != 0)) {
             $date = $this->prDates(I('param.start_time', 0), I('param.end_time', 0));
@@ -675,17 +677,44 @@ class ParkrecordController extends Controller
                 $user_id = I('param.user_id', 0);
             $condition = ',px_park WHERE px_parkrecord.park_id=px_park.id AND px_park.user_id=' . $user_id;
         }
+        
+        if(I('param.park_id',0)!=0){
+        	$condition = ' where px_parkrecord.park_id=' . I('param.park_id');
+        }elseif(I('param.user_id',0)!=0){
+        	$user_id = I('param.user_id', 0);
+            $condition = ',px_park WHERE px_parkrecord.park_id=px_park.id AND px_park.user_id=' . $user_id;
+        }elseif (isset($_SESSION['park_id'])){
+        	$condition = ' where px_parkrecord.park_id='.$_SESSION['park_id'] ;
+        }elseif(isset($_SESSION['user']['user_id'])){
+        	$user_id=$_SESSION['user']['user_id'];
+        	$condition = ',px_park WHERE px_parkrecord.park_id=px_park.id AND px_park.user_id=' . $user_id;
+        }
+        
         if (I('param.type', 0) != 0) {
             $condition .= " and px_car.type=" . I('param.type');
         }
         if (I('param.flag', 0) != 0) {
             $condition .= " and px_parkrecord.end_time is null";
         }
-        if ((I('param.start_time', 0) != 0) && (I('param.end_time', 0) != 0)) {
-            $in_time = strtotime(I('param.start_time'));
-            $out_time = strtotime(I('param.end_time'));
-            $condition .= ' and (px_parkrecord.start_time between ' . $in_time . ' and ' . $out_time . ' OR px_parkrecord.end_time between ' . $in_time . ' and ' . $out_time . ')';
+        if (I('param.start_time', 0) != 0){
+        	$in_time = strtotime(I('param.start_time'));
+        }else{
+        	$in_time = strtotime('2015-12-1');
         }
+        if(I('param.end_time', 0) != 0){
+            $out_time = strtotime(I('param.end_time'));
+        }else{
+        	$out_time = time();
+        }
+        $condition .= ' and (px_parkrecord.start_time between ' . $in_time . ' and ' . $out_time . ' OR px_parkrecord.end_time between ' . $in_time . ' and ' . $out_time . ')';
+        
+        	/* 	&& ) {
+            $in_time = strtotime(I('param.start_time'));
+            }else if((I('param.start_time', 0) != 0) && (I('param.end_time', 0) == 0)){
+        	$in_time = strtotime('2015-12-1');
+        	$out_time = time();
+        	$condition .= ' and (px_parkrecord.start_time between ' . $in_time . ' and ' . $out_time . ' OR px_parkrecord.end_time between ' . $in_time . ' and ' . $out_time . ')';
+        } */
         if ((I('param.page', 0) != 0) && (I('param.num', 0) != 0)) {
             $page_info = ' limit ' . $page * ($num - 1) . ',' . $page;
         }
@@ -824,10 +853,11 @@ class ParkrecordController extends Controller
             $User = A('User');
             $User->cost($id [0] ['user_id'], $money);
             echo "车牌号为" . $car_no . "的车驶离id为" . $park_id . "的停车场，驶离车位的id是" . $berth_id;
-            $this->success('数据添加成功！');
         } else {
             echo "车辆全部驶离停车场";
         }
+
+        $this->success('数据添加成功！');
     }
 
 
