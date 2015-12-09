@@ -8,6 +8,7 @@
 <script src="__PUBLIC__/thirdparty/bootstrap/js/bootstrap-table.js"></script>
 	<!-- S EASYUI -->
 <script src="__PUBLIC__/thirdparty/easyui/jquery.easyui.min.js"></script>
+<script src="__PUBLIC__/js/time-util.js"></script>
 <link href="__PUBLIC__/thirdparty/easyui/themes/bootstrap/easyui.css" rel="stylesheet" />
 <link href="__PUBLIC__/thirdparty/easyui/themes/icon.css" rel="stylesheet" />
 <script src="__PUBLIC__/thirdparty/easyui/easyui-lang-zh_CN.js"></script>
@@ -28,26 +29,7 @@ height:30px;
 
 <script type="text/javascript">
 
-function getInfo(url,start,end,car_category) {
-	
-	
-	$.post(url, {
-		start_time : start,
-		end_time : end,
-		type:car_category,
-	}, function(datas, status) {
-		if (status == 4 || status == "success") {
-			var data = JSON.parse(datas);
-			$('#personGrid').datagrid('loadData',data).datagrid('clientPaging');
 
-			$("span#in_num").text(data.in_num);
-			$("span#out_num").text(data.finish_num);
-			$("span#money").text(data.money);
-		}
-	});
-	
-	
-}
 
 $(function() {
 	// 客户端分页，纯属演示效果
@@ -296,49 +278,26 @@ $(function() {
 	    }]
 	});  
 	
-	$('#income_end_time').attr("placeholder",getNowFormatDate());
-	getInfo("{:U('Common/car_manage')}",'2015-12-1',getNowFormatDate(),'');
-	
+	getInfo('car_manage',"{:U('Common/car_manage')}",'','','');
 })
-
-/**
- * 获取当前时间 格式为：yyyy-MM-dd HH:MM:SS
- */
-function getNowFormatDate() {
-    var date = new Date();
-    var seperator1 = "-";
-    var seperator2 = ":";
-    var month = date.getMonth() + 1;
-    var strDate = date.getDate();
-    if (month >= 1 && month <= 9) {
-        month = "0" + month;
-    }
-    if (strDate >= 0 && strDate <= 9) {
-        strDate = "0" + strDate;
-    }
-    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-            + " " + date.getHours() + seperator2 + date.getMinutes()
-            + seperator2 + date.getSeconds();
-    return currentdate;
-}
 
 </script>
 
 <div class="page">
 	<div style="height:7%">
-		开始时间： <input placeholder="2015-12-01 00:00:00" class="laydate-icon"
-		id="income_start_time"
-			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-		结束时间： <input  class="laydate-icon"
-		id="income_end_time"
-			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+		开始时间： <input placeholder="请输入日期" class="laydate-icon"
+		id="income_start_time" onblur="timeLimit('start')"
+			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss',max:getNowFormatDate()})">
+		结束时间： <input  placeholder="请输入日期" class="laydate-icon"
+		id="income_end_time" onblur="timeLimit('end')"
+			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss',max:getNowFormatDate()})">
 		车辆类型： <select id="income_car_category">
 			<option >全部</option>
 			<option value="1">小型车</option>
 			<option value="2">大型车</option>
 		</select>
 		<button type="button" 
-		onclick="getInfo('{:U('Common/car_manage')}',$('input#income_start_time').val(),$('input#income_end_time').val(),$('select#income_car_category').val())"
+		onclick="getInfo('car_manage','{:U('Common/car_manage')}',$('input#income_start_time').val(),$('input#income_end_time').val(),$('select#income_car_category').val())"
 		class="btn btn-success btn-xs" style="width: 110px;height: 22px;line-height: 22px;margin-top: -4px;">查询</button>
 		<button type="button" class="btn btn-success btn-xs" style="width: 110px;height: 22px;line-height: 22px;margin-top: -4px;">导出Excel</button>
 	</div>
