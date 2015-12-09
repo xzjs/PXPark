@@ -3,11 +3,12 @@
 <meta charset="utf-8">
 <link href="__PUBLIC__/css/common/flowAnalysis.css" rel="stylesheet">
 <script src="__PUBLIC__/thirdparty/echarts/echarts-all.js"></script>
+<script src="__PUBLIC__/js/time-util.js"></script>
 <script type="text/javascript">
 
 
 
-function getFlowInfo(url,start,end,car_category) {
+/* function getFlowInfo(url,start,end,car_category) {
 	
 	$.post(url, {
 		start_time : start,
@@ -20,7 +21,7 @@ function getFlowInfo(url,start,end,car_category) {
 			drawChart(lineInfo);
 		}
 	});
-}
+} */
 
 	function drawChart(lineInfo) {
 		var dateList=new Array()
@@ -146,20 +147,21 @@ function getFlowInfo(url,start,end,car_category) {
 </script>
 <div class="page">
 	<div style="height: 10%">
-		开始时间： <input  class="laydate-icon"
-			id="flow_start_time"
-			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-		结束时间： <input  class="laydate-icon"
-			id="flow_end_time"
-			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-		车辆类型： <select id="flow_car_category">
-			<option>全部</option>
+		开始时间： <input placeholder="请输入日期" class="laydate-icon"
+		id="income_start_time" onblur="timeLimit('start')"
+			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss',max:getNowFormatDate()})">
+		结束时间： <input  placeholder="请输入日期" class="laydate-icon"
+		id="income_end_time" onblur="timeLimit('end')"
+			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss',max:getNowFormatDate()})">
+		车辆类型： <select id="income_car_category">
+			<option >全部</option>
 			<option value="1">小型车</option>
 			<option value="2">大型车</option>
 		</select>
+		</select>
 		<button type="button" class="btn btn-success btn-xs"
 			style="width: 100px; height: 22px; line-height: 22px; margin-top: -4px;"
-			onclick="getFlowInfo('{:U('Parkrecord/count_flow_info')}',$('input#flow_start_time').val(),$('input#flow_end_time').val(),$('select#flow_car_category').val())">查询</button>
+			onclick="getInfo('park_analyse','{:U('Parkrecord/count_flow_info')}',$('input#flow_start_time').val(),$('input#flow_end_time').val(),$('select#flow_car_category').val())">查询</button>
 	</div>
 	<div style="height: 10%; padding-top: 10px">
 		在此时间段内&nbsp;&nbsp;&nbsp;&nbsp; 入场车辆共：<span class="search_result">18</span>辆&nbsp;&nbsp;&nbsp;
