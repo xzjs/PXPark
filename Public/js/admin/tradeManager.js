@@ -15,7 +15,7 @@ function  a(){
 	        data:{type},
 	        async :false,
 	        success:function(data){
-	        alert(data);
+	     //   alert(data);
 	           var d=eval("(" + data+ ")");
 	       result= d;
 	       //alert (result);

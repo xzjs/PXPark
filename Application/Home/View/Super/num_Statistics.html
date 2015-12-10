@@ -14,10 +14,10 @@ $(function(){
 	<div>
 		开始时间： <input name="begintime" id="begintime" placeholder="请输入日期"
 		readonly 
-		 onFocus="WdatePicker({dateFmt:'yyyy-MM-dd '})" class="Wdate">
+		 onFocus="WdatePicker({dateFmt:'yyyy-MM-dd ',maxDate:'%y-%M-%d' })" class="Wdate">
 		结束时间：<input name="endtime" id="endtime"  onchange="park_analyse()"
 		placeholder="请输入日期"
-		readonly onFocus="WdatePicker({dateFmt:'yyyy-MM-dd '})" class="Wdate">
+		readonly onFocus="WdatePicker({dateFmt:'yyyy-MM-dd ',maxDate:'%y-%M-%d'})" class="Wdate">
 	</div>
 	
 	<div style="width: 100%;height: 100%;margin-top: -30px;padding-top: 45px;">
