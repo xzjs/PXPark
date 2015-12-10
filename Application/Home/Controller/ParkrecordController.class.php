@@ -860,8 +860,6 @@ class ParkrecordController extends BaseController
         } else {
             echo "车辆全部驶离停车场";
         }
-
-        $this->success('数据添加成功！');
     }
 
 
