@@ -50,10 +50,11 @@ class BaseController extends Controller
      * 导出数据
      * @param unknown $info_list
      */
-    protected function data_export($info_list=array(),$file_name)
+    public  function data_export($json,$file_name)
     {
     	
-    	$data = $info_list;
+    	
+    	$data= json_decode($json);
     	
     
     	foreach ($data[0] as $field=>$v){
@@ -107,10 +108,6 @@ class BaseController extends Controller
      */
     public function getExcel($title,$column,$data) {
     	
-    	
-    	
-    	
-    	
     	import("Org.Util.PHPExcel");
         import("Org.Util.PHPExcel.Writer.Excel5");
         import("Org.Util.PHPExcel.IOFactory.php");
@@ -124,7 +121,6 @@ class BaseController extends Controller
 
         //设置表头
         $key = ord("A");
-        //print_r($headArr);exit;
         foreach($column as $v){
             $colum = chr($key);
             $objPHPExcel->setActiveSheetIndex(0) ->setCellValue($colum.'1', $v);

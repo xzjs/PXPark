@@ -10,6 +10,10 @@
 <script src="__PUBLIC__/thirdparty/easyui/jquery.easyui.min.js"></script>
 <script src="__PUBLIC__/js/time-util.js"></script>
 <script src="__PUBLIC__/js/json2.js"></script>
+
+<script src="__PUBLIC__/js/json_parse.js"></script>
+<script src="__PUBLIC__/js/json_parse_state.js"></script>
+
 <link href="__PUBLIC__/thirdparty/easyui/themes/bootstrap/easyui.css" rel="stylesheet" />
 <link href="__PUBLIC__/thirdparty/easyui/themes/icon.css" rel="stylesheet" />
 <script src="__PUBLIC__/thirdparty/easyui/easyui-lang-zh_CN.js"></script>
@@ -30,8 +34,8 @@ height:30px;
 
 <script type="text/javascript">
 
-var history;
-var current=eval({$info});
+var table1;
+var talbe2;
 
 $(function() {
 	// 客户端分页，纯属演示效果
@@ -254,6 +258,7 @@ $(function() {
 		data : getData()
 	}).datagrid('clientPaging'); */
 	var data = eval({$info});
+	table2=JSON.stringify(data.rows);
 	$('#personGrid1').datagrid('loadData',data).datagrid('clientPaging');
 	
 	/* $('#personGrid1').datagrid({
@@ -265,7 +270,7 @@ $(function() {
 	    buttons:[{    
 	        iconCls:'icon-excel',    
 	        handler:function(){
-	        		exportTable(false,'{:U('Common/car_manage')}',$('input#income_start_time').val(),$('input#income_end_time').val(),$('select#income_car_category').val());
+	        		exportTable(2,'{:U('Base/data_export')}');
 	        	}    
 	    }]
 	});    
@@ -275,8 +280,7 @@ $(function() {
 	    buttons:[{    
 	        iconCls:'icon-excel',    
 	        handler:function(){
-	        	exportTable(true,'{:U('Common/car_manage')}',$('input#income_start_time').val(),$('input#income_end_time').val(),$('select#income_car_category').val());
-	        	
+	        		exportTable(2,'{:U('Base/data_export')}')
 	        }    
 	    }]
 	});  
@@ -302,7 +306,7 @@ $(function() {
 		<button type="button" 
 		onclick="getInfo('car_manage','{:U('Common/car_manage')}',$('input#income_start_time').val(),$('input#income_end_time').val(),$('select#income_car_category').val())"
 		class="btn btn-success btn-xs" style="width: 110px;height: 22px;line-height: 22px;margin-top: -4px;">查询</button>
-		<button type="button" class="btn btn-success btn-xs" onclick="exportTable(false,'{:U('Common/car_manage')}',$('input#income_start_time').val(),$('input#income_end_time').val(),$('select#income_car_category').val())"
+		<button type="button" class="btn btn-success btn-xs" onclick="exportTable(1,'{:U('Base/data_export')}')"
 			style="width: 110px;height: 22px;line-height: 22px;margin-top: -4px;">导出Excel</button>
 	</div>
 	<div style="height:8%">

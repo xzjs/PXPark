@@ -740,8 +740,8 @@ class ParkrecordController extends BaseController
                     $json_array ['finish_num']++;
                 $json_array ['money'] += $result [$i] ['money'];
                 $json_array ['rows'] [$i] ['car_no'] = $result [$i] ['no'];
-                $json_array ['rows'] [$i] ['start_time'] = ($result [$i] ['start_time']) ? date("Y-m-d h:i:sa", $result [$i] ['start_time']) : '';
-                $json_array ['rows'] [$i] ['end_time'] = ($result [$i] ['end_time']) ? date("Y-m-d h:i:sa", $result [$i] ['end_time']) : '';
+                $json_array ['rows'] [$i] ['start_time'] = ($result [$i] ['start_time']) ? date("Y-m-d h:i:s", $result [$i] ['start_time']) : '';
+                $json_array ['rows'] [$i] ['end_time'] = ($result [$i] ['end_time']) ? date("Y-m-d h:i:s", $result [$i] ['end_time']) : '';
                 $time_num = time() - $result [$i] ['start_time'];
                 $json_array ['rows'] [$i] ['time'] = $result [$i] ['time'] ? ($this->time_tran($result [$i] ['time'])) : ($this->time_tran($time_num));
                 $json_array ['rows'] [$i] ['money'] = $result [$i] ['money']+'元';

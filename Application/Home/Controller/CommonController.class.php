@@ -394,12 +394,12 @@ class CommonController extends BaseController{
 			}elseif($result[$i]['type']==2){
 				$json['rows'][$i]['type']="大型车";
 			}
-			$json['rows'][$i]['start_time']=date("Y-m-d h:i:sa", $result[$i]['start_time']);
+			$json['rows'][$i]['start_time']=date("Y-m-d h:i:s", $result[$i]['start_time']);
 			if(!$result[$i]['end_time']){
 				$json['rows'][$i]['end_time']="";
 				$json['rows'][$i]['time']=$this->time_tran($result[$i]['time']);
 			}else{
-				$json['rows'][$i]['end_time']=date("Y-m-d h:i:sa", $result[$i]['end_time']);
+				$json['rows'][$i]['end_time']=date("Y-m-d h:i:s", $result[$i]['end_time']);
 				$time_num=$result[$i]['end_time']-$result[$i]['start_time'];
 				$json['rows'][$i]['time']=$this->time_tran($time_num);
 			}
