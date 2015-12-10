@@ -11,6 +11,25 @@ class ParkController extends Controller
     {
 
     }
+    /**
+     * 停车场模糊搜索
+     */
+    public function search() {
+    	$key = I ( 'param.key' );
+    	$uid = I ( 'param.user_id' );
+   
+    	$result=M()->query("SELECT id,NAME FROM px_park WHERE user_id=$uid AND NAME LIKE '%$key%'");
+    	$array=array();
+    	for($i=0;$i<count($result);$i++){
+    			
+    		$array[$i]=array(
+    				'id'=>$result[$i]['id'],
+    				'name'=>$result[$i]['name'],
+    					
+    		);
+    	}
+    	echo json_encode($array);
+    }
 
     /**
      * 停车场历史在停车辆（super）

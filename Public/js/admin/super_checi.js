@@ -108,7 +108,7 @@ function  park_analyse(){
 		  end_time=document.getElementById("endtime").value;
 	   }
 	if(start_time>end_time) 
-		 alert("开始时间不能大于结束时间");
+		 alert("开始时间不能大于结束时间,请重新输入");
 	else{
 		var  et=new Date();
 	    var m=et.getMonth()+1;
