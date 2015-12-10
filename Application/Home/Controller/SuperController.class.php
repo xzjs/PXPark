@@ -281,7 +281,8 @@ class SuperController extends BaseController
     }
 
 public function tradManager()
-{$type = 0;
+{
+$type = I('param.type');
 $Park = D('Park');
 $condition = $type ? array('type' => $type) : array();
 $car_id_array = $Park->where($condition)->getField('id', true);
