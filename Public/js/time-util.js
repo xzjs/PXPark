@@ -1,3 +1,6 @@
+
+
+
 /**
  * ajax图表统计获取数据
  * 
@@ -16,9 +19,12 @@ function getInfo(pageName, url, start, end, car_category) {
 	if ((!start) && (!end)) {
 		start = "2015-12-1";
 		end = getNowFormatDate();
+	}else if((!start) || (!end)){
+		return;
 	}
 
 	$.post(url, {
+		qore:'query',
 		start_time : start,
 		end_time : end,
 		type : car_category,
@@ -26,6 +32,7 @@ function getInfo(pageName, url, start, end, car_category) {
 		if (status == 4 || status == "success") {
 			if (pageName == 'car_manage') {
 				var data = JSON.parse(datas);
+				table1=JSON.stringify(data.rows);
 				$('#personGrid').datagrid('loadData', data).datagrid(
 						'clientPaging');
 				$("span#in_num").text(data.in_num);
@@ -33,6 +40,7 @@ function getInfo(pageName, url, start, end, car_category) {
 				$("span#money").text(data.money);
 			} else if (pageName == 'count_income') {
 				var data = JSON.parse(datas);
+				table1=JSON.stringify(data.rows);
 				$('#personGrid').datagrid('loadData', data).datagrid(
 						'clientPaging');
 				$("span#in_num").text(data.in_num);
@@ -44,7 +52,38 @@ function getInfo(pageName, url, start, end, car_category) {
 			}
 		}
 	});
+}
 
+
+function exportTable(tableId, url) {
+	if(tableId==1){
+		var json = table1;
+	}else if(tableId==2){
+		var json = table2;
+	}
+	var param=new Array();
+	param['json']=json;
+	param['file_name']='abc';
+	
+	post(url,param);
+	
+	//window.location.href=url+"/qore/export/start_time/"+start+"/end_time/"+end+"/type/"+car_category;
+}
+
+function post(URL, PARAMS) {        
+    var temp = document.createElement("form");        
+    temp.action = URL;        
+    temp.method = "post";        
+    temp.style.display = "none";        
+    for (var x in PARAMS) {        
+        var opt = document.createElement("textarea");        
+        opt.name = x;        
+        opt.value = PARAMS[x];        
+        // alert(opt.name)        
+        temp.appendChild(opt);        
+    }        
+    document.body.appendChild(temp);        
+    temp.submit(); 
 }
 
 /**

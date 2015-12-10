@@ -50,7 +50,7 @@ class FakeController extends BaseController {
 				'exp',
 				'is null' 
 		);
-		$sql="SELECT a.id,a.park_id,a.car_no FROM px_demand AS a WHERE TIME=(SELECT MAX(b.time) FROM px_demand AS b WHERE a.car_no=b.car_no AND b.is_success IS NULL ) ";
+		$sql="SELECT a.id,a.park_id,a.car_no FROM px_demand AS a WHERE TIME=(SELECT MAX(b.time) FROM px_demand AS b WHERE a.car_no=b.car_no AND b.is_success IS NULL limit 0,30) ";
 		$demand_list = M ()->query($sql);
 		$rand = rand ( 0, count ( $demand_list ) - 1 );
 		$demand = $demand_list [$rand]; // 随机获取一个发布过停车请求的车
