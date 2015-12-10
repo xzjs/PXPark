@@ -471,8 +471,13 @@
                                         zNodes[i].children[j].children[k].iconOpen = "__PUBLIC__/image/open.png";
                                         zNodes[i].children[j].children[k].iconClose = "__PUBLIC__/image/close.png";
                                         zNodes[i].children[j].children[k].open = true;
-                                        for (var l = 0; l < zNodes[i].children[j].children[k].children.length; l++)
-                                            zNodes[i].children[j].children[k].children[l].icon = "__PUBLIC__/image/leaf.png";
+                                        for (var l = 0; l < zNodes[i].children[j].children[k].children.length; l++){
+                                        	zNodes[i].children[j].children[k].children[l].iconOpen = "__PUBLIC__/image/open.png";
+                                        	zNodes[i].children[j].children[k].children[l].iconClose = "__PUBLIC__/image/close.png";
+                                        	zNodes[i].children[j].children[k].children[l].open = true;
+                                        	for(var m=0;m<zNodes[i].children[j].children[k].children[l].children.length;m++)
+                                        		zNodes[i].children[j].children[k].children[l].children[m].icon = "__PUBLIC__/image/leaf.png";
+                                        }
                                     }
                                 }
                             }
