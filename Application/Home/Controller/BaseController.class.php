@@ -45,13 +45,116 @@ class BaseController extends Controller
         return $businesses[0]==''?'未知商圈':$businesses[0];
     }
     
+    
+    /**
+     * 导出数据
+     * @param unknown $info_list
+     */
+    public  function data_export($json,$file_name)
+    {
+    	
+    	
+    	$data= json_decode($json);
+    	
+    
+    	foreach ($data[0] as $field=>$v){
+    
+    		if($field == 'car_no'){
+    			$headArr[]='车牌号码';
+    		}
+    
+    		if($field == 'type'){
+    			$headArr[]='车辆类型';
+    		}
+    
+    		if($field == 'start_time'){
+    			$headArr[]='驶入时间';
+    		}
+    
+    		if($field == 'end_time'){
+    			$headArr[]='驶出时间';
+    		}
+    
+    		if($field == 'time'){
+    			$headArr[]='停车时间';
+    		}
+    		if($field == 'park_no'){
+    			$headArr[]='所停车位号';
+    		}
+    
+    		if($field == 'cost'){
+    			$headArr[]='共消费';
+    		}
+    		
+    		if($field == 'money'){
+    			$headArr[]='共消费';
+    		}
+    		
+    		if($field == 'member_id'){
+    			$headArr[]='会员等级（折扣）';
+    		}
+    		
+    	}
+    
+    
+    	$this->getExcel($file_name,$headArr,$data);
+    }
+    
     /**
      * 将json数据导出到excel文件中
      * @param unknown $title 表名
      * @param unknown $colum 列名
      * @param unknown $data 数据
      */
-    public function excel($title,$colum,$data) {
+    public function getExcel($title,$column,$data) {
     	
+    	import("Org.Util.PHPExcel");
+        import("Org.Util.PHPExcel.Writer.Excel5");
+        import("Org.Util.PHPExcel.IOFactory.php");
+
+        $date = date("Y_m_d",time());
+        $title .= "_{$date}.xls";
+
+        //创建PHPExcel对象，注意，不能少了\
+        $objPHPExcel = new \PHPExcel();
+        $objProps = $objPHPExcel->getProperties();
+
+        //设置表头
+        $key = ord("A");
+        foreach($column as $v){
+            $colum = chr($key);
+            $objPHPExcel->setActiveSheetIndex(0) ->setCellValue($colum.'1', $v);
+            $objPHPExcel->setActiveSheetIndex(0) ->setCellValue($colum.'1', $v);
+            $key += 1;
+        }
+
+        $column = 2;
+        $objActSheet = $objPHPExcel->getActiveSheet();
+
+        //print_r($data);exit;
+        foreach($data as $key => $rows){ //行写入
+            $span = ord("A");
+            foreach($rows as $keyName=>$value){// 列写入
+                $j = chr($span);
+                $objActSheet->setCellValue($j.$column, $value);
+                $span++;
+            }
+            $column++;
+        }
+
+        $title = iconv("utf-8", "gb2312", $title);
+
+        //重命名表
+        //$objPHPExcel->getActiveSheet()->setTitle('test');
+        //设置活动单指数到第一个表,所以Excel打开这是第一个表
+        $objPHPExcel->setActiveSheetIndex(0);
+        ob_end_clean();//清除缓冲区,避免乱码
+        header('Content-Type: application/vnd.ms-excel');
+        header("Content-Disposition: attachment;filename=\"$title\"");
+        header('Cache-Control: max-age=0');
+
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output'); //文件通过浏览器下载
+        exit;
     }
 }

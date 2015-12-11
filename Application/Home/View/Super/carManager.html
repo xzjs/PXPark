@@ -313,10 +313,10 @@ $(function() {
 	<div style="height:7%">
 		开始时间： <input placeholder="请输入日期" class="laydate-icon"
 		id="income_start_time"
-			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss' max:getNowFormatDate()})">
 		结束时间： <input placeholder="请输入日期" class="laydate-icon"
 		id="income_end_time"
-			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+			onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss' max:getNowFormatDate()})">
 		车辆类型： <select id="income_car_category">
 			<option >全部</option>
 			<option value="1">小型车</option>

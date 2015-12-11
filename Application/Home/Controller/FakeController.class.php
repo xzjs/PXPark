@@ -39,7 +39,7 @@ class FakeController extends BaseController {
 		$DemandController = A ( 'Demand' );
 		$result = $DemandController->add ( $lon, $lat, $park_id, $user_id, $preference, $current_lon, $current_lat );
 		echo ($result?$park_id:'失败').','.date('Y-m-d H:i:s');
-		$this->success("添加数据成功！");
+		//$this->success("添加数据成功！");
 	}
 	
 	/**
@@ -50,7 +50,7 @@ class FakeController extends BaseController {
 				'exp',
 				'is null' 
 		);
-		$sql="SELECT a.id,a.park_id,a.car_no FROM px_demand AS a WHERE TIME=(SELECT MAX(b.time) FROM px_demand AS b WHERE a.car_no=b.car_no AND b.is_success IS NULL ) ";
+		$sql="SELECT a.id,a.park_id,a.car_no FROM px_demand AS a WHERE TIME=(SELECT MAX(b.time) FROM px_demand AS b WHERE a.car_no=b.car_no AND b.is_success IS NULL limit 0,30) ";
 		$demand_list = M ()->query($sql);
 		$rand = rand ( 0, count ( $demand_list ) - 1 );
 		$demand = $demand_list [$rand]; // 随机获取一个发布过停车请求的车
@@ -93,7 +93,7 @@ class FakeController extends BaseController {
 		}else{
 			echo "Demand列表为空";
 		}
-		$this->success ( '数据添加成功！' );
+		//$this->success ( '数据添加成功！' );
 	}
 					
 					
@@ -113,6 +113,7 @@ class FakeController extends BaseController {
 		
 		$Parkrecord = A ( 'Parkrecord' );
 		$Parkrecord->leave ($car['no'],$berth['no'],$money);
+        //$this->success('数据添加成功！');
 	}
 	
 	/**

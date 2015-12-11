@@ -106,7 +106,7 @@ function  zhishu_line(){
 	   }
 	if(stime>etime) 
 	{
-		 alert("开始时间不能大于结束时间");
+		 alert("开始时间不能大于结束时间，请重新输入");
 		 
 	}
 	else{
