@@ -39,7 +39,7 @@ class FakeController extends BaseController {
 		$DemandController = A ( 'Demand' );
 		$result = $DemandController->add ( $lon, $lat, $park_id, $user_id, $preference, $current_lon, $current_lat );
 		echo ($result?$park_id:'失败').','.date('Y-m-d H:i:s');
-		$this->success("添加数据成功！");
+		//$this->success("添加数据成功！");
 	}
 	
 	/**
@@ -93,7 +93,7 @@ class FakeController extends BaseController {
 		}else{
 			echo "Demand列表为空";
 		}
-		$this->success ( '数据添加成功！' );
+		//$this->success ( '数据添加成功！' );
 	}
 					
 					
@@ -113,6 +113,7 @@ class FakeController extends BaseController {
 		
 		$Parkrecord = A ( 'Parkrecord' );
 		$Parkrecord->leave ($car['no'],$berth['no'],$money);
+        //$this->success('数据添加成功！');
 	}
 	
 	/**
