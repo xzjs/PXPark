@@ -114,6 +114,26 @@ $(function() {
 				'points' : '23000',
 				'parkingNum' : '23'
 			});
+			rows.push({
+				'nick' : 'tom',
+				'telphone' : '1576363457889',
+				'name' : '黄渤',
+				'cardId' : '22958912884998',
+				'memeberLevel' : 'VIP',
+				'creditLevel' : '一级',
+				'points' : '23000',
+				'parkingNum' : '238'
+			});
+			rows.push({
+				'nick' : 'jack',
+				'telphone' : '1576363857889',
+				'name' : '赵飞',
+				'cardId' : '23958912884998',
+				'memeberLevel' : 'VIP',
+				'creditLevel' : '一级',
+				'points' : '23000',
+				'parkingNum' : '248'
+			});
 		}
 		return rows;
 	}
