@@ -15,6 +15,9 @@ use Think\Controller;
  */
 class APIController extends Controller
 {
+	public function test(){
+		echo "dd";
+	}
     /**
      * 获取支付宝信息
      */

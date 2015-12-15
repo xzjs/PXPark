@@ -16,8 +16,6 @@
     <script src="//cdn.bootcss.com/angular.js/1.5.0-beta.1/angular.min.js"></script>
 </head>
 <body ng-controller="DemandCtrl">
-
-
 <div id="pt-main" class="pt-perspective">
     <div class="pt-page pt-page-1">
         <div class="pt-triggers">
@@ -4414,8 +4412,8 @@
             <section class="right-top">
                 <div class="progress">
                     <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
-                         aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                        <span class="sr-only">20% Complete</span>
+                         aria-valuenow="{{persent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{persent}}%">
+                        <span class="sr-only">{{persent}}% Complete</span>
                     </div>
                 </div>
                 <section id="right-top-map"></section>
@@ -4613,60 +4611,6 @@
     });
 
     carApp.controller('DemandCtrl', function ($scope, Demand_Data, Preference_Data, SameBusiness_Data, Count_Data, Parkrecord_Data, Park_Data) {
-
-        var promise = Demand_Data.query();
-        promise.then(function (data) {  // 调用承诺API获取数据 .resolve
-            console.log(data);
-            user(data);
-            position(data);
-
-            //获取雷达图数据
-            var promise1 = Preference_Data.query(data.user_id);
-            promise1.then(function (data1) {
-                createRadar(data1);
-            }, function (data1) {
-                createRadar([20, 20, 20, 20, 20]);
-            });
-
-            //获取前往同一商圈的数据
-            var promise2 = SameBusiness_Data.query(data.business);
-            promise2.then(function (data2) {
-                same(data2);
-            }, function (data2) {
-                alert(data2);
-            });
-
-            //获取当前有多少人计算
-            var promise3 = Count_Data.query(data.business);
-            promise3.then(function (data3) {
-                console.log(data3);
-                createGauge(data3);
-            }, function (data3) {
-                alert(data3);
-            });
-
-            //获取个人停车记录
-            var promise4 = Parkrecord_Data.query(data.user_id);
-            promise4.then(function (data4) {
-                console.log(data4);
-                park_record(data4);
-            }, function (data4) {
-                alert(data4);
-            });
-
-            //获取停车场数据
-            var promise5 = Park_Data.query(data.lon, data.lat, 5);
-            promise5.then(function (data5) {
-                console.log(data5);
-                park(data5, data);
-            }, function (data5) {
-                alert(data5);
-            });
-
-        }, function (data) {  // 处理错误 .reject
-            alert('haha');
-        });
-
         require.config({
             paths: {
                 'echarts': "__PUBLIC__/js/echarts/build/dist",
@@ -4693,15 +4637,60 @@
                     });
                 }
                 if (isReady || t > 50) {
-                    var data = [20, 30, 40, 50, 60];
-                    createRadar(data);
-                    createGauge(8.2);
                     createPie();
                     clearInterval(timer);
                 }
             }, 100);
         });
 
+        var promise = Demand_Data.query();
+        promise.then(function (data) {  // 调用承诺API获取数据 .resolve
+            user(data);
+            position(data);
+
+            //获取雷达图数据
+            var promise1 = Preference_Data.query(data.user_id);
+            promise1.then(function (data1) {
+                createRadar(data1);
+            }, function (data1) {
+                createRadar([20, 20, 20, 20, 20]);
+            });
+
+            //获取前往同一商圈的数据
+            var promise2 = SameBusiness_Data.query(data.business);
+            promise2.then(function (data2) {
+                same(data2);
+            }, function (data2) {
+                alert(data2);
+            });
+
+            //获取当前有多少人计算
+            var promise3 = Count_Data.query(data.business);
+            promise3.then(function (data3) {
+                createGauge(data3);
+            }, function (data3) {
+                alert(data3);
+            });
+
+            //获取个人停车记录
+            var promise4 = Parkrecord_Data.query(data.user_id);
+            promise4.then(function (data4) {
+                park_record(data4);
+            }, function (data4) {
+                alert(data4);
+            });
+
+            //获取停车场数据
+            var promise5 = Park_Data.query(data.lon, data.lat, 5);
+            promise5.then(function (data5) {
+                park(data5, data);
+            }, function (data5) {
+                alert(data5);
+            });
+
+        }, function (data) {  // 处理错误 .reject
+            alert('haha');
+        });
 
         function position(d) {
             var p = {};
@@ -4748,22 +4737,46 @@
         }
 
         function park(d, d1) {
-            $scope.park_list = d.slice(0,5);
-            setTimeout(function () {
-                for (var i = 0; i < $scope.park_list.length; i++) {
-                    var $carList = $(".car-list li");
-                    for (var j = 0; j < $carList.length; j++)
-                        $($carList[j]).removeClass("carListBack");
-                    $($carList[i]).addClass("carListBack");
-                    var p1 = new BMap.Point(d1.current_lon, d1.current_lat);
-                    var p2 = new BMap.Point(d[i].lon, d[i].lat);
-                    var driving = new BMap.DrivingRoute(map, {renderOptions: {map: map, autoViewport: true}});
-                    map.clearOverlays();
-                    driving.search(p1, p2);
+            var demand_park;
+            for (var i = 0; i < d.length; i++) {
+                if (d[i].id = d1.park_id) {
+                    demand_park = d[i];
+                    break;
                 }
-                $($carList).addClass("hide");
-                $($carList[i-2]).removeClass("hide").addClass("resultList");
-            },5000);
+            }
+            console.log(demand_park);
+            $scope.park_list = d.slice(0, 5);
+            $scope.persent = 0;
+            setTimeout(function () {
+                var i = 0;
+                var carList = $(".car-list li");
+                var timer1 = setInterval(function () {
+                    if (i < carList.length) {
+                        for (var j = 0; j < carList.length; j++) {
+                            $(carList[j]).removeClass("carListBack");
+                        }
+                        $(carList[i]).addClass("carListBack");
+                        var p1 = new BMap.Point(d1.current_lon, d1.current_lat);
+                        var p2 = new BMap.Point(d[i].lon, d[i].lat);
+                        var driving = new BMap.DrivingRoute(map, {renderOptions: {map: map, autoViewport: true}});
+                        map.clearOverlays();
+                        driving.search(p1, p2);
+                        i++;
+                    } else {
+                        clearInterval(timer1);
+                        $(carList).addClass("hide");
+                        $(carList[0]).text(demand_park.name);
+                        $(carList[0]).removeClass("hide").addClass("resultList");
+                        var p1 = new BMap.Point(d1.current_lon, d1.current_lat);
+                        var p2 = new BMap.Point(demand_park.lon, demand_park.lat);
+                        var driving = new BMap.DrivingRoute(map, {renderOptions: {map: map, autoViewport: true}});
+                        map.clearOverlays();
+                        driving.search(p1, p2);
+                    }
+                    $scope.persent += 20;
+                    $scope.$apply();
+                }, 1000);
+            }, 5000);
         }
 
         function _change(newValue, oldValue, scope) {

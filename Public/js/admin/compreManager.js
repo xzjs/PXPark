@@ -220,8 +220,8 @@ function a()
 	   	pager.pagination({   
 	   	    buttons:[{    
 	   	        iconCls:'icon-excel',    
-	   	        handler:function(){    
-	   	            alert('导出excel');    
+	   	        handler:function(){   
+	   	        	exportTable(1,"{:U('Base/data_export')}");  
 	   	        }    
 	   	    }]
 	   	});    
