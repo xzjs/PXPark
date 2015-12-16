@@ -26,6 +26,7 @@ while(true){
         $html=file_get_contents($url);
     }catch (Exception $ex){
         echo $ex;
+        break;
     }
     echo $html;
     sleep(60);
