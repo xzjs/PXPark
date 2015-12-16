@@ -4598,7 +4598,6 @@
                 var defered = $q.defer();
                 $http.get("{:U('API/park_list')}", config).then(
                         function successCallback(response) {
-                            console.log(response);
                             defered.resolve(response.data.park_list);
                         },
                         function errCallback(response) {
@@ -4610,7 +4609,29 @@
         }
     });
 
-    carApp.controller('DemandCtrl', function ($scope, Demand_Data, Preference_Data, SameBusiness_Data, Count_Data, Parkrecord_Data, Park_Data) {
+    carApp.factory('Park', function ($http, $q) {
+        return {
+            query: function (id) {
+                var config = {
+                    params: {
+                        'id': id
+                    }
+                };
+                var defered = $q.defer();
+                $http.get("{:U('API/park_detail')}", config).then(
+                        function successCallback(response) {
+                            defered.resolve(response.data);
+                        },
+                        function errCallback(response) {
+                            defered.reject(response);
+                        }
+                );
+                return defered.promise;
+            }
+        }
+    });
+
+    carApp.controller('DemandCtrl', function ($scope, Demand_Data, Preference_Data, SameBusiness_Data, Count_Data, Parkrecord_Data, Park_Data,Park) {
         require.config({
             paths: {
                 'echarts': "__PUBLIC__/js/echarts/build/dist",
@@ -4744,7 +4765,6 @@
                     break;
                 }
             }
-            console.log(demand_park);
             $scope.park_list = d.slice(0, 5);
             $scope.persent = 0;
             setTimeout(function () {
@@ -4761,6 +4781,7 @@
                         var driving = new BMap.DrivingRoute(map, {renderOptions: {map: map, autoViewport: true}});
                         map.clearOverlays();
                         driving.search(p1, p2);
+                        pie(d[i].id);
                         i++;
                     } else {
                         clearInterval(timer1);
@@ -4772,11 +4793,23 @@
                         var driving = new BMap.DrivingRoute(map, {renderOptions: {map: map, autoViewport: true}});
                         map.clearOverlays();
                         driving.search(p1, p2);
+                        pie(d1.id);
                     }
                     $scope.persent += 20;
                     $scope.$apply();
                 }, 1000);
             }, 5000);
+        }
+
+        function pie(park_id){
+            var promise6 = Park.query(park_id);
+            promise6.then(function (data6) {
+                console.log(data6);
+                var pie_data=new Array(data6.park.remain,data6.park.success_rate);
+                createPie(pie_data);
+            }, function (data6) {
+                alert(data6);
+            });
         }
 
         function _change(newValue, oldValue, scope) {

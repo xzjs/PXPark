@@ -162,7 +162,7 @@ function createGauge(data) {
     window.onresize = myGauge.resize;
 };
 
-function createPie() {
+function createPie(data) {
     var myPie1 = echarts.init(document.getElementById("car-charts1"));
     var myPie2 = echarts.init(document.getElementById("car-charts2"));
 
@@ -219,12 +219,12 @@ function createPie() {
             radius: ['50%', '70%'],
             itemStyle: labelFromatter,
             data: [{
-                value: 56,
+                value: 100 - data[1],
                 name: '设备总量',
                 itemStyle: labelBottom
             }, {
 
-                value: 44,
+                value: data[1],
                 name: '正在工作设备量',
                 itemStyle: {
                     normal: {
@@ -271,12 +271,12 @@ function createPie() {
                 }
             },
             data: [{
-                value: 70,
+                value: 100-data[0],
                 name: '设备总量',
                 itemStyle: labelBottom
             }, {
 
-                value: 30,
+                value: data[0],
                 name: '正在工作设备量',
                 itemStyle: {
                     normal: {

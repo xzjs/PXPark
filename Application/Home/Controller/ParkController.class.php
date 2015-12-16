@@ -537,13 +537,12 @@ class ParkController extends Controller
      */
     public function getDetail($park_id = 0)
     {
-        $park = D('Park');
-        /*$condition ['id'] = $park_id;
-        $result = $park->where ( $condition )->field ( 'id,name,lon,lat,price,remain_num as remain,total_num as total,
-                type,address,img' )->select ();
-        return $result;*/
-        return $park->relation(true)->find($park_id);
-
+        if($park_id) {
+            $ParkModel = D('Park');
+            $park = $ParkModel->relation(true)->find($park_id);
+            $park['success_rate'] = $this->get_success_rate($park_id);
+            return $park;
+        }
     }
 
     /**
@@ -625,5 +624,22 @@ class ParkController extends Controller
         $data = $Park->find(3);
         $this->assign('remain', $data['total_num'] - $data['remain_num']);
         $this->show();
+    }
+
+    /**
+     * 计算停车场停车成功率
+     * @param $park_id 停车场id
+     * @return float 成功率
+     */
+    private function get_success_rate($park_id){
+        $ParkModel=D('Park');
+        $park=$ParkModel->relation(true)->find($park_id);
+        $num=0;
+        foreach ($park['Demand'] as $demand) {
+            if($demand['is_success']){
+                $num++;
+            }
+        }
+        return $num?$num*100/count($park['Demand']):0;
     }
 }

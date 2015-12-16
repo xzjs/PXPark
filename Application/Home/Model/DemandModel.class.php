@@ -29,6 +29,7 @@ class DemandModel extends RelationModel
      */
     protected $_link = array(
         'User'=>self::BELONGS_TO,
+        'Park'=>self::BELONGS_TO,
     );
 }
 

@@ -330,7 +330,8 @@ class APIController extends Controller
                 'note' => '价格受节假日的影响而变化'
             ),
             'type' => $result['type'],
-            'address' => $result['address']
+            'address' => $result['address'],
+            'success_rate'=>$result['success_rate']
         );
         $data['park'] = $d;
         echo json_encode($data);

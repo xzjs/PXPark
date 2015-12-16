@@ -156,8 +156,19 @@
                     var marker2 = new BMap.Marker(pt, {icon: myIcon});  // 创建标注
                     map.addOverlay(marker2);
                 });
+                search_line();
             }
     );
+
+
+    //确定行车路线
+
+    function search_line() {
+        var p1 = new BMap.Point(car_lon, car_lat);
+        var p2 = new BMap.Point(end_lon, end_lat);
+        var driving2 = new BMap.DrivingRoute(map, {renderOptions: {map: map, autoViewport: true}});
+        driving2.search(p1, p2);
+    }
 
 </script>
 

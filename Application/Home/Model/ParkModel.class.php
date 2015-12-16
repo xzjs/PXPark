@@ -25,5 +25,6 @@ class ParkModel extends RelationModel
     protected $_link = array(
         'Rule' => self::HAS_MANY,
         'User' => self::BELONGS_TO,
+        'Demand'=>self::HAS_MANY,
     );
 }
