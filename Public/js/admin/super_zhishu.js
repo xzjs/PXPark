@@ -85,7 +85,8 @@ function  zhishu_line(){
 		{var st=new Date();
 	     st.setDate(st.getDate()-10);
 	     var sm=st.getMonth()+1;
-	     stime=st.getFullYear()+"-"+sm+"-"+st.getDate();
+	     var d=st.getDate()<10?'0'+st.getDate():st.getDate();
+	     stime=st.getFullYear()+"-"+sm+"-"+d;
 		}
 
 	else
@@ -97,13 +98,15 @@ function  zhishu_line(){
 	    {
 		var  et=new Date();
 	    var m=et.getMonth()+1;
-          etime=et.getFullYear()+"-"+m+"-"+et.getDate();
+	    var d=et.getDate()<10?'0'+et.getDate():et.getDate();
+          etime=et.getFullYear()+"-"+m+"-"+d;
 	   }
 	
 	  else
 	   {
 		  etime=document.getElementById("endtime").value;
 	   }
+	
 	if(stime>etime) 
 	{
 		 alert("开始时间不能大于结束时间，请重新输入");

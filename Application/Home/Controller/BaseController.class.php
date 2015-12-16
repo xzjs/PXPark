@@ -93,9 +93,64 @@ class BaseController extends Controller
     		if($field == 'member_id'){
     			$headArr[]='会员等级（折扣）';
     		}
+    		if($field == '停车场名称'){
+    			$headArr[]='停车场名称';
+    		}
+    		if($field == '注册用户名'){
+    			$headArr[]='注册用户名';
+    			
+    		}
+    		if($field == '停车场类型'){
+    			$headArr[]='停车场类型';
+    		}
+    		if($field == '停车场管理者'){
+    			$headArr[]='停车场管理者';
+    		}
+    		if($field == '注册手机号'){
+    			$headArr[]='注册手机号';
+    		}
+    		if($field == '停车场详细地址'){
+    			$headArr[]='停车场详细地址';
+    		}
+    		if($field == '停车场车位数'){
+    			$headArr[]='停车场车位数';
+    		}
+    		
+    		if($field == '详情'){
+    			$headArr[]='详情';
+    		}
+    		
+    		if($field == 'id'){
+    			$headArr[]='id';
+    		}
+    		
+    		if($field == 'nick'){
+    			$headArr[]='用户昵称';
+    		}
+    		if($field == 'telphone'){
+    			$headArr[]='用户注册手机号';
+    		}
+    		if($field == 'name'){
+    			$headArr[]='用户真实姓名';
+    		}
+    		if($field == 'cardId'){
+    			$headArr[]='用户身份证号';
+    		}
+    		
+    		if($field == 'memberLevel'){
+    			$headArr[]='会员等级';
+    		}
+    		
+    		if($field == 'creditLevel'){
+    			$headArr[]='信誉等级';
+    		}
+    		
+    		if($field == 'points'){
+    			$headArr[]='用户积分';
+    		}
+    		
     		
     	}
-    
     
     	$this->getExcel($file_name,$headArr,$data);
     }

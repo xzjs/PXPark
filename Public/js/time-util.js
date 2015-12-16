@@ -1,4 +1,7 @@
-
+$(function() {
+	var table1;//第一个表的导出数据
+	var talbe2;//第二个表的导出数据
+})
 
 
 /**

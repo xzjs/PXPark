@@ -118,12 +118,12 @@ class UserController extends Controller
 
         for ($i = 0; $i < count($result); $i++) {
             $arry [$i] = array(
-                'uid' => $result [$i] ['id'],
+                //'uid' => $result [$i] ['id'],
                 'nick' => $result [$i] ['nickname'],
                 'telphone' => $result [$i] ['phone'],
                 'name' => $result [$i] ['name'],
                 'cardId' => $result [$i] ['card_no'],
-                'memeberLevel' => '',
+                'memberLevel' => '',
                 'creditLevel' => '',
                 'points' => $result [$i] ['score']
             )// 'parkingHistory'=>'ffd',
