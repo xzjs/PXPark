@@ -22,7 +22,11 @@ while(true){
             $url='http://192.168.4.96:48093/PXPark/index.php/Home/Fake/recharge';
             break;
     }
-    $html=file_get_contents($url);
+    try{
+        $html=file_get_contents($url);
+    }catch (Exception $ex){
+        echo $ex;
+    }
     echo $html;
     sleep(60);
 }

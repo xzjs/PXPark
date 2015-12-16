@@ -3,6 +3,7 @@
 namespace Home\Controller;
 
 use Think\Controller;
+use Think\Exception;
 
 /**
  * 模拟测试控制器
@@ -46,54 +47,55 @@ class FakeController extends BaseController {
 	 * 模拟车辆驶入某停车场
 	 */
 	public function car_in() {
-		$condition ['is_success'] = array (
-				'exp',
-				'is null' 
-		);
-		$sql="SELECT a.id,a.park_id,a.car_no FROM px_demand AS a WHERE TIME=(SELECT MAX(b.time) FROM px_demand AS b WHERE a.car_no=b.car_no AND b.is_success IS NULL) limit 0,15 ";
-		$demand_list = M ()->query($sql);
-		$rand = rand ( 0, count ( $demand_list ) - 1 );
-		$demand = $demand_list [$rand]; // 随机获取一个发布过停车请求的车
-		
-		if ($demand) {
-			$rand = rand ( 0, 99 );
-			// 2%概率未能停入规划停车场
-			if ($rand > 97) {
-				$condition_berth ['park_id'] = array (
-						'neq',
-						$demand['park_id'] 
-				);
-				$condition_berth ['is_null'] = 0;
-				// 98%概率停入规划停车场
-			} else {
-				$condition_berth ['park_id'] = $demand['park_id'];
-				$condition_berth ['is_null'] = 0;
-			}
-			$berth_list = M ( 'Berth' )->where ( $condition_berth )->select ();
-			if($berth_list){
-			
-			$rand = rand ( 0, count ( $berth_list ) - 1 );
-			$berth = $berth_list [$rand]; // 随机获取一个空车位
-			
-			$condition_car['no']=$demand['car_no'];
-			$car_info=M('Car')->field('id,type')->where($condition_car)->find();
-			
-			
-			$Parkrecord=A('Parkrecord');
-			$Parkrecord->add($berth['park_id'],$car_info['id'],$car_info['type'],$berth['id']);//增加停车记录 
-			
-			$Demand = A ( 'Demand' );
-			$result = $Demand->update ( $demand['car_no'], $berth['no'] );
-			
-			
-			}else{
-				
-				echo "id为".$demand['park_id']."的停车场已无车位，停车失败！";
-			}
-		}else{
-			echo "Demand列表为空";
-		}
-		//$this->success ( '数据添加成功！' );
+            $condition ['is_success'] = array (
+                'exp',
+                'is null'
+            );
+            $sql="SELECT a.id,a.park_id,a.car_no FROM px_demand AS a WHERE TIME=(SELECT MAX(b.time) FROM px_demand AS b WHERE a.car_no=b.car_no AND b.is_success IS NULL) limit 0,15 ";
+            $demand_list = M ()->query($sql);
+            $rand = rand ( 0, count ( $demand_list ) - 1 );
+            $demand = $demand_list [$rand]; // 随机获取一个发布过停车请求的车
+
+            if ($demand) {
+                $rand = rand ( 0, 99 );
+                // 2%概率未能停入规划停车场
+                if ($rand > 97) {
+                    $condition_berth ['park_id'] = array (
+                        'neq',
+                        $demand['park_id']
+                    );
+                    $condition_berth ['is_null'] = 0;
+                    // 98%概率停入规划停车场
+                } else {
+                    $condition_berth ['park_id'] = $demand['park_id'];
+                    $condition_berth ['is_null'] = 0;
+                }
+                $berth_list = M ( 'Berth' )->where ( $condition_berth )->select ();
+                if($berth_list){
+
+                    $rand = rand ( 0, count ( $berth_list ) - 1 );
+                    $berth = $berth_list [$rand]; // 随机获取一个空车位
+
+                    $condition_car['no']=$demand['car_no'];
+                    $car_info=M('Car')->field('id,type')->where($condition_car)->find();
+
+
+                    $Parkrecord=A('Parkrecord');
+                    $Parkrecord->add($berth['park_id'],$car_info['id'],$car_info['type'],$berth['id']);//增加停车记录
+
+                    $Demand = A ( 'Demand' );
+                    $result = $Demand->update ( $demand['car_no'], $berth['no'] );
+
+
+                }else{
+
+                    echo "id为".$demand['park_id']."的停车场已无车位，停车失败！";
+                }
+            }else{
+                echo "Demand列表为空";
+            }
+            //$this->success ( '数据添加成功！' );
+
 	}
 					
 					
